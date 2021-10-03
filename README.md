@@ -3,13 +3,16 @@
 Companion to POE
 
 ## Developement
-
-clone
+```sh
+git clone
 yarn 
-
 yarn start
+```
+## Thanks to
+https://www.electronjs.org/
 
-## Thanks to :
+https://reactjs.org/
 
 https://github.com/klayveR/poe-log-monitor
+
 https://github.com/klayveR/poe-api-wrappers
