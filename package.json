@@ -14,7 +14,9 @@
   "keywords": [],
   "author": {
     "name": "Maura Mathieu",
-    "email": "mmaura@amc-i.fr"
+    "email": "mmaura@amc-i.fr",
+    "license": "GPL-2.0"
+
   },
   "license": "MIT",
   "config": {
