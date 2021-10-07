@@ -1,60 +1,45 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
+//import * as  from 'react';
 import * as ReactDOM from 'react-dom';
 import './main_window.css';
 
-//let player = {level: 0, zone: "na", name : "na"};
-//let player 
+function Titre (){
 
-
-class Titre extends React.Component {
-  render(){
-    return (<h1>POE Interface</h1>)
-  }
-}
-ReactDOM.render(<Titre />, document.getElementById('titre'))
-
-interface IState {
-  player?: {level: number, zone: string, name: string };
+  return <h1>POE Interface</h1>
 }
 
-class Player extends React.Component<IState> {
-  state: { player: any }
+function Gem (){
+  const [gem, setgem] = useState(null)  
 
-  constructor(props: any){
-     super(props);
-     this.state = ({ player: '' })
-  }
+  return <img></img>
+}
 
-  onTime() {
+function Player () {
+  const [player, setplayer] = useState({level:0, name: "na", zone: "na"})
+
+  function refreshPlayer() {
     window.myAPI.player_get().then((result) => {
-      console.log('time')
-      console.log(result)
-      this.setState({player: result})
-      //return result
+      // console.log(result)
+      setplayer(result)
     })
   }
 
-  // Before the component mounts, we initialise our state
-  componentWillMount() {
-    this.onTime();
-  }
+  useEffect(() => {
+    const myTimer = setInterval(refreshPlayer, 5000);
+    return () => {
+      clearTimeout(myTimer)
+    }
+  }, [])
 
-  // After the component did mount, we set the state each second.
-  componentDidMount() {
-    setInterval(() => this.onTime(), 5000);
-  }
-
-  render() {
-    return (
-      <div className="player">
-        <h1>Information Joueur {this.state.player.name}</h1>
-        <ul>
-          <li>Level:{this.state.player.level}</li>
-          <li>Zone: {this.state.player.zone}</li> 
-        </ul>
-      </div>
-    );
-  }
+  return (
+  <div  className="bg-red-50">
+    <h2>Information Joueur {player.name}</h2>
+    <ul>
+      <li>Level:{player.level}</li>
+      <li>Zone: {player.zone}</li> 
+    </ul>
+  </div>
+  );
 }
 
-ReactDOM.render(<Player />, document.getElementById('playerRender'));
+ReactDOM.render(<Player />, document.getElementById('root'));

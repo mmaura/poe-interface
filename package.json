@@ -16,7 +16,6 @@
     "name": "Maura Mathieu",
     "email": "mmaura@amc-i.fr",
     "license": "GPL-2.0"
-
   },
   "license": "MIT",
   "config": {
@@ -79,13 +78,17 @@
     "@typescript-eslint/eslint-plugin": "^4.32.0",
     "@typescript-eslint/parser": "^4.32.0",
     "@vercel/webpack-asset-relocator-loader": "^1.7.0",
+    "autoprefixer": "^10.3.7",
     "css-loader": "^6.3.0",
     "electron": "15.1.0",
     "eslint": "^7.32.0",
     "eslint-plugin-import": "^2.24.2",
     "fork-ts-checker-webpack-plugin": "^6.3.3",
     "node-loader": "^2.0.0",
+    "postcss": "^8.3.9",
+    "postcss-loader": "^6.1.1",
     "style-loader": "^3.3.0",
+    "tailwindcss": "^2.2.16",
     "ts-loader": "^9.2.6",
     "typescript": "^4.4.3"
   },
