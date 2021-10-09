@@ -1,11 +1,15 @@
 export interface myAPI {
     hello: () => Promise<void>,
-    player_get: () => Promise <player>,
+    getData: () => Promise <any>,
+    send: (channel: string, ...arg: any) => void;
+    receive: (channel: string, func: (event: any, ...arg: any) => void) => void;
 }
   
 declare global {
-    type player = {level: number, zone: string, name: string }
+    type player = {name: string, level: number, characterClass: string, currentZoneName: string, currentZoneAct: number}
+    type levelTip = {'levelMin': number, 'levelMax': number, description: string}
     type gem = {src: URL, name: string}
+
     interface Window {
         myAPI: myAPI
     }

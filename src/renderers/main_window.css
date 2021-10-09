@@ -1,8 +1,22 @@
-/* ./your-css-folder/styles.css */
-/* @tailwind base;
+@tailwind base;
 @tailwind components;
-@tailwind utilities; */
+@tailwind utilities;
 
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@layer base {
+    body { @apply bg-black text-poe-1 ;}
+    h1{ @apply text-poe-4 m-0 px-2 py-2 bg-black shadow-md border-b-2 border-poe-99 text-xl font-semibold ;}
+    h2{ @apply text-poe-1 m-0 px-1 py-2 bg-breadcrumb bg-left bg-repeat-y shadow-md border-b-2 border-poe-99 text-xl font-semibold ;}
+}
+
+
+@layer components {
+   .lvlg-map-feature { @apply h-icon w-icon rounded-md border-2 p-1 border-poe-96;}
+   .enabled { @apply shadow-lg border-poe-50 ;}
+   .disabled { @apply shadow-none filter grayscale border-poe-96 ;}
+
+   .container { @apply bg-gradient-to-l from-poe-98 via-poe-97 to-poe-98 border-poe-50 shadow-xl px-2 py-3 ;}
+
+   .inventory { @apply bg-inventory h-inventory w-inventory p-0 m-0 overflow-hidden ;}
+   .inventory-text { @apply absolute left-inventory-text text-sm text-left pl-2 pt-1 overflow-hidden whitespace-nowrap ;}
+   .guardian {@apply bg-inventory bg-guardian h-avatar w-avatar ;}
+}

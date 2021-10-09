@@ -1,0 +1,36 @@
+{
+    "skills":
+    {
+        "Toxin Rain roxor":{
+            "characterLvl": 22,
+            "characterClass": "Templar",
+            "act": 1,
+            "zone": "The Southern Forest",
+            "groups": {
+                "Groupe 1": {
+                    "gems": {
+                        "Toxic Rain": {
+                            "reward": true,
+                            "vendor": "machine"
+                        },
+                        "Blastchain Mine": {
+                            "reward": true,
+                            "vendor": "bidule"
+                        }
+                    }
+                },
+                "Groupe 2":
+                {
+                    "Toxic Rain": {
+                        "reward": true,
+                        "vendor": "machine"
+                    },
+                    "Blastchain Mine": {
+                        "reward": true,
+                        "vendor": "bidule"
+                    }
+                }
+        }
+        }
+    }
+}

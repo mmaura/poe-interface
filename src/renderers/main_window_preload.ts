@@ -1,25 +1,20 @@
-import { ipcRenderer, contextBridge } from "electron";
-
-console.log("***** main_window_preload.ts")
-
+import { ipcRenderer, contextBridge } from "electron"
 
 contextBridge.exposeInMainWorld(
     'myAPI',
     {
         hello: () => {ipcRenderer.send('hello', "toto")},
-        // player_get: () => {
-        //     ipcRenderer.send('player', 'get')
-        // }
-        player_get: async () => {  
-            const player = await ipcRenderer.invoke('player', 'get')
-            console.log('player_get')
-            console.log(player)
-            return player
+        getData: async () => {  
+            const all = await ipcRenderer.invoke('app', 'getData')
+            console.log('getData')
+            console.log(all)
+            return all
+        },
+        send: (channel: any, data: any) => {
+            ipcRenderer.invoke(channel, data).catch(e => console.log(e))
+        },
+        receive: (channel:any, func:any) => {
+            ipcRenderer.on(channel, (event, ...args) => func(event, ...args))
         }
     }
-)
-
-// ipcRenderer.on('player', (event, arg) => {
-//     player = arg.player
-//     console.log(player) // prints "pong"
-// })
+);

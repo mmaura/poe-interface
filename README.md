@@ -16,3 +16,5 @@ https://reactjs.org/
 https://github.com/klayveR/poe-log-monitor
 
 https://github.com/klayveR/poe-api-wrappers
+
+https://github.com/karakasis/Path-of-Leveling/tree/master/json
