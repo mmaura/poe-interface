@@ -4,9 +4,9 @@ contextBridge.exposeInMainWorld(
     'myAPI',
     {
         hello: () => {ipcRenderer.send('hello', "toto")},
-        getData: async () => {  
-            const all = await ipcRenderer.invoke('app', 'getData')
-            console.log('getData')
+        getInitData: async () => {  
+            const all = await ipcRenderer.invoke('app', 'getInitData')
+            console.log('getInitData')
             console.log(all)
             return all
         },

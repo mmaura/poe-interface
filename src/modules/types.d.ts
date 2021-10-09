@@ -1,6 +1,7 @@
 type plm_area = {name: string, type: 'area'|'vaal'|'map'|'master'|'labyrinth'|'unknown', info:any }
 type plm_conn = {server: string, latency: string}
 
+
 declare module "poe-log-monitor" {
     type options = {logfile?: string, interval?: number}
     

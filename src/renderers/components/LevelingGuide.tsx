@@ -1,35 +1,100 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 
-export default function LevelingGuide(props: any):any {
+export default function LevelingGuide(props: any) {
+    const initActs:InitAct[] = props.acts
 
-    const [actes, setactes] = useState(['Acte 1', 'Acte 2', 'Acte 3'])
+    const [curActID, setcurActID] = useState(1)
+    const [curZoneID, setcurZoneID] = useState('')
 
-    const [levelingGuideInfo, setlevelingGuideInfo] = useState({acte:'', zone: '', level: -1})
+    function findCurAct(actid: number){
+        return initActs.find((e) => {
+            return e.actid === actid
+            })
+    }
+
+    function findCurZone(actid: number, zoneid: string){
+        const curAct = findCurAct(actid)
+
+        const curzone = curAct.zones.find((e) => {
+            console.log("find curzone : "+e.level+"-"+e.name+"==="+zoneid)
+            return ((e.level+"-"+e.name) === zoneid)
+            })
+
+        if ( curzone === undefined) {
+            setcurZoneID(curAct.zones[0].level+"-"+curAct.zones[0].name)
+            console.log("not found, return:")
+            console.log(curAct.zones[0])
+            return curAct.zones[0]
+        }
+        else{
+            console.log(curzone)
+            return curzone
+        }
+    }
+
+    // console.log("in guide")
+    // console.log(initActs)
+
+    // useEffect(() => {
+    //     setcurZone(findCurZone())
+    //     console.log("effect")
+
+    //     return () => {
+    //         ''
+    //     }
+    // }, [curActID])
+
+
+    function handleActChange(e: React.ChangeEvent<HTMLSelectElement>) {
+        console.log("onchange act")
+        setcurActID(Number(e.target.value));
+    }
+
+    function handleZoneChange(e: React.ChangeEvent<HTMLSelectElement>) {
+        setcurZoneID(e.target.value);
+    }
 
     return(
+        <div>
         <div className="container">
             <div className="flex flex-row flex-nowrap px-5 py-2 space-x-2">
                 {/* <div className="h-10 w-10 shadow-lg rounded-md border-2 p-1"> - </div>
                 <div className="h-10 w-10 shadow-lg rounded-md border-2 p-1"> + </div> */}
                 <div className="lvlg-map-feature flex-grow">
                     <label> Acte </label>
-                    <select className="flex-grow" value=''>
+                    <select className="flex-grow" value={curActID} onChange={handleActChange}>
                         {
-                            actes.map(function(item){
-                                return(
-                                  <option value={item}>{item}</option>
-                                )
-                              })
+                            initActs.map(function(act:InitAct){
+                                return( <option key={act.actid} value={act.actid} >{act.act}</option> )
+                            })
                         }
                     </select>
                 </div>
-                <div className="lvlg-map-feature flex-grow"> Zone { levelingGuideInfo.zone } </div>
-                <div className="lvlg-map-feature enabled text-center"> Level <p className="text-xxl text-poe-50 font-bold "> { levelingGuideInfo.level } </p> </div>
-                <div className={`lvlg-map-feature ${false? 'enabled': 'disabled'}`}> <img className="w-full h-full" src='resources/images/waypoint.png' /> </div>
-                <div className={`lvlg-map-feature ${true? 'enabled': 'disabled'}`}> <img className="w-full h-full" src='resources/images/portal.png' /> </div>
-                <div className={`lvlg-map-feature ${false? 'enabled': 'disabled'}`}> <img className="w-full h-full" src='resources/images/Offering_to_the_Goddess.png' /> </div>
-                <div className={`lvlg-map-feature ${true? 'enabled': 'disabled'}`}> <img className="w-full h-full" src='resources/images/logout.png' /> </div>
+                <div className="lvlg-map-feature flex-grow">
+                    <label> Zone</label>
+                    <select className="flex-grow" value={curZoneID} onChange={handleZoneChange}>
+                        {                            
+                            // curAct.zones.map(function(zone:InitZone){
+                            //     return( <option key={zone.level+"-"+zone.name} value={zone.level+"-"+zone.name} >{zone.name}</option> )
+                            // })
+
+                            findCurAct(curActID).zones.map(function(zone:InitZone){
+                                return( <option key={zone.level+"-"+zone.name} value={zone.level+"-"+zone.name} >{zone.name}</option> )
+                            })
+
+                            
+                        }
+                    </select>
+
+                </div>
+                <div className="lvlg-map-feature enabled text-center"> Level <p className="text-xxl text-poe-50 font-bold "> -1 </p> </div>
+                <div className={`lvlg-map-feature ${findCurZone(curActID, curZoneID).hasRecipe? 'enabled': 'disabled'}`}> <img className="w-full h-full" src='resources/images/waypoint.png' /> </div>
+                <div className={`lvlg-map-feature ${findCurZone(curActID, curZoneID).hastrial? 'enabled': 'disabled'}`}> <img className="w-full h-full" src='resources/images/portal.png' /> </div>
+                <div className={`lvlg-map-feature ${findCurZone(curActID, curZoneID).hastrial? 'enabled': 'disabled'}`}> <img className="w-full h-full" src='resources/images/Offering_to_the_Goddess.png' /> </div>
+                <div className={`lvlg-map-feature ${findCurZone(curActID, curZoneID).haspassive? 'enabled': 'disabled'}`}> <img className="w-full h-full" src='resources/images/logout.png' /> </div>
             </div>
+        </div>
+        <div>{findCurZone(curActID, curZoneID).note}</div>
         </div>
     )
 }

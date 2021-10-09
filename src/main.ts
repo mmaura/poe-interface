@@ -5,7 +5,8 @@ import Store from 'electron-store'
 import PathOfExileLog from 'poe-log-monitor'
 import * as AppMainWindowM from './modules/MainWindow'
 import * as AppTrayM from './modules/AppTray'
-import ZonesData from 'poe-log-monitor/resource/areas.json'
+import { getAreaList } from './modules/Data'
+import InitData from '../resources/data/data.json'
 
 
 const schema = {
@@ -18,9 +19,9 @@ const schema = {
 const AppStore  = new Store({ schema });
 
 app.whenReady().then(() => {
-  let POE_AREA = <plm_area>{};
-  let POE_CONN = <plm_conn>{};
-  let POE_PLAYER = <player>{};
+  let POE_AREA = <plm_area> { name: "na", type: "area", info: "non chargée"};
+  let POE_CONN = <plm_conn> { latency: "na", server: "non connecté"};
+  const POE_PLAYER = <player> { name: "na", level: -1, characterClass: "na", currentZoneName: "Your nightmare lies ahead.", currentZoneAct: 1};
 
   // pour servir les images pour le renderer
   // session.defaultSession.protocol.registerFileProtocol('static', (request, callback) => {
@@ -35,8 +36,8 @@ app.whenReady().then(() => {
     //console.log('player : ' + arg)
     let response : any = { status: 'bad request' };
     
-    if (arg === 'getData') {
-      response = {POE_AREA, POE_PLAYER, POE_CONN};
+    if (arg === 'getInitData') {
+      response = {POE_AREA, POE_PLAYER, POE_CONN, InitData};
       //console.log(POE_PLAYER)
     }
       return response
@@ -78,7 +79,7 @@ app.whenReady().then(() => {
 
   poeLog.on('login', (data) => {
     POE_CONN = data
-    console.log("Logged in. Gateway: " + data.server + ", Latency: " + data.latency);
+    //console.log("Logged in. Gateway: " + data.server + ", Latency: " + data.latency);
 
     AppMainWindow.webContents.send('conn', POE_CONN)
   });
@@ -99,18 +100,28 @@ app.whenReady().then(() => {
     }
 
     AppMainWindow.webContents.send('player', POE_PLAYER)
-    AppMainWindow.webContents.send('area', POE_AREA)
+    AppMainWindow.webContents.send('curArea', POE_AREA)
   })
 
   const AppMainWindow = AppMainWindowM.create();
-  const AppTray = AppTrayM.create(AppMainWindow)
 
   // setInterval(()=>{
   //   AppMainWindow.webContents.send('player', POE_PLAYER)
   // }, 1000);
 
-  poeLog.start()
-  poeLog.parseLog()
+  // AppMainWindow.on('ready-to-show', () => {
+  //   console.log("ready to show")
+  //   const AppTray = AppTrayM.create(AppMainWindow)
+  // })
+
+  // poeLog.start()
+  // poeLog.parseLog()
+
+  const AppTray = AppTrayM.create(AppMainWindow)
+
+
+  // console.log("*******************")
+  // console.log(getAreaList())
 })
 
 

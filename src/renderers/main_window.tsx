@@ -4,20 +4,21 @@ import './main_window.css';
 import Player from './components/Player'
 import LevelingGuide, {ZoneTips} from './components/LevelingGuide';
 
-let Data: any;
-
-
-function App(props:any){
+function App( props:any ){
 
   let playerData = {} as player;
+  let actsData = {} as InitData;
   
+  console.log(props)
+
   playerData = props.AppData.POE_PLAYER
+  actsData = props.AppData.InitData.acts
 
   return (
     <div>
       <div className="flex flex-row flex-nowrap p-4">
         <div className="flex-grow-0"><Player player={playerData} /></div>
-        <div className="flex-grow"><LevelingGuide/></div>
+        <div className="flex-grow"><LevelingGuide acts={actsData} /></div>
       </div>  
       <div className="flex flex-row flex-nowrap">
         <div className="">
@@ -37,9 +38,9 @@ function App(props:any){
   );
 }
 
-window.myAPI.getData().then((result) => {
+window.myAPI.getInitData().then((result) => {
   //     // console.log(result)
-  Data = result;
-  ReactDOM.render(<App AppData={Data} />, document.getElementById('root'));
+  const data = result;
+  ReactDOM.render(<App AppData={data} />, document.getElementById('root'));
 })
 
