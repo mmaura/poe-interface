@@ -1,6 +1,6 @@
 # Poe Interface
 Companion to POE
-![alt](https://raw.githubusercontent.com/mmaura/poe-interface/main/docs/screen1.png)
+![alt](https://raw.githubusercontent.com/mmaura/poe-interface/main/docs/screen_1.png)
 
 ## Developement
 ```sh
