@@ -4,8 +4,8 @@
 
 @layer base {
     body { @apply bg-black text-poe-1 ;}
-    h1{ @apply text-poe-4 m-0 px-2 py-2 bg-black shadow-md border-b-2 border-poe-99 text-xl font-semibold ;}
-    h2{ @apply text-poe-1 m-0 px-1 py-2 bg-breadcrumb bg-left bg-repeat-y shadow-md border-b-2 border-poe-99 text-xl font-semibold ;}
+    h1{ @apply text-poe-4 m-0 pl-2 pt-1 pb-0 bg-black shadow-md border-b-2 border-poe-99 text-xl font-semibold ;}
+    h2{ @apply border-b-2 border-poe-1 text-poe-1 m-0 mb-0.5 pl-4 pt-0.5 pb-0 text-xl font-semibold w-1/3;}
 }
 
 

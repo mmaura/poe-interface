@@ -18,6 +18,7 @@ module.exports = {
       white: colors.white,
       gray: colors.trueGray,
       yellow: colors.amber,
+      red: colors.red,
       poe: {
         1: '#a38d6d',
         2: '#ac9c5b',
@@ -45,7 +46,7 @@ module.exports = {
       },
       height: {
         'avatar': '80px;',
-        'inventory': '100px;'
+        'inventory': '80px;'
       },
       inset: {
         'inventory-text': '103px',      
@@ -54,6 +55,9 @@ module.exports = {
       },
       spacing: {
         'icon': '64px'
+      },
+      minHeight: {
+        '200px': '200px'
       }
     },
   },

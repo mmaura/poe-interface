@@ -1,46 +1,134 @@
-import React, { useState, useEffect } from 'react';
-import * as ReactDOM from 'react-dom';
-import './main_window.css';
-import Player from './components/Player'
-import LevelingGuide, {ZoneTips} from './components/LevelingGuide';
+import React, { useState, useEffect } from "react";
+import * as ReactDOM from "react-dom";
 
-function App( props:any ){
+import "./main_window.css";
 
-  let playerData = {} as player;
-  let actsData = {} as InitData;
-  
-  console.log(props)
+import Player from "./components/Player";
+import {
+  LevelingGuide,
+  ZoneTips,
+  ZoneNotes,
+  ZoneMap,
+  ZoneGears,
+} from "./components/LevelingGuide";
+import { findCurAct, findCurZone } from "../modules/utils";
 
-  playerData = props.AppData.POE_PLAYER
-  actsData = props.AppData.InitData.acts
+function App(props: { AppData: any }) {
+  const actsData = props.AppData.InitData.acts as InitAct[];
+  //console.log(props)
+
+  const [curPlayer, setcurPlayer] = useState(props.AppData.MyPlayer as player)
+  const [curActID, setcurActID] = useState(1);
+  const [curZoneID, setcurZoneID] = useState("");
+
+  const [curAct, setcurAct] = useState(() => {
+    console.log("init state curAct");
+    return findCurAct(actsData, 1);
+  });
+  const [curZone, setcurZone] = useState(() => {
+    console.log("init state curZone");
+    return findCurZone(curAct, "");
+  });
+
+  /*********************************
+   * Events
+   */
+  function onActChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    console.log("APP: onActChange");
+
+    const _curAct = findCurAct(actsData, Number(e.target.value))
+
+    setcurActID(Number(e.target.value));
+    setcurAct(_curAct);
+    setcurZoneID('')
+    setcurZone(findCurZone(_curAct,''))
+  }
+
+  function onZoneChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    console.log("APP: onActChange");
+    setcurZoneID(e.target.value);
+    setcurZone(findCurZone(curAct, e.target.value));
+  }
+
+  /**********************************
+   * IPC
+   */
+  window.myAPI.receive("player", (e, arg) => {
+    setcurPlayer(arg);
+    console.log("receive player:")
+    console.log(arg)
+  })
+
+  window.myAPI.receive("playerArea", (e, arg) => {
+    console.log("received playerArea")
+    console.log(arg)
+
+    const _curAct = findCurAct(actsData,arg.currentZoneAct)
+
+    setcurActID(arg.currentZoneAct)
+    setcurAct(_curAct);
+
+    setcurZoneID(arg.currentZoneName)
+    setcurZone(findCurZone(_curAct, arg.currentZoneName));
+  })
+
+  useEffect(() => {
+    //Changing the act must force Zone informations update
+    console.log("APP: useEffect(curActID)");
+    //setcurAct(findCurAct(actsData, curActID))
+    
+    //setcurZoneID("");
+    //setcurZone(findCurZone(curAct, ""));
+
+    return () => {
+      ("");
+    };
+  }, [curActID]);
 
   return (
-    <div>
-      <div className="flex flex-row flex-nowrap p-4">
-        <div className="flex-grow-0"><Player player={playerData} /></div>
-        <div className="flex-grow"><LevelingGuide acts={actsData} /></div>
-      </div>  
-      <div className="flex flex-row flex-nowrap">
-        <div className="">
+    <div className="p-4">
+      <div className="flex flex-row flex-nowrap pb-0">
+        <div className="flex-grow-0">
+          <Player curPlayer={curPlayer} />
+          <h1>{curAct.act + " : " + curZone.name}</h1>
+        </div>
+        <div className="flex-grow">
+          <LevelingGuide
+            acts={actsData}
+            onActChange={onActChange}
+            onZoneChange={onZoneChange}
+            curAct={curAct}
+            curZone={curZone}
+            curActID={curActID}
+            curZoneID={curZoneID}
+            curPlayer={curPlayer}
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-6 gap-2">
+        <div className="col-span-5">
+          <ZoneMap curZone={curZone} curAct={curAct} />
+        </div>
+        <div className="row-span-2">
           <ZoneTips />
         </div>
-        <div className="">
-          choses a faire en fonction du level
+        <div className="col-span-3">
+          <ZoneNotes curZone={curZone} curAct={curAct} />
         </div>
-        <div className="">
-          choses a faire en fonction de la zone
+        <div className="col-span-2">
+          <ZoneGears curZone={curZone} curAct={curAct} />
         </div>
-        <div className="">
-          choses a faire pour acceder à la zone suivante
-        </div>
+        <div className=""></div>
+        <div className="">choses a faire en fonction de la zone</div>
+        <div className="">choses a faire pour acceder à la zone suivante</div>
       </div>
     </div>
   );
 }
 
-window.myAPI.getInitData().then((result) => {
+window.myAPI.getInitData().then((result: InitData) => {
   //     // console.log(result)
   const data = result;
-  ReactDOM.render(<App AppData={data} />, document.getElementById('root'));
-})
-
+  ReactDOM.render(<App AppData={data} />, document.getElementById("root"));
+});

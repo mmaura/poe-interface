@@ -98,6 +98,7 @@
     "electron-store": "^8.0.1",
     "poe-log-monitor": "^1.2.6",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "react-tooltip": "^4.2.21"
   }
 }

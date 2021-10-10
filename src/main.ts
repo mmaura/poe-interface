@@ -1,27 +1,36 @@
-import {app, dialog, ipcMain, session } from 'electron'
-import fs from 'fs'
-import path from 'path'
-import Store from 'electron-store'
-import PathOfExileLog from 'poe-log-monitor'
-import * as AppMainWindowM from './modules/MainWindow'
-import * as AppTrayM from './modules/AppTray'
-import { getAreaList } from './modules/Data'
-import InitData from '../resources/data/data.json'
-
+import { app, dialog, ipcMain, session } from "electron";
+import fs from "fs";
+//import path from 'path'
+import Store from "electron-store";
+import PathOfExileLog from "poe-log-monitor";
+import * as AppMainWindowM from "./modules/MainWindow";
+import * as AppTrayM from "./modules/AppTray";
+//import { getAreaList } from './modules/Data'
+import InitData from "../resources/data/data.json";
+import { findCurAct, findCurZone } from "./modules/utils";
 
 const schema = {
-	poe_log_path: {
-		type: 'string',
-		default: 'C:/Program Files (x86)/Grinding Gear Games/Path of Exile/logs/Client.txt',
-	},
+  poe_log_path: {
+    type: "string",
+    default:
+      "C:/Program Files (x86)/Grinding Gear Games/Path of Exile/logs/Client.txt",
+  },
 } as const;
 
-const AppStore  = new Store({ schema });
+const AppStore = new Store({ schema });
 
 app.whenReady().then(() => {
-  let POE_AREA = <plm_area> { name: "na", type: "area", info: "non chargée"};
-  let POE_CONN = <plm_conn> { latency: "na", server: "non connecté"};
-  const POE_PLAYER = <player> { name: "na", level: -1, characterClass: "na", currentZoneName: "Your nightmare lies ahead.", currentZoneAct: 1};
+  let LogLoaded = false;
+
+  //let PoeArea = <plm_area>{ name: "na", type: "area", info: "non chargée" };
+  let MyConn = <plm_conn>{ latency: "na", server: "non connecté" };
+  const MyPlayer = <player>{
+    name: "na",
+    level: -1,
+    characterClass: "na",
+    currentZoneName: "Your nightmare lies ahead.",
+    currentZoneAct: 1,
+  };
 
   // pour servir les images pour le renderer
   // session.defaultSession.protocol.registerFileProtocol('static', (request, callback) => {
@@ -30,107 +39,96 @@ app.whenReady().then(() => {
   //   callback(filePath);
   // });
 
-  console.log('We are ready to go !');
+  console.log("We are ready to go !");
 
-  ipcMain.handle('app', (event, arg) => {
+  ipcMain.handle("app", (event, arg) => {
     //console.log('player : ' + arg)
-    let response : any = { status: 'bad request' };
-    
-    if (arg === 'getInitData') {
-      response = {POE_AREA, POE_PLAYER, POE_CONN, InitData};
+    let response: any = { status: "bad request" };
+
+    if (arg === "getInitData") {
+      response = { MyPlayer: MyPlayer, MyConn: MyConn, InitData };
       //console.log(POE_PLAYER)
     }
-      return response
-  })
-
-  
-  // ipcMain.on('player', (event, arg)=> {
-  //   console.log('player : ' + arg)
-  //   let response : any = { status: 'bad request' };
-  //   if (arg === 'get') {
-  //     response = { status: 'Ok', player: player}
-  //   }
-  //   console.log('response: ')
-  //   console.log (response)
-  //   event.reply('player', response)
-  // })
+    return response;
+  });
 
   //Poe Log File
-  let poe_log_path = AppStore.get('poe_log_path', '') as string
-  console.log(poe_log_path)
-  if (!fs.existsSync(poe_log_path)){
-    dialog.showOpenDialog({ 
-      filters: [    { name: 'poe log file', extensions: ['txt', 'log'] },],
-      title: 'Please choose PathOfExile log file', 
-      properties: ['openFile', 'showHiddenFiles'], 
-      defaultPath: '/mnt/games/SteamLibrary/steamapps/common/Path of Exile/logs/'}).then(result => {
+  let poe_log_path = AppStore.get("poe_log_path", "") as string;
+  console.log(poe_log_path);
+  if (!fs.existsSync(poe_log_path)) {
+    dialog
+      .showOpenDialog({
+        filters: [{ name: "poe log file", extensions: ["txt", "log"] }],
+        title: "Please choose PathOfExile log file",
+        properties: ["openFile", "showHiddenFiles"],
+        defaultPath:
+          "/mnt/games/SteamLibrary/steamapps/common/Path of Exile/logs/",
+      })
+      .then((result) => {
         // console.log(result.canceled)
         // console.log(result.filePaths)
-        if (result.canceled == false) { 
-          poe_log_path = result.filePaths[0]
-          AppStore.set('poe_log_path', poe_log_path)
+        if (result.canceled == false) {
+          poe_log_path = result.filePaths[0];
+          AppStore.set("poe_log_path", poe_log_path);
         }
-      }).catch(err => {
-        console.log(err)
       })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
-  const poeLog : PathOfExileLog = new PathOfExileLog({ logfile: poe_log_path, interval: 500});
+  const poeLog: PathOfExileLog = new PathOfExileLog({
+    logfile: poe_log_path,
+    interval: 500,
+  });
+  poeLog.start();
+  poeLog.parseLog();
 
-  poeLog.on('login', (data) => {
-    POE_CONN = data
+  poeLog.on("parsingComplete", (data) => {
+    LogLoaded = true;
+  });
+
+  poeLog.on("login", (data) => {
+    MyConn = data;
     //console.log("Logged in. Gateway: " + data.server + ", Latency: " + data.latency);
 
-    AppMainWindow.webContents.send('conn', POE_CONN)
+    if (LogLoaded === true) AppMainWindow.webContents.send("conn", MyConn);
   });
 
-  poeLog.on('level', (data) => {
-    POE_PLAYER.name = data.name
-    POE_PLAYER.characterClass = data.characterClass
-    POE_PLAYER.level = data.level
+  poeLog.on("level", (data) => {
+    MyPlayer.name = data.name;
+    MyPlayer.characterClass = data.characterClass;
+    MyPlayer.level = data.level;
 
-    AppMainWindow.webContents.send('player', POE_PLAYER)
+    if (LogLoaded === true)
+      AppMainWindow.webContents.send("player", MyPlayer);
   });
 
-  poeLog.on('area', (area) => {
-    if (area.type === 'area'){
-      POE_PLAYER.currentZoneName = area.name
-      POE_PLAYER.currentZoneAct = area.info.act
-      POE_AREA = area
+  poeLog.on("area", (area) => {
+    if (area.type === "area") {
+
+      console.log("plm onarea")
+      console.log(area)
+
+      MyPlayer.currentZoneName = area.name;
+      MyPlayer.currentZoneAct = area.info[0].act;
+
+      if (LogLoaded === true) AppMainWindow.webContents.send("playerArea", MyPlayer);
     }
 
-    AppMainWindow.webContents.send('player', POE_PLAYER)
-    AppMainWindow.webContents.send('curArea', POE_AREA)
-  })
+  });
 
   const AppMainWindow = AppMainWindowM.create();
-
-  // setInterval(()=>{
-  //   AppMainWindow.webContents.send('player', POE_PLAYER)
-  // }, 1000);
-
-  // AppMainWindow.on('ready-to-show', () => {
-  //   console.log("ready to show")
-  //   const AppTray = AppTrayM.create(AppMainWindow)
-  // })
-
-  // poeLog.start()
-  // poeLog.parseLog()
-
-  const AppTray = AppTrayM.create(AppMainWindow)
-
+  const AppTray = AppTrayM.create(AppMainWindow);
 
   // console.log("*******************")
   // console.log(getAreaList())
-})
-
+});
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 // if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
 //    app.quit();
 // }
-
-
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
