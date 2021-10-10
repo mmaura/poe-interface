@@ -12,8 +12,8 @@ export function ZoneGears(props: { curGears: IAppGear }): any {
         <h2>Gears</h2>
         <p>{curGears ? curGears.note : ""}</p>
         {
-          curGears.gears.map((e)=>{
-            return <Gear gears={e}/>
+          curGears.gears.map((e,index)=>{
+            return <Gear key={index} gears={e}/>
           })
         }
       </div>
@@ -37,7 +37,7 @@ function Gear(props: {gears : IGear[]}): any {
 
   return (
     <div className="">
-     { gears.map((e)=>{
+     { gears.map((e, index)=>{
        return (
          e.color
        )
