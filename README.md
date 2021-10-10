@@ -1,6 +1,6 @@
 # Poe Interface
-
 Companion to POE
+![alt](https://raw.githubusercontent.com/mmaura/poe-interface/main/docs/screen1.png)
 
 ## Developement
 ```sh
@@ -18,3 +18,4 @@ https://github.com/klayveR/poe-log-monitor
 https://github.com/klayveR/poe-api-wrappers
 
 https://github.com/karakasis/Path-of-Leveling/tree/master/json
+
