@@ -1,4 +1,4 @@
-export function findCurAct(acts: InitAct[], actid: number): InitAct {
+export function findCurAct(acts: IAppAct[], actid: number): IAppAct {
   console.log("APP: FindCurAct actData:");
   //console.log(actsData)
   const _curAtct = acts.find((e) => {
@@ -29,7 +29,7 @@ export function findCurAct(acts: InitAct[], actid: number): InitAct {
 //     }
 // }
 
-export function findCurZone(act: InitAct, zoneid: string): InitZone {
+export function findCurZone(act: IAppAct, zoneid: string): IAppZone {
   console.log("APP: findCurZoneAct\n in act:");
 
   let curzone
@@ -50,4 +50,10 @@ export function findCurZone(act: InitAct, zoneid: string): InitZone {
     console.log(curzone);
     return curzone;
   }
+}
+
+export function findZoneGear (gearsData: IAppGear[], actid: number, zonename: string) : IAppGear{
+  return gearsData.find((e)=> {
+    return (e.actid == actid && e.zonename == zonename)
+  })
 }

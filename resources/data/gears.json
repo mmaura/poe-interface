@@ -1,0 +1,42 @@
+{
+  "gears": [
+    {
+      "actid": 1,
+      "zonename": "The Twilight Strand",
+      "gears": [
+        [
+          {
+            "type": "socket",
+            "color": "b"
+          },
+          {
+            "type": "socket",
+            "color": "r"
+          },
+          {
+            "type": "socket",
+            "color": "g"
+          }
+        ],
+        [
+          {
+            "type": "socket",
+            "color": "b"
+          },
+          {
+            "type": "socket",
+            "color": "r"
+          },
+          {
+            "type": "socket",
+            "color": "w"
+          },
+          {
+            "type": "socket",
+            "color": "g"
+          }
+        ]
+      ]
+    }
+  ]
+}

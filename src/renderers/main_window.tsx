@@ -9,15 +9,20 @@ import {
   ZoneTips,
   ZoneNotes,
   ZoneMap,
-  ZoneGears,
 } from "./components/LevelingGuide";
-import { findCurAct, findCurZone } from "../modules/utils";
+import {ZoneGears} from './components/Gears'
 
-function App(props: { AppData: any }) {
-  const actsData = props.AppData.InitData.acts as InitAct[];
+import { findCurAct, findCurZone, findZoneGear } from "../modules/utils";
+
+function App(props: { AppData: IReactAppInit }) {
+
+  console.log(props.AppData)
+
+  const actsData = props.AppData.DefaultZonesData.acts as IAppAct[];
+  const gearsData = props.AppData.DefaultGearsData.gears as IAppGear[];
   //console.log(props)
 
-  const [curPlayer, setcurPlayer] = useState(props.AppData.MyPlayer as player)
+  const [curPlayer, setcurPlayer] = useState(props.AppData.MyPlayer as IAppPlayer)
   const [curActID, setcurActID] = useState(1);
   const [curZoneID, setcurZoneID] = useState("");
 
@@ -29,6 +34,15 @@ function App(props: { AppData: any }) {
     console.log("init state curZone");
     return findCurZone(curAct, "");
   });
+  const [curGear, setcurGear] = useState(() => {
+    const _curZoneID = curZone.name
+    console.log("init state curGears");
+    console.log(gearsData)
+    console.log(curActID)
+    console.log(_curZoneID)
+
+    return findZoneGear( gearsData, 1, _curZoneID);    
+  })
 
   /*********************************
    * Events
@@ -117,7 +131,7 @@ function App(props: { AppData: any }) {
           <ZoneNotes curZone={curZone} curAct={curAct} />
         </div>
         <div className="col-span-2">
-          <ZoneGears curZone={curZone} curAct={curAct} />
+          <ZoneGears curGears={curGear} />
         </div>
         <div className=""></div>
         <div className="">choses a faire en fonction de la zone</div>
@@ -127,7 +141,7 @@ function App(props: { AppData: any }) {
   );
 }
 
-window.myAPI.getInitData().then((result: InitData) => {
+window.myAPI.getInitData().then((result: IReactAppInit) => {
   //     // console.log(result)
   const data = result;
   ReactDOM.render(<App AppData={data} />, document.getElementById("root"));

@@ -6,15 +6,20 @@ export interface myAPI {
 }
 
 declare global {
-  type player = {
+  interface IReactAppInit {
+    MyPlayer: IAppPlayer;
+    MyConn: pln_conn;
+    DefaultZonesData: IZoneData;
+    DefaultGearsData: IGearData;
+  }
+  type IAppPlayer = {
     name: string;
     level: number;
     characterClass: string;
     currentZoneName: string;
     currentZoneAct: number;
   };
-  type levelTip = { levelMin: number; levelMax: number; description: string };
-  type InitZone = {
+  type IAppZone = {
     hastrial: boolean;
     image: string[];
     note: string;
@@ -25,23 +30,40 @@ declare global {
     altimage: string;
     quest: string;
     hasRecipe: bool;
+    gears?: {
+      note?: string;
+      gears?: {
+        note?: string;
+        sockets?: "r" | "g" | "b"[];
+      }[];
+    };
   };
-  type InitAct = {
+  type IAppAct = {
     act: string;
     actid: number;
-    zones: InitZone[];
+    zones: IAppZone[];
   };
 
-  interface InitData {
-    acts: InitAct[];
+  interface IZoneData {
+    acts: IAppAct[];
   }
 
-  // interface AppData {
-  //     InitData:{
-  //         acts: InitAct[],
-  //         POE_PLAYER: player
-  //     }
-  // }
+  interface IGear {
+    type: "socket" | "gem";
+    color?: "b" | "r" | "g" | "w";
+    gem?: string;
+  }
+
+  interface IAppGear {
+    actid: number;
+    zonename: string;
+    note?: string;
+    gears: IGear[][];
+  }
+
+  interface IGearData {
+    gears: IAppGear[];
+  }
 
   interface Window {
     myAPI: myAPI;

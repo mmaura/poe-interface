@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import ReactTooltip from "react-tooltip";
 
 export function LevelingGuide(props: any): any {
-  const initActs: InitAct[] = props.acts;
-  const curZone: InitZone = props.curZone;
-  const curAct: InitAct = props.curAct;
-  const curPlayer = props.curPlayer as player;
+  const initActs: IAppAct[] = props.acts;
+  const curZone: IAppZone = props.curZone;
+  const curAct: IAppAct = props.curAct;
+  const curPlayer = props.curPlayer as IAppPlayer;
 
   const curActID = props.curActID;
   const curZoneID = props.curZoneID;
@@ -48,7 +48,7 @@ export function LevelingGuide(props: any): any {
           value={curActID}
           onChange={handleActChange}
         >
-          {initActs.map(function (act: InitAct) {
+          {initActs.map(function (act: IAppAct) {
             return (
               <option key={act.actid} value={act.actid}>
                 {act.act}
@@ -63,7 +63,7 @@ export function LevelingGuide(props: any): any {
           value={curZoneID}
           onChange={handleZoneChange}
         >
-          {curAct.zones.map(function (zone: InitZone) {
+          {curAct.zones.map(function (zone: IAppZone) {
             return (
               <option
                 key={zone.level + "-" + zone.name}
@@ -142,8 +142,8 @@ export function LevelingGuide(props: any): any {
 }
 
 export function ZoneNotes(props: any): any {
-  const curZone = props.curZone as InitZone;
-  const curAct = props.curAct as InitAct;
+  const curZone = props.curZone as IAppZone;
+  const curAct = props.curAct as IAppAct;
 
   return (
     <div className="container flex flex-col min-h-200px">
@@ -153,21 +153,10 @@ export function ZoneNotes(props: any): any {
   );
 }
 
-export function ZoneGears(props: any): any {
-  const curZone = props.curZone as InitZone;
-  const curAct = props.curAct as InitAct;
-
-  return (
-    <div className="container flex flex-col min-h-200px">
-      <h2>Gears</h2>
-      <p>{curZone.note}</p>
-    </div>
-  );
-}
 
 export function ZoneMap(props: any) {
-  const curZone = props.curZone as InitZone;
-  const curAct = props.curAct as InitAct;
+  const curZone = props.curZone as IAppZone;
+  const curAct = props.curAct as IAppAct;
 
   if (curZone.image[0] !== "none" && curZone.image.length > 0) {
     return (

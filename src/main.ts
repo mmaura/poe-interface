@@ -6,7 +6,8 @@ import PathOfExileLog from "poe-log-monitor";
 import * as AppMainWindowM from "./modules/MainWindow";
 import * as AppTrayM from "./modules/AppTray";
 //import { getAreaList } from './modules/Data'
-import InitData from "../resources/data/data.json";
+import DefaultZonesData from "../resources/data/data.json";
+import DefaultGearsData from "../resources/data/gears.json";
 import { findCurAct, findCurZone } from "./modules/utils";
 
 const schema = {
@@ -24,7 +25,7 @@ app.whenReady().then(() => {
 
   //let PoeArea = <plm_area>{ name: "na", type: "area", info: "non chargée" };
   let MyConn = <plm_conn>{ latency: "na", server: "non connecté" };
-  const MyPlayer = <player>{
+  const MyPlayer = <IAppPlayer>{
     name: "na",
     level: -1,
     characterClass: "na",
@@ -46,7 +47,7 @@ app.whenReady().then(() => {
     let response: any = { status: "bad request" };
 
     if (arg === "getInitData") {
-      response = { MyPlayer: MyPlayer, MyConn: MyConn, InitData };
+      response = { MyPlayer: MyPlayer, MyConn: MyConn, DefaultZonesData: DefaultZonesData, DefaultGearsData: DefaultGearsData };
       //console.log(POE_PLAYER)
     }
     return response;
