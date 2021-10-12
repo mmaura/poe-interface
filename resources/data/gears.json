@@ -3,6 +3,7 @@
     {
       "actid": 1,
       "zonename": "The Twilight Strand",
+      "note": "Recherchez les équipements avec les sockets suivantes.",
       "gears": [
         [
           {
@@ -35,7 +36,34 @@
             "type": "socket",
             "color": "g"
           }
+        ],
+        [
+          {
+            "type": "socket",
+            "color": "b"
+          },
+          {
+            "type": "socket",
+            "color": "r"
+          },
+          {
+            "type": "socket",
+            "color": "w"
+          },
+          {
+            "type": "socket",
+            "color": "w"
+          },
+          {
+            "type": "socket",
+            "color": "w"
+          },
+          {
+            "type": "gem",
+            "gem": "Blood and Sand"
+          }
         ]
+
       ]
     }
   ]

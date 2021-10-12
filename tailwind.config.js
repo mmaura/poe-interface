@@ -36,13 +36,18 @@ module.exports = {
         'inventory': "url('/resources/images/inventory-sprite.png')",
         'footer-texture': "url('/resources/images/inventory-sprite.png')",
         'breadcrumb': "url('/resources/images/breadcrumb-background.png')",
+        'socket': "url('/resources/images/socket.png')",
       },
       backgroundPosition: {
         'guardian': '-110px -340px',
+        'r': '-105px -35px',
+        'g': '-105px 0px',
+        'b': '-35px -70px',
+        'w': '-105px -70px',
       },  
       width: {
         'avatar': '110px;',
-        'inventory': '328px;'
+        'inventory': '328px;',
       },
       height: {
         'avatar': '80px;',
@@ -51,10 +56,12 @@ module.exports = {
       inset: {
         'inventory-text': '103px',      
         'inventory-line1': '4px',
-        'inventory-line2': '44px'
+        'inventory-line2': '44px',
       },
       spacing: {
-        'icon': '64px'
+        'icon': '64px',
+        'socket': '35px'
+
       },
       minHeight: {
         '200px': '200px'

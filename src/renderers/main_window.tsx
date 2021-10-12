@@ -133,9 +133,8 @@ function App(props: { AppData: IReactAppInit }) {
         <div className="col-span-2">
           <ZoneGears curGears={curGear} />
         </div>
-        <div className=""></div>
-        <div className="">choses a faire en fonction de la zone</div>
-        <div className="">choses a faire pour acceder à la zone suivante</div>
+        <div className="container col-span-3"><h2>Liste des courses</h2></div>
+        <div className="container col-span-3"><h2>Progression du personnage</h2></div>
       </div>
     </div>
   );
