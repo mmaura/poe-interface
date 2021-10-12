@@ -11,8 +11,9 @@ import {
   ZoneMap,
 } from "./components/LevelingGuide";
 import {ZoneGears} from './components/Gears'
+import { Gem } from "./components/Gem";
 
-import { findCurAct, findCurZone, findZoneGear } from "../modules/utils";
+import { findCurAct, findCurZone, findZoneGear, findGem } from "../modules/utils";
 
 function App(props: { AppData: IReactAppInit }) {
 
@@ -20,6 +21,8 @@ function App(props: { AppData: IReactAppInit }) {
 
   const actsData = props.AppData.DefaultZonesData.acts as IAppAct[];
   const gearsData = props.AppData.DefaultGearsData.gears as IAppGear[];
+  const gemsData = props.AppData.DefaultGemsData as IAppGems[];
+
   //console.log(props)
 
   const [curPlayer, setcurPlayer] = useState(props.AppData.MyPlayer as IAppPlayer)
@@ -133,7 +136,9 @@ function App(props: { AppData: IReactAppInit }) {
         <div className="col-span-2">
           <ZoneGears curGears={curGear} />
         </div>
-        <div className="container col-span-3"><h2>Liste des courses</h2></div>
+        <div className="container col-span-3"><h2>Liste des courses</h2>
+        <Gem curGem={findGem( gemsData, "Fireball")}/>
+        </div>
         <div className="container col-span-3"><h2>Progression du personnage</h2></div>
       </div>
     </div>

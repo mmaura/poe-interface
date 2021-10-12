@@ -54,6 +54,12 @@ export function findCurZone(act: IAppAct, zoneid: string): IAppZone {
 
 export function findZoneGear (gearsData: IAppGear[], actid: number, zonename: string) : IAppGear{
   return gearsData.find((e)=> {
-    return (e.actid == actid && e.zonename == zonename)
+    return (e.actid === actid && e.zonename == zonename)
+  })
+}
+
+export function findGem(gemsData: IAppGems[], name: string) : IAppGems{
+  return gemsData.find((e) => {
+    return e.name === name 
   })
 }

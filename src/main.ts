@@ -8,6 +8,7 @@ import * as AppTrayM from "./modules/AppTray";
 //import { getAreaList } from './modules/Data'
 import DefaultZonesData from "../resources/data/data.json";
 import DefaultGearsData from "../resources/data/gears.json";
+import DefaultGemsData from "../resources/data/gems.json";
 import { findCurAct, findCurZone } from "./modules/utils";
 
 const schema = {
@@ -47,7 +48,7 @@ app.whenReady().then(() => {
     let response: any = { status: "bad request" };
 
     if (arg === "getInitData") {
-      response = { MyPlayer: MyPlayer, MyConn: MyConn, DefaultZonesData: DefaultZonesData, DefaultGearsData: DefaultGearsData };
+      response = { MyPlayer: MyPlayer, MyConn: MyConn, DefaultZonesData: DefaultZonesData, DefaultGearsData: DefaultGearsData, DefaultGemsData:DefaultGemsData };
       //console.log(POE_PLAYER)
     }
     return response;

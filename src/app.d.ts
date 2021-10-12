@@ -11,6 +11,7 @@ declare global {
     MyConn: pln_conn;
     DefaultZonesData: IZoneData;
     DefaultGearsData: IGearData;
+    DefaultGemsData: IAppGems[];
   }
   type IAppPlayer = {
     name: string;
@@ -25,11 +26,11 @@ declare global {
     note: string;
     level: number;
     name: string;
-    haspassive: bool;
-    questRewardsSkills: bool;
+    haspassive: boolean;
+    questRewardsSkills: boolean;
     altimage: string;
     quest: string;
-    hasRecipe: bool;
+    hasRecipe: boolean;
     gears?: {
       note?: string;
       gears?: {
@@ -67,5 +68,36 @@ declare global {
 
   interface Window {
     myAPI: myAPI;
+  }
+
+  interface IBuy {
+    npc: string;
+    act: number;
+    town: string;
+    available_to:
+      | "Marauder"
+      | "Witch"
+      | "Scion"
+      | "Ranger"
+      | "Duelist"
+      | "Shadow"
+      | "Templar"[];
+    quest_name: string;
+  }
+  interface IAppGems {
+    reward: string;
+    required_lvl: number;
+    color: string;
+    isReward: boolean;
+    isSupport: boolean;
+    buy: IBuy[];
+    name: string;
+    isVaal: boolean;
+    gemTags: string[];
+    iconPath: string;
+    isActive: boolean;
+  }
+  interface IGemsData{
+    "": IAppGems
   }
 }
