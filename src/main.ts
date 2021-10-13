@@ -9,7 +9,7 @@ import * as AppTrayM from "./modules/AppTray";
 import DefaultZonesData from "../resources/data/data.json";
 import DefaultGearsData from "../resources/data/gears.json";
 import DefaultGemsData from "../resources/data/gems.json";
-import { findCurAct, findCurZone } from "./modules/utils";
+//import { findCurAct, findCurZone } from "./modules/utils";
 
 const schema = {
   poe_log_path: {
@@ -23,6 +23,8 @@ const AppStore = new Store({ schema });
 
 app.whenReady().then(() => {
   let LogLoaded = false;
+
+  const AppMainWindow = AppMainWindowM.create();
 
   //let PoeArea = <plm_area>{ name: "na", type: "area", info: "non chargée" };
   let MyConn = <plm_conn>{ latency: "na", server: "non connecté" };
@@ -41,14 +43,18 @@ app.whenReady().then(() => {
   //   callback(filePath);
   // });
 
-  console.log("We are ready to go !");
-
   ipcMain.handle("app", (event, arg) => {
     //console.log('player : ' + arg)
     let response: any = { status: "bad request" };
 
     if (arg === "getInitData") {
-      response = { MyPlayer: MyPlayer, MyConn: MyConn, DefaultZonesData: DefaultZonesData, DefaultGearsData: DefaultGearsData, DefaultGemsData:DefaultGemsData };
+      response = {
+        MyPlayer: MyPlayer,
+        MyConn: MyConn,
+        DefaultZonesData: DefaultZonesData,
+        DefaultGearsData: DefaultGearsData,
+        DefaultGemsData: DefaultGemsData,
+      };
       //console.log(POE_PLAYER)
     }
     return response;
@@ -64,12 +70,12 @@ app.whenReady().then(() => {
         title: "Please choose PathOfExile log file",
         properties: ["openFile", "showHiddenFiles"],
         defaultPath:
-          "/mnt/games/SteamLibrary/steamapps/common/Path of Exile/logs/",
+          "C:/Program Files (x86)/Grinding Gear Games/Path of Exile/logs/",
       })
       .then((result) => {
         // console.log(result.canceled)
         // console.log(result.filePaths)
-        if (result.canceled == false) {
+        if (result.canceled === false) {
           poe_log_path = result.filePaths[0];
           AppStore.set("poe_log_path", poe_log_path);
         }
@@ -78,6 +84,8 @@ app.whenReady().then(() => {
         console.log(err);
       });
   }
+
+  console.log("eeeee")
 
   const poeLog: PathOfExileLog = new PathOfExileLog({
     logfile: poe_log_path,
@@ -102,25 +110,23 @@ app.whenReady().then(() => {
     MyPlayer.characterClass = data.characterClass;
     MyPlayer.level = data.level;
 
-    if (LogLoaded === true)
-      AppMainWindow.webContents.send("player", MyPlayer);
+    if (LogLoaded === true) AppMainWindow.webContents.send("player", MyPlayer);
   });
 
   poeLog.on("area", (area) => {
     if (area.type === "area") {
-
-      console.log("plm onarea")
-      console.log(area)
+      console.log("plm onarea");
+      console.log(area);
 
       MyPlayer.currentZoneName = area.name;
       MyPlayer.currentZoneAct = area.info[0].act;
 
-      if (LogLoaded === true) AppMainWindow.webContents.send("playerArea", MyPlayer);
+      if (LogLoaded === true)
+        AppMainWindow.webContents.send("playerArea", MyPlayer);
     }
-
   });
 
-  const AppMainWindow = AppMainWindowM.create();
+  //const AppMainWindow = AppMainWindowM.create();
   const AppTray = AppTrayM.create(AppMainWindow);
 
   // console.log("*******************")

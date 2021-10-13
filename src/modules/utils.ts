@@ -32,7 +32,7 @@ export function findCurAct(acts: IAppAct[], actid: number): IAppAct {
 export function findCurZone(act: IAppAct, zoneid: string): IAppZone {
   console.log("APP: findCurZoneAct\n in act:");
 
-  let curzone
+  let curzone;
 
   console.log(act);
   if (zoneid !== "") {
@@ -52,14 +52,22 @@ export function findCurZone(act: IAppAct, zoneid: string): IAppZone {
   }
 }
 
-export function findZoneGear (gearsData: IAppGear[], actid: number, zonename: string) : IAppGear{
-  return gearsData.find((e)=> {
-    return (e.actid === actid && e.zonename == zonename)
-  })
+export function findZoneGear(
+  gearsData: IAppGear[],
+  actid: number,
+  zonename: string
+): IAppGear {
+  console.log("findZoneGear")
+  return gearsData.find((e) => {
+    //return (e.actid === actid && e.zonename.includes(zonename))
+    return e.zones.find((e) => {
+      return ( e.actid === actid && e.zonename === zonename) 
+    })
+  });
 }
 
-export function findGem(gemsData: IAppGems[], name: string) : IAppGems{
+export function findGem(gemsData: IAppGems[], name: string): IAppGems {
   return gemsData.find((e) => {
-    return e.name === name 
-  })
+    return e.name === name;
+  });
 }

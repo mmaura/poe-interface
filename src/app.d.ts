@@ -56,8 +56,10 @@ declare global {
   }
 
   interface IAppGear {
-    actid: number;
-    zonename: string;
+    zones: {
+      actid: number;
+      zonename: string;
+    }[];
     note?: string;
     gears: IGear[][];
   }
@@ -97,7 +99,7 @@ declare global {
     iconPath: string;
     isActive: boolean;
   }
-  interface IGemsData{
-    "": IAppGems
+  interface IGemsData {
+    "": IAppGems;
   }
 }

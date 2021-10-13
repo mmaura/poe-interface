@@ -1,8 +1,16 @@
 {
   "gears": [
     {
-      "actid": 1,
-      "zonename": "The Twilight Strand",
+      "zones": [
+        {
+          "actid": 1,
+          "zonename": "The Twilight Strand"
+        },
+        {
+          "actid": 1,
+          "zonename": "The Coast"
+        }
+      ],
       "note": "Recherchez les équipements avec les sockets suivantes.",
       "gears": [
         [
@@ -63,7 +71,6 @@
             "gem": "Blood and Sand"
           }
         ]
-
       ]
     }
   ]
