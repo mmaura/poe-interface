@@ -7,24 +7,6 @@ export function LevelingGuide(props: any): any {
   const curAct: IAppAct = props.curAct;
   const curPlayer = props.curPlayer as IAppPlayer;
 
-  const curActID = props.curActID;
-  const curZoneID = props.curZoneID;
-
-  // const [curActID, setcurActID] = useState(1)
-  // const [curZoneID, setcurZoneID] = useState('')
-
-  // console.log("in guide")
-  // console.log(initActs)
-
-  // useEffect(() => {
-  //     setcurZone(findCurZone())
-  //     console.log("effect")
-
-  //     return () => {
-  //         ''
-  //     }
-  // }, [curActID])
-
   function handleActChange(e: React.ChangeEvent<HTMLSelectElement>) {
     // console.log("onchange act")
     // setcurActID(Number(e.target.value));
@@ -45,7 +27,7 @@ export function LevelingGuide(props: any): any {
         {/* <label> Acte </label> */}
         <select
           className="lvlg-map-feature min-w-min"
-          value={curActID}
+          value={curAct.actid}
           onChange={handleActChange}
         >
           {initActs.map(function (act: IAppAct) {
@@ -60,15 +42,12 @@ export function LevelingGuide(props: any): any {
         {/* <label> Zone</label> */}
         <select
           className="lvlg-map-feature flex-grow"
-          value={curZoneID}
+          value={curZone.name}
           onChange={handleZoneChange}
         >
           {curAct.zones.map(function (zone: IAppZone) {
             return (
-              <option
-                key={zone.level + "-" + zone.name}
-                value={zone.name}
-              >
+              <option key={zone.level + "-" + zone.name} value={zone.name}>
                 {zone.name}
               </option>
             );
@@ -152,7 +131,6 @@ export function ZoneNotes(props: any): any {
     </div>
   );
 }
-
 
 export function ZoneMap(props: any) {
   const curZone = props.curZone as IAppZone;

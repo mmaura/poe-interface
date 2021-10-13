@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {Gem} from '../components/Gem'
+import { Gem } from "../components/Gem";
 
 import { findGem } from "../../modules/utils";
 
@@ -9,7 +9,7 @@ export function ZoneGears(props: { curGears: IAppGear }): any {
   console.log("in Gears");
   console.log(curGears);
 
-  if (curGears.gears) {
+  if (props.curGears != undefined) {
     return (
       <div className="container flex flex-col min-h-200px">
         <h2>Gears</h2>
@@ -39,8 +39,8 @@ function Gear(props: { gears: IGear[] }): any {
       className={`${gears.length == 3 ? "poe-item-3slots" : "poe-item-xslots"}`}
     >
       {gears.map((e, index) => {
-        if (e.type === 'socket')
-        return <div className={`poe-${e.color}-socket`} key={index}></div>;
+        if (e.type === "socket")
+          return <div className={`poe-${e.color}-socket`} key={index}></div>;
         // else
         // return <Gem curGem={findGem(e.gem)}/>
       })}

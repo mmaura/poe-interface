@@ -57,12 +57,11 @@ export function findZoneGear(
   actid: number,
   zonename: string
 ): IAppGear {
-  console.log("findZoneGear")
+  console.log("findZoneGear");
   return gearsData.find((e) => {
-    //return (e.actid === actid && e.zonename.includes(zonename))
     return e.zones.find((e) => {
-      return ( e.actid === actid && e.zonename === zonename) 
-    })
+      return e.actid === actid && e.zonename === zonename;
+    });
   });
 }
 
