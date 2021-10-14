@@ -17,6 +17,7 @@ declare global {
     name: string;
     level: number;
     characterClass: string;
+    characterAscendancy: string;
     currentZoneName: string;
     currentZoneAct: number;
   };
@@ -76,14 +77,14 @@ declare global {
     npc: string;
     act: number;
     town: string;
-    available_to:
+    available_to:[
       | "Marauder"
       | "Witch"
       | "Scion"
       | "Ranger"
       | "Duelist"
       | "Shadow"
-      | "Templar"[];
+      | "Templar"];
     quest_name: string;
   }
   interface IAppGems {
@@ -102,4 +103,8 @@ declare global {
   interface IGemsData {
     "": IAppGems;
   }
-}
+  interface IDefaultClassesData{
+      classe: string,
+      ascendancy: string[]
+  }
+  

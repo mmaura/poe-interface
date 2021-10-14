@@ -70,3 +70,11 @@ export function findGem(gemsData: IAppGems[], name: string): IAppGems {
     return e.name === name;
   });
 }
+
+export function getCharacterClass(DefaultClassData : IDefaultClassesData[] , characterClass: string) : string{
+  const _character = DefaultClassData.find((e)=>{
+    if((e.classe === characterClass) || (e.ascendancy.includes(characterClass)))
+      return true
+  })
+  return _character.classe
+}

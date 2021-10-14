@@ -9,7 +9,8 @@ import * as AppTrayM from "./modules/AppTray";
 import DefaultZonesData from "../resources/data/data.json";
 import DefaultGearsData from "../resources/data/gears.json";
 import DefaultGemsData from "../resources/data/gems.json";
-//import { findCurAct, findCurZone } from "./modules/utils";
+import DefaultClassData from "../resources/data/class.json"
+import { getCharacterClass } from "./modules/utils";
 
 const schema = {
   poe_log_path: {
@@ -32,6 +33,7 @@ app.whenReady().then(() => {
     name: "na",
     level: -1,
     characterClass: "na",
+    characterAscendancy: "na",
     currentZoneName: "Your nightmare lies ahead.",
     currentZoneAct: 1,
   };
@@ -107,7 +109,8 @@ app.whenReady().then(() => {
 
   poeLog.on("level", (data) => {
     MyPlayer.name = data.name;
-    MyPlayer.characterClass = data.characterClass;
+    MyPlayer.characterClass = getCharacterClass(DefaultClassData, data.characterClass)
+    MyPlayer.characterAscendancy = data.characterClass;
     MyPlayer.level = data.level;
 
     if (LogLoaded === true) AppMainWindow.webContents.send("player", MyPlayer);
