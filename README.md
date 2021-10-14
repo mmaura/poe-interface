@@ -19,3 +19,6 @@ https://github.com/klayveR/poe-api-wrappers
 
 https://github.com/karakasis/Path-of-Leveling/tree/master/json
 
+https://github.com/brather1ng/RePoE
+
+https://github.com/brather1ng/PyPoE
