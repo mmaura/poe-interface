@@ -71,7 +71,7 @@ export function findGem(gemsData: IAppGems[], name: string): IAppGems {
   });
 }
 
-export function getCharacterClass(DefaultClassData : IDefaultClassesData[] , characterClass: string) : string{
+export function getCharacterClass(DefaultClassData : IClassData[] , characterClass: string) : string{
   const _character = DefaultClassData.find((e)=>{
     if((e.classe === characterClass) || (e.ascendancy.includes(characterClass)))
       return true

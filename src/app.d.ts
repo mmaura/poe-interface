@@ -12,6 +12,7 @@ declare global {
     DefaultZonesData: IZoneData;
     DefaultGearsData: IGearData;
     DefaultGemsData: IAppGems[];
+    DefaultClassesData: IClassData[];
   }
   type IAppPlayer = {
     name: string;
@@ -84,7 +85,9 @@ declare global {
       | "Ranger"
       | "Duelist"
       | "Shadow"
-      | "Templar"];
+      | "Templar"
+    | string
+  ];
     quest_name: string;
   }
   interface IAppGems {
@@ -103,8 +106,12 @@ declare global {
   interface IGemsData {
     "": IAppGems;
   }
-  interface IDefaultClassesData{
+  interface  IClassData{
       classe: string,
       ascendancy: string[]
   }
+  interface IDefaultClassesData{
+    "": IClassData[]
+  }
+}
   
