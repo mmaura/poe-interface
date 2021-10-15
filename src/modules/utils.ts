@@ -1,40 +1,19 @@
-export function findCurAct(acts: IAppAct[], actid: number): IAppAct {
-  console.log("APP: FindCurAct actData:");
+export function getCurAct(acts: IAppAct[], actid: number): IAppAct {
+  // console.log("APP: FindCurAct actData:");
   //console.log(actsData)
   const _curAtct = acts.find((e) => {
     return e.actid === actid;
   });
-  console.log(_curAtct);
+  // console.log(_curAtct);
   return _curAtct;
 }
 
-//   function findCurZoneActID(actid: number, zoneid: string){
-//     console.log("APP: findCurZoneActID\n in act:")
-//     const _curAct = findCurAct(actid)
-
-//     const curzone = _curAct.zones.find((e) => {
-//         //console.log("find curzone : "+e.level+"-"+e.name+"==="+zoneid)
-//         return ((e.level+"-"+e.name) === zoneid)
-//         })
-
-//     if ( curzone === undefined) {
-//       setcurZoneID(_curAct.zones[0].level+"-"+_curAct.zones[0].name)
-//       // console.log("not found, return:")
-//       console.log(_curAct.zones[0])
-//       return _curAct.zones[0]
-//     }
-//     else{
-//       console.log(curzone)
-//       return curzone
-//     }
-// }
-
-export function findCurZone(act: IAppAct, zoneid: string): IAppZone {
-  console.log("APP: findCurZoneAct\n in act:");
+export function getCurZone(act: IAppAct, zoneid: string): IAppZone {
+  // console.log("APP: findCurZoneAct\n in act:");
 
   let curzone;
 
-  console.log(act);
+  // console.log(act);
   if (zoneid !== "") {
     curzone = act.zones.find((e) => {
       console.log("find curzone : " + e.name + "===" + zoneid);
@@ -43,21 +22,21 @@ export function findCurZone(act: IAppAct, zoneid: string): IAppZone {
   }
 
   if (curzone === undefined) {
-    console.log("not found, return:");
-    console.log(act.zones[0]);
+    // console.log("not found, return:");
+    // console.log(act.zones[0]);
     return act.zones[0];
   } else {
-    console.log(curzone);
+    // console.log(curzone);
     return curzone;
   }
 }
 
-export function findZoneGear(
+export function getZoneGear(
   gearsData: IAppGear[],
   actid: number,
   zonename: string
 ): IAppGear {
-  console.log("findZoneGear");
+  // console.log("findZoneGear");
   return gearsData.find((e) => {
     return e.zones.find((e) => {
       return e.actid === actid && e.zonename === zonename;
@@ -66,15 +45,23 @@ export function findZoneGear(
 }
 
 export function findGem(gemsData: IAppGems[], name: string): IAppGems {
+  console.log("Find Gem");
+  console.log(name);
   return gemsData.find((e) => {
     return e.name === name;
   });
 }
 
-export function getCharacterClass(DefaultClassData : IClassData[] , characterClass: string) : string{
-  const _character = DefaultClassData.find((e)=>{
-    if((e.classe === characterClass) || (e.ascendancy.includes(characterClass)))
-      return true
-  })
-  return _character.classe
+export function getCharacterClass(
+  DefaultClassData: IAppClasses[],
+  characterClass: string
+): string {
+  const _character = DefaultClassData.find((e) => {
+    if (e.classe === characterClass || e.ascendancy.includes(characterClass))
+    console.log("e.classe = " + e.classe)
+    console.log("e.ascen.. = " + e.ascendancy.includes(characterClass))
+    console.log("characterClass = " + characterClass)
+      return true;
+  });
+  return _character.classe;
 }

@@ -7,14 +7,29 @@ export interface myAPI {
 }
 
 declare global {
+  interface IInitialData {
+    classes: IAppClasses[];
+    acts: IAppAct[];
+    gems: IAppGems[];
+  }
+
   interface IReactAppInit {
     MyPlayer: IAppPlayer;
     MyConn: pln_conn;
-    DefaultZonesData: IZoneData;
-    DefaultGearsData: IGearData;
-    DefaultGemsData: IAppGems[];
-    DefaultClassesData: IClassData[];
+    InitialData: IInitialData;
+    DefaultGuide: IGuideData;
   }
+
+  interface IAppAct {
+    act: string;
+    actid: number;
+    zones: IAppZone[];
+  }
+
+  interface IZoneData {
+    acts: IAppAct[];
+  }
+
   type IAppPlayer = {
     name: string;
     level: number;
@@ -23,6 +38,7 @@ declare global {
     currentZoneName: string;
     currentZoneAct: number;
   };
+
   type IAppZone = {
     hastrial: boolean;
     image: string[];
@@ -42,15 +58,6 @@ declare global {
       }[];
     };
   };
-  type IAppAct = {
-    act: string;
-    actid: number;
-    zones: IAppZone[];
-  };
-
-  interface IZoneData {
-    acts: IAppAct[];
-  }
 
   interface IGear {
     type: "socket" | "gem";
@@ -65,9 +72,10 @@ declare global {
     }[];
     note?: string;
     gears: IGear[][];
+    gems2buy?: string[];
   }
 
-  interface IGearData {
+  interface IGuideData {
     gears: IAppGear[];
   }
 
@@ -79,7 +87,7 @@ declare global {
     npc: string;
     act: number;
     town: string;
-    available_to:[
+    available_to: [
       | "Marauder"
       | "Witch"
       | "Scion"
@@ -87,8 +95,8 @@ declare global {
       | "Duelist"
       | "Shadow"
       | "Templar"
-    | string
-  ];
+      | string
+    ];
     quest_name: string;
   }
   interface IAppGems {
@@ -107,12 +115,11 @@ declare global {
   interface IGemsData {
     "": IAppGems;
   }
-  interface  IClassData{
-      classe: string,
-      ascendancy: string[]
+  interface IAppClasses {
+    classe: string;
+    ascendancy: string[];
   }
-  interface IDefaultClassesData{
-    "": IClassData[]
+  interface IDefaultClassesData {
+    "": IAppClasses[];
   }
 }
-  

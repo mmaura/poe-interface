@@ -11,21 +11,18 @@ import {
   ZoneMap,
 } from "./components/LevelingGuide";
 import { ZoneGears } from "./components/Gears";
-import { Gem } from "./components/Gem";
+import { Gem, ZoneGem } from "./components/Gem";
 
-import {
-  findCurAct,
-  findCurZone,
-  findZoneGear,
-  findGem,
-} from "../modules/utils";
+import { getCurAct, getCurZone, getZoneGear, findGem } from "../modules/utils";
 
 function App(props: { AppData: IReactAppInit }) {
   console.log(props.AppData);
 
-  const actsData = props.AppData.DefaultZonesData.acts as IAppAct[];
-  const gearsData = props.AppData.DefaultGearsData.gears as IAppGear[];
-  const gemsData = props.AppData.DefaultGemsData as IAppGems[];
+  const initialActs = props.AppData.InitialData.acts as IAppAct[];
+  // const initialClasses = props.AppData.InitialData.classes as IAppClasses[];
+  const initialGems = props.AppData.InitialData.gems as IAppGems[];
+
+  const defaultGuide = props.AppData.DefaultGuide.gears as IAppGear[];
 
   //console.log(props)
 
@@ -34,13 +31,13 @@ function App(props: { AppData: IReactAppInit }) {
   );
 
   const [curAct, setcurAct] = useState(() => {
-    return findCurAct(actsData, 1);
+    return getCurAct(initialActs, 1);
   });
   const [curZone, setcurZone] = useState(() => {
-    return findCurZone(curAct, "");
+    return getCurZone(curAct, "");
   });
   const [curGear, setcurGear] = useState(() => {
-    return findZoneGear(gearsData, 1, curZone.name);
+    return getZoneGear(defaultGuide, 1, curZone.name);
   });
 
   /*********************************
@@ -48,12 +45,12 @@ function App(props: { AppData: IReactAppInit }) {
    */
   function onActChange(e: React.ChangeEvent<HTMLSelectElement>) {
     console.log("APP: onActChange");
-    setcurAct(findCurAct(actsData, Number(e.target.value)));
+    setcurAct(getCurAct(initialActs, Number(e.target.value)));
   }
 
   function onZoneChange(e: React.ChangeEvent<HTMLSelectElement>) {
     console.log("APP: onActChange");
-    setcurZone(findCurZone(curAct, e.target.value));
+    setcurZone(getCurZone(curAct, e.target.value));
   }
 
   /**********************************
@@ -65,7 +62,7 @@ function App(props: { AppData: IReactAppInit }) {
     console.log(curZone);
     console.log(curAct);
 
-    setcurZone(findCurZone(curAct, ""));
+    setcurZone(getCurZone(curAct, ""));
 
     return () => {
       ("");
@@ -75,7 +72,7 @@ function App(props: { AppData: IReactAppInit }) {
   useEffect(() => {
     console.log("APP: useEffect(curZone)");
 
-    setcurGear(findZoneGear(gearsData, curAct.actid, curZone.name));
+    setcurGear(getZoneGear(defaultGuide, curAct.actid, curZone.name));
 
     return () => {
       ("");
@@ -95,9 +92,9 @@ function App(props: { AppData: IReactAppInit }) {
     console.log("received playerArea");
     console.log(arg);
 
-    const _curAct = findCurAct(actsData, arg.currentZoneAct);
+    const _curAct = getCurAct(initialActs, arg.currentZoneAct);
     setcurAct(_curAct);
-    setcurZone(findCurZone(_curAct, arg.currentZoneName));
+    setcurZone(getCurZone(_curAct, arg.currentZoneName));
   });
 
   return (
@@ -109,7 +106,7 @@ function App(props: { AppData: IReactAppInit }) {
         </div>
         <div className="flex-grow">
           <LevelingGuide
-            acts={actsData}
+            acts={initialActs}
             onActChange={onActChange}
             onZoneChange={onZoneChange}
             curAct={curAct}
@@ -133,8 +130,12 @@ function App(props: { AppData: IReactAppInit }) {
           <ZoneGears curGears={curGear} />
         </div>
         <div className="container col-span-3">
-          <h2>Liste des courses</h2>
-          <Gem curGem={findGem(gemsData, "Fireball")} curPlayer={curPlayer} curAct={curAct} />
+          <ZoneGem
+            initialGems={initialGems}
+            curGears={curGear}
+            curPlayer={curPlayer}
+            curAct={curAct}
+          />
         </div>
         <div className="container col-span-3">
           <h2>Progression du personnage</h2>
@@ -145,6 +146,5 @@ function App(props: { AppData: IReactAppInit }) {
 }
 
 window.myAPI.getInitData().then((result: IReactAppInit) => {
-  const data = result;
-  ReactDOM.render(<App AppData={data} />, document.getElementById("root"));
+  ReactDOM.render(<App AppData={result} />, document.getElementById("root"));
 });

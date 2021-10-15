@@ -11,7 +11,7 @@
           "zonename": "The Coast"
         }
       ],
-      "note": "Recherchez les équipements avec les sockets suivantes.",
+      "note": "Recherchez les équipements avec les sockets XX suivantes.",
       "gears": [
         [
           {
@@ -71,6 +71,11 @@
             "gem": "Blood and Sand"
           }
         ]
+      ],
+      "gems2buy":[
+        "Fireball",
+        "Added Chaos Damage",
+        "Added Cold Damage"
       ]
     }
   ]
