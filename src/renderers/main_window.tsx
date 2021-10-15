@@ -134,7 +134,7 @@ function App(props: { AppData: IReactAppInit }) {
         </div>
         <div className="container col-span-3">
           <h2>Liste des courses</h2>
-          <Gem curGem={findGem(gemsData, "Fireball")} curPlayer={curPlayer} />
+          <Gem curGem={findGem(gemsData, "Fireball")} curPlayer={curPlayer} curAct={curAct} />
         </div>
         <div className="container col-span-3">
           <h2>Progression du personnage</h2>

@@ -1,4 +1,4 @@
-import { ipcRenderer, contextBridge } from "electron"
+import { ipcRenderer, contextBridge, shell } from "electron"
 
 contextBridge.exposeInMainWorld(
     'myAPI',
@@ -15,6 +15,9 @@ contextBridge.exposeInMainWorld(
         },
         receive: (channel:any, func:any) => {
             ipcRenderer.on(channel, (event, ...args) => func(event, ...args))
+        },
+        openExternal: (url: string)=>{
+            shell.openExternal(url)
         }
     }
 );

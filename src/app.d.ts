@@ -3,6 +3,7 @@ export interface myAPI {
   getInitData: () => Promise<any>;
   send: (channel: string, ...arg: any) => void;
   receive: (channel: string, func: (event: any, ...arg: any) => void) => void;
+  openExternal: (url: string) => void;
 }
 
 declare global {

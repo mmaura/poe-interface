@@ -32,7 +32,8 @@ app.whenReady().then(() => {
   const MyPlayer = <IAppPlayer>{
     name: "na",
     level: -1,
-    characterClass: "na",
+    characterClass: "Templar",
+//    characterClass: "na",
     characterAscendancy: "na",
     currentZoneName: "Your nightmare lies ahead.",
     currentZoneAct: 1,
