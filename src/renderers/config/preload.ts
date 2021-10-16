@@ -1,23 +1,19 @@
-import { ipcRenderer, contextBridge, shell } from "electron"
+import { ipcRenderer, contextBridge, shell, dialog } from "electron";
 
-contextBridge.exposeInMainWorld(
-    'myAPI',
-    {
-        hello: () => {ipcRenderer.send('hello', "toto")},
-        getInitData: async () => {  
-            const all = await ipcRenderer.invoke('app', 'getInitData')
-            // console.log('getInitData')
-            // console.log(all)
-            return all
-        },
-        send: (channel: any, data: any) => {
-            ipcRenderer.invoke(channel, data).catch(e => console.log(e))
-        },
-        receive: (channel:any, func:any) => {
-            ipcRenderer.on(channel, (event, ...args) => func(event, ...args))
-        },
-        openExternal: (url: string)=>{
-            shell.openExternal(url)
-        }
-    }
-);
+contextBridge.exposeInMainWorld("configAPI", {
+  send: (channel: any, data: any) => {
+    ipcRenderer.invoke(channel, data).catch((e) => console.log(e));
+  },
+  sendSync: async (channel: any, data: any) => {
+    const all = ipcRenderer.invoke(channel, data).catch((e) => {
+      console.log(e);
+    });
+    return all;
+  },
+  receive: (channel: any, func: any) => {
+    ipcRenderer.on(channel, (event, ...args) => func(event, ...args));
+  },
+  openExternal: (url: string) => {
+    shell.openExternal(url);
+  },
+});

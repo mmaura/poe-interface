@@ -17,7 +17,7 @@ import { ZoneGem } from "./components/Gem";
 import { getCurAct, getCurZone, getZoneGear } from "../../modules/utils";
 
 function App(props: { AppData: IReactAppInit }) {
-  console.log(props.AppData);
+  // console.log(props.AppData);
 
   const initialActs = props.AppData.InitialData.acts as IAppAct[];
   // const initialClasses = props.AppData.InitialData.classes as IAppClasses[];
@@ -45,12 +45,12 @@ function App(props: { AppData: IReactAppInit }) {
    * Events
    */
   function onActChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    console.log("APP: onActChange");
+    // console.log("APP: onActChange");
     setcurAct(getCurAct(initialActs, Number(e.target.value)));
   }
 
   function onZoneChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    console.log("APP: onActChange");
+    // console.log("APP: onActChange");
     setcurZone(getCurZone(curAct, e.target.value));
   }
 
@@ -59,9 +59,9 @@ function App(props: { AppData: IReactAppInit }) {
    */
 
   useEffect(() => {
-    console.log("APP: useEffect(curActID)");
-    console.log(curZone);
-    console.log(curAct);
+    // console.log("APP: useEffect(curActID)");
+    // console.log(curZone);
+    // console.log(curAct);
 
     setcurZone(getCurZone(curAct, ""));
 
@@ -71,7 +71,7 @@ function App(props: { AppData: IReactAppInit }) {
   }, [curAct]);
 
   useEffect(() => {
-    console.log("APP: useEffect(curZone)");
+    // console.log("APP: useEffect(curZone)");
 
     setcurGear(getZoneGear(defaultGuide, curAct.actid, curZone.name));
 
@@ -83,15 +83,15 @@ function App(props: { AppData: IReactAppInit }) {
   /**********************************
    * IPC
    */
-  window.myAPI.receive("player", (e, arg) => {
+  window.levelingAPI.receive("player", (e, arg) => {
     setcurPlayer(arg);
-    console.log("receive player:");
-    console.log(arg);
+    // console.log("receive player:");
+    // console.log(arg);
   });
 
-  window.myAPI.receive("playerArea", (e, arg) => {
-    console.log("received playerArea");
-    console.log(arg);
+  window.levelingAPI.receive("playerArea", (e, arg) => {
+    // console.log("received playerArea");
+    // console.log(arg);
 
     const _curAct = getCurAct(initialActs, arg.currentZoneAct);
     setcurAct(_curAct);
@@ -146,6 +146,6 @@ function App(props: { AppData: IReactAppInit }) {
   );
 }
 
-window.myAPI.getInitData().then((result: IReactAppInit) => {
+window.levelingAPI.getInitData().then((result: IReactAppInit) => {
   ReactDOM.render(<App AppData={result} />, document.getElementById("root"));
 });

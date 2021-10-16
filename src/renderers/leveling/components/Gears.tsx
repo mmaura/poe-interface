@@ -3,11 +3,11 @@ import { Gem } from "./Gem";
 
 import { findGem } from "../../../modules/utils";
 
-export function ZoneGears(props: { curGears: IAppGear }): any {
+export function ZoneGears(props: { curGears: IAppGear }): JSX.Element {
   const curGears = props.curGears;
 
-  console.log("in Gears");
-  console.log(curGears);
+  // console.log("in Gears");
+  // console.log(curGears);
 
   if (props.curGears != undefined) {
     return (

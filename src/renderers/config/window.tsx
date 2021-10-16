@@ -1,17 +1,37 @@
 import React, { useState, useEffect } from "react";
 import * as ReactDOM from "react-dom";
 
-import '../index.css'
-import './index.css'
+import "../index.css";
+import "./index.css";
 
-function App() {
-    return <div>
-        <h1>Ma fenetre</h1>
+function App(props: { AppData: any }) {
+  const [PoeLogPath, setPoeLogPath] = useState(props.AppData.poeLogPath);
+
+  function ShowPoeLogDialog() {
+    console.log("click");
+    window.configAPI.send("configWindow", { func: "showPoeLogPathDialog", var: [PoeLogPath as string] })
+  }
+
+  /**********************************
+   * IPC
+   */
+   window.configAPI.receive("poeLogPath", (e, arg) => {
+    setPoeLogPath(arg);
+    console.log("receive poeLogPath:");
+     console.log(arg);
+  });
+
+  return (
+    <div>
+      <h1>Ma fenetre</h1>
+      <span>{PoeLogPath}</span>
+      <button onClick={ShowPoeLogDialog}>...</button>
     </div>
+  );
 }
 
-// window.myAPI.getInitData().then((result: IReactAppInit) => {
-//     ReactDOM.render(<App AppData={result} />, document.getElementById("root"));
-//   });
-  
-ReactDOM.render(<App />, document.getElementById("root"));
+window.configAPI
+  .sendSync("configWindow", { func: "getInitData" })
+  .then((result: { poeLogPath: string }) => {
+    ReactDOM.render(<App AppData={result} />, document.getElementById("root"));
+  });

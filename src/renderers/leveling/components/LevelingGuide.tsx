@@ -1,7 +1,7 @@
 import React from "react";
 import ReactTooltip from "react-tooltip";
 
-export function LevelingGuide(props: any): any {
+export function LevelingGuide(props: any): JSX.Element {
   const initActs: IAppAct[] = props.acts;
   const curZone: IAppZone = props.curZone;
   const curAct: IAppAct = props.curAct;
@@ -18,7 +18,6 @@ export function LevelingGuide(props: any): any {
   return (
     <div className="container">
       <div className="flex flex-row flex-nowrap px-5 py-2 space-x-2">
-
         <select
           className="lvlg-map-feature min-w-min"
           value={curAct.actid}

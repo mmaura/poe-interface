@@ -1,8 +1,17 @@
-import { app, Tray, shell, Menu, BrowserWindow } from "electron";
+import {
+  app,
+  Tray,
+  shell,
+  Menu,
+  BrowserWindow,
+  MenuItem,
+  Notification,
+} from "electron";
 import * as LevelingGuideWindow from "./LevelingWindow";
 import { ConfigWindow } from "./ConfigWindow";
 
 import PathOfExileLog from "poe-log-monitor";
+import Store from "electron-store";
 
 let levelingGuideWindow: BrowserWindow;
 let configWindow: ConfigWindow;
@@ -10,54 +19,64 @@ let configWindow: ConfigWindow;
 let AppTray: Tray;
 let PoeLog: PathOfExileLog;
 
+const schema = {
+  poe_log_path: {
+    type: "string",
+    default:
+      "C:/Program Files (x86)/Grinding Gear Games/Path of Exile/logs/Client.txt",
+  },
+} as const;
+
+const AppStore = new Store({ schema: schema });
+
 app.whenReady().then(() => {
   AppTray = new Tray("resources/images/ExaltedOrb.png");
   AppTray.setToolTip("POE Interface");
   AppTray.setContextMenu(TrayMenu);
 
-  configWindow = new ConfigWindow();
+  AppStore.onDidChange("poe_log_path", (newValue, oldValue) => {
+    PoeLog = null;
 
-  if (configWindow.getPoeLogPath() === "") configWindow.show();
+    PoeLog = new PathOfExileLog({
+      logfile: newValue,
+      interval: 500,
+    });
 
-  //   // let poe_log_path = AppStore.get("poe_log_path", "") as string;
-  // //let poe_log_path = configWindow.getAppStore().get("poe_log_path", "") as string
-  // console.log(poe_log_path);
-  // if (!fs.existsSync(poe_log_path)) {
-  //   dialog
-  //     .showOpenDialog({
-  //       filters: [{ name: "poe log file", extensions: ["txt", "log"] }],
-  //       title: "Please choose PathOfExile log file",
-  //       properties: ["openFile", "showHiddenFiles"],
-  //       defaultPath:
-  //         "C:/Program Files (x86)/Grinding Gear Games/Path of Exile/logs/",
-  //     })
-  //     .then((result) => {
-  //       // console.log(result.canceled)
-  //       // console.log(result.filePaths)
-  //       if (result.canceled === false) {
-  //         poe_log_path = result.filePaths[0];
-  //         AppStore.set("poe_log_path", poe_log_path);
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }
-
-  console.log("**** MAIN APP ****")
-  console.log(configWindow.getPoeLogPath())
-
-  PoeLog = new PathOfExileLog({
-    logfile: configWindow.getPoeLogPath(),
-    interval: 500,
+    PoeLog.start();
+    PoeLog.parseLog();
   });
 
-  levelingGuideWindow = LevelingGuideWindow.create(PoeLog);
+  configWindow = new ConfigWindow(AppStore);
 
-  PoeLog.start();
-  PoeLog.parseLog();
+  if (configWindow.getPoeLogPath() === "") {
+    configWindow.show();
+  } else {
+    PoeLog = new PathOfExileLog({
+      logfile: configWindow.getPoeLogPath(),
+      interval: 500,
+    });
 
+    PoeLog.start();
+    PoeLog.parseLog();
+  }
 
+  console.log("**** MAIN APP ****");
+  console.log(configWindow.getPoeLogPath());
+
+  PoeLog.on("parsingComplete", (data) => {
+    TrayMenu.getMenuItemById("levelingID").enabled = true;
+    TrayMenu.getMenuItemById("levelingID").toolTip = "";
+    AppTray.setContextMenu(TrayMenu);
+
+    new Notification({
+      title: "poe-interface",
+      body: "Fichier Log de Path Of Exile chargé.",
+      timeoutType: "default",
+      urgency: "low",
+      icon: "resources/images/ExaltedOrb.png"
+
+    }).show();
+  });
   //const AppTray = AppTrayM.create(AppMainWindow);
 
   // pour servir les images pour le renderer
@@ -73,15 +92,20 @@ if (require("electron-squirrel-startup")) {
   // eslint-disable-line global-require
   app.quit();
 }
+app.on("before-quit", (e) => {
+  configWindow.setCanClose(true);
+  configWindow.close();
+  //levelingGuideWindow.setClose(true)
+});
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
-app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
-    app.quit();
-  }
-});
+// app.on("window-all-closed", () => {
+//   if (process.platform !== "darwin") {
+//     app.quit();
+//   }
+// });
 
 // app.on('activate', () => {
 //   // On OS X it's common to re-create a window in the app when the
@@ -101,12 +125,20 @@ const TrayMenu: Menu = Menu.buildFromTemplate([
     },
   },
   {
+    id: "levelingID",
     label: "Leveling",
     click: () => {
-      if (levelingGuideWindow === undefined)
+      if (levelingGuideWindow) levelingGuideWindow.show();
+      else {
         levelingGuideWindow = LevelingGuideWindow.create(PoeLog);
-      else levelingGuideWindow.show();
+        levelingGuideWindow.show();
+      }
     },
+    enabled: false,
+    toolTip: "Configure Client.txt via Configuration first.",
+  },
+  {
+    type: "separator",
   },
   {
     label: "site PathOfExile",
@@ -115,7 +147,6 @@ const TrayMenu: Menu = Menu.buildFromTemplate([
     },
   },
   {
-    label: "-",
     type: "separator",
   },
   {

@@ -1,6 +1,6 @@
 import { ipcRenderer, contextBridge, shell } from "electron";
 
-contextBridge.exposeInMainWorld("myAPI", {
+contextBridge.exposeInMainWorld("levelingAPI", {
   hello: () => {
     ipcRenderer.send("hello", "toto");
   },

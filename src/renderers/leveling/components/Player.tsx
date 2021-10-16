@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-export default function Player(props: any): any {
-  console.log("inPlayer");
-  console.log(props);
-
+export default function Player(props: { curPlayer: IAppPlayer }): JSX.Element {
   const player = props.curPlayer;
 
   return (
@@ -11,7 +8,13 @@ export default function Player(props: any): any {
       {player ? (
         <>
           <div className="absolute">
-            <div className={`${player.characterClass.toLowerCase()}`}></div>
+            <div
+              className={`${
+                player.characterAscendancy
+                  ? player.characterAscendancy.toLowerCase()
+                  : player.characterClass.toLowerCase()
+              }`}
+            ></div>
             <div className="inventory-text top-inventory-line1">
               {player.name}
             </div>

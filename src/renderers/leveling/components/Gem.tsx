@@ -9,21 +9,19 @@ export function ZoneGem(props: {
   curAct: IAppAct;
 }): JSX.Element {
   const initialGems = props.initialGems;
-  //const curGems = props.s;
   const curPlayer = props.curPlayer;
   const curAct = props.curAct;
 
-  console.log("ZoneGem");
-  //console.log(props.curGears.gems2buy);
   if (props.curGears != undefined) {
     if (props.curGears.gems2buy != undefined) {
       return (
         <div>
           <h2>Liste des courses</h2>
-          {props.curGears.gems2buy.map((e) => {
+          {props.curGears.gems2buy.map((e, index) => {
             const _gem = findGem(initialGems, e);
             return (
               <Gem
+                key={_gem.name + index}
                 initialGem={initialGems}
                 curPlayer={curPlayer}
                 curAct={curAct}
@@ -48,11 +46,6 @@ export function Gem(props: {
   const curPlayer = props.curPlayer;
   const curAct = props.curAct;
 
-  /**   if no character selected or if allclasses checked
-   *    then show for all classes
-   */
-  //       if (curPlayer.characterClass === "")
-
   const [showAllActs, setshowAllActs] = useState(false);
   const [showAllClasses, setshowAllClasses] = useState(false);
 
@@ -63,36 +56,33 @@ export function Gem(props: {
     );
   });
 
-  console.log("*** In Gem ***");
-  console.log(curGem);
-  console.log(curPlayer.characterClass);
-  console.log(curBuy);
-
   function gemClick(
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
     gemName: string
   ) {
     e.preventDefault();
-    window.myAPI.openExternal("https://www.poewiki.net/wiki/" + gemName);
+    window.levelingAPI.openExternal("https://www.poewiki.net/wiki/" + gemName);
   }
 
   if (curGem) {
     return (
-      <div className="grid grid-cols-10 gap-2 items-center">
-        <img
-          className="w-socket h-socket"
-          src={"resources/images/gems/" + curGem.name + ".png"}
-        />
-        <a
-          className="col-span-3"
-          href="#"
-          onClick={(e) => {
-            gemClick(e, curGem.name);
-          }}
-        >
-          {curGem.name}
-        </a>
-        <div className="col-span-6 flex flex-col">
+      <div className="grid grid-cols-12 gap-1 items-center">
+        <div className="col-span-5 flex flex-row">
+          <img
+            className="w-socket h-socket"
+            src={"resources/images/gems/" + curGem.name + ".png"}
+          />
+          <a
+            className=""
+            href="#"
+            onClick={(e) => {
+              gemClick(e, curGem.name);
+            }}
+          >
+            {curGem.name}
+          </a>
+        </div>
+        <div className="col-span-7 flex flex-col">
           {curBuy.length > 1 ? (
             curBuy.map((_buy, index) => {
               return (
@@ -100,7 +90,10 @@ export function Gem(props: {
                   <span className="text-poe-3">{_buy.npc}</span>&nbsp;
                   <span className="text-poe-50">{_buy.quest_name}</span>&nbsp;
                   <span className="text-poe-3">{_buy.town}</span>
-                  <span className="text-poe-50">Classes: {_buy.available_to}</span>&nbsp;
+                  <span className="text-poe-50">
+                    Classes: {_buy.available_to}
+                  </span>
+                  &nbsp;
                   <span className="text-poe-50">Act: {_buy.act}</span>&nbsp;
                 </p>
               );

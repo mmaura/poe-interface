@@ -1,4 +1,4 @@
-export interface myAPI {
+export interface levelingAPI {
   hello: () => Promise<void>;
   getInitData: () => Promise<any>;
   send: (channel: string, ...arg: any) => void;
@@ -80,7 +80,7 @@ declare global {
   }
 
   interface Window {
-    myAPI: myAPI;
+    levelingAPI: levelingAPI;
   }
 
   interface IBuy {

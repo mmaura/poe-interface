@@ -16,7 +16,7 @@ export function getCurZone(act: IAppAct, zoneid: string): IAppZone {
   // console.log(act);
   if (zoneid !== "") {
     curzone = act.zones.find((e) => {
-      console.log("find curzone : " + e.name + "===" + zoneid);
+      // console.log("find curzone : " + e.name + "===" + zoneid);
       return e.name === zoneid;
     });
   }
@@ -45,8 +45,8 @@ export function getZoneGear(
 }
 
 export function findGem(gemsData: IAppGems[], name: string): IAppGems {
-  console.log("Find Gem");
-  console.log(name);
+  // console.log("Find Gem");
+  // console.log(name);
   return gemsData.find((e) => {
     return e.name === name;
   });
@@ -58,9 +58,9 @@ export function getCharacterClass(
 ): string {
   const _character = DefaultClassData.find((e) => {
     if (e.classe === characterClass || e.ascendancy.includes(characterClass))
-    console.log("e.classe = " + e.classe)
-    console.log("e.ascen.. = " + e.ascendancy.includes(characterClass))
-    console.log("characterClass = " + characterClass)
+    // console.log("e.classe = " + e.classe)
+    // console.log("e.ascen.. = " + e.ascendancy.includes(characterClass))
+    // console.log("characterClass = " + characterClass)
       return true;
   });
   return _character.classe;

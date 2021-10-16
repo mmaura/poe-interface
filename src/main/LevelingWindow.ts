@@ -18,6 +18,8 @@ export function create(poeLog: PathOfExileLog): BrowserWindow {
     gems: InitialGems,
   } as IInitialData;
 
+  console.log("create leveling windows");
+
   let LogLoaded = false;
   let MyConn = <plm_conn>{ latency: "na", server: "non connecté" };
 
@@ -30,7 +32,7 @@ export function create(poeLog: PathOfExileLog): BrowserWindow {
     currentZoneAct: 1,
   };
 
-  const LevelingGuideWindow = new BrowserWindow({
+  let LevelingGuideWindow = new BrowserWindow({
     width: 1080,
     height: 1200,
     icon: "resources/images/ExaltedOrb.png",
@@ -44,9 +46,13 @@ export function create(poeLog: PathOfExileLog): BrowserWindow {
     },
   });
 
+  LevelingGuideWindow.setMenu(null)
   LevelingGuideWindow.loadURL(LEVELING_WINDOW_WEBPACK_ENTRY);
   LevelingGuideWindow.webContents.openDevTools();
 
+  /**********************************
+   * IPC
+   */
   ipcMain.handle("levelingWindow", (event, arg) => {
     let response: any = { status: "bad request" };
 
@@ -61,6 +67,13 @@ export function create(poeLog: PathOfExileLog): BrowserWindow {
     return response;
   });
 
+  LevelingGuideWindow.on("closed", () => {
+    LevelingGuideWindow = null;
+  });
+
+  /**********************************
+   * Poe Log Events
+   */
   poeLog.on("parsingComplete", (data) => {
     LogLoaded = true;
   });
