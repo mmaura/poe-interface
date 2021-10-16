@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Gem } from "../components/Gem";
+import { Gem } from "./Gem";
 
-import { findGem } from "../../modules/utils";
+import { findGem } from "../../../modules/utils";
 
 export function ZoneGears(props: { curGears: IAppGear }): any {
   const curGears = props.curGears;

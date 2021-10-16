@@ -17,7 +17,7 @@
     "email": "mmaura@amc-i.fr",
     "license": "GPL-2.0"
   },
-  "license": "MIT",
+  "license": "GPL-2.0",
   "config": {
     "forge": {
       "packagerConfig": {},
@@ -52,13 +52,22 @@
               "config": "./webpack.renderer.config.js",
               "entryPoints": [
                 {
-                  "html": "./src/renderers/main_window.html",
-                  "js": "./src/renderers/main_window.tsx",
-                  "name": "main_window",
+                  "name": "leveling_window",
+                  "html": "./src/renderers/leveling/index.html",
+                  "js": "./src/renderers//leveling/window.tsx",
                   "preload": {
-                    "js": "./src/renderers/main_window_preload.ts"
+                    "js": "./src/renderers//leveling/preload.ts"
+                  }
+                },
+                {
+                  "name": "config_window",
+                  "html": "./src/renderers/config/index.html",
+                  "js": "./src/renderers/config/window.tsx",
+                  "preload": {
+                    "js": "./src/renderers/config/preload.ts"
                   }
                 }
+
               ]
             }
           }

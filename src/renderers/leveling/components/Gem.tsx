@@ -1,5 +1,5 @@
 import React, { useState, useEffect, MouseEventHandler } from "react";
-import { findGem } from "../../modules/utils";
+import { findGem } from "../../../modules/utils";
 //import { findGem } from "../modules/utils";
 
 export function ZoneGem(props: {

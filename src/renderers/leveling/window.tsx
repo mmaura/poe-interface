@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import * as ReactDOM from "react-dom";
 
-import "./main_window.css";
+import "../index.css";
+import "./index.css";
 
 import Player from "./components/Player";
 import {
@@ -11,9 +12,9 @@ import {
   ZoneMap,
 } from "./components/LevelingGuide";
 import { ZoneGears } from "./components/Gears";
-import { Gem, ZoneGem } from "./components/Gem";
+import { ZoneGem } from "./components/Gem";
 
-import { getCurAct, getCurZone, getZoneGear, findGem } from "../modules/utils";
+import { getCurAct, getCurZone, getZoneGear } from "../../modules/utils";
 
 function App(props: { AppData: IReactAppInit }) {
   console.log(props.AppData);

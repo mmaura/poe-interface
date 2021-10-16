@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import ReactTooltip from "react-tooltip";
 
 export function LevelingGuide(props: any): any {
@@ -8,23 +8,17 @@ export function LevelingGuide(props: any): any {
   const curPlayer = props.curPlayer as IAppPlayer;
 
   function handleActChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    // console.log("onchange act")
-    // setcurActID(Number(e.target.value));
     props.onActChange(e);
   }
 
   function handleZoneChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    //setcurZoneID(e.target.value);
     props.onZoneChange(e);
   }
 
   return (
     <div className="container">
       <div className="flex flex-row flex-nowrap px-5 py-2 space-x-2">
-        {/* <div className="h-10 w-10 shadow-lg rounded-md border-2 p-1"> - </div>
-            <div className="h-10 w-10 shadow-lg rounded-md border-2 p-1"> + </div> */}
 
-        {/* <label> Acte </label> */}
         <select
           className="lvlg-map-feature min-w-min"
           value={curAct.actid}
@@ -39,7 +33,6 @@ export function LevelingGuide(props: any): any {
           })}
         </select>
 
-        {/* <label> Zone</label> */}
         <select
           className="lvlg-map-feature flex-grow"
           value={curZone.name}
@@ -127,7 +120,7 @@ export function ZoneNotes(props: any): any {
   return (
     <div className="container flex flex-col min-h-200px">
       <h2>Notes</h2>
-      <p>{curZone.note}</p>
+      <p className="text-xl">{curZone.note}</p>
     </div>
   );
 }

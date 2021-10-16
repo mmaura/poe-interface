@@ -1,0 +1,82 @@
+{
+    "gears": [
+        {
+            "zones": [
+                {
+                    "actid": 1,
+                    "zonename": "The Twilight Strand"
+                },
+                {
+                    "actid": 1,
+                    "zonename": "The Coast"
+                }
+            ],
+            "note": "Recherchez les équipements avec les sockets XX suivantes.",
+            "gears": [
+                [
+                    {
+                        "type": "socket",
+                        "color": "b"
+                    },
+                    {
+                        "type": "socket",
+                        "color": "r"
+                    },
+                    {
+                        "type": "socket",
+                        "color": "g"
+                    }
+                ],
+                [
+                    {
+                        "type": "socket",
+                        "color": "b"
+                    },
+                    {
+                        "type": "socket",
+                        "color": "r"
+                    },
+                    {
+                        "type": "socket",
+                        "color": "w"
+                    },
+                    {
+                        "type": "socket",
+                        "color": "g"
+                    }
+                ],
+                [
+                    {
+                        "type": "socket",
+                        "color": "b"
+                    },
+                    {
+                        "type": "socket",
+                        "color": "r"
+                    },
+                    {
+                        "type": "socket",
+                        "color": "w"
+                    },
+                    {
+                        "type": "socket",
+                        "color": "w"
+                    },
+                    {
+                        "type": "socket",
+                        "color": "w"
+                    },
+                    {
+                        "type": "gem",
+                        "gem": "Blood and Sand"
+                    }
+                ]
+            ],
+            "gems2buy": [
+                "Fireball",
+                "Added Chaos Damage",
+                "Added Cold Damage"
+            ]
+        }
+    ]
+}
