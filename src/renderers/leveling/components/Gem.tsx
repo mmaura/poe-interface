@@ -3,12 +3,10 @@ import { findGem } from "../../modules/functions";
 //import { findGem } from "../modules/utils";
 
 export function ZoneGem(props: {
-  initialGems: IAppGems[];
-  curGears: IAppGear;
+  curGears: IGuideGear;
   curPlayer: IAppPlayer;
-  curAct: IAppAct;
+  curAct: IActs;
 }): JSX.Element {
-  const initialGems = props.initialGems;
   const curPlayer = props.curPlayer;
   const curAct = props.curAct;
 
@@ -17,12 +15,11 @@ export function ZoneGem(props: {
       return (
         <div>
           <h2>Liste des courses</h2>
-          {props.curGears.gems2buy.map((e, index) => {
-            const _gem = findGem(initialGems, e);
+          {props.curGears.gems2buy.map((gemName, index) => {
+            const _gem = findGem(gemName);
             return (
               <Gem
                 key={_gem.name + index}
-                initialGem={initialGems}
                 curPlayer={curPlayer}
                 curAct={curAct}
                 gem={_gem}
@@ -37,10 +34,9 @@ export function ZoneGem(props: {
 }
 
 export function Gem(props: {
-  initialGem: IAppGems[];
   curPlayer: IAppPlayer;
-  curAct: IAppAct;
-  gem: IAppGems;
+  curAct: IActs;
+  gem: IGems;
 }): JSX.Element {
   const curGem = props.gem;
   const curPlayer = props.curPlayer;

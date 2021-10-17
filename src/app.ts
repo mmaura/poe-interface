@@ -15,7 +15,7 @@ import path from "path"
 import * as LevelingGuideWindow from "./main/LevelingWindow";
 import { ConfigWindow } from "./main/ConfigWindow";
 
-import { getAssetPath } from "./modules/utils";
+import { getAssetPath } from "./modules/functions";
 
 let levelingGuideWindow: BrowserWindow;
 let configWindow: ConfigWindow;

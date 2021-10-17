@@ -1,8 +1,10 @@
 import React from "react";
 import ReactTooltip from "react-tooltip";
 
+import { GetAllActs } from "../../modules/functions";
+
 export function LevelingGuide(props: any): JSX.Element {
-  const initActs: IAppAct[] = props.acts;
+  // const initActs: IAppAct[] = props.acts;
   const curZone: IAppZone = props.curZone;
   const curAct: IAppAct = props.curAct;
   const curPlayer = props.curPlayer as IAppPlayer;
@@ -23,7 +25,7 @@ export function LevelingGuide(props: any): JSX.Element {
           value={curAct.actid}
           onChange={handleActChange}
         >
-          {initActs.map(function (act: IAppAct) {
+          {GetAllActs().map(function (act: IAppAct) {
             return (
               <option key={act.actid} value={act.actid}>
                 {act.act}

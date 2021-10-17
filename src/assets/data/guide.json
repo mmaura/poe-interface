@@ -16,55 +16,55 @@
         [
           {
             "type": "socket",
-            "color": "b"
+            "color": "blue"
           },
           {
             "type": "socket",
-            "color": "r"
+            "color": "red"
           },
           {
             "type": "socket",
-            "color": "g"
+            "color": "green"
           }
         ],
         [
           {
             "type": "socket",
-            "color": "b"
+            "color": "blue"
           },
           {
             "type": "socket",
-            "color": "r"
+            "color": "red"
           },
           {
             "type": "socket",
-            "color": "w"
+            "color": "white"
           },
           {
             "type": "socket",
-            "color": "g"
+            "color": "green"
           }
         ],
         [
           {
             "type": "socket",
-            "color": "b"
+            "color": "blue"
           },
           {
             "type": "socket",
-            "color": "r"
+            "color": "red"
           },
           {
             "type": "socket",
-            "color": "w"
+            "color": "white"
           },
           {
             "type": "socket",
-            "color": "w"
+            "color": "white"
           },
           {
             "type": "socket",
-            "color": "w"
+            "color": "white"
           },
           {
             "type": "gem",

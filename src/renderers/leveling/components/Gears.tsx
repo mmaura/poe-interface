@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Gem } from "./Gem";
 
-// import { findGem } from "../../modules/functions";
-
-export function ZoneGears(props: { curGears: IAppGear }): JSX.Element {
+export function ZoneGears(props: { curGears: IGuideGear }): JSX.Element {
   const curGears = props.curGears;
-
-  // console.log("in Gears");
-  // console.log(curGears);
 
   if (props.curGears != undefined) {
     return (
@@ -31,7 +26,7 @@ export function ZoneGears(props: { curGears: IAppGear }): JSX.Element {
   }
 }
 
-function Gear(props: { gears: IGear[] }): any {
+function Gear(props: { gears: IGearGear[] }): any {
   const gears = props.gears;
 
   return (

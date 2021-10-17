@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Player(props: { curPlayer: IAppPlayer }): JSX.Element {
   const player = props.curPlayer;
-
+  console.log( player.characterAscendancy)
   return (
     <div className="inventory">
       {player ? (

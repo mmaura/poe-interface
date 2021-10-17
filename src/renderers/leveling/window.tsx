@@ -19,11 +19,11 @@ import { getCurAct, getCurZone, getZoneGear } from "../modules/functions";
 function App(props: { AppData: IReactAppInit }) {
   // console.log(props.AppData);
 
-  const initialActs = props.AppData.InitialData.acts as IAppAct[];
+  //const initialActs = props.AppData.InitialData.acts as IAppAct[];
   // const initialClasses = props.AppData.InitialData.classes as IAppClasses[];
-  const initialGems = props.AppData.InitialData.gems as IAppGems[];
+  //const initialGems = props.AppData.InitialData.gems as IAppGems[];
 
-  const defaultGuide = props.AppData.DefaultGuide.gears as IAppGear[];
+  //const defaultGuide = props.AppData.DefaultGuide.gears as IAppGear[];
 
   //console.log(props)
 
@@ -32,13 +32,13 @@ function App(props: { AppData: IReactAppInit }) {
   );
 
   const [curAct, setcurAct] = useState(() => {
-    return getCurAct(initialActs, 1);
+    return getCurAct(1);
   });
   const [curZone, setcurZone] = useState(() => {
-    return getCurZone(curAct, "");
+    return getCurZone(curAct.actid, "");
   });
   const [curGear, setcurGear] = useState(() => {
-    return getZoneGear(defaultGuide, 1, curZone.name);
+    return getZoneGear(1, curZone.name);
   });
 
   /*********************************
@@ -46,12 +46,12 @@ function App(props: { AppData: IReactAppInit }) {
    */
   function onActChange(e: React.ChangeEvent<HTMLSelectElement>) {
     // console.log("APP: onActChange");
-    setcurAct(getCurAct(initialActs, Number(e.target.value)));
+    setcurAct(getCurAct( Number(e.target.value)));
   }
 
   function onZoneChange(e: React.ChangeEvent<HTMLSelectElement>) {
     // console.log("APP: onActChange");
-    setcurZone(getCurZone(curAct, e.target.value));
+    setcurZone(getCurZone(curAct.actid, e.target.value));
   }
 
   /**********************************
@@ -63,7 +63,7 @@ function App(props: { AppData: IReactAppInit }) {
     // console.log(curZone);
     // console.log(curAct);
 
-    setcurZone(getCurZone(curAct, ""));
+    setcurZone(getCurZone(curAct.actid, ""));
 
     return () => {
       ("");
@@ -73,7 +73,7 @@ function App(props: { AppData: IReactAppInit }) {
   useEffect(() => {
     // console.log("APP: useEffect(curZone)");
 
-    setcurGear(getZoneGear(defaultGuide, curAct.actid, curZone.name));
+    setcurGear(getZoneGear(curAct.actid, curZone.name));
 
     return () => {
       ("");
@@ -93,9 +93,9 @@ function App(props: { AppData: IReactAppInit }) {
     // console.log("received playerArea");
     // console.log(arg);
 
-    const _curAct = getCurAct(initialActs, arg.currentZoneAct);
+    const _curAct = getCurAct(arg.currentZoneAct);
     setcurAct(_curAct);
-    setcurZone(getCurZone(_curAct, arg.currentZoneName));
+    setcurZone(getCurZone(_curAct.actid, arg.currentZoneName));
   });
 
   return (
@@ -107,7 +107,7 @@ function App(props: { AppData: IReactAppInit }) {
         </div>
         <div className="flex-grow">
           <LevelingGuide
-            acts={initialActs}
+            //acts={initialActs}
             onActChange={onActChange}
             onZoneChange={onZoneChange}
             curAct={curAct}
@@ -132,7 +132,7 @@ function App(props: { AppData: IReactAppInit }) {
         </div>
         <div className="container col-span-3">
           <ZoneGem
-            initialGems={initialGems}
+            //initialGems={initialGems}
             curGears={curGear}
             curPlayer={curPlayer}
             curAct={curAct}

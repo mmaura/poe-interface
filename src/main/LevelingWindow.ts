@@ -6,11 +6,10 @@ import PathOfExileLog from "poe-log-monitor";
 //import { getCharacterClass } from "../modules/utils";
 import { getCharacterClass } from "../renderers/modules/functions";
 
-import InitialAct from '../assets/data/acts.json';
-import InitialClasses from "../assets/data/classes.json";
-import DefaultGuide from "../assets/data/guide.json";
-import InitialGems from "../assets/data/gems.json";
-
+// import InitialAct from '../assets/data/acts.json';
+// import InitialClasses from "../assets/data/classes.json";
+// import DefaultGuide from "../assets/data/guide.json";
+// import InitialGems from "../assets/data/gems.json";
 
 declare const LEVELING_WINDOW_WEBPACK_ENTRY: string;
 declare const LEVELING_WINDOW_PRELOAD_WEBPACK_ENTRY: never;
@@ -18,16 +17,19 @@ declare const LEVELING_WINDOW_PRELOAD_WEBPACK_ENTRY: never;
 //declare const ASSETS_PATH: string
 //console.log("leveling %s",ASSETS_PATH)
 
-export function create(poeLog: PathOfExileLog, AppIcon: NativeImage): BrowserWindow {
-  const InitialData = {
-    acts: InitialAct,
-    classes: InitialClasses,
-    gems: InitialGems,
-  } as IInitialData;
+export function create(
+  poeLog: PathOfExileLog,
+  AppIcon: NativeImage
+): BrowserWindow {
+  // const InitialData = {
+  //   acts: InitialAct,
+  //   classes: InitialClasses,
+  //   gems: InitialGems,
+  // } as IInitialData;
 
   console.log("create leveling windows");
 
-  getCharacterClass
+  getCharacterClass;
   let LogLoaded = false;
   let MyConn = <plm_conn>{ latency: "na", server: "non connecté" };
 
@@ -54,7 +56,7 @@ export function create(poeLog: PathOfExileLog, AppIcon: NativeImage): BrowserWin
     },
   });
 
-  LevelingGuideWindow.setMenu(null)
+  LevelingGuideWindow.setMenu(null);
   LevelingGuideWindow.loadURL(LEVELING_WINDOW_WEBPACK_ENTRY);
   LevelingGuideWindow.webContents.openDevTools();
 
@@ -68,8 +70,8 @@ export function create(poeLog: PathOfExileLog, AppIcon: NativeImage): BrowserWin
       response = {
         MyPlayer: MyPlayer,
         MyConn: MyConn,
-        InitialData: InitialData,
-        DefaultGuide: DefaultGuide,
+        // InitialData: InitialData,
+        // DefaultGuide: DefaultGuide,
       } as IReactAppInit;
     }
     return response;
@@ -94,10 +96,7 @@ export function create(poeLog: PathOfExileLog, AppIcon: NativeImage): BrowserWin
 
   poeLog.on("level", (data) => {
     MyPlayer.name = data.name;
-    MyPlayer.characterClass = getCharacterClass(
-      InitialData.classes,
-      data.characterClass
-    );
+    MyPlayer.characterClass = getCharacterClass(data.characterClass);
     MyPlayer.characterAscendancy = data.characterClass;
     MyPlayer.level = data.level;
 

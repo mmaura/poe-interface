@@ -41,3 +41,7 @@ declare module "poe-log-monitor" {
 declare module "*.png"{
   export default "" as string;
 }
+
+
+
+

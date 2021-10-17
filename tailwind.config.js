@@ -34,16 +34,46 @@ module.exports = {
     extend: {
       backgroundImage: {
         'inventory': "url('/src/assets/images/inventory-sprite.png')",
-        'footer-texture': "url('/src/assets/images/inventory-sprite.png')",
-//        'breadcrumb': "url('/resources/images/breadcrumb-background.png')",
+        // 'footer-texture': "url('/src/assets/images/inventory-sprite.png')",
         'socket': "url('/src/assets/images/socket.png')",
       },
       backgroundPosition: {
+        'ascendant': '0px -180px',
+        'deadeye': '0px -260px',
+        'gladiator': '0px -340px',
+        'pathfinder': '0px -420px',
+
+        'assassin': '-110px -180px',
+        'duelist': '-110px -260px',
         'guardian': '-110px -340px',
-        'r': '-105px -35px',
-        'g': '-105px 0px',
-        'b': '-35px -70px',
-        'w': '-105px -70px',
+        'raider': '-110px -420px',
+
+        'elementalist': '-220px -260px',
+        'hierophant': '-220px -340px',
+        'ranger': '-220px -420px',
+
+        'berserker': '-328px 0px',
+        'champion': '-328px -80px',
+        'chieftain': '-328px -160px',
+        'saboteur': '-328px -420px',
+
+        'inquisitor': '-438px 0px',
+        'juggernaut': '-438px -80px',
+        'marauder': '-438px -160px',
+        'necromancer': '-438px -240px',
+        'occultist': '-438px -320px',
+
+        'scion': '-548px 0px',
+        'shadow': '-548px -80px',
+        'slayer': '-548px -160px',
+        'templar': '-548px -240px',
+        'trickster': '-548px -320px',
+        'witch': '-548px -400px',
+
+        'skred': '-105px -35px',
+        'skgreen': '-105px 0px',
+        'skblue': '-35px -70px',
+        'skwhite': '-105px -70px',
       },  
       width: {
         'avatar': '110px;',
