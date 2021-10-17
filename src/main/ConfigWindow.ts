@@ -1,4 +1,4 @@
-import { BrowserWindow, dialog, ipcMain } from "electron";
+import { BrowserWindow, dialog, ipcMain, NativeImage, nativeImage } from "electron";
 import Store from "electron-store";
 import fs from "fs";
 
@@ -12,11 +12,11 @@ export class ConfigWindow {
   private _CanClose = false;
   private _AppStore: Store;
 
-  constructor(appStore: any) {
+  constructor(appStore: any, AppIcon: NativeImage) {
     this._Window = new BrowserWindow({
       width: 1080,
       height: 1200,
-      icon: "resources/images/ExaltedOrb.png",
+      icon: AppIcon,
       title: "Configuration",
       show: false,
       webPreferences: {

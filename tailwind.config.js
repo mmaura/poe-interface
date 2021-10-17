@@ -33,10 +33,10 @@ module.exports = {
     },
     extend: {
       backgroundImage: {
-        'inventory': "url('/resources/images/inventory-sprite.png')",
-        'footer-texture': "url('/resources/images/inventory-sprite.png')",
-        'breadcrumb': "url('/resources/images/breadcrumb-background.png')",
-        'socket': "url('/resources/images/socket.png')",
+        'inventory': "url('/src/assets/images/inventory-sprite.png')",
+        'footer-texture': "url('/src/assets/images/inventory-sprite.png')",
+//        'breadcrumb': "url('/resources/images/breadcrumb-background.png')",
+        'socket': "url('/src/assets/images/socket.png')",
       },
       backgroundPosition: {
         'guardian': '-110px -340px',

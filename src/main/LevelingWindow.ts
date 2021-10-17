@@ -1,17 +1,24 @@
-import { BrowserWindow, ipcMain } from "electron";
+import { BrowserWindow, ipcMain, NativeImage } from "electron";
 import PathOfExileLog from "poe-log-monitor";
 
-import { getCharacterClass } from "../modules/utils";
+// import { getCharacterClass } from "../renderer/lib/functions";
+//import { getCharacterClass } from "../renderers/lib/functions";
+//import { getCharacterClass } from "../modules/utils";
+import { getCharacterClass } from "../renderers/modules/functions";
 
-import InitialAct from "../../resources/data/acts.json";
-import InitialClasses from "../../resources/data/classes.json";
-import DefaultGuide from "../../resources/data/guide.json";
-import InitialGems from "../../resources/data/gems.json";
+import InitialAct from '../assets/data/acts.json';
+import InitialClasses from "../assets/data/classes.json";
+import DefaultGuide from "../assets/data/guide.json";
+import InitialGems from "../assets/data/gems.json";
+
 
 declare const LEVELING_WINDOW_WEBPACK_ENTRY: string;
 declare const LEVELING_WINDOW_PRELOAD_WEBPACK_ENTRY: never;
 
-export function create(poeLog: PathOfExileLog): BrowserWindow {
+//declare const ASSETS_PATH: string
+//console.log("leveling %s",ASSETS_PATH)
+
+export function create(poeLog: PathOfExileLog, AppIcon: NativeImage): BrowserWindow {
   const InitialData = {
     acts: InitialAct,
     classes: InitialClasses,
@@ -20,6 +27,7 @@ export function create(poeLog: PathOfExileLog): BrowserWindow {
 
   console.log("create leveling windows");
 
+  getCharacterClass
   let LogLoaded = false;
   let MyConn = <plm_conn>{ latency: "na", server: "non connecté" };
 
@@ -35,7 +43,7 @@ export function create(poeLog: PathOfExileLog): BrowserWindow {
   let LevelingGuideWindow = new BrowserWindow({
     width: 1080,
     height: 1200,
-    icon: "resources/images/ExaltedOrb.png",
+    icon: AppIcon,
     title: "POE Interface",
     show: false,
     webPreferences: {

@@ -14,7 +14,7 @@ import {
 import { ZoneGears } from "./components/Gears";
 import { ZoneGem } from "./components/Gem";
 
-import { getCurAct, getCurZone, getZoneGear } from "../../modules/utils";
+import { getCurAct, getCurZone, getZoneGear } from "../modules/functions";
 
 function App(props: { AppData: IReactAppInit }) {
   // console.log(props.AppData);

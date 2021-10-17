@@ -2,13 +2,46 @@
 Companion to POE
 ![alt](https://raw.githubusercontent.com/mmaura/poe-interface/main/docs/screen_1.png)
 
-## Developement
+## Building
+### Developement
 ```sh
 git clone
 yarn 
 yarn start
 ```
+### Make package directory
+```sh
+yarn package --platform linux --arch x64
+#or
+yarn package --platform darwin --arch x64
+#or 
+yarn package --platform win32 --arch x64
+```
+The file are output to the **out** directory and can be run directly from.
+
+### Make package distribution
+#### Zip
+**Must Work for all os** but only tested on linux
+```sh
+yarn make --platform linux --arch x64 --targets @electron-forge/maker-zip
+#or
+yarn make --platform darwin --arch x64 --targets @electron-forge/maker-zip
+#or 
+yarn make --platform win32 --arch x64 --targets @electron-forge/maker-zip
+```
+#### Flatpak
+
+**not working at this time**
+
+```sh
+pacman -S flatpak-builder
+
+yarn make --platform linux --arch x64 --targets @electron-forge/maker-flatpak
+```
+
 ## Thanks to
+https://github.com/electron-userland/electron-forge/
+
 https://www.electronjs.org/
 
 https://reactjs.org/

@@ -4,14 +4,18 @@ import {
   shell,
   Menu,
   BrowserWindow,
-  MenuItem,
   Notification,
+  nativeImage,
+  session,
 } from "electron";
-import * as LevelingGuideWindow from "./LevelingWindow";
-import { ConfigWindow } from "./ConfigWindow";
 
 import PathOfExileLog from "poe-log-monitor";
 import Store from "electron-store";
+import path from "path"
+import * as LevelingGuideWindow from "./main/LevelingWindow";
+import { ConfigWindow } from "./main/ConfigWindow";
+
+import { getAssetPath } from "./modules/utils";
 
 let levelingGuideWindow: BrowserWindow;
 let configWindow: ConfigWindow;
@@ -29,8 +33,38 @@ const schema = {
 
 const AppStore = new Store({ schema: schema });
 
+const AssetPath = getAssetPath()
+const AppIcon = nativeImage.createFromPath(`${AssetPath}/AppIcon.png`);
+console.log("AssetPath : \t %s", AssetPath);
+console.log("icon: \t\t %s", `${AssetPath}/AppIcon.png`)
+console.log("__dirname: \t%s" ,__dirname);
+
 app.whenReady().then(() => {
-  AppTray = new Tray("resources/images/ExaltedOrb.png");
+  //console.log(AssetPath);
+  //console.log(__dirname);
+  
+  //const  _AppIcon_ = `${AssetPath}/AppIcon.png`;
+  
+  //const AppIcon = nativeImage.createFromPath("./resources/images/ExaltedOrb.png")
+  //console.log(_AppIcon_);
+  
+  // // pour servir les images pour le renderer
+  // session.defaultSession.protocol.registerFileProtocol(
+  //   "static",
+  //   (request, callback) => {
+  //     const fileUrl = request.url.replace("static://", "");
+  //     const filePath = path.join(
+  //       app.getAppPath(),
+  //       ".webpack/renderer/assets",
+  //       fileUrl
+  //     );
+  //     console.log(filePath)
+  //     callback(filePath);
+  //   }
+  // );
+
+  AppTray = new Tray(AppIcon);
+
   AppTray.setToolTip("POE Interface");
   AppTray.setContextMenu(TrayMenu);
 
@@ -44,9 +78,10 @@ app.whenReady().then(() => {
 
     PoeLog.start();
     PoeLog.parseLog();
+    PoeLog.on("parsingComplete", PoeLogParseComplete);
   });
 
-  configWindow = new ConfigWindow(AppStore);
+  configWindow = new ConfigWindow(AppStore, AppIcon);
 
   if (configWindow.getPoeLogPath() === "") {
     configWindow.show();
@@ -58,12 +93,15 @@ app.whenReady().then(() => {
 
     PoeLog.start();
     PoeLog.parseLog();
+    PoeLog.on("parsingComplete", PoeLogParseComplete);
+    levelingGuideWindow = LevelingGuideWindow.create(PoeLog, AppIcon);
+    levelingGuideWindow.show();
   }
 
   console.log("**** MAIN APP ****");
   console.log(configWindow.getPoeLogPath());
 
-  PoeLog.on("parsingComplete", (data) => {
+  function PoeLogParseComplete() {
     TrayMenu.getMenuItemById("levelingID").enabled = true;
     TrayMenu.getMenuItemById("levelingID").toolTip = "";
     AppTray.setContextMenu(TrayMenu);
@@ -73,18 +111,9 @@ app.whenReady().then(() => {
       body: "Fichier Log de Path Of Exile chargé.",
       timeoutType: "default",
       urgency: "low",
-      icon: "resources/images/ExaltedOrb.png"
-
+      icon: AppIcon,
     }).show();
-  });
-  //const AppTray = AppTrayM.create(AppMainWindow);
-
-  // pour servir les images pour le renderer
-  // session.defaultSession.protocol.registerFileProtocol('static', (request, callback) => {
-  //   const fileUrl = request.url.replace('static://', '');
-  //   const filePath = path.join(app.getAppPath(), '.webpack/renderer', fileUrl);
-  //   callback(filePath);
-  // });
+  }
 });
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -92,9 +121,12 @@ if (require("electron-squirrel-startup")) {
   // eslint-disable-line global-require
   app.quit();
 }
+
 app.on("before-quit", (e) => {
-  configWindow.setCanClose(true);
-  configWindow.close();
+  if (configWindow) {
+    configWindow.setCanClose(true);
+    configWindow.close();
+  }
   //levelingGuideWindow.setClose(true)
 });
 
@@ -130,7 +162,7 @@ const TrayMenu: Menu = Menu.buildFromTemplate([
     click: () => {
       if (levelingGuideWindow) levelingGuideWindow.show();
       else {
-        levelingGuideWindow = LevelingGuideWindow.create(PoeLog);
+        levelingGuideWindow = LevelingGuideWindow.create(PoeLog, AppIcon);
         levelingGuideWindow.show();
       }
     },

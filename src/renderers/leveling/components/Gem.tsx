@@ -1,5 +1,5 @@
 import React, { useState, useEffect, MouseEventHandler } from "react";
-import { findGem } from "../../../modules/utils";
+import { findGem } from "../../modules/functions";
 //import { findGem } from "../modules/utils";
 
 export function ZoneGem(props: {
@@ -70,7 +70,7 @@ export function Gem(props: {
         <div className="col-span-5 flex flex-row">
           <img
             className="w-socket h-socket"
-            src={"resources/images/gems/" + curGem.name + ".png"}
+            src={"../assets/images/gems/" + curGem.name + ".png"}
           />
           <a
             className=""

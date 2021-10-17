@@ -71,7 +71,7 @@ export function LevelingGuide(props: any): JSX.Element {
           {" "}
           <img
             className="w-full h-full"
-            src="resources/images/waypoint.png"
+            src="../assets/images/waypoint.png"
           />{" "}
         </div>
         <div
@@ -82,7 +82,7 @@ export function LevelingGuide(props: any): JSX.Element {
           {" "}
           <img
             className="w-full h-full"
-            src="resources/images/portal.png"
+            src="../assets/images/portal.png"
           />{" "}
         </div>
         <div
@@ -93,7 +93,7 @@ export function LevelingGuide(props: any): JSX.Element {
           {" "}
           <img
             className="w-full h-full"
-            src="resources/images/Offering_to_the_Goddess.png"
+            src="../assets/images/Offering_to_the_Goddess.png"
           />{" "}
         </div>
         <div
@@ -104,7 +104,7 @@ export function LevelingGuide(props: any): JSX.Element {
           {" "}
           <img
             className="w-full h-full"
-            src="resources/images/Book_of_Skill.png"
+            src="../assets/images/Book_of_Skill.png"
           />{" "}
         </div>
       </div>
@@ -137,7 +137,7 @@ export function ZoneMap(props: any) {
         <div className="flex flex-row flex-wrap">
           {curZone.image.map((val) => {
             const path =
-              "resources/images/zones/" + curAct.act + "/" + val + ".png";
+              "../assets/images/zones/" + curAct.act + "/" + val + ".png";
             return <img key={path} className="" src={path} />;
           })}
         </div>

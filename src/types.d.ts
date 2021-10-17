@@ -37,3 +37,7 @@ declare module "poe-log-monitor" {
   //    function PathOfExileLog (prameters: any) : PathOfExileLog
   export = PathOfExileLog;
 }
+
+declare module "*.png"{
+  export default "" as string;
+}
