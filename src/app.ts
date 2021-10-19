@@ -11,7 +11,7 @@ import {
 
 import PathOfExileLog from "poe-log-monitor";
 import Store from "electron-store";
-import path from "path"
+import path from "path";
 import * as LevelingGuideWindow from "./main/LevelingWindow";
 import { ConfigWindow } from "./main/ConfigWindow";
 
@@ -33,21 +33,21 @@ const schema = {
 
 const AppStore = new Store({ schema: schema });
 
-const AssetPath = getAssetPath()
+const AssetPath = getAssetPath();
 const AppIcon = nativeImage.createFromPath(`${AssetPath}/AppIcon.png`);
 console.log("AssetPath : \t %s", AssetPath);
-console.log("icon: \t\t %s", `${AssetPath}/AppIcon.png`)
-console.log("__dirname: \t%s" ,__dirname);
+console.log("icon: \t\t %s", `${AssetPath}/AppIcon.png`);
+console.log("__dirname: \t%s", __dirname);
 
 app.whenReady().then(() => {
   //console.log(AssetPath);
   //console.log(__dirname);
-  
+
   //const  _AppIcon_ = `${AssetPath}/AppIcon.png`;
-  
+
   //const AppIcon = nativeImage.createFromPath("./resources/images/ExaltedOrb.png")
   //console.log(_AppIcon_);
-  
+
   // // pour servir les images pour le renderer
   // session.defaultSession.protocol.registerFileProtocol(
   //   "static",
@@ -94,8 +94,6 @@ app.whenReady().then(() => {
     PoeLog.start();
     PoeLog.parseLog();
     PoeLog.on("parsingComplete", PoeLogParseComplete);
-    levelingGuideWindow = LevelingGuideWindow.create(PoeLog, AppIcon);
-    levelingGuideWindow.show();
   }
 
   console.log("**** MAIN APP ****");
@@ -113,6 +111,9 @@ app.whenReady().then(() => {
       urgency: "low",
       icon: AppIcon,
     }).show();
+    
+    if (!levelingGuideWindow) levelingGuideWindow = LevelingGuideWindow.create(PoeLog, AppIcon);
+    levelingGuideWindow.show();
   }
 });
 
@@ -160,8 +161,10 @@ const TrayMenu: Menu = Menu.buildFromTemplate([
     id: "levelingID",
     label: "Leveling",
     click: () => {
-      if (levelingGuideWindow) levelingGuideWindow.show();
-      else {
+      if (levelingGuideWindow) {
+        levelingGuideWindow.show();
+        console.log(levelingGuideWindow);
+      } else {
         levelingGuideWindow = LevelingGuideWindow.create(PoeLog, AppIcon);
         levelingGuideWindow.show();
       }

@@ -1,6 +1,10 @@
 import React, { useState, useEffect, MouseEventHandler } from "react";
+
+
+
 import { findGem } from "../../modules/functions";
-//import { findGem } from "../modules/utils";
+
+// import { PlayerContext } from "../window";
 
 export function ZoneGem(props: {
   curGears: IGuideGear;
@@ -14,7 +18,8 @@ export function ZoneGem(props: {
     if (props.curGears.gems2buy != undefined) {
       return (
         <div>
-          <h2>Liste des courses</h2>
+          <h2>Liste des courses
+          </h2>
           {props.curGears.gems2buy.map((gemName, index) => {
             const _gem = findGem(gemName);
             return (
@@ -62,6 +67,7 @@ export function Gem(props: {
 
   if (curGem) {
     return (
+      
       <div className="grid grid-cols-12 gap-1 items-center">
         <div className="col-span-5 flex flex-row">
           <img

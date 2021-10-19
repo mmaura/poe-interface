@@ -1,31 +1,15 @@
-import { BrowserWindow, ipcMain, NativeImage } from "electron";
+import { app, BrowserWindow, ipcMain, NativeImage } from "electron";
 import PathOfExileLog from "poe-log-monitor";
 
-// import { getCharacterClass } from "../renderer/lib/functions";
-//import { getCharacterClass } from "../renderers/lib/functions";
-//import { getCharacterClass } from "../modules/utils";
 import { getCharacterClass } from "../renderers/modules/functions";
-
-// import InitialAct from '../assets/data/acts.json';
-// import InitialClasses from "../assets/data/classes.json";
-// import DefaultGuide from "../assets/data/guide.json";
-// import InitialGems from "../assets/data/gems.json";
 
 declare const LEVELING_WINDOW_WEBPACK_ENTRY: string;
 declare const LEVELING_WINDOW_PRELOAD_WEBPACK_ENTRY: never;
-
-//declare const ASSETS_PATH: string
-//console.log("leveling %s",ASSETS_PATH)
 
 export function create(
   poeLog: PathOfExileLog,
   AppIcon: NativeImage
 ): BrowserWindow {
-  // const InitialData = {
-  //   acts: InitialAct,
-  //   classes: InitialClasses,
-  //   gems: InitialGems,
-  // } as IInitialData;
 
   console.log("create leveling windows");
 
@@ -79,6 +63,7 @@ export function create(
 
   LevelingGuideWindow.on("closed", () => {
     LevelingGuideWindow = null;
+    app.quit();
   });
 
   /**********************************
@@ -86,6 +71,9 @@ export function create(
    */
   poeLog.on("parsingComplete", (data) => {
     LogLoaded = true;
+    LevelingGuideWindow.webContents.send("player", MyPlayer);
+    LevelingGuideWindow.webContents.send("conn", MyConn);
+    LevelingGuideWindow.webContents.send("playerArea", MyPlayer);
   });
 
   poeLog.on("login", (data) => {
@@ -99,6 +87,8 @@ export function create(
     MyPlayer.characterClass = getCharacterClass(data.characterClass);
     MyPlayer.characterAscendancy = data.characterClass;
     MyPlayer.level = data.level;
+
+    console.log(MyPlayer)
 
     if (LogLoaded === true)
       LevelingGuideWindow.webContents.send("player", MyPlayer);

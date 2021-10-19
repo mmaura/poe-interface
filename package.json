@@ -44,6 +44,7 @@
     "electron": "15.1.0",
     "eslint": "^7.32.0",
     "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "fork-ts-checker-webpack-plugin": "^6.3.3",
     "node-loader": "^2.0.0",
     "postcss": "^8.3.9",
@@ -54,6 +55,8 @@
     "typescript": "^4.4.3"
   },
   "dependencies": {
+    "@mdi/js": "^6.3.95",
+    "@mdi/react": "^1.5.0",
     "electron-squirrel-startup": "^1.0.0",
     "electron-store": "^8.0.1",
     "poe-log-monitor": "^1.2.6",

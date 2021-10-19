@@ -9,9 +9,9 @@ export default function Player(props: { curPlayer: IAppPlayer }): JSX.Element {
         <>
           <div className="absolute">
             <div
-              className={`${
+              className={`avatar bg-${
                 player.characterAscendancy
-                  ? player.characterAscendancy.toLowerCase()
+                  ? player.characterAscendancy.toLowerCase() 
                   : player.characterClass.toLowerCase()
               }`}
             ></div>

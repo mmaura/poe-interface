@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import * as ReactDOM from "react-dom";
 
 import "../index.css";
@@ -16,16 +16,11 @@ import { ZoneGem } from "./components/Gem";
 
 import { getCurAct, getCurZone, getZoneGear } from "../modules/functions";
 
+// export const PlayerContext = React.createContext({} as IAppPlayer)
+
 function App(props: { AppData: IReactAppInit }) {
-  // console.log(props.AppData);
 
-  //const initialActs = props.AppData.InitialData.acts as IAppAct[];
-  // const initialClasses = props.AppData.InitialData.classes as IAppClasses[];
-  //const initialGems = props.AppData.InitialData.gems as IAppGems[];
-
-  //const defaultGuide = props.AppData.DefaultGuide.gears as IAppGear[];
-
-  //console.log(props)
+  // const MyPlayer = useContext(PlayerContext)
 
   const [curPlayer, setcurPlayer] = useState(
     props.AppData.MyPlayer as IAppPlayer

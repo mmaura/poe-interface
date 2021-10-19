@@ -166,12 +166,28 @@ export function ZoneTips() {
     <div className="flex flex-col">
       <button
         id="ZoneTips"
-        className="bg-poe-96 border-poe-4 p-2 shadow-xl rounded-lg h-10 overflow-hidden"
+        className="bg-poe-96 border-poe-4 p-2 shadow-xl rounded-lg h-10 overflow-hidden mb-1"
         data-tip="hello world"
         data-effect="solid"
         data-place="left"
       >
         Afficher les astuces
+      </button>
+      <button
+        className="bg-poe-96 border-poe-4 p-2 shadow-xl rounded-lg h-10 overflow-hidden mb-1"
+        data-tip="hello world"
+        data-effect="solid"
+        data-place="left"
+      >
+        Cloner le set
+      </button>
+      <button
+        className="bg-poe-96 border-poe-4 p-2 shadow-xl rounded-lg h-10 overflow-hidden mb-1 disabled"
+        data-tip="hello world"
+        data-effect="solid"
+        data-place="left"
+      >
+        Modifier le set
       </button>
 
       <ReactTooltip data-tip="" data-for="zoneTips">

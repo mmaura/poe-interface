@@ -8,7 +8,9 @@
 
    .inventory { @apply bg-inventory h-inventory w-inventory p-0 m-0 overflow-hidden ;}
    .inventory-text { @apply absolute left-inventory-text text-sm text-left pl-2 pt-1 overflow-hidden whitespace-nowrap ;}
-   .guardian {@apply bg-inventory bg-guardian h-avatar w-avatar ;}
+   
+   .avatar {@apply bg-inventory h-avatar w-avatar ;}
+
    .poe-item-3slots {@apply flex flex-col border-poe-96 border-2 rounded-xl ;}
    .poe-item-xslots {@apply grid grid-cols-2  border-poe-96 border-2 rounded-xl ;}
    .poe-red-socket {@apply bg-socket bg-skred w-socket h-socket;}
