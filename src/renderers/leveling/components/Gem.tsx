@@ -1,35 +1,18 @@
-import React, { useState, useEffect, MouseEventHandler } from "react";
-
-
+import React, { useState, useEffect, useContext, useCallback } from "react";
 
 import { findGem } from "../../modules/functions";
 
-// import { PlayerContext } from "../window";
+import { ActContext, PlayerContext } from "../window";
 
-export function ZoneGem(props: {
-  curGears: IGuideGear;
-  curPlayer: IAppPlayer;
-  curAct: IActs;
-}): JSX.Element {
-  const curPlayer = props.curPlayer;
-  const curAct = props.curAct;
-
+export function ZoneGem(props: { curGears: IGuideGear }): JSX.Element {
   if (props.curGears != undefined) {
     if (props.curGears.gems2buy != undefined) {
       return (
         <div>
-          <h2>Liste des courses
-          </h2>
+          <h2>Liste des courses</h2>
           {props.curGears.gems2buy.map((gemName, index) => {
             const _gem = findGem(gemName);
-            return (
-              <Gem
-                key={_gem.name + index}
-                curPlayer={curPlayer}
-                curAct={curAct}
-                gem={_gem}
-              />
-            );
+            return <LongGem key={_gem.name + index} gem={_gem} />;
           })}
         </div>
       );
@@ -38,53 +21,32 @@ export function ZoneGem(props: {
   return <h2>Liste des courses vide</h2>;
 }
 
-export function Gem(props: {
-  curPlayer: IAppPlayer;
-  curAct: IActs;
-  gem: IGems;
-}): JSX.Element {
+export function LongGem(props: { gem: IGems }): JSX.Element {
   const curGem = props.gem;
-  const curPlayer = props.curPlayer;
-  const curAct = props.curAct;
 
-  const [showAllActs, setshowAllActs] = useState(false);
-  const [showAllClasses, setshowAllClasses] = useState(false);
+  const curPlayer = useContext(PlayerContext) as IAppPlayer;
+  const curAct = useContext(ActContext) as IAppAct;
+
+  // const [showAllActs, setshowAllActs] = useState(false);
+  // const [showAllClasses, setshowAllClasses] = useState(false);
 
   const curBuy = curGem.buy.filter((e) => {
     return (
-      (e.available_to.includes(curPlayer.characterClass) || showAllClasses) &&
-      (e.act === curAct.actid || showAllActs)
+      e.available_to.includes(curPlayer.characterClass) &&
+      e.act === curAct.actid
     );
   });
 
-  function gemClick(
-    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-    gemName: string
-  ) {
-    e.preventDefault();
-    window.levelingAPI.openExternal("https://www.poewiki.net/wiki/" + gemName);
-  }
+  // const useMemo(() => {return {}}, input)
 
   if (curGem) {
     return (
-      
       <div className="grid grid-cols-12 gap-1 items-center">
-        <div className="col-span-5 flex flex-row">
-          <img
-            className="w-socket h-socket"
-            src={"../assets/images/gems/" + curGem.name + ".png"}
-          />
-          <a
-            className=""
-            href="#"
-            onClick={(e) => {
-              gemClick(e, curGem.name);
-            }}
-          >
-            {curGem.name}
-          </a>
+        <div className="col-span-4 flex flex-row">
+          <Gem curGem={curGem} />
+          <span>{curGem.name}</span>
         </div>
-        <div className="col-span-7 flex flex-col">
+        <div className="col-span-8 flex flex-col">
           {curBuy.length > 1 ? (
             curBuy.map((_buy, index) => {
               return (
@@ -112,4 +74,25 @@ export function Gem(props: {
   }
 
   return <div></div>;
+}
+
+export function Gem(props: { curGem: IGems }): JSX.Element {
+  const curGem = props.curGem;
+  const gemClick = useCallback(
+    (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
+      e.preventDefault();
+      window.levelingAPI.openExternal(
+        "https://www.poewiki.net/wiki/" + curGem.name
+      );
+    },
+    []
+  );
+
+  return (
+    <img
+      onClick={gemClick}
+      className="w-socket h-socket"
+      src={"../assets/images/gems/" + curGem.name + ".png"}
+    />
+  );
 }

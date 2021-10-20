@@ -1,4 +1,4 @@
-import { BrowserWindow, dialog, ipcMain, NativeImage, nativeImage } from "electron";
+import { BrowserWindow, dialog, ipcMain, NativeImage } from "electron";
 import Store from "electron-store";
 import fs from "fs";
 
@@ -52,7 +52,7 @@ export class ConfigWindow {
      * IPC
      */
     ipcMain.handle("configWindow", (event, arg: ISendParam) => {
-      let response: any = { status: "bad request" };
+      let response = {};
 
       switch (arg.func) {
         case "getInitData":

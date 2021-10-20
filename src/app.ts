@@ -12,12 +12,13 @@ import {
 import PathOfExileLog from "poe-log-monitor";
 import Store from "electron-store";
 import path from "path";
-import * as LevelingGuideWindow from "./main/LevelingWindow";
+//import * as LevelingGuideWindow from "./main/LevelingWindow";
 import { ConfigWindow } from "./main/ConfigWindow";
+import { LevelingWindow } from "./main/LevelingWindow";
 
 import { getAssetPath } from "./modules/functions";
 
-let levelingGuideWindow: BrowserWindow;
+let levelingGuideWindow: LevelingWindow;
 let configWindow: ConfigWindow;
 
 let AppTray: Tray;
@@ -62,8 +63,6 @@ app.whenReady().then(() => {
   //     callback(filePath);
   //   }
   // );
-  
-  levelingGuideWindow = LevelingGuideWindow.create(PoeLog, AppIcon);
 
   AppTray = new Tray(AppIcon);
 
@@ -71,31 +70,31 @@ app.whenReady().then(() => {
   AppTray.setContextMenu(TrayMenu);
 
   AppStore.onDidChange("poe_log_path", (newValue, oldValue) => {
+    CreatePoeLog(newValue as string);
+  });
+
+  function CreatePoeLog(logPath: string) {
     PoeLog = null;
 
     PoeLog = new PathOfExileLog({
-      logfile: newValue,
+      logfile: logPath,
       interval: 500,
     });
 
+    levelingGuideWindow.setPoeLog(PoeLog)
+
     PoeLog.start();
     PoeLog.parseLog();
+    LevelingWindow
     PoeLog.on("parsingComplete", PoeLogParseComplete);
-  });
-
+  }
   configWindow = new ConfigWindow(AppStore, AppIcon);
+  levelingGuideWindow = new LevelingWindow(AppIcon);
 
   if (configWindow.getPoeLogPath() === "") {
     configWindow.show();
   } else {
-    PoeLog = new PathOfExileLog({
-      logfile: configWindow.getPoeLogPath(),
-      interval: 500,
-    });
-
-    PoeLog.start();
-    PoeLog.parseLog();
-    PoeLog.on("parsingComplete", PoeLogParseComplete);
+    CreatePoeLog(configWindow.getPoeLogPath());
   }
 
   console.log("**** MAIN APP ****");
@@ -113,9 +112,8 @@ app.whenReady().then(() => {
       urgency: "low",
       icon: AppIcon,
     }).show();
-    
-    // if (!levelingGuideWindow) levelingGuideWindow = LevelingGuideWindow.create(PoeLog, AppIcon);
-    // levelingGuideWindow.show();
+
+    levelingGuideWindow.show();
   }
 });
 
@@ -134,7 +132,6 @@ app.on("before-quit", (e) => {
     levelingGuideWindow.setCanClose(true);
     levelingGuideWindow.close();
   }
-  //levelingGuideWindow.setClose(true)
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common
@@ -167,16 +164,9 @@ const TrayMenu: Menu = Menu.buildFromTemplate([
     id: "levelingID",
     label: "Leveling",
     click: () => {
-      // if (levelingGuideWindow) {
-      //   levelingGuideWindow.show();
-      //   console.log(levelingGuideWindow);
-      // } else {
-      //   levelingGuideWindow = LevelingGuideWindow.create(PoeLog, AppIcon);
-      //   levelingGuideWindow.show();
-      // }
       levelingGuideWindow.show();
     },
-    enabled: false,
+    // enabled: false,
     toolTip: "Configure Client.txt via Configuration first.",
   },
   {

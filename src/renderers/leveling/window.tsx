@@ -16,12 +16,10 @@ import { ZoneGem } from "./components/Gem";
 
 import { getCurAct, getCurZone, getZoneGear } from "../modules/functions";
 
-// export const PlayerContext = React.createContext({} as IAppPlayer)
+export const PlayerContext = React.createContext({});
+export const ActContext = React.createContext({});
 
 function App(props: { AppData: IReactAppInit }) {
-
-  // const MyPlayer = useContext(PlayerContext)
-
   const [curPlayer, setcurPlayer] = useState(
     props.AppData.MyPlayer as IAppPlayer
   );
@@ -40,12 +38,10 @@ function App(props: { AppData: IReactAppInit }) {
    * Events
    */
   function onActChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    // console.log("APP: onActChange");
-    setcurAct(getCurAct( Number(e.target.value)));
+    setcurAct(getCurAct(Number(e.target.value)));
   }
 
   function onZoneChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    // console.log("APP: onActChange");
     setcurZone(getCurZone(curAct.actid, e.target.value));
   }
 
@@ -54,22 +50,14 @@ function App(props: { AppData: IReactAppInit }) {
    */
 
   useEffect(() => {
-    // console.log("APP: useEffect(curActID)");
-    // console.log(curZone);
-    // console.log(curAct);
-
     setcurZone(getCurZone(curAct.actid, ""));
-
     return () => {
       ("");
     };
   }, [curAct]);
 
   useEffect(() => {
-    // console.log("APP: useEffect(curZone)");
-
     setcurGear(getZoneGear(curAct.actid, curZone.name));
-
     return () => {
       ("");
     };
@@ -80,14 +68,9 @@ function App(props: { AppData: IReactAppInit }) {
    */
   window.levelingAPI.receive("player", (e, arg) => {
     setcurPlayer(arg);
-    // console.log("receive player:");
-    // console.log(arg);
   });
 
   window.levelingAPI.receive("playerArea", (e, arg) => {
-    // console.log("received playerArea");
-    // console.log(arg);
-
     const _curAct = getCurAct(arg.currentZoneAct);
     setcurAct(_curAct);
     setcurZone(getCurZone(_curAct.actid, arg.currentZoneName));
@@ -95,48 +78,45 @@ function App(props: { AppData: IReactAppInit }) {
 
   return (
     <div className="p-4">
-      <div className="flex flex-row flex-nowrap pb-0">
-        <div className="flex-grow-0">
-          <Player curPlayer={curPlayer} />
-          <h1>{curAct.act + " : " + curZone.name}</h1>
-        </div>
-        <div className="flex-grow">
-          <LevelingGuide
-            //acts={initialActs}
-            onActChange={onActChange}
-            onZoneChange={onZoneChange}
-            curAct={curAct}
-            curZone={curZone}
-            curPlayer={curPlayer}
-          />
-        </div>
-      </div>
+      <ActContext.Provider value={curAct}>
+        <PlayerContext.Provider value={curPlayer}>
+          <div className="flex flex-row flex-nowrap pb-0">
+            <div className="flex-grow-0">
+              <Player />
+              <h1>{curAct.act + " : " + curZone.name}</h1>
+            </div>
+            <div className="flex-grow">
+              <LevelingGuide
+                onActChange={onActChange}
+                onZoneChange={onZoneChange}
+                curAct={curAct}
+                curZone={curZone}
+              />
+            </div>
+          </div>
 
-      <div className="grid grid-cols-6 gap-2">
-        <div className="col-span-5">
-          <ZoneMap curZone={curZone} curAct={curAct} />
-        </div>
-        <div className="row-span-2">
-          <ZoneTips />
-        </div>
-        <div className="col-span-3">
-          <ZoneNotes curZone={curZone} curAct={curAct} />
-        </div>
-        <div className="col-span-2">
-          <ZoneGears curGears={curGear} />
-        </div>
-        <div className="container col-span-3">
-          <ZoneGem
-            //initialGems={initialGems}
-            curGears={curGear}
-            curPlayer={curPlayer}
-            curAct={curAct}
-          />
-        </div>
-        <div className="container col-span-3">
-          <h2>Progression du personnage</h2>
-        </div>
-      </div>
+          <div className="grid grid-cols-6 gap-2">
+            <div className="col-span-5">
+              <ZoneMap curZone={curZone} curAct={curAct} />
+            </div>
+            <div className="row-span-2">
+              <ZoneTips />
+            </div>
+            <div className="col-span-3">
+              <ZoneNotes curZone={curZone} curAct={curAct} />
+            </div>
+            <div className="col-span-2">
+              <ZoneGears curGears={curGear} />
+            </div>
+            <div className="container col-span-3">
+              <ZoneGem curGears={curGear}/>
+            </div>
+            <div className="container col-span-3">
+              <h2>Progression du personnage</h2>
+            </div>
+          </div>
+        </PlayerContext.Provider>
+      </ActContext.Provider>
     </div>
   );
 }

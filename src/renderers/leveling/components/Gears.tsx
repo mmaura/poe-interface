@@ -3,6 +3,9 @@ import { Gem } from "./Gem";
 import Icon from '@mdi/react';
 import { mdiBookEdit } from '@mdi/js';
 
+import { findGem } from "../../modules/functions";
+
+
 export function ZoneGears(props: { curGears: IGuideGear }): JSX.Element {
   const curGears = props.curGears;
 
@@ -50,8 +53,8 @@ function Gear(props: { gears: IGearGear[] }): any {
       {gears.map((e, index) => {
         if (e.type === "socket")
           return <div className={`poe-${e.color}-socket`} key={index}></div>;
-        // else
-        //  return <Gem curGem={findGem(e.gem)}/>
+        else
+          return <Gem curGem={findGem(e.gem)}/>
       })}
     </div>
   );

@@ -1,25 +1,27 @@
-import React from "react";
+import React, { useContext } from "react";
+import { PlayerContext } from "../window";
 
-export default function Player(props: { curPlayer: IAppPlayer }): JSX.Element {
-  const player = props.curPlayer;
-  console.log( player.characterAscendancy)
+export default function Player(): JSX.Element {
+  const curPlayer = useContext(PlayerContext) as IAppPlayer
+
+  console.log( curPlayer.characterAscendancy)
   return (
     <div className="inventory">
-      {player ? (
+      {curPlayer ? (
         <>
           <div className="absolute">
             <div
               className={`avatar bg-${
-                player.characterAscendancy
-                  ? player.characterAscendancy.toLowerCase() 
-                  : player.characterClass.toLowerCase()
+                curPlayer.characterAscendancy
+                  ? curPlayer.characterAscendancy.toLowerCase() 
+                  : curPlayer.characterClass.toLowerCase()
               }`}
             ></div>
             <div className="inventory-text top-inventory-line1">
-              {player.name}
+              {curPlayer.name}
             </div>
             <div className="inventory-text top-inventory-line2">
-              Level {player.level} {player.characterClass}
+              Level {curPlayer.level} {curPlayer.characterClass}
             </div>
           </div>
         </>
