@@ -7,7 +7,7 @@ import "./index.css";
 import Player from "./components/Player";
 import {
   LevelingGuide,
-  ZoneTips,
+  ZoneMenu,
   ZoneNotes,
   ZoneMap,
 } from "./components/LevelingGuide";
@@ -100,7 +100,7 @@ function App(props: { AppData: IReactAppInit }) {
               <ZoneMap curZone={curZone} curAct={curAct} />
             </div>
             <div className="row-span-2">
-              <ZoneTips />
+              <ZoneMenu />
             </div>
             <div className="col-span-3">
               <ZoneNotes curZone={curZone} curAct={curAct} />

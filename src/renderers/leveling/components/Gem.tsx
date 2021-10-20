@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext, useCallback } from "react";
 
+import ReactTooltip from "react-tooltip";
+
 import { findGem } from "../../modules/functions";
 
 import { ActContext, PlayerContext } from "../window";
@@ -88,11 +90,44 @@ export function Gem(props: { curGem: IGems }): JSX.Element {
     []
   );
 
+  useEffect(() => {
+    ReactTooltip.rebuild();
+  }, [curGem]);
+
   return (
-    <img
-      onClick={gemClick}
-      className="w-socket h-socket"
-      src={"../assets/images/gems/" + curGem.name + ".png"}
-    />
+    <div
+      data-for={`gem` + curGem.name}
+      data-tip={`gem` + curGem.name}
+      data-effect="solid"
+      data-place="left"
+    >
+      <img
+        onClick={gemClick}
+        className="w-socket h-socket"
+        src={"../assets/images/gems/" + curGem.name + ".png"}
+      />
+      <div>
+        <ReactTooltip id={`gem` + curGem.name}>
+          <h1>{curGem.name}</h1>
+
+          {curGem.buy.map((_buy, index) => {
+            return (
+              <div>
+                <p key={index}>
+                  <span className="text-poe-3">{_buy.npc}</span>&nbsp;
+                  <span className="text-poe-50">{_buy.quest_name}</span>&nbsp;
+                  <span className="text-poe-3">{_buy.town}</span>
+                  <span className="text-poe-50">
+                    Classes: {_buy.available_to}
+                  </span>
+                  &nbsp;
+                  <span className="text-poe-50">Act: {_buy.act}</span>&nbsp;
+                </p>
+              </div>
+            );
+          })}
+        </ReactTooltip>
+      </div>
+    </div>
   );
 }
