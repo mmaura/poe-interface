@@ -62,6 +62,8 @@ app.whenReady().then(() => {
   //     callback(filePath);
   //   }
   // );
+  
+  levelingGuideWindow = LevelingGuideWindow.create(PoeLog, AppIcon);
 
   AppTray = new Tray(AppIcon);
 
@@ -112,8 +114,8 @@ app.whenReady().then(() => {
       icon: AppIcon,
     }).show();
     
-    if (!levelingGuideWindow) levelingGuideWindow = LevelingGuideWindow.create(PoeLog, AppIcon);
-    levelingGuideWindow.show();
+    // if (!levelingGuideWindow) levelingGuideWindow = LevelingGuideWindow.create(PoeLog, AppIcon);
+    // levelingGuideWindow.show();
   }
 });
 
@@ -127,6 +129,10 @@ app.on("before-quit", (e) => {
   if (configWindow) {
     configWindow.setCanClose(true);
     configWindow.close();
+  }
+  if (levelingGuideWindow) {
+    levelingGuideWindow.setCanClose(true);
+    levelingGuideWindow.close();
   }
   //levelingGuideWindow.setClose(true)
 });
@@ -161,13 +167,14 @@ const TrayMenu: Menu = Menu.buildFromTemplate([
     id: "levelingID",
     label: "Leveling",
     click: () => {
-      if (levelingGuideWindow) {
-        levelingGuideWindow.show();
-        console.log(levelingGuideWindow);
-      } else {
-        levelingGuideWindow = LevelingGuideWindow.create(PoeLog, AppIcon);
-        levelingGuideWindow.show();
-      }
+      // if (levelingGuideWindow) {
+      //   levelingGuideWindow.show();
+      //   console.log(levelingGuideWindow);
+      // } else {
+      //   levelingGuideWindow = LevelingGuideWindow.create(PoeLog, AppIcon);
+      //   levelingGuideWindow.show();
+      // }
+      levelingGuideWindow.show();
     },
     enabled: false,
     toolTip: "Configure Client.txt via Configuration first.",

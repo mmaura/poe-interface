@@ -11,6 +11,8 @@ export function create(
   AppIcon: NativeImage
 ): BrowserWindow {
 
+  let _CanClose = false
+  
   console.log("create leveling windows");
 
   getCharacterClass;
@@ -104,5 +106,8 @@ export function create(
     }
   });
 
+  function setCanClose(state: boolean): void {
+    _CanClose = state;
+  }
   return LevelingGuideWindow;
 }
