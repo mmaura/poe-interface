@@ -54,7 +54,7 @@ function Gear(props: { gears: GearGear[] }): JSX.Element {
         if (e.type === "socket")
           return <div className={`poe-${e.color}-socket`} key={index}></div>;
         else
-          return <Gem curGem={findGem(e.gem)}/>
+          return <Gem curGem={findGem(e.gemname)}/>
       })}
     </div>
   );

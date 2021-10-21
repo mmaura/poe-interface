@@ -1,6 +1,11 @@
 [] ajouter les villes
-[] tester les avatar
-[] le player n'est pas sur le dernier level up
+
+[] les gemmes doivent disparaître de la liste des courses 
+lorsqu'elles sont achetées (stashAPI avec le cookie sessionID)
+
+[] la liste des courses soit être dynamique en fonction du level
+
+
 
 
 

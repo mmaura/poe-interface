@@ -1,271 +1,272 @@
 export interface levelingAPI {
-  send: (channel: string, ...arg: any) => void;
-  receive: (channel: string, func: (event: any, ...arg: any) => void) => void;
-  openExternal: (url: string) => void;
-  openWiki: (page: string) => void;
+	send: (channel: string, ...arg: any) => void
+	receive: (channel: string, func: (event: any, ...arg: any) => void) => void
+	openExternal: (url: string) => void
+	openWiki: (page: string) => void
 }
 
 declare global {
-  interface IInitialData {
-    classes: IAppClasses[];
-    acts: IAppAct[];
-    gems: IAppGems[];
-  }
+	// interface IInitialData {
+	//   classes: IAppClasses[];
+	//   acts: IAppAct[];
+	//   gems: IAppGems[];
+	// }
 
-  interface IAppAct {
-    act: string;
-    actid: number;
-    zones: IAppZone[];
-  }
+	interface IAppAct {
+		act: string
+		actid: number
+		zones: IAppZone[]
+	}
 
-  interface IZoneData {
-    acts: IAppAct[];
-  }
+	interface IZoneData {
+		acts: IAppAct[]
+	}
 
-  type IAppPlayer = {
-    name: string;
-    level: number;
-    characterClass: string;
-    characterAscendancy?: string;
-    currentZoneName: string;
-    currentZoneAct: number;
-  };
+	type IAppPlayer = {
+		name: string
+		level: number
+		characterClass: string
+		characterAscendancy?: string
+		currentZoneName: string
+		currentZoneAct: number
+	}
 
-  type IAppZone = {
-    hastrial: boolean;
-    image: string[];
-    note: string;
-    level: number;
-    name: string;
-    haspassive: boolean;
-    questRewardsSkills: boolean;
-    altimage: string;
-    quest: string;
-    hasRecipe: boolean;
-  };
+	type IAppZone = {
+		hastrial: boolean
+		image: string[]
+		note: string
+		level: number
+		name: string
+		haspassive: boolean
+		questRewardsSkills: boolean
+		altimage: string
+		quest: string
+		hasRecipe: boolean
+	}
 
-  // interface IGear {
-  //   type: "socket" | "gem";
-  //   color?: "b" | "r" | "g" | "w";
-  //   gem?: string;
-  // }
+	// interface IGear {
+	// 	type: "socket" | "gem"
+	// 	color?: "b" | "r" | "g" | "w"
+	// 	gem?: string
+	// }
 
-  // interface IAppGear {
-  //   zones: {
-  //     actid: number;
-  //     zonename: string;
-  //   }[];
-  //   note?: string;
-  //   gears: IGear[][];
-  //   gems2buy?: string[];
-  // }
+	// interface IAppGear {
+	//   zones: {
+	//     actid: number;
+	//     zonename: string;
+	//   }[];
+	//   note?: string;
+	//   gears: IGear[][];
+	//   gems2buy?: string[];
+	// }
 
-  interface IGuideData {
-    gears: IAppGear[];
-    guide: {
-      name: string;
-      lang: string;
-      class: string;
-    };
-  }
+	// interface IGuideData {
+	//   gears: IAppGear[];
+	//   guide: {
+	//     name: string;
+	//     lang: string;
+	//     class: string;
+	//   };
+	// }
 
-  interface Window {
-    levelingAPI: levelingAPI;
-  }
+	interface Window {
+		levelingAPI: levelingAPI
+	}
 
-  // interface IBuy {
-  //   npc: string;
-  //   act: number;
-  //   town: string;
-  //   available_to: [
-  //     | "Marauder"
-  //     | "Witch"
-  //     | "Scion"
-  //     | "Ranger"
-  //     | "Duelist"
-  //     | "Shadow"
-  //     | "Templar"
-  //     | string
-  //   ];
-  //   quest_name: string;
-  // }
-  interface IAppGems {
-    reward: any;
-    required_lvl: number;
-    color: string;
-    isReward: boolean;
-    isSupport: boolean;
-    buy: IBuy[];
-    name: string;
-    isVaal: boolean;
-    gemTags: string[];
-    iconPath: string;
-    isActive: boolean;
-  }
-  interface IGemsData {
-    "": IAppGems;
-  }
-  interface IAppClasses {
-    classe: string;
-    ascendancy: string[];
-  }
-  interface IDefaultClassesData {
-    "": IAppClasses[];
-  }
+	// interface IBuy {
+	//   npc: string;
+	//   act: number;
+	//   town: string;
+	//   available_to: [
+	//     | "Marauder"
+	//     | "Witch"
+	//     | "Scion"
+	//     | "Ranger"
+	//     | "Duelist"
+	//     | "Shadow"
+	//     | "Templar"
+	//     | string
+	//   ];
+	//   quest_name: string;
+	// }
+	interface IAppGems {
+		reward: any
+		required_lvl: number
+		color: string
+		isReward: boolean
+		isSupport: boolean
+		buy: IBuy[]
+		name: string
+		isVaal: boolean
+		gemTags: string[]
+		iconPath: string
+		isActive: boolean
+	}
+	interface IGemsData {
+		"": IAppGems
+	}
+	interface IAppClasses {
+		classe: string
+		ascendancy: string[]
+	}
+	interface IDefaultClassesData {
+		"": IAppClasses[]
+	}
 
-  /***************************
-   * acts.json
-   */
+	/***************************
+	 * acts.json
+	 */
 
-  export interface IActs {
-    act: string;
-    actid: number;
-    zones: IZone[];
-  }
+	export interface IActs {
+		act: string
+		actid: number
+		zones: IZone[]
+	}
 
-  export interface IZone {
-    hastrial?: boolean;
-    image?: string[];
-    note?: string;
-    level: number;
-    name: string;
-    haspassive?: boolean;
-    questRewardsSkills?: boolean;
-    altimage?: string;
-    quest?: string;
-    hasRecipe?: boolean;
-    recipe?: IRecipe;
-  }
+	export interface IZone {
+		hastrial?: boolean
+		image?: string[]
+		note?: string
+		level: number
+		name: string
+		haspassive?: boolean
+		questRewardsSkills?: boolean
+		altimage?: string
+		quest?: string
+		hasRecipe?: boolean
+		recipe?: IRecipe
+	}
 
-  export interface IRecipe {
-    mods?: string[];
-    tooltip?: string;
-  }
+	export interface IRecipe {
+		mods?: string[]
+		tooltip?: string
+	}
 
-  /***********************
-   * classes.json
-   */
+	/***********************
+	 * classes.json
+	 */
 
-  export interface IClasses {
-    classe?: string;
-    ascendancy?: string[];
-  }
+	export interface IClasses {
+		classe?: string
+		ascendancy?: string[]
+	}
 
-  /**************************
-   * guide.json
-   */
+	/**************************
+	 * guide.json
+	 */
 
-  export interface IGuide {
-    identity: IGuideIdentity;
-    gears: IGuideGear[];
-  }
+	export interface IGuide {
+		identity: IGuideIdentity
+		gears: IGuideGear[]
+	}
 
-  export interface IGuideGear {
-    zones: Zone[];
-    note: string;
-    gears: Array<GearGear[]>;
-    gems2buy: string[];
-  }
+	export interface IGuideGear {
+		zones: Zone[]
+		note: string
+		gears: Array<GearGear[]>
+		gems2buy: string[]
+	}
 
-  export interface GearGear {
-    type: string;
-    color?: string;
-    gem?: string;
-  }
+	export interface GearGear {
+		type: string
+		color?: string
+		gemname?: string
+		gem?: IAppGems[]
+	}
 
-  export enum Type {
-    Gem = "gem",
-    Socket = "socket",
-  }
+	export enum Type {
+		Gem = "gem",
+		Socket = "socket",
+	}
 
-  export interface Zone {
-    actid: number;
-    zonename: string;
-  }
+	export interface Zone {
+		actid: number
+		zonename: string
+	}
 
-  export interface IGuideIdentity {
-    name: string;
-    lang: string;
-    class: string;
-  }
+	export interface IGuideIdentity {
+		name: string
+		lang: string
+		class: string
+	}
 
-  // Generated by https://quicktype.io
+	// Generated by https://quicktype.io
 
-  export interface IGems {
-    reward: IReward;
-    required_lvl: number;
-    color: string;
-    isReward: boolean;
-    isSupport: boolean;
-    buy: IBuy[];
-    name: string;
-    isVaal: boolean;
-    gemTags: string[];
-    iconPath: string;
-    isActive: boolean;
-    alt_name?: string[];
-  }
+	export interface IGems {
+		reward: IReward
+		required_lvl: number
+		color: string
+		isReward: boolean
+		isSupport: boolean
+		buy: IBuy[]
+		name: string
+		isVaal: boolean
+		gemTags: string[]
+		iconPath: string
+		isActive: boolean
+		alt_name?: string[]
+	}
 
-  export interface IBuy {
-    npc: string;
-    act: number;
-    town: string;
-    available_to: string[];
-    quest_name: string;
-  }
+	export interface IBuy {
+		npc: string
+		act: number
+		town: string
+		available_to: string[]
+		quest_name: string
+	}
 
-  export enum AvailableTo {
-    Duelist = "Duelist",
-    Marauder = "Marauder",
-    Ranger = "Ranger",
-    Scion = "Scion",
-    Shadow = "Shadow",
-    Templar = "Templar",
-    Witch = "Witch",
-  }
+	export enum AvailableTo {
+		Duelist = "Duelist",
+		Marauder = "Marauder",
+		Ranger = "Ranger",
+		Scion = "Scion",
+		Shadow = "Shadow",
+		Templar = "Templar",
+		Witch = "Witch",
+	}
 
-  export enum Npc {
-    Clarissa = "Clarissa",
-    LillyRoth = "Lilly Roth",
-    Nessa = "Nessa",
-    PetarusAndVanja = "Petarus and Vanja",
-    Siosa = "Siosa",
-    Yeena = "Yeena",
-  }
+	export enum Npc {
+		Clarissa = "Clarissa",
+		LillyRoth = "Lilly Roth",
+		Nessa = "Nessa",
+		PetarusAndVanja = "Petarus and Vanja",
+		Siosa = "Siosa",
+		Yeena = "Yeena",
+	}
 
-  export enum QuestName {
-    AFixtureOfFate = "A Fixture of Fate",
-    BreakingSomeEggs = "Breaking Some Eggs",
-    BreakingTheSeal = "Breaking the Seal",
-    EnemyAtTheGate = "Enemy at the Gate",
-    FallenFromGrace = "Fallen from Grace",
-    IntrudersInBlack = "Intruders in Black",
-    LostInLove = "Lost in Love",
-    MercyMission = "Mercy Mission",
-    SeverTheRightHand = "Sever the Right Hand",
-    SharpAndCruel = "Sharp and Cruel",
-    TheCagedBrute = "The Caged Brute",
-    TheEternalNightmare = "The Eternal Nightmare",
-    TheRootOfTheProblem = "The Root of the Problem",
-    TheSirenSCadence = "The Siren's Cadence",
-  }
+	export enum QuestName {
+		AFixtureOfFate = "A Fixture of Fate",
+		BreakingSomeEggs = "Breaking Some Eggs",
+		BreakingTheSeal = "Breaking the Seal",
+		EnemyAtTheGate = "Enemy at the Gate",
+		FallenFromGrace = "Fallen from Grace",
+		IntrudersInBlack = "Intruders in Black",
+		LostInLove = "Lost in Love",
+		MercyMission = "Mercy Mission",
+		SeverTheRightHand = "Sever the Right Hand",
+		SharpAndCruel = "Sharp and Cruel",
+		TheCagedBrute = "The Caged Brute",
+		TheEternalNightmare = "The Eternal Nightmare",
+		TheRootOfTheProblem = "The Root of the Problem",
+		TheSirenSCadence = "The Siren's Cadence",
+	}
 
-  export enum Town {
-    Highgate = "Highgate",
-    LioneyeSWatch = "Lioneye's Watch",
-    TheForestEncampment = "The Forest Encampment",
-    TheLibrary = "The Library",
-    TheSarnEncampment = "The Sarn Encampment",
-  }
+	export enum Town {
+		Highgate = "Highgate",
+		LioneyeSWatch = "Lioneye's Watch",
+		TheForestEncampment = "The Forest Encampment",
+		TheLibrary = "The Library",
+		TheSarnEncampment = "The Sarn Encampment",
+	}
 
-  export enum EColor {
-    Blue = "blue",
-    Green = "green",
-    Red = "red",
-    White = "white",
-  }
+	export enum EColor {
+		Blue = "blue",
+		Green = "green",
+		Red = "red",
+		White = "white",
+	}
 
-  export interface IReward {
-    rien?: number;
-  }
+	export interface IReward {
+		rien?: number
+	}
 }
