@@ -12,7 +12,7 @@ import {
 import PathOfExileLog from "poe-log-monitor";
 import Store from "electron-store";
 import path from "path";
-//import * as LevelingGuideWindow from "./main/LevelingWindow";
+
 import { ConfigWindow } from "./main/ConfigWindow";
 import { LevelingWindow } from "./main/LevelingWindow";
 
@@ -85,7 +85,7 @@ app.whenReady().then(() => {
 
     PoeLog.start();
     PoeLog.parseLog();
-    LevelingWindow
+    // LevelingWindow
     PoeLog.on("parsingComplete", PoeLogParseComplete);
   }
   configWindow = new ConfigWindow(AppStore, AppIcon);

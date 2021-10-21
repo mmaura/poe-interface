@@ -7,22 +7,28 @@ import "./index.css";
 import Player from "./components/Player";
 import {
   LevelingGuide,
-  ZoneMenu,
   ZoneNotes,
   ZoneMap,
 } from "./components/LevelingGuide";
 import { ZoneGears } from "./components/Gears";
 import { ZoneGem } from "./components/Gem";
+import { ZoneMenu } from "./components/Menu";
 
-import { getCurAct, getCurZone, getZoneGear } from "../modules/functions";
+
+import { getCurAct, getCurZone, getZoneGear, getGuideIdentity } from "../modules/functions";
 
 export const PlayerContext = React.createContext({});
 export const ActContext = React.createContext({});
 
-function App(props: { AppData: IReactAppInit }) {
-  const [curPlayer, setcurPlayer] = useState(
-    props.AppData.MyPlayer as IAppPlayer
-  );
+function App() {
+  const [curPlayer, setcurPlayer] = useState({
+    characterAscendancy: "unknown",
+    characterClass: "unknown",
+    currentZoneAct: 1,
+    currentZoneName: "",
+    level: 1,
+    name: "Loading ...",
+  } as IAppPlayer);
 
   const [curAct, setcurAct] = useState(() => {
     return getCurAct(1);
@@ -33,6 +39,10 @@ function App(props: { AppData: IReactAppInit }) {
   const [curGear, setcurGear] = useState(() => {
     return getZoneGear(1, curZone.name);
   });
+
+  const [curGuideIdentity, setcurGuideIdentit] = useState(()=>{
+    return getGuideIdentity()
+  })
 
   /*********************************
    * Events
@@ -96,11 +106,13 @@ function App(props: { AppData: IReactAppInit }) {
           </div>
 
           <div className="grid grid-cols-6 gap-2">
+            <div className="col-span-6">
+            <ZoneMenu curGuideIdentity={curGuideIdentity}   />
+            </div>
             <div className="col-span-5">
               <ZoneMap curZone={curZone} curAct={curAct} />
             </div>
             <div className="row-span-2">
-              <ZoneMenu />
             </div>
             <div className="col-span-3">
               <ZoneNotes curZone={curZone} curAct={curAct} />
@@ -109,7 +121,7 @@ function App(props: { AppData: IReactAppInit }) {
               <ZoneGears curGears={curGear} />
             </div>
             <div className="container col-span-3">
-              <ZoneGem curGears={curGear}/>
+              <ZoneGem curGears={curGear} />
             </div>
             <div className="container col-span-3">
               <h2>Progression du personnage</h2>
@@ -121,6 +133,8 @@ function App(props: { AppData: IReactAppInit }) {
   );
 }
 
-window.levelingAPI.getInitData().then((result: IReactAppInit) => {
-  ReactDOM.render(<App AppData={result} />, document.getElementById("root"));
-});
+// window.levelingAPI.getInitData().then((result: IReactAppInit) => {
+//   ReactDOM.render(<App AppData={result} />, document.getElementById("root"));
+// });
+
+ReactDOM.render(<App />, document.getElementById("root"));

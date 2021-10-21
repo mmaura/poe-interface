@@ -13,8 +13,8 @@ export default function Player(): JSX.Element {
             <div
               className={`avatar bg-${
                 curPlayer.characterAscendancy
-                  ? curPlayer.characterAscendancy.toLowerCase() 
-                  : curPlayer.characterClass.toLowerCase()
+                  ? curPlayer.characterAscendancy.toLowerCase() || ''
+                  : curPlayer.characterClass.toLowerCase() || ''
               }`}
             ></div>
             <div className="inventory-text top-inventory-line1">

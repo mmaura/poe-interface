@@ -3,5 +3,16 @@
     "classe": "Templar",
     "ascendancy": ["Inquisitor", "Hierophant", "Guardian"]
   },
-  { "classe": "Duelist", "ascendancy": ["Slayer", "Gladiator", "Champion"] }
+  { "classe": "Duelist", "ascendancy": ["Slayer", "Gladiator", "Champion"] },
+  {
+    "classe": "Witch",
+    "ascendancy": ["Necromancer", "Occultist", "Elementalist"]
+  },
+  { "classe": "Shadow", "ascendancy": ["Assassin", "Saboteur", "Trickster"] },
+  {
+    "classe": "Marauder",
+    "ascendancy": ["Juggernaut", "Berserker", "Chieftain"]
+  },
+  { "classe": "Ranger", "ascendancy": ["Deadeye", "Raider", "Pathfinder"] },
+  { "classe": "Scion", "ascendancy": ["Ascendant"] }
 ]

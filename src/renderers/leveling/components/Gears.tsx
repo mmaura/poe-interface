@@ -9,7 +9,7 @@ import { findGem } from "../../modules/functions";
 export function ZoneGears(props: { curGears: IGuideGear }): JSX.Element {
   const curGears = props.curGears;
 
-  if (props.curGears != undefined) {
+  if (props.curGears) {
     return (
       
       <div className="container relative flex flex-col min-h-200px">
@@ -43,7 +43,7 @@ export function ZoneGears(props: { curGears: IGuideGear }): JSX.Element {
   }
 }
 
-function Gear(props: { gears: IGearGear[] }): any {
+function Gear(props: { gears: GearGear[] }): JSX.Element {
   const gears = props.gears;
 
   return (

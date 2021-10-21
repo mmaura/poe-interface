@@ -1,4 +1,4 @@
-import {  BrowserWindow, ipcMain, NativeImage } from "electron";
+import { BrowserWindow, ipcMain, NativeImage } from "electron";
 import PathOfExileLog from "poe-log-monitor";
 
 import { getCharacterClass } from "../renderers/modules/functions";
@@ -40,27 +40,37 @@ export class LevelingWindow {
     /**********************************
      * IPC
      */
-    ipcMain.handle("levelingWindow", (event, arg) => {
-      let response = {};
+    // ipcMain.handle("levelingWindow", (event, arg) => {
+    //   let response = {};
 
-      if (arg === "getInitData") {
-        response = {
-          MyPlayer: this._MyPlayer,
-          MyConn: this._MyConn,
-        } as IReactAppInit;
-      }
-      return response;
+    //   if (arg === "getInitData") {
+    //     response = {
+    //       MyPlayer: this._MyPlayer,
+    //       MyConn: this._MyConn,
+    //     } as IReactAppInit;
+    //   }
+    //   return response;
+    // });
+    ipcMain.handle("cloneGuide", (event, arg) => {
+      console.log("clonage du guide demandé");
     });
   }
 
+  /**********************************
+   * POE LOG
+   */
   setPoeLog(poeLog: PathOfExileLog): void {
     this._PoeLog = poeLog;
+    this._LogLoaded = false;
 
     /**********************************
      * Poe Log Events
      */
     this._PoeLog.on("parsingComplete", () => {
+      console.log("parsing complete");
+
       this._LogLoaded = true;
+
       this._Window.webContents.send("player", this._MyPlayer);
       this._Window.webContents.send("conn", this._MyConn);
       this._Window.webContents.send("playerArea", this._MyPlayer);
@@ -78,10 +88,9 @@ export class LevelingWindow {
       this._MyPlayer.characterAscendancy = data.characterClass;
       this._MyPlayer.level = data.level;
 
-      console.log(this._MyPlayer);
-
-      if (this._LogLoaded === true)
+      if (this._LogLoaded === true) {
         this._Window.webContents.send("player", this._MyPlayer);
+      }
     });
 
     this._PoeLog.on("area", (area) => {

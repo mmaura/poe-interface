@@ -29,17 +29,12 @@ export function LongGem(props: { gem: IGems }): JSX.Element {
   const curPlayer = useContext(PlayerContext) as IAppPlayer;
   const curAct = useContext(ActContext) as IAppAct;
 
-  // const [showAllActs, setshowAllActs] = useState(false);
-  // const [showAllClasses, setshowAllClasses] = useState(false);
-
   const curBuy = curGem.buy.filter((e) => {
     return (
       e.available_to.includes(curPlayer.characterClass) &&
       e.act === curAct.actid
     );
   });
-
-  // const useMemo(() => {return {}}, input)
 
   if (curGem) {
     return (
@@ -66,8 +61,8 @@ export function LongGem(props: { gem: IGems }): JSX.Element {
             })
           ) : (
             <p>
-              <span> Not aiviable for your class at this act, </span>
-              <span className="text-poe-50">Ask a friend.</span>
+              <span> not available for your class at this act, </span>
+              <span className="text-poe-60">Ask a friend.</span>
             </p>
           )}
         </div>
@@ -100,34 +95,45 @@ export function Gem(props: { curGem: IGems }): JSX.Element {
       data-tip={`gem` + curGem.name}
       data-effect="solid"
       data-place="left"
+      data-delay-hide="10000"
     >
       <img
         onClick={gemClick}
         className="w-socket h-socket"
         src={"../assets/images/gems/" + curGem.name + ".png"}
       />
-      <div>
-        <ReactTooltip id={`gem` + curGem.name}>
-          <h1>{curGem.name}</h1>
+      <ReactTooltip id={`gem` + curGem.name} clickable>
+        <h2>{curGem.name}</h2>
 
-          {curGem.buy.map((_buy, index) => {
-            return (
-              <div>
-                <p key={index}>
-                  <span className="text-poe-3">{_buy.npc}</span>&nbsp;
-                  <span className="text-poe-50">{_buy.quest_name}</span>&nbsp;
-                  <span className="text-poe-3">{_buy.town}</span>
-                  <span className="text-poe-50">
-                    Classes: {_buy.available_to}
-                  </span>
-                  &nbsp;
-                  <span className="text-poe-50">Act: {_buy.act}</span>&nbsp;
-                </p>
-              </div>
-            );
-          })}
-        </ReactTooltip>
-      </div>
+        {curGem.buy.map((_buy, index) => {
+          return (
+            <div className="grid grid-cols-3 gap-2 w-auto">
+              <p key={index}>
+                <span className="text-poe-3">Act: {_buy.act}&nbsp;</span>
+                <span className="text-poe-3">{_buy.town}&nbsp;</span>
+                <span
+                  className="text-poe-50"
+                  onClick={() => {
+                    window.levelingAPI.openWiki(_buy.npc);
+                  }}
+                >
+                  {_buy.npc}
+                </span>
+              </p>
+              <span
+                className="text-poe-60"
+                onClick={() => {
+                  window.levelingAPI.openWiki(_buy.quest_name);
+                }}
+              >
+                {_buy.quest_name}
+              </span>
+              <span className="text-poe-50">{_buy.available_to}</span>
+              <br />
+            </div>
+          );
+        })}
+      </ReactTooltip>
     </div>
   );
 }
