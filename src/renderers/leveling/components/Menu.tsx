@@ -23,7 +23,7 @@ export function ZoneMenu(props: {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-row">
       <button
         className="bg-poe-96 border-poe-4 p-2 shadow-xl rounded-lg h-10 overflow-hidden mb-1"
         data-for="TipsPopup"
@@ -33,9 +33,8 @@ export function ZoneMenu(props: {
       >
         Afficher les astuces
       </button>
-      <div className=" border-poe-1 border-2 rounded-lg p-1 flex flex-col">
+      <div className=" border-poe-1 border-2 rounded-lg p-1 flex flex-row">
         <h2>Set Courrant</h2>
-        <form>
           <GuideIdentityField
             name="name"
             value={curGuideIdentity.name}
@@ -54,7 +53,6 @@ export function ZoneMenu(props: {
             enabled={true}
             onChange={onFormChange}
           />
-        </form>
         <button
           onClick={() => {
             window.levelingAPI.send("cloneGuide");

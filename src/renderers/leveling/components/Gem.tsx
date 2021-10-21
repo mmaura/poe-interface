@@ -13,8 +13,9 @@ export function ZoneGem(props: { curGears: IGuideGear }): JSX.Element {
         <div>
           <h2>Liste des courses</h2>
           {props.curGears.gems2buy.map((gemName, index) => {
-            const _gem = findGem(gemName);
-            return <LongGem key={_gem.name + index} gem={_gem} />;
+            const _gem = findGem(gemName)
+            return _gem !== undefined ?  <LongGem key={_gem.name + index} gem={_gem} /> : null
+             
           })}
         </div>
       );
@@ -41,10 +42,11 @@ export function LongGem(props: { gem: IGems }): JSX.Element {
       <div className="grid grid-cols-12 gap-1 items-center">
         <div className="col-span-4 flex flex-row">
           <Gem curGem={curGem} />
+          <span>lvl: {curGem.required_lvl}&nbsp;</span>
           <span>{curGem.name}</span>
         </div>
         <div className="col-span-8 flex flex-col">
-          {curBuy.length > 1 ? (
+          {curBuy.length > 0 ? (
             curBuy.map((_buy, index) => {
               return (
                 <p key={index}>
@@ -100,7 +102,7 @@ export function Gem(props: { curGem: IGems }): JSX.Element {
       <img
         onClick={gemClick}
         className="w-socket h-socket"
-        src={"../assets/images/gems/" + curGem.name + ".png"}
+        src={"../assets/images/gems/" + curGem.name.replace(" ", "_") + ".png"}
       />
       <ReactTooltip id={`gem` + curGem.name} clickable>
         <h2>{curGem.name}</h2>

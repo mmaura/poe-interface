@@ -37,6 +37,17 @@ export class LevelingWindow {
     this._Window.loadURL(LEVELING_WINDOW_WEBPACK_ENTRY);
     this._Window.webContents.openDevTools();
 
+    this._Window.on("close", (e) => {
+      if (this._CanClose === false) {
+        this._Window.hide();
+        e.preventDefault();
+      }
+    });
+
+    this._Window.on("closed", () => {
+      this._Window = null;
+    });
+
     /**********************************
      * IPC
      */

@@ -1,4 +1,8 @@
 import { BrowserWindow, dialog, ipcMain, NativeImage } from "electron";
+
+import { getAssetPath, DlAllGemImg } from "../modules/functions"
+
+
 import Store from "electron-store";
 import fs from "fs";
 
@@ -14,8 +18,8 @@ export class ConfigWindow {
 
   constructor(appStore: any, AppIcon: NativeImage) {
     this._Window = new BrowserWindow({
-      width: 1080,
-      height: 1200,
+      width: 600,
+      height: 400,
       icon: AppIcon,
       title: "Configuration",
       show: false,
@@ -36,6 +40,8 @@ export class ConfigWindow {
     this._Window.loadURL(CONFIG_WINDOW_WEBPACK_ENTRY);
     this._Window.webContents.openDevTools();
     this._Window.setMenu(null)
+
+    DlAllGemImg(this._Window)
 
     this._Window.on("close", (e) => {
       if (this._CanClose === false) {

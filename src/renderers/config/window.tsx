@@ -23,9 +23,9 @@ function App(props: { AppData: any }) {
 
   return (
     <div>
-      <h1>Ma fenetre</h1>
+      <h1>Configuration</h1>
       <span>{PoeLogPath}</span>
-      <button onClick={ShowPoeLogDialog}>...</button>
+      <button className="border-double border-2 border-poe-4 rounded-lg bg-poe-96" onClick={ShowPoeLogDialog}>Ouvrir</button>
     </div>
   );
 }
