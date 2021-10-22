@@ -1,0 +1,44 @@
+[
+	{
+		"identity": {
+			"name": "default",
+			"lang": "en",
+			"class": "Templar"
+		},
+		"gears": [
+			{
+				"name": "",
+				"notes": "",
+				"act": 1,
+				"gem_info": [
+					{
+						"name": "Smite",
+						"note": "principal skill"
+					},
+					{ "name": "Summon Holy Relic" }
+				]
+			},
+			{
+				"act": 1,
+				"name": "Déplacement",
+				"gem_info": [{ "name": "Flame Dash" }]
+			},
+			{
+				"act": 1,
+				"gem_info": [
+					{ "name": "Raise Zombie"},
+					{ "name": "Minion Damage", "note": "2 bis" },
+					{ "name": "Added Fire Damage", "note": "2 bis"  }
+				]
+			},
+			{
+				"act": 1,
+				"gem_info": [{ "name": "Flame Dash" }]
+			},
+			{
+				"act": 1,
+				"gem_info": [{ "name": "Flame Dash" }]
+			}
+		]
+	}
+]
