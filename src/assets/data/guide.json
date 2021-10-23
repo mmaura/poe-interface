@@ -1,83 +1,149 @@
 {
-  "identity": {
-    "name": "default",
-    "lang": "en",
-    "class": "Templar"
-  },
-  "gears": [
-    {
-      "zones": [
-        {
-          "actid": 1,
-          "zonename": "The Twilight Strand"
-        },
-        {
-          "actid": 1,
-          "zonename": "The Coast"
-        }
-      ],
-      "note": "Recherchez les équipements avec les sockets XX suivantes.",
-      "gears": [
-        [
-          {
-            "type": "socket",
-            "color": "blue"
-          },
-          {
-            "type": "socket",
-            "color": "red"
-          },
-          {
-            "type": "socket",
-            "color": "green"
-          }
-        ],
-        [
-          {
-            "type": "socket",
-            "color": "blue"
-          },
-          {
-            "type": "socket",
-            "color": "red"
-          },
-          {
-            "type": "socket",
-            "color": "white"
-          },
-          {
-            "type": "socket",
-            "color": "green"
-          }
-        ],
-        [
-          {
-            "type": "socket",
-            "color": "blue"
-          },
-          {
-            "type": "socket",
-            "color": "red"
-          },
-          {
-            "type": "socket",
-            "color": "white"
-          },
-          {
-            "type": "socket",
-            "color": "white"
-          },
-          {
-            "type": "socket",
-            "color": "white"
-          },
-          {
-            "type": "gem",
-            "gemname": "Blood and Sand"
-          }
-        ]
-      ],
-      "gems2buy": ["Smite", "Raise Zombie", "Ruthless", "Summon Holy Relic", "Flame Dash", "Minion Damage", "Added Fire Damage"]
-    }
-  ]
+	"identity": {
+		"name": "default",
+		"lang": "en",
+		"class": "Templar",
+		"url":"https://www.pathofexile.com/forum/view-thread/2554248"
+	},
+	"acts": [
+		{
+			"act": 1,
+			"notes": "N'oubliez pas de faire The Tidal Island pour la avoir la <b>Quicksilver Flask</b>.<br>Essayez d'avoir des bases ES avec de la vie dessus, ainsi que quelques résistances. Les boucliers armor-ES sont également une bonne option en raison de leur résistance élémentaire implicite.",
+			"gears": [
+				{
+					"name": "Sort principal",
+					"gem_info": [
+						{
+							"name": "Smite",
+							"note": "principal skill"
+						},
+						{
+							"name": "Summon Holy Relic"
+						}
+					]
+				},
+				{
+					"name": "Utilitaire",
+					"gem_info": [{ "name": "Flame Dash" }],
+					"chasses": ["green"]
+				},
+				{
+					"name": "Zombies",
+					"notes": "Mettez en fonction de vos préférences Minions ou Fire Damages",
+					"gem_info": [
+						{ "name": "Raise Zombie" },
+						{ "name": "Ruthless" },
+						{ "name": "Minion Damage", "note": "2 bis" },
+						{ "name": "Added Fire Damage", "note": "2 bis" }
+					]
+				},
+				{
+					"name": "Herald:act II",
+					"chasses": ["red", "red", "blue"]
+				},
+				{
+					"name": "Herald:act II",
+					"chasses": ["red", "red", "red"]
+
+				}
+			]
+		},
+		{
+			"act": 2,
+			"gears": [
+				{
+					"name": "Herald of Purity",
+					"notes": "Après The Chamber of Sins Level 2.<br>Attention à la réservation de mana, 2 gems de support maximum recommandées.",
+					"gem_info": [
+						{ "name": "Herald of Purity" },
+						{ "name": "Melee Physical Damage" },
+						{ "name": "Minion Damage", "note": "2 bis" },
+						{ "name": "Added Fire Damage", "note": "2 bis" }
+					]
+				},
+				{
+					"name": "Sort principal",
+					"gem_info": [
+						{
+							"name": "Smite",
+							"note": "principal skill"
+						},
+						{
+							"name": "Summon Holy Relic"
+						}
+					]
+				},
+				{
+					"name": "Utilitaire",
+					"notes": "L'amulette de jade auprès de Yeena donne 30dex",
+
+					"gem_info": [{ "name": "Flame Dash" },{ "name": "Desecrate" }]
+				},
+				{
+					"name": "Utilitaire2",
+					"notes": "",
+					"chasses": ["blue", "red"]
+
+				},
+
+				{
+					"name": "Zombies",
+					"notes": "",
+					"gem_info": [{ "name": "Raise Zombie" }, { "name": "Ruthless" }]
+				}
+			]
+		},
+		{
+			"act": 3,
+			"notes":"À partir du moment où vous commencerez à utiliser Rallying Cry, les dégâts physiques de base et une peu la vitesse d'attaque de votre arme deviennent nécessaires: c'est le moment de chercher une arme.",
+			"gears": [
+				{
+					"name": "Herald of Purity",
+					"notes": "Après The Chamber of Sins Level 2.<br>Attention à la réservation de mana, 2 gems de support maximum recommandées.",
+					"gem_info": [
+						{ "name": "Herald of Purity" },
+						{ "name": "Melee Physical Damage" },
+						{ "name": "Minion Damage", "note": "2 bis" },
+						{ "name": "Added Fire Damage", "note": "2 bis" }
+					]
+				},
+				{
+					"name": "Sort principal",
+					"gem_info": [
+						{
+							"name": "Smite",
+							"note": "principal skill"
+						},
+						{
+							"name": "Summon Holy Relic"
+						}
+					]
+				},
+				{
+					"name": "Utilitaire",
+					"notes": "L'amulette de jade auprès de Yeena donne 30dex",
+
+					"gem_info": [{ "name": "Flame Dash" },{ "name": "Desecrate" }]
+				},
+				{
+					"name": "Utilitaire2",
+					"notes": "",
+
+					"gem_info": [{ "name": "Discipline" },{ "name": "Rallying Cry" }]
+				},
+				{
+					"name": "Zombies",
+					"notes": "",
+					"gem_info": [{ "name": "Raise Zombie" }, { "name": "Ruthless" }]
+				},
+				{
+					"name": "XP",
+					"notes": "",
+					"gem_info": [{ "name": "Determination" }]
+				}
+
+				
+			]
+		}
+	]
 }

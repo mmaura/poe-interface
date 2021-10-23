@@ -1,13 +1,15 @@
-import { app, Tray, shell, Menu, BrowserWindow, Notification, nativeImage, session } from "electron"
+import { app, Tray, shell, Menu, Notification, nativeImage } from "electron"
 
 import PathOfExileLog from "poe-log-monitor"
 import Store from "electron-store"
-import path from "path"
 
 import { ConfigWindow } from "./main/ConfigWindow"
 import { LevelingWindow } from "./main/LevelingWindow"
 
-import { getAssetPath, DlAllGemImg } from "./modules/functions"
+import { getAssetPath } from "./modules/functions"
+
+// export let APP_DEV = false;
+// APP_DEV = !app.isPackaged;
 
 let levelingGuideWindow: LevelingWindow
 let configWindow: ConfigWindow
@@ -18,7 +20,6 @@ let PoeLog: PathOfExileLog
 const schema = {
 	poe_log_path: {
 		type: "string",
-		default: "C:/Program Files (x86)/Grinding Gear Games/Path of Exile/logs/Client.txt",
 	},
 } as const
 
@@ -26,20 +27,11 @@ const AppStore = new Store({ schema: schema })
 
 const AssetPath = getAssetPath()
 const AppIcon = nativeImage.createFromPath(`${AssetPath}/AppIcon.png`)
-console.log("AssetPath : \t %s", AssetPath)
-console.log("icon: \t\t %s", `${AssetPath}/AppIcon.png`)
-console.log("__dirname: \t%s", __dirname)
+// console.log("AssetPath : \t %s", AssetPath)
+// console.log("icon: \t\t %s", `${AssetPath}/AppIcon.png`)
+// console.log("__dirname: \t%s", __dirname)
 
 app.whenReady().then(() => {
-
-	//console.log(AssetPath);
-	//console.log(__dirname);
-
-	//const  _AppIcon_ = `${AssetPath}/AppIcon.png`;
-
-	//const AppIcon = nativeImage.createFromPath("./resources/images/ExaltedOrb.png")
-	//console.log(_AppIcon_);
-
 	// // pour servir les images pour le renderer
 	// session.defaultSession.protocol.registerFileProtocol(
 	//   "static",
@@ -54,7 +46,6 @@ app.whenReady().then(() => {
 	//     callback(filePath);
 	//   }
 	// );
-
 	AppTray = new Tray(AppIcon)
 
 	AppTray.setToolTip("POE Interface")
@@ -67,29 +58,28 @@ app.whenReady().then(() => {
 	function CreatePoeLog(logPath: string) {
 		PoeLog = null
 
-		PoeLog = new PathOfExileLog({
-			logfile: logPath,
-			interval: 500,
-		})
+		if (logPath) {
+			PoeLog = new PathOfExileLog({
+				logfile: logPath,
+				interval: 500,
+			})
 
-		levelingGuideWindow.setPoeLog(PoeLog)
+			levelingGuideWindow.setPoeLog(PoeLog)
 
-		PoeLog.start()
-		PoeLog.parseLog()
-		// LevelingWindow
-		PoeLog.on("parsingComplete", PoeLogParseComplete)
+			PoeLog.start()
+			PoeLog.parseLog()
+			PoeLog.on("parsingComplete", PoeLogParseComplete)
+		}
 	}
+
 	configWindow = new ConfigWindow(AppStore, AppIcon)
 	levelingGuideWindow = new LevelingWindow(AppIcon)
 
-	if (configWindow.getPoeLogPath() === "") {
+	if (configWindow.getPoeLogPath() === null) {
 		configWindow.show()
 	} else {
 		CreatePoeLog(configWindow.getPoeLogPath())
 	}
-
-	console.log("**** MAIN APP ****")
-	console.log(configWindow.getPoeLogPath())
 
 	function PoeLogParseComplete() {
 		TrayMenu.getMenuItemById("levelingID").enabled = true
@@ -114,7 +104,7 @@ if (require("electron-squirrel-startup")) {
 	app.quit()
 }
 
-app.on("before-quit", (e) => {
+app.on("before-quit", () => {
 	if (configWindow) {
 		configWindow.setCanClose(true)
 		configWindow.close()

@@ -4,7 +4,7 @@ import { PlayerContext } from "../window";
 export default function Player(): JSX.Element {
   const curPlayer = useContext(PlayerContext) as IAppPlayer
 
-  console.log( curPlayer.characterAscendancy)
+  console.log( "curPlayer %o ",curPlayer)
   return (
     <div className="inventory">
       {curPlayer ? (

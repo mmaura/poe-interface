@@ -7,16 +7,16 @@ import React, {
 import ReactTooltip from "react-tooltip";
 
 export function ZoneMenu(props: {
-  curGuideIdentity: IGuideIdentity;
+  curGuide: IGuide;
 }): JSX.Element {
-  const [curGuideIdentity, setGuideIdentity] = useState(() => {
-    return props.curGuideIdentity;
+  const [curGuide, setGuide] = useState(() => {
+    return props.curGuide;
   });
 
   function onFormChange(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
     console.log(e);
-    setGuideIdentity((prevstate) => ({
+    setGuide((prevstate) => ({
       ...prevstate,
       [name]: value,
     }));
@@ -37,19 +37,19 @@ export function ZoneMenu(props: {
         <h2>Set Courrant</h2>
           <GuideIdentityField
             name="name"
-            value={curGuideIdentity.name}
+            value={curGuide.identity.name}
             enabled={true}
             onChange={onFormChange}
           />
           <GuideIdentityField
             name="lang"
-            value={curGuideIdentity.lang}
+            value={curGuide.identity.lang}
             enabled={true}
             onChange={onFormChange}
           />
           <GuideIdentityField
             name="class"
-            value={curGuideIdentity.class}
+            value={curGuide.identity.class}
             enabled={true}
             onChange={onFormChange}
           />

@@ -1,130 +1,154 @@
-import { BrowserWindow, ipcMain, NativeImage } from "electron";
-import PathOfExileLog from "poe-log-monitor";
+import { BrowserWindow, ipcMain, NativeImage } from "electron"
+import PathOfExileLog from "poe-log-monitor"
 
-import { getCharacterClass } from "../renderers/modules/functions";
+import { getCharacterClass } from "../renderers/modules/functions"
+import { loadJsonAct, loadJsonGuide, loadJsonRichText } from "../modules/functions"
 
-declare const LEVELING_WINDOW_WEBPACK_ENTRY: string;
-declare const LEVELING_WINDOW_PRELOAD_WEBPACK_ENTRY: never;
+declare const LEVELING_WINDOW_WEBPACK_ENTRY: string
+declare const LEVELING_WINDOW_PRELOAD_WEBPACK_ENTRY: never
 
 export class LevelingWindow {
-  protected _Window: BrowserWindow;
+	protected _Window: BrowserWindow
 
-  private _CanClose = false;
-  private _PoeLog: PathOfExileLog;
-  private _LogLoaded: boolean;
+	private _CanClose = false
+	private _PoeLog: PathOfExileLog
+	private _LogLoaded: boolean
 
-  private _MyPlayer: IAppPlayer;
-  private _MyConn: plm_conn;
+	private _GuideJson: IGuide
+	private _RichTextJson: IRichText[]
+	private _ActJson: IAppAct[]
 
-  constructor(AppIcon: NativeImage) {
-    this._MyPlayer = <IAppPlayer>{};
-    this._MyConn = <plm_conn>{};
+	private _MyPlayer: IAppPlayer
+	private _MyConn: plm_conn
 
-    this._Window = new BrowserWindow({
-      width: 1080,
-      height: 1200,
-      icon: AppIcon,
-      title: "Leveling Guide",
-      show: false,
-      webPreferences: {
-        nodeIntegration: false,
-        contextIsolation: true,
-        //worldSafeExecuteJavaScript: true,
-        preload: LEVELING_WINDOW_PRELOAD_WEBPACK_ENTRY,
-      },
-    });
-    this._Window.setMenu(null);
-    this._Window.loadURL(LEVELING_WINDOW_WEBPACK_ENTRY);
-    this._Window.webContents.openDevTools();
+	constructor(AppIcon: NativeImage) {
+		this._MyPlayer = <IAppPlayer>{}
+		this._MyConn = <plm_conn>{}
 
-    this._Window.on("close", (e) => {
-      if (this._CanClose === false) {
-        this._Window.hide();
-        e.preventDefault();
-      }
-    });
+		this._GuideJson = loadJsonGuide()
+		this._ActJson = loadJsonAct()
+		this._RichTextJson = loadJsonRichText(this._ActJson)
 
-    this._Window.on("closed", () => {
-      this._Window = null;
-    });
+		this._Window = new BrowserWindow({
+			
+			width: 1080,
+			height: 1200,
+			icon: AppIcon,
+			title: "Leveling Guide",
+			show: false,
+			webPreferences: {
+				nodeIntegration: false,
+				contextIsolation: true,
+				//worldSafeExecuteJavaScript: true,
+				preload: LEVELING_WINDOW_PRELOAD_WEBPACK_ENTRY,
+			},
+		})
+		this._Window.setMenu(null)
+		// console.log(process.env)
+		this._Window.loadURL(LEVELING_WINDOW_WEBPACK_ENTRY)
+		if(process.env.NODE_ENV === 'dev') this._Window.webContents.openDevTools()
 
-    /**********************************
-     * IPC
-     */
-    // ipcMain.handle("levelingWindow", (event, arg) => {
-    //   let response = {};
+		/************************
+		 * Window Events
+		 */
+		this._Window.on("ready-to-show", () => {
+			if (this._LogLoaded === true) {
+				this._Window.webContents.send("richText", this._RichTextJson)
+				this._Window.webContents.send("guide", this._GuideJson)
+				this._Window.webContents.send("player", this._MyPlayer)
+				this._Window.webContents.send("conn", this._MyConn)
+				this._Window.webContents.send("playerArea", this._MyPlayer)
+			}
+		})
 
-    //   if (arg === "getInitData") {
-    //     response = {
-    //       MyPlayer: this._MyPlayer,
-    //       MyConn: this._MyConn,
-    //     } as IReactAppInit;
-    //   }
-    //   return response;
-    // });
-    ipcMain.handle("cloneGuide", (event, arg) => {
-      console.log("clonage du guide demandé");
-    });
-  }
+		this._Window.on("close", (e) => {
+			if (this._CanClose === false) {
+				this._Window.hide()
+				e.preventDefault()
+			}
+		})
 
-  /**********************************
-   * POE LOG
-   */
-  setPoeLog(poeLog: PathOfExileLog): void {
-    this._PoeLog = poeLog;
-    this._LogLoaded = false;
+		this._Window.on("closed", () => {
+			this._Window = null
+		})
 
-    /**********************************
-     * Poe Log Events
-     */
-    this._PoeLog.on("parsingComplete", () => {
-      console.log("parsing complete");
+		/**********************************
+		 * IPC
+		 */
+		ipcMain.handle("guide", (event, ...arg) => {
+			console.log("guide: %o", arg)
+			if (arg[0] === "reload") {
+				this._GuideJson = loadJsonGuide()
+				this._ActJson = loadJsonAct()
+				this._RichTextJson = loadJsonRichText(this._ActJson)
 
-      this._LogLoaded = true;
+				this._Window.webContents.send("richText", this._RichTextJson)
+				this._Window.webContents.send("guide", this._GuideJson)
+				this._Window.webContents.send("player", this._MyPlayer)
+				this._Window.webContents.send("conn", this._MyConn)
+				this._Window.webContents.send("playerArea", this._MyPlayer)
+			}
+		})
+	}
 
-      this._Window.webContents.send("player", this._MyPlayer);
-      this._Window.webContents.send("conn", this._MyConn);
-      this._Window.webContents.send("playerArea", this._MyPlayer);
-    });
+	/**********************************
+	 * POE LOG
+	 */
+	setPoeLog(poeLog: PathOfExileLog): void {
+		this._PoeLog = poeLog
+		this._LogLoaded = false
+	
+		/**********************************
+		 * Poe Log Events
+		 */
+		this._PoeLog.on("parsingComplete", () => {
+			console.log("parsing complete")
 
-    this._PoeLog.on("login", (data) => {
-      this._MyConn = data;
-      if (this._LogLoaded === true)
-        this._Window.webContents.send("conn", this._MyConn);
-    });
+			this._LogLoaded = true
 
-    this._PoeLog.on("level", (data) => {
-      this._MyPlayer.name = data.name;
-      this._MyPlayer.characterClass = getCharacterClass(data.characterClass);
-      this._MyPlayer.characterAscendancy = data.characterClass;
-      this._MyPlayer.level = data.level;
+			this._Window.webContents.send("player", this._MyPlayer)
+			this._Window.webContents.send("conn", this._MyConn)
+			this._Window.webContents.send("playerArea", this._MyPlayer)
+			this._Window.webContents.send("richText", this._RichTextJson)
+			this._Window.webContents.send("guide", this._GuideJson)
+		})
 
-      if (this._LogLoaded === true) {
-        this._Window.webContents.send("player", this._MyPlayer);
-      }
-    });
+		this._PoeLog.on("login", (data) => {
+			this._MyConn = data
+			if (this._LogLoaded === true) this._Window.webContents.send("conn", this._MyConn)
+		})
 
-    this._PoeLog.on("area", (area) => {
-      if (area.type === "area") {
-        this._MyPlayer.currentZoneName = area.name;
-        this._MyPlayer.currentZoneAct = area.info[0].act;
+		this._PoeLog.on("level", (data) => {
+			this._MyPlayer.name = data.name
+			this._MyPlayer.characterClass = getCharacterClass(data.characterClass)
+			this._MyPlayer.characterAscendancy = data.characterClass
+			this._MyPlayer.level = data.level
 
-        if (this._LogLoaded === true)
-          this._Window.webContents.send("playerArea", this._MyPlayer);
-      }
-    });
-  }
+			if (this._LogLoaded === true) {
+				this._Window.webContents.send("player", this._MyPlayer)
+			}
+		})
 
-  setCanClose(state: boolean): void {
-    this._CanClose = state;
-  }
+		this._PoeLog.on("area", (area) => {
+			if (area.type === "area") {
+				this._MyPlayer.currentZoneName = area.name
+				this._MyPlayer.currentZoneAct = area.info[0].act
 
-  close(): void {
-    this._CanClose = true;
-    this._Window.close();
-  }
+				if (this._LogLoaded === true) this._Window.webContents.send("playerArea", this._MyPlayer)
+			}
+		})
+	}
 
-  show(): void {
-    this._Window.show();
-  }
+	setCanClose(state: boolean): void {
+		this._CanClose = state
+	}
+
+	close(): void {
+		this._CanClose = true
+		this._Window.close()
+	}
+
+	show(): void {
+		this._Window.show()
+	}
 }

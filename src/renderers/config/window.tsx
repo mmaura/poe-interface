@@ -4,11 +4,10 @@ import * as ReactDOM from "react-dom";
 import "../index.css";
 import "./index.css";
 
-function App(props: { AppData: any }) {
-  const [PoeLogPath, setPoeLogPath] = useState(props.AppData.poeLogPath);
+function App() {
+  const [PoeLogPath, setPoeLogPath] = useState(null);
 
   function ShowPoeLogDialog() {
-    console.log("click");
     window.configAPI.send("configWindow", { func: "showPoeLogPathDialog", var: [PoeLogPath as string] })
   }
 
@@ -30,8 +29,10 @@ function App(props: { AppData: any }) {
   );
 }
 
-window.configAPI
-  .sendSync("configWindow", { func: "getInitData" })
-  .then((result: { poeLogPath: string }) => {
-    ReactDOM.render(<App AppData={result} />, document.getElementById("root"));
-  });
+// window.configAPI
+//   .sendSync("configWindow", { func: "getInitData" })
+//   .then((result: { poeLogPath: string }) => {
+//     ReactDOM.render(<App AppData={result} />, document.getElementById("root"));
+//   });
+
+  ReactDOM.render(<App />, document.getElementById("root"))

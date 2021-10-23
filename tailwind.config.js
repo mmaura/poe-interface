@@ -19,6 +19,7 @@ module.exports = {
       gray: colors.trueGray,
       yellow: colors.amber,
       red: colors.red,
+      // green: colors.green,
       poe: {
         1: '#a38d6d',
         2: '#ac9c5b',
@@ -96,6 +97,7 @@ module.exports = {
       },
       minHeight: {
         '200px': '200px'
+
       }
     },
   },

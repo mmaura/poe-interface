@@ -4,6 +4,64 @@ import { download } from "electron-dl"
 
 import InitialGems from "../assets/data/gems.json"
 import fs from "fs"
+import { findGem } from "../renderers/modules/functions"
+
+export function loadJsonGuide(guidename?: string): IGuide {
+	let guide = {} as IGuide
+
+	if (guidename === undefined) {
+		const dataFile = fs.readFileSync(path.join(getAssetPath(), "data", "guide.json"))
+		guide = JSON.parse(dataFile.toLocaleString())
+	} else {
+		//TODO: load a custom guide
+		guide = {} as IGuide
+	}
+
+	guide.acts.forEach((act) => {
+		act.gears.forEach((gear) => {
+			gear.gems = [] as IAppGems[]
+			if (gear.gem_info)
+				gear.gem_info.forEach(({ name }) => {
+					gear.gems.push(findGem(name))
+				})
+		})
+	})
+
+	return guide
+}
+
+export function loadJsonRichText(acts: IAppAct[], file?: string): IRichText[] {
+	let richTextJson = [] as IRichText[]
+
+	if (file === undefined) {
+		const dataFile = fs.readFileSync(path.join(getAssetPath(), "data", "richtext.json"))
+		richTextJson = JSON.parse(dataFile.toLocaleString())
+	} else {
+		//TODO: load a custom guide
+		richTextJson = [] as IRichText[]
+	}
+
+	for (const act of acts) {
+		richTextJson.find((text) => text.classe === "zones").data.push(act.act)
+		for (const zone of act.zones)
+			richTextJson.find((text) => text.classe === "zones").data.push(zone.name)
+	}
+
+	return richTextJson
+}
+
+export function loadJsonAct(file?: string): IAppAct[] {
+	let ActJson = [] as IAppAct[]
+
+	if (file === undefined) {
+		const dataFile = fs.readFileSync(path.join(getAssetPath(), "data", "acts.json"))
+		ActJson = JSON.parse(dataFile.toLocaleString())
+	} else {
+		//TODO: load a custom guide
+		ActJson = [] as IAppAct[]
+	}
+	return ActJson
+}
 
 export function getAssetPath(): string {
 	//process.env.MY_ENV_VAR === 'production'
@@ -23,15 +81,15 @@ export async function DlAllGemImg(win: BrowserWindow) {
 		const filename = gem.name.replace(" ", "_") + ".png"
 
 		if (!fs.existsSync(path.join(directory, filename))) {
-			dldFiles ++
+			dldFiles++
 			const fileUrl = gem.iconPath
 			// console.log("%s => %s", filename, fileUrl)
 
-				await download(win, fileUrl, {
-					filename: filename,
-					directory: directory,
-					showBadge: true,
-				})
+			await download(win, fileUrl, {
+				filename: filename,
+				directory: directory,
+				showBadge: true,
+			})
 		}
 	}
 	console.log("downloaded: %d , total: %d", dldFiles, InitialGems.length)
