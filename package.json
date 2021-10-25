@@ -11,11 +11,10 @@
     "publish": "electron-forge publish",
     "lint": "eslint --ext .ts,.tsx ."
   },
-  "keywords": [],
+  "keywords": ["poe", "Path of Exile", "leveling", "guide"],
   "author": {
     "name": "Maura Mathieu",
-    "email": "mmaura@amc-i.fr",
-    "license": "GPL-2.0"
+    "email": "mmaura@amc-i.fr"
   },
   "repository": {
     "type": "git",
