@@ -1,8 +1,8 @@
 {
   "name": "poe-interface",
   "productName": "poe-interface",
-  "version": "0.0.2",
-  "description": "My Electron application description",
+  "version": "0.0.3",
+  "description": "A Path Of Exile interface.",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
