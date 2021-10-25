@@ -1,3 +1,4 @@
+[![build package](https://github.com/mmaura/poe-interface/actions/workflows/main.yml/badge.svg)](https://github.com/mmaura/poe-interface/actions/workflows/main.yml)
 # Poe Interface
 Companion to POE
 ![alt](https://raw.githubusercontent.com/mmaura/poe-interface/main/docs/screen_1.png)
