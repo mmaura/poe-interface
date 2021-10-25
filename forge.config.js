@@ -41,18 +41,18 @@ module.exports = {
           entryPoints: [
             {
               name: "leveling_window",
-              html: "./src/renderers/leveling/index.html",
-              js: "./src/renderers/leveling/window.tsx",
+              html: "./src/renderers/index.html",
+              js: "./src/renderers/leveling/LevelingRenderer.tsx",
               preload: {
-                js: "./src/renderers/leveling/preload.ts",
+                js: "./src/renderers/preload.ts",
               },
             },
             {
               name: "config_window",
-              html: "./src/renderers/config/index.html",
-              js: "./src/renderers/config/window.tsx",
+              html: "./src/renderers/index.html",
+              js: "./src/renderers/config/ConfigRenderer.tsx",
               preload: {
-                js: "./src/renderers/config/preload.ts",
+                js: "./src/renderers/preload.ts",
               },
             },
           ],

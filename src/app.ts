@@ -1,7 +1,9 @@
-import { app, Tray, shell, Menu, Notification, nativeImage } from "electron"
+import { app, Tray, shell, Menu, Notification, nativeImage, session } from "electron"
 
 import PathOfExileLog from "poe-log-monitor"
 import Store from "electron-store"
+import path from 'path'
+import os from 'os'
 
 import { ConfigWindow } from "./main/ConfigWindow"
 import { LevelingWindow } from "./main/LevelingWindow"
@@ -10,6 +12,12 @@ import { getAssetPath } from "./modules/functions"
 
 // export let APP_DEV = false;
 // APP_DEV = !app.isPackaged;
+
+const reactDevToolsPath = path.join(
+	os.homedir(),
+	'.config/google-chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/4.20.1_0'
+  )
+
 
 let levelingGuideWindow: LevelingWindow
 let configWindow: ConfigWindow
@@ -23,6 +31,7 @@ const schema = {
 	},
 } as const
 
+
 const AppStore = new Store({ schema: schema })
 
 const AssetPath = getAssetPath()
@@ -31,7 +40,13 @@ const AppIcon = nativeImage.createFromPath(`${AssetPath}/AppIcon.png`)
 // console.log("icon: \t\t %s", `${AssetPath}/AppIcon.png`)
 // console.log("__dirname: \t%s", __dirname)
 
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
+	session.defaultSession.loadExtension(reactDevToolsPath)
+
+	console.log("AppPackaged: %o ",app.isPackaged)
+
+	
+
 	// // pour servir les images pour le renderer
 	// session.defaultSession.protocol.registerFileProtocol(
 	//   "static",

@@ -1,5 +1,6 @@
-export interface levelingAPI {
-	send: (channel: string, ...arg: any) => void
+export interface poe_interfaceAPI {
+	send: (channel: string, ...arg: any) => Promise <any>
+	sendSync: (channel: string, ...arg: any) => Promise<any>
 	receive: (channel: string, func: (event: any, ...arg: any) => void) => void
 	openExternal: (url: string) => void
 	openWiki: (page: string) => void
@@ -38,7 +39,7 @@ declare global {
 		hasRecipe: boolean
 	}
 	interface Window {
-		levelingAPI: levelingAPI
+		poe_interfaceAPI: poe_interfaceAPI
 	}
 
 	interface IAppGems {
@@ -118,6 +119,7 @@ declare global {
 		act: number
 		notes?: string
 		gears: Gear[]
+		treeimage?: string
 	}
 
 	export interface Gear {

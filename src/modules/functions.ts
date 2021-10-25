@@ -8,16 +8,24 @@ import { findGem } from "../renderers/modules/functions"
 
 export function loadJsonGuide(guidename?: string): IGuide {
 	let guide = {} as IGuide
+	let guidePath = ""
+	let assetPath = ""
 
 	if (guidename === undefined) {
-		const dataFile = fs.readFileSync(path.join(getAssetPath(), "data", "guide.json"))
-		guide = JSON.parse(dataFile.toLocaleString())
+		guidePath = path.join(getAssetPath(), "classguides", "default")
+		assetPath = "../assets/classguides/default/"
 	} else {
 		//TODO: load a custom guide
-		guide = {} as IGuide
+		guidePath = path.join(getAssetPath(), "classguides", "default")
+		assetPath = "../assets/classguides/default/"
 	}
 
+	const dataFile = fs.readFileSync(path.join(guidePath, "guide.json"))
+	guide = JSON.parse(dataFile.toLocaleString())
+
+
 	guide.acts.forEach((act) => {
+		act.treeimage = assetPath + "/tree-" + act.act + ".png"
 		act.gears.forEach((gear) => {
 			gear.gems = [] as IAppGems[]
 			if (gear.gem_info)
@@ -26,6 +34,8 @@ export function loadJsonGuide(guidename?: string): IGuide {
 				})
 		})
 	})
+
+
 
 	return guide
 }

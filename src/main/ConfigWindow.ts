@@ -62,7 +62,7 @@ export class ConfigWindow {
 		/**********************************
 		 * IPC
 		 */
-		ipcMain.handle("configWindow", (event, arg: ISendParam) => {
+		ipcMain.handle("configWindow", (event, arg: any) => {
 			let response = {}
 
 			switch (arg.func) {

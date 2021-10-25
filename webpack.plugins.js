@@ -8,12 +8,10 @@ module.exports = [
     patterns: [
       {
         from: path.resolve(__dirname, "src", "assets"),
-        //to: path.resolve(__dirname, ".webpack/renderer", "resources"),
         to: path.resolve(__dirname, ".webpack", "renderer", "assets"),
       },
       {
         from: path.resolve(__dirname, "src", "assets", "AppIcon.png"),
-        // to: path.resolve(__dirname, ".webpack/renderer", "resources/images"),
         to: path.resolve(__dirname, ".webpack", "renderer", "assets", "images"),
       },
     ],

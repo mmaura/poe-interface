@@ -96,7 +96,7 @@ module.exports = {
 
       },
       minHeight: {
-        '200px': '200px'
+        'map-container': '150px'
 
       }
     },

@@ -4,11 +4,15 @@ Companion to POE
 
 ## Building
 ### Developement
+
 ```sh
 git clone
 yarn 
 yarn start
 ```
+#### install react extension
+https://www.electronjs.org/docs/latest/tutorial/devtools-extension
+
 ### Make package directory
 ```sh
 yarn package --platform linux --arch x64
