@@ -1,46 +1,65 @@
 [
-	{
-		"data": ["Hillock", "kill", "slain", "tuer", "tuez", "tué", "Deep Dweller"],
-		"classe": "boss"
-	},
-	{
-		"classe": "zones",
-		"data": [
-			"Highgate",
-			"Lioneye's Watch",
-			"The Forest Encampment",
-			"The Library",
-			"The Sarn Encampment",
-			"town"
-		]
-	},
-	{
-		"classe": "quest",
-		"data": [
-			"A Fixture of Fate",
-			"Breaking Some Eggs",
-			"Breaking the Seal",
-			"Enemy at the Gate",
-			"Fallen from Grace",
-			"Intruders in Black",
-			"Lost in Love",
-			"Mercy Mission",
-			"Sever the Right Hand",
-			"Sharp and Cruel",
-			"The Caged Brute",
-			"The Eternal Nightmare",
-			"The Root of the Problem",
-			"The Siren's Cadence",
-			"collect",
-			"find"
-		]
-	},
-	{
-		"classe": "trials",
-		"data": ["trial"]
-	},
-	{
-		"classe": "waypoint",
-		"data": ["waypoint", "portal"]
-	}
+  {
+    "data": [
+      "Hillock",
+      "Hailrake",
+      "Deep Dweller",
+      "Brutus",
+      "Fairgraves",
+      "Merveil",
+      "Fidelitas",
+      "Kraityn",
+	  "Alira",
+	  "Weaver",
+	  "Oak"
+    ],
+    "classe": "boss"
+  },
+  {
+    "classe": "zones",
+    "data": [
+      "Highgate",
+      "Lioneye's Watch",
+      "The Forest Encampment",
+      "The Library",
+      "The Sarn Encampment",
+      "town"
+    ]
+  },
+  {
+    "classe": "quest",
+    "data": [
+      "A Fixture of Fate",
+      "Breaking Some Eggs",
+      "Breaking the Seal",
+      "Enemy at the Gate",
+      "Fallen from Grace",
+      "Intruders in Black",
+      "Lost in Love",
+      "Mercy Mission",
+      "Sever the Right Hand",
+      "Sharp and Cruel",
+      "The Caged Brute",
+      "The Eternal Nightmare",
+      "The Root of the Problem",
+      "The Siren's Cadence",
+      "Allflame",
+      "collect",
+      "find",
+      "logout",
+      "déconnexion",
+      "portal",
+      "tp",
+      "portail",
+      "Inutile"
+    ]
+  },
+  {
+    "classe": "trials",
+    "data": ["trial"]
+  },
+  {
+    "classe": "waypoint",
+    "data": ["waypoint"]
+  }
 ]

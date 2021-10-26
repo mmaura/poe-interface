@@ -118,7 +118,7 @@ export class LevelingWindow {
 
 			console.log("send parsing complete")
 
-			this._Window.webContents.send("player", this._MyPlayer)
+			this._Window.webContents.send("levelingRenderer", ["player", this._MyPlayer])
 			this._Window.webContents.send("conn", this._MyConn)
 		})
 
@@ -134,8 +134,8 @@ export class LevelingWindow {
 			this._MyPlayer.level = data.level
 
 			if (this._LogLoaded === true) {
-				console.log("send player")
-				this._Window.webContents.send("player", this._MyPlayer)
+				console.log("level up : send player")
+				this._Window.webContents.send("levelingRenderer", ["player", this._MyPlayer])
 			}
 		})
 
@@ -145,8 +145,8 @@ export class LevelingWindow {
 				this._MyPlayer.currentZoneAct = area.info[0].act
 
 				if (this._LogLoaded === true) {
-					console.log("send area")
-					this._Window.webContents.send("playerArea", this._MyPlayer)
+					console.log("area change : send player")
+					this._Window.webContents.send("levelingRenderer", ["playerArea",this._MyPlayer])
 				}
 			}
 		})

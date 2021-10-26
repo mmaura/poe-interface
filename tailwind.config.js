@@ -80,10 +80,12 @@ module.exports = {
       width: {
         'avatar': '110px;',
         'inventory': '328px;',
+        'gear-container': '820px',
+        'notes-container': '580px'
       },
       height: {
         'avatar': '80px;',
-        'inventory': '80px;'
+        'inventory': '80px;',
       },
       inset: {
         'inventory-text': '103px',      
@@ -96,8 +98,10 @@ module.exports = {
 
       },
       minHeight: {
-        'map-container': '150px'
-
+        'map-container': '110px',
+        'note-container': '300px',
+      },
+      minWidth: {
       }
     },
   },

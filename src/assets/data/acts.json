@@ -8,7 +8,7 @@
           "image": [
             "none"
           ],
-          "note": "Just follow the coastline.",
+          "note": "Vérifiez que le bon loot filter est activé. Suivez la côte et tuez Hillock. Entrez à Lioneye's Watch.",
           "level": 1,
           "name": "The Twilight Strand",
           "haspassive": false,
@@ -20,25 +20,41 @@
         {
           "hastrial": false,
           "image": [
+            "none"
+          ],
+          "note": "Une fois les quêtes rendues et les achat fait, Allez à The Coast",
+          "level": 2,
+          "name": "Lioneye's Watch",
+          "haspassive": false,
+          "questRewardsSkills": false,
+          "altimage": "",
+          "quest": "",
+          "hasRecipe": false
+        },
+        {
+          "hastrial": false,
+          "image": [
             "Coast_Seed_1",
             "Coast_Seed_2",
             "Coast_Seed_3"
           ],
-          "note": "Stick to the right side, following the wall.",
+          "note": "1) Restez sur le côté droit en suivant le mur activez le waypoint. Allez à The Mud Flats en premier.<br>2) L'entrée de Tidal Island est proche du waypoint, allez à The Tidal Island pour Hailrake.",
           "level": 2,
           "name": "The Coast",
           "haspassive": false,
           "questRewardsSkills": false,
           "altimage": "none",
           "quest": "none",
-          "hasRecipe": false
+          "hasRecipe": false,
+          "hasWaypoint": true
+
         },
         {
           "hastrial": false,
           "image": [
             "none"
           ],
-          "note": "The side without a cliff is the shortest way.",
+          "note": "1) Le coté sans falaise est le plus court. Tuez Hailrake et Logout.<br>2) En ville prenez Quicksilver et vos gemmes puis TP vers The Submerged Passage",
           "level": 3,
           "name": "The Tidal Island",
           "haspassive": false,
@@ -53,7 +69,7 @@
             "Mud_Seed_1",
             "Mud_Seed_2"
           ],
-          "note": "Collect all the glyphs, to unlock the next area.",
+          "note": "Les petites rivières relient les 3 items, les ramasser puis allez à The Submerged Passage.",
           "level": 4,
           "name": "The Mud Flats",
           "haspassive": false,
@@ -67,7 +83,7 @@
           "image": [
             "none"
           ],
-          "note": "Kill everything.",
+          "note": "Tourner et tout tuer. (zone facultative)",
           "level": 5,
           "name": "The Fetid Pool",
           "haspassive": false,
@@ -83,14 +99,15 @@
             "Sub_Seed_2",
             "Sub_Seed_3"
           ],
-          "note": "Find the bridge and place a portal. You will use this later to get the passive point from Deep Dweller",
+          "note": "1) Au waypoint se TP vers The Coast pour aller à The Tidal Island (faire Quicksilver Flask)<br>2) Trouvez le pont et placer un portail afin de revenir plus tard tuer Deep Dweller. Traversez le pont pour aller à The Ledge.<br>3) Cherchez sous le pont l'entrée de The Flooded Depths, entrez et tuez Deep Dweller.",
           "level": 5,
           "name": "The Submerged Passage",
           "haspassive": true,
           "questRewardsSkills": false,
           "altimage": "none",
           "quest": "Dweller of the Deep",
-          "hasRecipe": false
+          "hasRecipe": false,
+          "hasWaypoint": true
         },
         {
           "hastrial": false,
@@ -99,7 +116,7 @@
             "Flood_Seed_2",
             "Flood_Seed_3"
           ],
-          "note": "Kill the crab to get a passive point.",
+          "note": "Tuez Deep Dweller pour un point passif. Deconnexion, puis tp vers The Ledge.",
           "level": 6,
           "name": "The Flooded Depths",
           "haspassive": true,
@@ -113,14 +130,15 @@
           "image": [
             "none"
           ],
-          "note": "Go to the town at the waypoint, take the portal and find the Flooded Depths.",
+          "note": "1) Au waypoint, passez en ville pour aller The Submerged Passage puis The Flooded Depths.<br>2) Allez à The Climb.",
           "level": 6,
           "name": "The Ledge",
           "haspassive": false,
           "questRewardsSkills": false,
-          "altimage": "This layout is always linear, there are little totems on one side of the waypoint, this side will always be the side at which the exit is located.",
+          "altimage": "This layout is always linear, les petits totems au waypoint sont du coté de la sortie The Climb.",
           "quest": "none",
-          "hasRecipe": false
+          "hasRecipe": false,
+          "hasWaypoint": true
         },
         {
           "hastrial": false,
@@ -128,7 +146,7 @@
             "Climb_Seed_1",
             "Climb_Seed_2"
           ],
-          "note": " Run top right and free Navali.",
+          "note": "Toujours monter à droite. Libérez Navali quand vous la trouvez puis allez à The Lower Prison.",
           "level": 7,
           "name": "The Climb",
           "haspassive": false,
@@ -145,14 +163,15 @@
             "LP_Seed_3",
             "LP_Seed_4"
           ],
-          "note": "Usually go right to find the exit, there is a trial in this zone that you can do later thanks to the waypoint.",
-          "level": 8,
+          "note": "Il y a un Trial dans cette zone que vous pouvez faire plus tard grâce au waypoint : essayez d'abord la sortie The Upper Prison",
+                    "level": 8,
           "name": "The Lower Prison",
           "haspassive": false,
           "questRewardsSkills": true,
           "altimage": "none",
           "quest": "The Caged Brute",
-          "hasRecipe": false
+          "hasRecipe": false,
+          "hasWaypoint": true
         },
         {
           "hastrial": false,
@@ -163,7 +182,7 @@
             "UP_Seed_4",
             "UP_Seed_5"
           ],
-          "note": "More linear, almost 50/50 with advantage for left side, log out after Brutus. ",
+          "note": "Essayez d'abord à gauche. Tuez Brutus et Logout. En ville, TP vers The Prisoner's Gate",
           "level": 9,
           "name": "The Upper Prison",
           "haspassive": false,
@@ -180,7 +199,7 @@
             "PG_Seed_3",
             "PG_Seed_4"
           ],
-          "note": "Look for the side of the road that has the ledge down, usually on the right side.",
+          "note": "Recherchez le côté de la route qui a le rebord vers le bas, généralement sur le côté droit. Allez à The Ship Graveyard.",
           "level": 10,
           "name": "Prisoner's Gate",
           "haspassive": false,
@@ -197,21 +216,22 @@
             "Ship_Seed_3",
             "Ship_Seed_4"
           ],
-          "note": "Look for waypoint first, then find Fairgraves, and move away from the plateau, generally up or down. Find the Cave entrance, leave a portal for later and find the next waypoint in Cavern of Wrath. 2nd visit: After killing Fairgraves go back to the Cavern of Wrath.",
+          "note": "Cherchez le waypoint en premier.<br>1) Si vous trouvez The Ship Graveyard Cave, entrez et obtenez Allflame.<br>2) Sinon allez directement vers le waypoint de The Cavern of Wrath",
           "level": 11,
           "name": "The Ship Graveyard",
           "haspassive": true,
           "questRewardsSkills": false,
           "altimage": "none",
           "quest": "The Marooned Mariner",
-          "hasRecipe": false
+          "hasRecipe": false,
+          "hasWaypoint": true
         },
         {
           "hastrial": false,
           "image": [
             "none"
           ],
-          "note": "Find the end of the cave, take the quest item and you can ignore the mini boss.",
+          "note": "Trouvez Allflame et ignorer le boss.<br>1) Si vous avez déjà le waypoint vers The Cavern of Wrath => logout et s'y tp.<br>2) sinon ressortez et trouvez The Cavern of Wrath.",
           "level": 12,
           "name": "The Ship Graveyard Cave",
           "haspassive": true,
@@ -227,14 +247,15 @@
             "Wrath_Seed_2",
             "Wrath_Seed_3"
           ],
-          "note": "Take the waypoint to town, and then the portal to the entrance of the cave. 2nd visit: move mostly up",
+          "note": "1) Si vous n'avez pas encore trouvé la Allflame prenez le waypoint pour The Ship Graveyard et trouvez The Ship Graveyard Cave.<br>2) Sinon allez en ville faire affiner votre stuff (2x Sapphire rings RésistFroid), et revenez.<br>3) Allez vers le haut, entrez dans The Cavern of Anger.",
           "level": 12,
           "name": "The Cavern of Wrath",
           "haspassive": false,
           "questRewardsSkills": true,
           "altimage": "none",
           "quest": "The Siren's Cadence",
-          "hasRecipe": false
+          "hasRecipe": false,
+          "hasWaypoint": true
         },
         {
           "hastrial": false,
@@ -242,7 +263,7 @@
             "Anger_Seed_1",
             "Anger_Seed_2"
           ],
-          "note": "Often bottom right, you can follow the spirits, if you see piles of gold you\u2019re close to Merveil.",
+          "note": "Souvent en bas à droite, vous pouvez suivre les esprits, si vous voyez des tas d'or, vous êtes proche de Merveil, tuez la et allez à l'act II.",
           "level": 13,
           "name": "The Cavern of Anger",
           "haspassive": false,
@@ -262,7 +283,7 @@
           "image": [
             "none"
           ],
-          "note": "Follow the right wall.",
+          "note": "Suivez le mur de droite, Allez à The Forest Encampment.",
           "level": 13,
           "name": "The Southern Forest",
           "haspassive": false,
@@ -276,7 +297,21 @@
           "image": [
             "none"
           ],
-          "note": "Follow the road.",
+          "note": "1) Allez à The Old Fields.<br>2) Allez à The Riverways",
+          "level": 14,
+          "name": "The Forest Encampment",
+          "haspassive": false,
+          "questRewardsSkills": false,
+          "altimage": "",
+          "quest": "none",
+          "hasRecipe": false
+        },
+        {
+          "hastrial": false,
+          "image": [
+            "none"
+          ],
+          "note": "Suivre la route vers The Crossroads.",
           "level": 14,
           "name": "The Old Fields",
           "haspassive": false,
@@ -290,7 +325,7 @@
           "image": [
             "none"
           ],
-          "note": "If you kill the White Beast, take as a quest reward a 2n Quicksilver Flask.",
+          "note": "Si vous the White Beast, prenez la Quicksilver Flask en récompense.",
           "level": 15,
           "name": "The Den",
           "haspassive": false,
@@ -304,21 +339,23 @@
           "image": [
             "none"
           ],
-          "note": "Travel straight from the way you enter, stay on the road. You will find the Waypoint. From this way upwards is always the Wetlands.Keep traveling of the stone road. When you reach a broken bridge, make sure to jump over it with your moving ability.",
+          "note": "Suivez la route et utilisez vos compétences en mobilité pour sauter par-dessus les ponts, activer le waypoint.<br>1) Suivez la route vers The Western Forest.<br>2) The Wetlands sont toujours de l'autre coté de la route par rapport au Waypoint, y aller.",
           "level": 15,
           "name": "The Riverways",
           "haspassive": false,
           "questRewardsSkills": false,
           "altimage": "Linear layout if you manage to stay on the stone road.",
           "quest": "none",
-          "hasRecipe": false
+          "hasRecipe": false,
+          "hasWaypoint": true
+
         },
         {
           "hastrial": false,
           "image": [
             "none"
           ],
-          "note": "When you reach the waypoint, you have 3 options. Up is the Chamber of sins, down is the Fellshrine Ruins, and straight ahead is Broken bridge(Kraityn)",
+          "note": "suivre la route vers le waypoint.<br>1) Up is the Chamber of sins.<br>2) Tout droit is Broken bridge(Kraityn).<br>3) En bas is the Fellshrine Ruins.",
           "level": 15,
           "name": "The Crossroads",
           "haspassive": false,
@@ -334,7 +371,7 @@
             "Chamber1_Seed_2",
             "Chamber1_Seed_3"
           ],
-          "note": "Go to the center of the zone, always left or right. Activate waypoint and follow the hallway next to the waypoint. The gray circles indicate the center area.",
+          "note": "Toujours droite ou gauche. Activez le waypoint, et suivez le couloir a coté de ce dernier. Entrez dans The Chamber of Sins Level 2.",
           "level": 15,
           "name": "The Chamber of Sins Level 1",
           "haspassive": false,
@@ -348,7 +385,7 @@
           "image": [
             "Chamber2_Seed_1"
           ],
-          "note": "Always go up and right, do the trial in top left or do it later when you need it and are faster",
+          "note": "Toujours en haut à droite, faire le trial en haut à gauche. Tuer Fidelitas et Logout puis allez à The Crossroads",
           "level": 16,
           "name": "The Chamber of Sins Level 2",
           "haspassive": false,
@@ -362,21 +399,22 @@
           "image": [
             "none"
           ],
-          "note": "Travel on the road upwards, until you reach the waypoint. From there travel on the road but to the right and reach Kraityn.",
+          "note": "Suivre la route jusqu'au waypoint, puis la suivre mais vers la Droite, tuez Kraityn and Logout puis tp Crossroads",
           "level": 16,
           "name": "The Broken Bridge",
           "haspassive": true,
           "questRewardsSkills": false,
           "altimage": "Linear if you stay on the road",
           "quest": "Deal with the Bandits",
-          "hasRecipe": false
+          "hasRecipe": false,
+          "hasWaypoint":true
         },
         {
           "hastrial": false,
           "image": [
             "none"
           ],
-          "note": "Follow the road until you find a big Crypt.",
+          "note": "Suivre la route jusqu'à la crypt.",
           "level": 16,
           "name": "The Fellshrine Ruins",
           "haspassive": false,
@@ -390,12 +428,12 @@
           "image": [
             "none"
           ],
-          "note": "If you want to do the trial, usually try to go up and right.",
+          "note": "En général le trial est en haut à droite. Inutile d'aller The Crypt Level 2.<br>Logout allez à The Riverways",
           "level": 17,
           "name": "The Crypt Level 1",
           "haspassive": false,
           "questRewardsSkills": false,
-          "altimage": "Maze",
+          "altimage": "",
           "quest": "Through Sacred Ground",
           "hasRecipe": false
         },
@@ -409,7 +447,7 @@
           "name": "The Crypt Level 2",
           "haspassive": false,
           "questRewardsSkills": false,
-          "altimage": "Maze",
+          "altimage": "",
           "quest": "Through Sacred Ground",
           "hasRecipe": false
         },
@@ -418,7 +456,7 @@
           "image": [
             "none"
           ],
-          "note": "Follow the road, Alira is on the side of the waypoint where the road has a broken section. Go back to the road for The Way Forward quest. The entrance to The Weaver's Chambers can be found on the opposite side of the road from Alira, trees covered in spiderwebs indicate that you're close to the entrance.",
+          "note": "Suivre la route, Waypoint.<br>Alira est du coté du waypoint où la route a une section casséer.<br>Suivez la route pour la quête The Way Forward, tuez le boss, revenir sur le chemin du retour. The Weaver's Chambers se trouve de l'autre coté de la route d'Alira, avec des arbres palmés, y aller",
           "level": 17,
           "name": "The Western Forest",
           "haspassive": true,
@@ -434,7 +472,7 @@
             "Weaver_Seed_2",
             "Weaver_Seed_3"
           ],
-          "note": "Go left when the left path spawns, otherwise loop around right side. Kill Weaver for the reward, then claim The Way Forward skillpoint.",
+          "note": "Allez à gauche lorsque le chemin de gauche apparaît, sinon faites une boucle autour du côté droit<br>Tuez Weaver et Logout<br>1) Go to Act 1, Passive à Bestel<br>2) Aller à Riverways.",
           "level": 18,
           "name": "The Weaver's Chambers",
           "haspassive": false,
@@ -450,14 +488,15 @@
             "Wetlands_Seed_2",
             "Wetlands_Seed_3"
           ],
-          "note": "Kill Oak in center, then go to the left side until the Waypoint is visible with the passage next to it, sometimes it\u2019s on the right side. Oftentimes the side at which you enter Oak\u2019s fort will tell you that the waypoint is on the opposite side of the fort.",
+          "note": "1) Allez à gauche et en haut jusqu'à ce que le Waypoint soit visible avec le passage à proximité, tuez Oak et lougout. TP vers The Wetlands<br>2) Allez à The Vaal Ruins.",
           "level": 19,
           "name": "The Wetlands",
           "haspassive": true,
           "questRewardsSkills": false,
           "altimage": "none",
           "quest": "Deal with the Bandits",
-          "hasRecipe": false
+          "hasRecipe": false,
+          "hasWaypoint": true
         },
         {
           "hastrial": false,
@@ -466,7 +505,7 @@
             "Vaal_Seed_2",
             "Vaal_Seed_3"
           ],
-          "note": "Try to determine the direction, then zig and zag accordingly through the ruins.",
+          "note": "Essayez de déterminer la direction puis zig-zaguez en conséquence à travers les ruines. Aller à The Northern Forest",
           "level": 20,
           "name": "The Vaal Ruins",
           "haspassive": false,
@@ -480,7 +519,7 @@
           "image": [
             "none"
           ],
-          "note": "Go to the top right by following the shoreline.",
+          "note": "Allez en haut à droite en suivant le rivage, Allez à The Caverns. Inutile d'aller dans The Dread Thinket",
           "level": 21,
           "name": "The Northern Forest",
           "haspassive": false,
@@ -494,12 +533,12 @@
           "image": [
             "none"
           ],
-          "note": "Go away there is nothing here.",
+          "note": "Sortez de cette zone, il n'y a rien ici.",
           "level": 21,
           "name": "The Dread Thicket",
           "haspassive": false,
           "questRewardsSkills": false,
-          "altimage": "I dont even know what this looks like.",
+          "altimage": "",
           "quest": "none",
           "hasRecipe": false
         },
@@ -511,7 +550,7 @@
             "Caverns_Seed_3",
             "Caverns_Seed_4"
           ],
-          "note": "Pretty much guessing where the exit spawned.",
+          "note": "Essayez de deviner ou la sortie est apparue. Activez le Waypoint. Allez à the Ancient Pyramid",
           "level": 22,
           "name": "The Caverns",
           "haspassive": false,
@@ -524,14 +563,15 @@
           "questRewardsSkills": false,
           "altimage": "none",
           "quest": "none",
-          "hasRecipe": true
+          "hasRecipe": true,
+          "hasWaypoint":true
         },
         {
           "hastrial": false,
           "image": [
             "none"
           ],
-          "note": "Exits are usually diagonal from entrance.",
+          "note": "La sortie est en général en diagonal de l'entrée. Tuez ??? et allez à l'Act III",
           "level": 23,
           "name": "The Ancient Pyramid",
           "haspassive": false,

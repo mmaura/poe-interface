@@ -5,7 +5,7 @@ import { ActContext, PlayerContext } from "./LevelingRenderer"
 
 import ReactTooltip from "react-tooltip"
 import Icon from "@mdi/react"
-import { mdiEye, mdiReload } from "@mdi/js"
+import { mdiEye, mdiMinus, mdiPlus, mdiReload } from "@mdi/js"
 
 export function Player(): JSX.Element {
   const curPlayer = useContext(PlayerContext)
@@ -53,7 +53,7 @@ export function LevelingGuide(props: {
   const curPlayer = useContext(PlayerContext)
 
   return (
-    <div className="container">
+    <div className="w-96">
       <div className="flex flex-row flex-nowrap px-5 py-2 space-x-2">
         <select className="lvlg-map-feature min-w-min" value={curAct.actid} onChange={onActChange}>
           {GetAllActs().map(function (act: IAppAct) {
@@ -93,9 +93,9 @@ export function ZoneNotes(props: { curRichText: IRichText[]; curZone: IAppZone }
   const curRichText = props.curRichText
 
   return (
-    <div className="container flex flex-col min-h-200px relative">
+    <div className="container flex flex-col min-h-note-container relative">
       <h2>Notes</h2>
-      <div className="absolute top-0 right-0">
+      <div className="absolute top-0 right-0 flex flex-row gap-1">
         {curZone.hasRecipe ? (
           <img className="w-socket h-socket" src="../assets/images/craftingrecipe.png" />
         ) : null}
@@ -103,8 +103,11 @@ export function ZoneNotes(props: { curRichText: IRichText[]; curZone: IAppZone }
         {curZone.haspassive ? (
           <img className="w-socket h-socket" src="../assets/images/bookofskill.png" />
         ) : null}
+        {curZone.hasWaypoint ? (
+          <img className="w-socket h-socket" src="../assets/images/waypoint.png" />
+        ) : null}
       </div>
-      <div className="text-2xl">
+      <div className="text-xl">
         {curZone.note ? <RichText curRichText={curRichText} text={curZone.note} /> : null}
       </div>
     </div>
@@ -115,34 +118,49 @@ export function ZoneMap(props: { curAct: IAppAct; curZone: IAppZone }): JSX.Elem
   const curZone = props.curZone
   const curAct = props.curAct
 
-  if (curZone.image && curZone.image[0] !== "none" && curZone.image.length > 0) {
-    return (
-      <div className="container flex flex-col min-h-map-container">
-        <div className="">
-          <h2>Navigation</h2>
-        </div>
-        <div className="flex flex-row flex-wrap">
-          {curZone.image.map((val) => {
-            const path = "../assets/images/zones/" + curAct.act + "/" + val + ".png"
-            return <img key={path} className="w-32" src={path} />
-          })}
-        </div>
-        <div className="">
-          <span>{curZone.altimage !== "none" ? curZone.altimage : ""}</span>
-        </div>
+  return (
+    <div className="container flex flex-col min-h-map-container h-full">
+      <div className="flex flex-row flex-wrap h-full">
+        {curZone.image && curZone.image[0] !== "none"
+          ? curZone.image.map((val) => {
+              const path = "../assets/images/zones/" + curAct.act + "/" + val + ".png"
+              return <img key={path} className="w-32" src={path} />
+            })
+          : null}
       </div>
-    )
-  } else
-    return (
-      <div className="container flex flex-col min-h-map-container">
-        <div className="">
-          <h2>Navigation</h2>
+      {curZone.altimage !== "none" ? (
+        <div className="text-xl h-full">
+          <p>{curZone.altimage}</p>
         </div>
-        <div className="">
-          <span>{curZone.altimage !== "none" ? curZone.altimage : ""}</span>
-        </div>
-      </div>
-    )
+      ) : null}
+    </div>
+  )
+
+  // if (curZone.image && curZone.image[0] !== "none" && curZone.image.length > 0) {
+  //   return (
+  //     <div className="container flex flex-col min-h-map-container">
+  //       <div className="flex flex-row flex-wrap">
+  //         {curZone.image.map((val) => {
+  //           const path = "../assets/images/zones/" + curAct.act + "/" + val + ".png"
+  //           return <img key={path} className="w-32" src={path} />
+  //         })}
+  //       </div>
+  //       <div className="">
+  //         <span>{curZone.altimage !== "none" ? curZone.altimage : ""}</span>
+  //       </div>
+  //     </div>
+  //   )
+  // } else
+  //   return (
+  //     <div className="container flex flex-col min-h-map-container">
+  //       <div className="">
+  //         <h2>Navigation</h2>
+  //       </div>
+  //       <div className="">
+  //         <span>{curZone.altimage !== "none" ? curZone.altimage : ""}</span>
+  //       </div>
+  //     </div>
+  //   )
 }
 
 export function SkillTree(props: { curGuide: IGuide; curAct: IAppAct }): JSX.Element {
@@ -160,6 +178,7 @@ export function SkillTree(props: { curGuide: IGuide; curAct: IAppAct }): JSX.Ele
 
 export function ZoneGem(props: { curGuide: IGuide; curAct: IAppAct }): JSX.Element {
   const curGuide = props.curGuide
+  const [lvlRange, setlvlRange] = useState(6)
   const curPlayer = useContext(PlayerContext) as IAppPlayer
   const curAct = useContext(ActContext) as IAppAct
   const [showAll, setshowAll] = useState(false)
@@ -173,7 +192,10 @@ export function ZoneGem(props: { curGuide: IGuide; curAct: IAppAct }): JSX.Eleme
         .map((act) =>
           act.gears.map((gear) =>
             gear.gems.map((_gem) => {
-              if (!_gems.includes(_gem) && (Math.abs(_gem.required_lvl - curPlayer.level) < 6 || showAll)) {
+              if (
+                !_gems.includes(_gem) &&
+                (Math.abs(_gem.required_lvl - curPlayer.level) < lvlRange || showAll)
+              ) {
                 _gems.push(_gem)
               }
             })
@@ -183,15 +205,36 @@ export function ZoneGem(props: { curGuide: IGuide; curAct: IAppAct }): JSX.Eleme
     }
 
     return _gems
-  }, [curAct, curGuide, showAll, curPlayer])
+  }, [curAct, curGuide, showAll, curPlayer, lvlRange])
+
+  const inverseShowAll = useCallback(() => {
+    setshowAll(!showAll)
+  }, [])
+
+  const LvlRangePlus = useCallback(() => {
+    setlvlRange(lvlRange + 1)
+  }, [lvlRange])
+
+  const LvlRangeMoins = useCallback(() => {
+    setlvlRange(lvlRange - 1)
+  }, [lvlRange])
 
   if (curGuide && curGuide.acts) {
     return (
       <div className="relative">
         <h2>Liste des courses</h2>
-        <span className="absolute top-1 right-1 cursor-pointer" onClick={() => setshowAll(!showAll)}>
-          <Icon path={mdiEye} size={1} title="Afficher tout / filtré par lvl et act" />
-        </span>
+        <div className="flex flex-row gap-1 absolute top-1 right-1 ">
+          <span className="cursor-pointer" onClick={LvlRangePlus}>
+            <Icon path={mdiPlus} size={1} title="Afficher tout / filtré par lvl et act" />
+          </span>
+          <span className="cursor-pointer">{lvlRange}</span>
+          <span className="cursor-pointer" onClick={LvlRangeMoins}>
+            <Icon path={mdiMinus} size={1} title="Afficher tout / filtré par lvl et act" />
+          </span>
+          <span className="cursor-pointer" onClick={inverseShowAll}>
+            <Icon path={mdiEye} size={1} title="Afficher tout / filtré par lvl et act" />
+          </span>
+        </div>
         <div className="overflow-y-auto h-80 max-h-80">
           {gems.map((_gem) => {
             return <LongGem key={_gem.name} gem={_gem} />
@@ -210,20 +253,34 @@ export function LongGem(props: { gem: IGems }): JSX.Element {
   const curPlayer = useContext(PlayerContext) as IAppPlayer
   const curAct = useContext(ActContext) as IAppAct
 
-  let curBuy = curGem.buy.filter((buy) => {
-    return buy.available_to.includes(curPlayer.characterClass) && buy.act === curAct.actid
-  })
+  const curBuy = useMemo(() => {
+    let _buy = [] as IBuy[]
 
-  //make sure "A Fixture of Fate" never be first if a quest alternative
-  curBuy = curBuy.sort((a, b) => (a.quest_name == "A Fixture of Fate" && a.act === b.act ? -1 : 0))
+    _buy = curGem.buy.filter((buy) => {
+      return buy.available_to.includes(curPlayer.characterClass) && buy.act === curAct.actid
+    })
+    if (_buy.length === 0)
+      _buy = curGem.buy.filter((buy) => {
+        return buy.available_to.includes(curPlayer.characterClass)
+      })
+
+    //make sure "A Fixture of Fate" never be first if a quest alternative
+    _buy = _buy.sort((a, b) => {
+      if (a.quest_name === "A Fixture of Fate") return -1
+      if (a.act === b.act) return -1
+      return 0
+    })
+
+    return _buy
+  }, [curAct, curPlayer])
 
   if (curGem) {
     return (
-      <div className="grid grid-cols-12 gap-1 items-center">
+      <div className="grid grid-cols-12 gap-1 items-center justify-center flex flex-grow">
         <span>lvl: {curGem.required_lvl}&nbsp;</span>
         <Gem curGem={curGem} />
         <span className="col-span-3">{curGem.name}</span>
-        <div className="col-span-6 flex flex-col">
+        <div className="col-span-7 flex flex-col">
           {curBuy.length > 0 ? (
             curBuy.map((_buy, index) => {
               return (
@@ -247,6 +304,7 @@ export function LongGem(props: { gem: IGems }): JSX.Element {
           )}
         </div>
       </div>
+      // <div className="flex flex-grow-0 order-b-2 border-poe-96 w-6/12" />
     )
   }
 
@@ -261,10 +319,6 @@ export function Gem(props: { curGem: IGems }): JSX.Element {
     window.poe_interfaceAPI.openExternal("https://www.poewiki.net/wiki/" + curGem.name)
   }, [])
 
-  // useEffect(() => {
-  // 	ReactTooltip.rebuild()
-  // }, [curGem])
-
   return (
     <div
       data-for={`gem` + curGem.name}
@@ -278,32 +332,6 @@ export function Gem(props: { curGem: IGems }): JSX.Element {
         className="w-socket h-socket cursor-pointer"
         src={"../assets/images/gems/" + curGem.name.replace(" ", "_") + ".png"}
       />
-
-      {/* <ReactTooltip id={`gem` + curGem.name} clickable>
-				<h2>
-					{curGem.name} - {curGem.required_lvl}
-				</h2>
-
-				{curGem.buy.map((_buy, index) => {
-					return (
-						<div className="grid grid-cols-3 gap-2 w-auto">
-							<p key={index}>
-								<span className="text-poe-3">Act: {_buy.act}</span>&nbsp;
-								<span className="text-poe-3">{_buy.town}</span>&nbsp;
-								<GemSpan key={_buy.npc + index} text={_buy.npc} classColor={"text-poe-3"} />
-								&nbsp;
-								<GemSpan
-									key={_buy.quest_name + index}
-									text={_buy.quest_name}
-									classColor={"text-poe-60"}
-								/>
-								&nbsp;
-								<span className="text-poe-50">{_buy.available_to}</span>
-							</p>
-						</div>
-					)
-				})}
-			</ReactTooltip> */}
     </div>
   )
 }
@@ -344,7 +372,7 @@ export function ZoneGears(props: {
   }, [curAct, curGuide])
 
   return (
-    <div className="relative flex flex-col min-h-200px mb-2">
+    <div className="relative flex flex-col mb-2">
       <h2>Gears</h2>
       <span className="absolute top-1 right-1 cursor-pointer" onClick={SendReload}>
         <Icon path={mdiReload} size={1} title="Recharger tous les jsons" />
