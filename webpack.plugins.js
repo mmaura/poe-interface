@@ -1,9 +1,16 @@
-const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
-const CopyPlugin = require("copy-webpack-plugin");
-const path = require("path");
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin")
+const CopyPlugin = require("copy-webpack-plugin")
+const WatchIgnorePlugin = require("webpack").WatchIgnorePlugin
+
+const path = require("path")
 
 module.exports = [
   new ForkTsCheckerWebpackPlugin(),
+  //dont work https://github.com/gatsbyjs/gatsby/issues/33216
+  //   new WatchIgnorePlugin([
+  //   path.resolve(__dirname, "src", "assets", "data"),
+  //   path.resolve(__dirname, "src", "assets", "classguides")
+  // ]),
   new CopyPlugin({
     patterns: [
       {
@@ -16,4 +23,4 @@ module.exports = [
       },
     ],
   }),
-];
+]

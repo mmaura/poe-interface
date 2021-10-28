@@ -8,14 +8,9 @@ export interface poe_interfaceAPI {
 }
 
 declare global {
-  interface IAppAct {
-    act: string
-    actid: number
-    zones: IAppZone[]
-  }
 
-  interface IZoneData {
-    acts: IAppAct[]
+  interface Window {
+    poe_interfaceAPI: poe_interfaceAPI
   }
 
   type IAppPlayer = {
@@ -26,24 +21,7 @@ declare global {
     currentZoneName: string
     currentZoneAct: number
   }
-
-  type IAppZone = {
-    hastrial: boolean
-    image: string[]
-    note: string
-    level: number
-    name: string
-    haspassive: boolean
-    questRewardsSkills: boolean
-    altimage: string
-    quest: string
-    hasRecipe: boolean
-    hasWaypoint?: boolean
-  }
-  interface Window {
-    poe_interfaceAPI: poe_interfaceAPI
-  }
-
+  
   interface IAppGems {
     reward: any
     required_lvl: number
@@ -57,16 +35,16 @@ declare global {
     iconPath: string
     isActive: boolean
   }
-  interface IGemsData {
-    "": IAppGems
-  }
-  interface IAppClasses {
-    classe: string
-    ascendancy: string[]
-  }
-  interface IDefaultClassesData {
-    "": IAppClasses[]
-  }
+  // interface IGemsData {
+  //   "": IAppGems
+  // }
+  // interface IAppClasses {
+  //   classe: string
+  //   ascendancy: string[]
+  // }
+  // interface IDefaultClassesData {
+  //   "": IAppClasses[]
+  // }
 
   /***************************
    * acts.json
@@ -90,6 +68,7 @@ declare global {
     quest?: string
     hasRecipe?: boolean
     recipe?: IRecipe
+    hasWaypoint?: boolean
   }
 
   export interface IRecipe {

@@ -9,22 +9,17 @@
       "Merveil",
       "Fidelitas",
       "Kraityn",
-	  "Alira",
-	  "Weaver",
-	  "Oak"
+      "Alira",
+      "Weaver",
+      "Oak",
+      "Gravicius",
+      "Piety"
     ],
     "classe": "boss"
   },
   {
     "classe": "zones",
-    "data": [
-      "Highgate",
-      "Lioneye's Watch",
-      "The Forest Encampment",
-      "The Library",
-      "The Sarn Encampment",
-      "town"
-    ]
+    "data": ["town"]
   },
   {
     "classe": "quest",
@@ -48,6 +43,7 @@
       "find",
       "logout",
       "déconnexion",
+      "deco",
       "portal",
       "tp",
       "portail",

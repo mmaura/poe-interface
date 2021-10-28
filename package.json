@@ -11,7 +11,12 @@
     "publish": "electron-forge publish",
     "lint": "eslint --ext .ts,.tsx ."
   },
-  "keywords": ["poe", "Path of Exile", "leveling", "guide"],
+  "keywords": [
+    "poe",
+    "Path of Exile",
+    "leveling",
+    "guide"
+  ],
   "author": {
     "name": "Maura Mathieu",
     "email": "mmaura@amc-i.fr"

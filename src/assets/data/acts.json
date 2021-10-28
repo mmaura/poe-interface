@@ -526,7 +526,8 @@
           "questRewardsSkills": false,
           "altimage": "Linear layout, waypoint is adjacent to the shoreline.",
           "quest": "none",
-          "hasRecipe": false
+          "hasRecipe": false,
+          "hasWaypoint": true
         },
         {
           "hastrial": false,
@@ -598,7 +599,7 @@
           "image": [
             "none"
           ],
-          "note": "Don\u2019t forget to talk to Clarissa.",
+          "note": "N'oubliez pas de parler à Clarissa. En ville, allez directement dans The Slums sans parler aux PNJ",
           "level": 23,
           "name": "The City of Sarn",
           "haspassive": false,
@@ -615,7 +616,7 @@
             "Slums_Seed_3",
             "Slums_Seed_4"
           ],
-          "note": "Find the grates to the sewers, then take the stairs down, follow it until you have stairs up, then it\u2019s fairly linear.",
+          "note": "1) Trouvez les grilles The Sewers, puis descendez les escaliers, suivez les escaliers jusqu'à monter, puis ligne droite vers le The Crematorium, y rentrer<br>2) Après avoir les clés allez à The Sewers",
           "level": 24,
           "name": "The Slums",
           "haspassive": false,
@@ -633,7 +634,7 @@
             "Crematorium_Seed_4",
             "Crematorium_Seed_5"
           ],
-          "note": "Going left generally has a higher chance of success. There is a trial here.",
+          "note": "Plutôt à gauche.<br>Tuez Piety (résistance à la foudre recommandée).puis Logout.<br>En ville, récupérez les clés des égouts auprès de Clarissa, allez à The Slums",
           "level": 25,
           "name": "The Crematorium",
           "haspassive": false,
@@ -653,14 +654,15 @@
           "questRewardsSkills": true,
           "altimage": "none",
           "quest": "Lost in Love",
-          "hasRecipe": true
+          "hasRecipe": true,
+          "hasWaypoint": true
         },
         {
           "hastrial": false,
           "image": [
             "Sewers_Seed_1"
           ],
-          "note": "Pick up the bust before the waypoint, after it is another, up and left is the last bust, up and right is the exit.",
+          "note": "1) Récupérez le premier buste avant le waypoint, un autre juste après. Haut et gauche le dernier buste, puis haut et droite pour la sortie.<br>Allez a The Marketplace.<br>2) Brûlez l'obstacle et allez à The Ebony Barracks",
           "level": 26,
           "name": "The Sewers",
           "haspassive": true,
@@ -677,7 +679,8 @@
           "questRewardsSkills": false,
           "altimage": "none",
           "quest": "Victario's Secrets",
-          "hasRecipe": true
+          "hasRecipe": true,
+          "hasWaypoint": true
         },
         {
           "hastrial": false,
@@ -688,21 +691,22 @@
             "Marketplace_Seed_4",
             "Marketplace_Seed_5"
           ],
-          "note": "Usually up and right, go through the statue hall, check the waypoint (trial nearby it) and move on to find the exit.Stick to the wall and check for wreckages. If there are none in the wall to your right move to left. If you find them follow the wall to find the entrance to Battlefields.",
+          "note": "Habituellement en haut et droite, traversez la salle des statues, récupérez le waypoint près de The Catacombes. Passez l'élément de quête c'est inutile, Allez à The Catacombs<br>2) Suivre le mur de droite pour trouver la sortie, Allez à The Battlefront",
           "level": 26,
           "name": "The Marketplace",
           "haspassive": false,
           "questRewardsSkills": false,
           "altimage": "none",
           "quest": "A Swing of Hope",
-          "hasRecipe": false
+          "hasRecipe": false,
+          "hasWaypoint": true
         },
         {
           "hastrial": true,
           "image": [
             "none"
           ],
-          "note": "There is a trial in this area.",
+          "note": "Faire le trial, puis logout et allez à The Marketplace.",
           "level": 27,
           "name": "The Catacombs",
           "haspassive": false,
@@ -723,7 +727,7 @@
             "Battlefront_Seed_1",
             "Battlefront_Seed_2"
           ],
-          "note": "First image is to spool and docks, second to Solaris.",
+          "note": "1) haut et gauche vers le waypoint. Prenez la bobine un peu à gauche du waypoint. Allez à The Docks <br>2) Droite haut à la recherche du temple Solaris. Allez à The Solaris Temple level 1.",
           "level": 27,
           "name": "The Battlefront",
           "haspassive": false,
@@ -739,7 +743,7 @@
             "Solaris1_Seed_2",
             "Solaris1_Seed_3"
           ],
-          "note": "Linear layout, follow the carpet until the exit.",
+          "note": "Suivez le tapis jusqu'à la sortie. Allez The Solaris Temple Level 2",
           "level": 27,
           "name": "The Solaris Temple Level 1",
           "haspassive": false,
@@ -755,7 +759,7 @@
             "Solaris2_Seed_2",
             "Solaris2_Seed_3"
           ],
-          "note": "Somewhat linear, follow carpet, can have dead ends.",
+          "note": "Suivez le tapis mais, il avoir des impasses. Parlez à Dialla. Allez à The Sewers par le waypoint",
           "level": 28,
           "name": "The Solaris Temple Level 2",
           "haspassive": false,
@@ -785,7 +789,7 @@
             "Docks_Seed_3",
             "Docks_Seed_4"
           ],
-          "note": "Usually left side, sulphite is down some stairs.",
+          "note": "Ignorez Fairgraves. Vers gauche en premier, trouvez le sulfite qui est en bas des escaliers puis logout allez à The Battlefront.",
           "level": 29,
           "name": "The Docks",
           "haspassive": false,
@@ -800,7 +804,7 @@
             "Ebony_Seed_1",
             "Ebony_Seed_2"
           ],
-          "note": "First image is to Lunaris, second to The Sceptre of God.",
+          "note": "1) Montez au temple de Lunaris, n'oubliez pas le waypoint, tuez Gravicius. Allez à The Lunaris Temple Level 1<br>2) Après le temple de Lunaris, allez à droite et haut pour The Imperial Gardens",
           "level": 29,
           "name": "The Ebony Barracks",
           "haspassive": false,
@@ -815,7 +819,7 @@
             "Lunaris1_Seed_1",
             "Lunaris1_Seed_2"
           ],
-          "note": "Pretty linear, follow the carpet, don\u2019t forget waypoint.",
+          "note": "Suivez le tapis, n'oubliez pas le waypoint.",
           "level": 29,
           "name": "The Lunaris Temple Level 1",
           "haspassive": true,
@@ -830,7 +834,7 @@
             "Lunaris2_Seed_1",
             "Lunaris2_Seed_2"
           ],
-          "note": "Layout differs a lot, very generic map drawing. If you see stairs, go up these as this is the right path, then find more stairs, until you reach a larger area, there will be carts on both sides, pick the side where there is only one.",
+          "note": "La disposition diffère beaucoup. Toujours monter les escaliers, jusqu'à une plus grande surface ou il y a des chariots des deux côtés, choisissez le coté où il n'y en a qu'un tuez le boss et Logout allez à The Ebony Barracks",
           "level": 30,
           "name": "The Lunaris Temple Level 2",
           "haspassive": false,
@@ -857,7 +861,7 @@
           "image": [
             "Imperial_Seed_1"
           ],
-          "note": "Follow the road until the end",
+          "note": "Suivez la route, activer waypoint.<br>1) haut et gauche pour Trial, Logout et revenez<br>2) Faites The Library si besoin, puis deco tp<br>3) allez à droite puis en haut vers The Sceptre of God",
           "level": 30,
           "name": "The Imperial Gardens",
           "haspassive": false,
@@ -905,7 +909,7 @@
           "image": [
             "none"
           ],
-          "note": "The exits can often be found by travelling diagonally.",
+          "note": "Les sorties apparaissent dans un coin aléatoire, peuvent souvent être trouvées en voyageant en diagonale. Allez à The Upper Sceptre of God.",
           "level": 32,
           "name": "The Sceptre of God",
           "haspassive": false,
@@ -919,7 +923,7 @@
           "image": [
             "none"
           ],
-          "note": "Go up diagonally until you spot barricades at exit.",
+          "note": "Les sorties apparaissent dans un coin aléatoire. Montez en diagonale jusqu'à ce que vous aperceviez des barricades à la sortie. Tuez the boss. Allez à l'Act IV",
           "level": 33,
           "name": "The Upper Sceptre of God",
           "haspassive": false,

@@ -17,6 +17,10 @@ rules.push({
 );
 
 module.exports = {
+  watchOptions: {
+    ignored:  /.*\.json/ 
+  },
+
   module: {
     rules,
   },

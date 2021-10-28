@@ -1,51 +1,73 @@
-import React, { useState, useEffect, useCallback, useLayoutEffect } from "react"
+import React, { useState, useEffect, useCallback, useLayoutEffect, useMemo } from "react"
 import * as ReactDOM from "react-dom"
 
 import "../index.css"
 import "./index.css"
-
 import { Player, LevelingGuide, ZoneNotes, ZoneMap, SkillTree, ZoneGem, ZoneGears } from "./Components"
 
-import { getCurAct, getCurZone } from "../modules/functions"
-import { IpcRendererEvent } from "electron"
 
 export const PlayerContext = React.createContext({} as IAppPlayer)
-export const ActContext = React.createContext({} as IAppAct)
+export const ActContext = React.createContext({} as IActs)
 
 function App(props: { Init: any }) {
-  const [curAct, setcurAct] = useState(getCurAct(1))
-  const [curZone, setcurZone] = useState({} as IAppZone)
+  const [Acts, setActs] = useState(props.Init[1] as IActs[])
+  const [curRichText, setcurRichText] = useState(props.Init[2] as IRichText[])
+  const [curGuide, setcurGuide] = useState(props.Init[3] as IGuide)
+  const [curPlayer, setcurPlayer] = useState(props.Init[4] as IAppPlayer)
+  const [curActID, setcurActID] = useState(props.Init[5] as number)
+  const [curZoneName, setcurZoneName] = useState(props.Init[6] as string)
 
-  const [curPlayer, setcurPlayer] = useState(props.Init[3] as IAppPlayer)
-  // const [curGuide, setcurGuide] = useState(props.Init[1] as IGuide)
-  const curGuide = props.Init[1] as IGuide
+  const curAct = useMemo(() => {
+    console.log("Memo curAct", curActID)
+     const _act = Acts.find((e) => (e.actid === curActID))
+     console.log(_act)
+     return _act
+  }, [Acts, curActID])
 
-  const [curRichText, setcurRichText] = useState(props.Init[0] as IRichText[])
+  const curZone= useMemo(() => {
+    console.log("Memo curZone", curZoneName)
+    const _zone = curAct.zones.find((e) => (e.name === curZoneName))
+    if (!_zone) return curAct.zones[0]
+    console.log(_zone)
+    return _zone
+  }, [curAct, curZoneName])
 
+  
   /*********************************
    * Events
    */
   const onActChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    setcurAct(getCurAct(Number(e.target.value)))
+    // setcurAct(getCurAct(Number(e.target.value)))
+    setcurActID(Number(e.target.value))
   }, [])
 
   const onZoneChange = useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) => {
-      setcurZone(getCurZone(curAct.actid, e.target.value))
+      // setcurZone(getCurZone(curActID, e.target.value))
+      setcurZoneName(e.target.value)
     },
     [curAct]
   )
   /**********************************
    * Effects
    */
-  useEffect(() => {
-    setcurZone(getCurZone(curAct.actid, ""))
-  }, [curAct])
+  // useEffect(() => {
+  //   setcurAct(curAct)
+  //   return () => {
+  //     null
+  //   }
+  // }, [curActID])
+
+  // useEffect(() => {
+  //   setcurZone(getCurZone(curAct.actid, ""))
+  // }, [curAct])
 
   useEffect(() => {
-    const buf = getCurAct(curPlayer.currentZoneAct)
-    setcurAct(buf)
-    setcurZone(getCurZone(buf.actid, curPlayer.currentZoneName))
+    // const buf = computeCurAct(curPlayer.currentZoneAct)
+    setcurActID(curPlayer.currentZoneAct)
+    // setcurAct(computeCurAct)
+    // setcurZone(getCurZone(curActID, curPlayer.currentZoneName))
+    setcurZoneName(curPlayer.currentZoneName)
     return () => {
       null
     }
@@ -62,10 +84,11 @@ function App(props: { Init: any }) {
           break
         case "playerArea":
           setcurPlayer(arg[1])
-
-          //   buf = getCurAct(arg.currentZoneAct)
-          //   setcurAct(buf)
-          //   setcurZone(getCurZone(buf.actid, arg.currentZoneName))
+          break
+        case "All":
+          setActs(arg[1])
+          setcurRichText(arg[2])
+          setcurGuide(arg[3])
           break
       }
     })
@@ -74,6 +97,8 @@ function App(props: { Init: any }) {
     }
   }, [])
 
+  console.log("curZone", curZone)
+
   return (
     <ActContext.Provider value={curAct}>
       <PlayerContext.Provider value={curPlayer}>
@@ -81,7 +106,7 @@ function App(props: { Init: any }) {
           <div className="flex flex-row flex-nowrap pb-2 items-center h-full">
             <div className="flex-grow-0">
               <Player />
-              <h1>{curAct.act + " : " + curZone.name}</h1>
+              <h1>{curAct.act + " : " + curZoneName}</h1>
             </div>
 
             <div className="flex-grow h-full">
@@ -91,7 +116,7 @@ function App(props: { Init: any }) {
               <LevelingGuide
                 onActChange={onActChange}
                 onZoneChange={onZoneChange}
-                curAct={curAct}
+                Acts={Acts}
                 curZone={curZone}
               />
             </div>
@@ -103,12 +128,12 @@ function App(props: { Init: any }) {
                 <ZoneNotes curZone={curZone} curRichText={curRichText} />
               </div>
               <div className="flex-grow-0 flex-shrink items-end">
-                <SkillTree curGuide={curGuide} curAct={curAct} />
+                <SkillTree curGuide={curGuide} />
               </div>
             </div>
             <div className="container flex-shrink-0 flex-grow-0 w-gear-container">
-              <ZoneGears curGuide={curGuide} curAct={curAct} curRichText={curRichText} />
-              <ZoneGem curGuide={curGuide} curAct={curAct} />
+              <ZoneGears curGuide={curGuide} curRichText={curRichText} />
+              <ZoneGem curGuide={curGuide} />
             </div>
           </div>
         </div>
@@ -117,7 +142,7 @@ function App(props: { Init: any }) {
   )
 }
 
-window.poe_interfaceAPI.sendSync("Init", "get").then((e) => {
+window.poe_interfaceAPI.sendSync("Init", "get").then(e => {
   // console.log("then ", e)
   ReactDOM.render(<App Init={e} />, document.getElementById("root"))
 })

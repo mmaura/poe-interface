@@ -1,6 +1,6 @@
 import React, { ChangeEventHandler, useContext, useState, useMemo, useCallback } from "react"
 
-import { GetAllActs } from "../modules/functions"
+// import { GetAllActs } from "../modules/functions"
 import { ActContext, PlayerContext } from "./LevelingRenderer"
 
 import ReactTooltip from "react-tooltip"
@@ -42,13 +42,14 @@ export function Player(): JSX.Element {
 }
 
 export function LevelingGuide(props: {
-  curZone: IAppZone
-  curAct: IAppAct
+  curZone: IZone
+  Acts: IActs[]
   onActChange: ChangeEventHandler<any>
   onZoneChange: ChangeEventHandler<any>
 }): JSX.Element {
   const { curZone, onActChange, onZoneChange } = props
 
+  const Acts = props.Acts
   const curAct = useContext(ActContext)
   const curPlayer = useContext(PlayerContext)
 
@@ -56,7 +57,7 @@ export function LevelingGuide(props: {
     <div className="w-96">
       <div className="flex flex-row flex-nowrap px-5 py-2 space-x-2">
         <select className="lvlg-map-feature min-w-min" value={curAct.actid} onChange={onActChange}>
-          {GetAllActs().map(function (act: IAppAct) {
+          {Acts.map(function (act: IActs) {
             return (
               <option key={act.actid} value={act.actid}>
                 {act.act}
@@ -66,7 +67,7 @@ export function LevelingGuide(props: {
         </select>
 
         <select className="lvlg-map-feature flex-grow" value={curZone.name} onChange={onZoneChange}>
-          {curAct.zones.map(function (zone: IAppZone) {
+          {curAct.zones.map(function (zone: IZone) {
             return (
               <option key={zone.level + "-" + zone.name} value={zone.name}>
                 {zone.name}
@@ -88,9 +89,11 @@ export function LevelingGuide(props: {
   )
 }
 
-export function ZoneNotes(props: { curRichText: IRichText[]; curZone: IAppZone }): JSX.Element {
+export function ZoneNotes(props: { curRichText: IRichText[]; curZone: IZone }): JSX.Element {
   const curZone = props.curZone
   const curRichText = props.curRichText
+
+  console.log("ZoneNote", curZone)
 
   return (
     <div className="container flex flex-col min-h-note-container relative">
@@ -114,9 +117,11 @@ export function ZoneNotes(props: { curRichText: IRichText[]; curZone: IAppZone }
   )
 }
 
-export function ZoneMap(props: { curAct: IAppAct; curZone: IAppZone }): JSX.Element {
+export function ZoneMap(props: { curAct: IActs; curZone: IZone }): JSX.Element {
   const curZone = props.curZone
   const curAct = props.curAct
+
+  console.log("ZoneMap", curZone)
 
   return (
     <div className="container flex flex-col min-h-map-container h-full">
@@ -163,9 +168,9 @@ export function ZoneMap(props: { curAct: IAppAct; curZone: IAppZone }): JSX.Elem
   //   )
 }
 
-export function SkillTree(props: { curGuide: IGuide; curAct: IAppAct }): JSX.Element {
+export function SkillTree(props: { curGuide: IGuide }): JSX.Element {
   const curGuide = props.curGuide
-  const curAct = props.curAct
+  const curAct = useContext(ActContext)
 
   let tree = ""
 
@@ -176,11 +181,13 @@ export function SkillTree(props: { curGuide: IGuide; curAct: IAppAct }): JSX.Ele
   return null
 }
 
-export function ZoneGem(props: { curGuide: IGuide; curAct: IAppAct }): JSX.Element {
+export function ZoneGem(props: { curGuide: IGuide}): JSX.Element {
   const curGuide = props.curGuide
-  const [lvlRange, setlvlRange] = useState(6)
+
   const curPlayer = useContext(PlayerContext) as IAppPlayer
-  const curAct = useContext(ActContext) as IAppAct
+  const curAct = useContext(ActContext) as IActs
+
+  const [lvlRange, setlvlRange] = useState(6)
   const [showAll, setshowAll] = useState(false)
 
   const gems = useMemo(() => {
@@ -209,7 +216,7 @@ export function ZoneGem(props: { curGuide: IGuide; curAct: IAppAct }): JSX.Eleme
 
   const inverseShowAll = useCallback(() => {
     setshowAll(!showAll)
-  }, [])
+  }, [showAll])
 
   const LvlRangePlus = useCallback(() => {
     setlvlRange(lvlRange + 1)
@@ -251,7 +258,7 @@ export function LongGem(props: { gem: IGems }): JSX.Element {
   const curGem = props.gem
 
   const curPlayer = useContext(PlayerContext) as IAppPlayer
-  const curAct = useContext(ActContext) as IAppAct
+  const curAct = useContext(ActContext) as IActs
 
   const curBuy = useMemo(() => {
     let _buy = [] as IBuy[]
@@ -308,7 +315,7 @@ export function LongGem(props: { gem: IGems }): JSX.Element {
     )
   }
 
-  return <div></div>
+  return <div>Pas de gemme.</div>
 }
 
 export function Gem(props: { curGem: IGems }): JSX.Element {
@@ -326,8 +333,9 @@ export function Gem(props: { curGem: IGems }): JSX.Element {
       data-effect="solid"
       data-place="left"
       data-delay-hide="1000"
-    >
+    > <ReactTooltip key={curGem.name} />
       <img
+        data-tip={curGem.name}
         onClick={gemClick}
         className="w-socket h-socket cursor-pointer"
         src={"../assets/images/gems/" + curGem.name.replace(" ", "_") + ".png"}
@@ -352,16 +360,14 @@ function GemSpan(props: { text: string; classColor: string }): JSX.Element {
 export function ZoneGears(props: {
   curRichText: IRichText[]
   curGuide: IGuide
-  curAct: IAppAct
 }): JSX.Element {
-  const curAct = props.curAct
+  const curAct = useContext(ActContext)
+  
   const curRichText = props.curRichText
-  // const curGuide =props.curGuide
+  
   const [curGuide, setcurGuide] = useState(props.curGuide)
 
-  // const curGearsAct = props.curGuide.acts.find((act) => act.act == curAct.actid) //useMemo ?
-
-  const SendReload = useCallback(() => {
+    const SendReload = useCallback(() => {
     window.poe_interfaceAPI.sendSync("guide", "reload").then((e) => {
       setcurGuide(e)
     })
@@ -445,6 +451,7 @@ export function RichText(props: { curRichText: IRichText[]; text: string }): JSX
         text = text.replace(regex, subst)
       }
     }
+
     return text
   }, [text])
 
