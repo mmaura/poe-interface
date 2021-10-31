@@ -29,6 +29,8 @@ jobs:
       - name: install deps
         run: yarn        
       - name: package 
+        run: yarn package
+      - name: make 
         run: yarn make
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
