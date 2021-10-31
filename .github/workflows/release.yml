@@ -13,64 +13,64 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  ubuntu-tagged-release:
+  build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-    name: package for ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - macos-latest
+          - ubuntu-latest
+          - windows-latest
+          
+    runs-on: ${{ matrix.os }}
+    name: build for ${{ matrix.os }}
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
+        
       - name: install deps
-        run: yarn        
+        run: yarn     
+        
       - name: package 
         run: yarn package --platform linux --arch x64
-      - uses: "marvinpinto/action-automatic-releases@latest"
+        
+      - name: Upload macOS release build
+        uses: actions/upload-artifact@v2
+        if: ${{ matrix.os == 'macos-latest' }}
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          prerelease: false
-          files: |
-            out/**/*.zip
-            out/**/*.deb
+          name: dist-darwin-files
+          path: out/make/**/*        
 
-  windows-tagged-release:
-    runs-on: windows-latest
-    name: package for Windows-latest
+      - name: Upload windows release build
+        uses: actions/upload-artifact@v2
+        if: ${{ matrix.os == 'windows-latest' }}
+        with:
+          name: dist-windows-files
+          path: out/make/**/*        
 
+      - name: Upload linux ubuntu release build
+        uses: actions/upload-artifact@v2
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        with:
+          name: dist-ubuntu-files
+          path: out/make/**/*        
+
+        
+  prerelease:
+    needs: build
+    runs-on: ubuntu-latest
+      
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-      - name: install deps
-        run: yarn        
-      - name: package 
-        run: yarn package
-      - name: make 
-        run: yarn make
-      - uses: "marvinpinto/action-automatic-releases@latest"
+      - name: Download binaries
+        uses: actions/download-artifact@v2
+        
+      - name: Deploy ${{ tag }} release
+        uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
           files: |
-            out/**/*.zip
-            out/**/*.exe
-            
-  darwin-tagged-release:
-    runs-on: darwin-latest
-    name: package for darwin-latest
+            dist*/**/*
 
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-      - name: install deps
-        run: yarn        
-      - name: package 
-        run: yarn package
-      - name: make 
-        run: yarn make
-      - uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          prerelease: false
-          files: |
-            out/**/*.zip
-            out/**/*.dmg
