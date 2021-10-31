@@ -124,8 +124,8 @@ function App(props: { Init: any }) {
                 <ZoneMap curZone={curZone} curAct={curAct} />
               </div>
               <div className="flex-grow-0 h-full">
-                <div className="text-center">
-                  <u>ActGuide:</u> {ActsGuide.identity.name} - <u>ClassGuide:</u> {curGuide.identity.name}
+                <div className="items-center">
+                  ActGuide: {ActsGuide.identity.name} ClassGuide: {curGuide.identity.name}
                 </div>
 
                 <LevelingGuide
