@@ -1,6 +1,6 @@
 module.exports = {
   packagerConfig: {
-    icon: "src/renderer/assets/AppIcon.png",
+    icon: "src/assets/AppIcon.png",
     category: "Game",
   },
   makers: [
@@ -9,27 +9,32 @@ module.exports = {
       config: {
         name: "poe_interface",
       },
+      platforms: ["win32"],
     },
     {
       name: "@electron-forge/maker-zip",
-      platforms: ["darwin", "linux"],
+      platforms: ["darwin", "linux", "win32"],
     },
     {
-      name: "@electron-forge/maker-deb",
-      config: {},
+      name: "@electron-forge/maker-dmg",
+      platforms: ["darwin"],
     },
-    {
-      name: "@electron-forge/maker-rpm",
-      config: {},
-    },
-    {
-      name: "@electron-forge/maker-flatpak",
-      config: {
-        options: {
-          categories: ["Game"],
-        },
-      },
-    },
+    // {
+    //   name: "@electron-forge/maker-deb",
+    //   config: {},
+    // },
+    // {
+    //   name: "@electron-forge/maker-rpm",
+    //   config: {},
+    // },
+    // {
+    //   name: "@electron-forge/maker-flatpak",
+    //   config: {
+    //     options: {
+    //       categories: ["Game"],
+    //     },
+    //   },
+    // },
   ],
   plugins: [
     [
