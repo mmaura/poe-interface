@@ -33,9 +33,9 @@ jobs:
       - name: install deps
         run: yarn     
         
-      - name: package 
-        run: yarn package --platform linux --arch x64
-        
+      - name: make $ {{ matrix.os }}
+        run: yarn make 
+
       - name: Upload macOS release build
         uses: actions/upload-artifact@v2
         if: ${{ matrix.os == 'macos-latest' }}
