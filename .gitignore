@@ -90,3 +90,5 @@ out/
 
 
 dist/
+
+.history/

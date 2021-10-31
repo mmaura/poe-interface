@@ -4,6 +4,7 @@ import PathOfExileLog from "poe-log-monitor"
 import Store from "electron-store"
 import path from "path"
 import os from "os"
+import fs from "fs"
 
 import { ConfigWindow } from "./main/ConfigWindow"
 import { LevelingWindow } from "./main/LevelingWindow"
@@ -21,46 +22,46 @@ let configWindow: ConfigWindow
 let AppTray: Tray
 let PoeLog: PathOfExileLog
 
-const schema = {
-  poe_log_path: {
-    type: "string",
-  },
-  curClassGuide: {
-    type: "string",
-    default: "default",
-  },
-  curActsGuide: {
-    type: "string",
-    default: "default",
-  },
-  OpenDirOnDuplicate:{
-    type: "boolean",
-    default: true
-  },
-  OpenEditorOnDuplicate:{
-    type: "boolean",
-    default: true
-  }
+// const schema = {
+//   poe_log_path: {
+//     type: "string",
+//   },
+//   curClassGuide: {
+//     type: "string",
+//     default: "default",
+//   },
+//   curActsGuide: {
+//     type: "string",
+//     default: "default",
+//   },
+//   OpenDirOnDuplicate: {
+//     type: "boolean",
+//     default: true,
+//   },
+//   OpenEditorOnDuplicate: {
+//     type: "boolean",
+//     default: true,
+//   },
+//   lelvelingWinBounds: {
+//     x: { type: "number", default: 1 },
+//     y: { type: "number", default: 1 },
+//     width: { type: "number", default: 1 },
+//     height: { type: "number", default: 1 }
+//   },
+// } as const
 
-} as const
-
-const AppStore = new Store({ schema: schema })
-
-const AssetPath = getAssetPath()
-const AppIcon = nativeImage.createFromPath(`${AssetPath}/AppIcon.png`)
+const AppStore = new Store()
+const AppIcon = nativeImage.createFromPath(path.join(getAssetPath(), "AppIcon.png"))
 
 protocol.registerSchemesAsPrivileged([
-  { scheme: 'userdata', privileges: { bypassCSP: true, standard: true, secure: true } }
+  { scheme: "userdata", privileges: { bypassCSP: true, standard: true, secure: true } },
 ])
-
 
 app.whenReady().then(async () => {
   if (!app.isPackaged) session.defaultSession.loadExtension(reactDevToolsPath)
 
   protocol.registerFileProtocol("userdata", (request, callback) => {
-    // console.log(request)
     const url = request.url.substr(9)
-    // console.log(path.normalize(`${getLocalCustomPath()}/${url}`))
     callback({ path: path.normalize(`${getLocalCustomPath()}/${url}`) })
   })
 
@@ -70,6 +71,9 @@ app.whenReady().then(async () => {
 
   AppStore.onDidChange("poe_log_path", newValue => {
     CreatePoeLog(newValue as string)
+    if (!levelingGuideWindow) levelingGuideWindow = new LevelingWindow(AppStore, AppIcon)
+    levelingGuideWindow.setPoeLog(PoeLog)
+    levelingGuideWindow.show()
   })
 
   function CreatePoeLog(logPath: string) {
@@ -81,8 +85,6 @@ app.whenReady().then(async () => {
         interval: 500,
       })
 
-      levelingGuideWindow.setPoeLog(PoeLog)
-
       PoeLog.start()
       PoeLog.parseLog()
       PoeLog.on("parsingComplete", PoeLogParseComplete)
@@ -90,12 +92,14 @@ app.whenReady().then(async () => {
   }
 
   configWindow = new ConfigWindow(AppStore, AppIcon)
-  levelingGuideWindow = new LevelingWindow(AppStore, AppIcon)
 
-  if (configWindow.getPoeLogPath() === null) {
+  if (!fs.existsSync(configWindow.getPoeLogPath())) {
     configWindow.show()
   } else {
     CreatePoeLog(configWindow.getPoeLogPath())
+    levelingGuideWindow = new LevelingWindow(AppStore, AppIcon)
+    levelingGuideWindow.setPoeLog(PoeLog)
+    levelingGuideWindow.show()
   }
 
   function PoeLogParseComplete() {

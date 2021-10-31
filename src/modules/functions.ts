@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron"
+import { app, BrowserWindow, dialog } from "electron"
 import { download } from "electron-dl"
 import fs from "fs"
 import path from "path"
@@ -39,9 +39,20 @@ export function loadJsonAct(file?: string): IActsGuide {
 }
 
 export function loadJson(filename: string): any {
-  const dataFile = fs.readFileSync(filename)
-  const Json = JSON.parse(dataFile.toLocaleString())
-  return Json
+  try {
+    const dataFile = fs.readFileSync(filename)
+    const Json = JSON.parse(dataFile.toLocaleString())
+    return Json
+    } catch (error : any) {
+    dialog.showMessageBox(null, {
+      message: `une erreur est survenue au chargement du fichier :`,
+      detail: `\n ${filename}.\n\n ${error.message}` ,
+      title: "Erreur de chargement Json",
+      type: "error",
+    })
+    return null
+  }
+
 }
 
 export function getAssetPath(): string {

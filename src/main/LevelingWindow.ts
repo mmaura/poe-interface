@@ -8,6 +8,7 @@ import {
   shell,
   MenuItem,
   dialog,
+  Rectangle,
 } from "electron"
 import Store from "electron-store"
 
@@ -37,6 +38,8 @@ export class LevelingWindow {
   private _PoeLog: PathOfExileLog
   private _LogLoaded: boolean
 
+  private _HelperFiles: string[]
+
   private _CurClassGuide: IClassesGuide
   private _ClassesGuidesIdentities: ClassGuideIdentity[]
   private _RichTextJson: IRichText[]
@@ -47,7 +50,7 @@ export class LevelingWindow {
   private _MyPlayer: IAppPlayer
   private _MyConn: plm_conn
 
-  constructor(appStore: any, AppIcon: NativeImage) {
+  constructor(appStore: Store, AppIcon: NativeImage) {
     this._AppStore = appStore
 
     this._MyPlayer = <IAppPlayer>{}
@@ -66,8 +69,10 @@ export class LevelingWindow {
         preload: LEVELING_WINDOW_PRELOAD_WEBPACK_ENTRY,
       },
     })
+    this._Window.setBounds(this._AppStore.get('levelingWinBounds', { x: 1, y: 1, width: 1400, height: 980 }) as Rectangle)
 
     this.InitJsonData()
+    this.InitHelpers()
     this.makeMenus()
 
     this._Window.loadURL(LEVELING_WINDOW_WEBPACK_ENTRY)
@@ -81,6 +86,8 @@ export class LevelingWindow {
         this._Window.hide()
         e.preventDefault()
       }
+      // console.log("bounds: ",this._Window.getBounds())
+      this._AppStore.set('levelingWinBounds', this._Window.getBounds())
     })
 
     this._Window.on("closed", () => {
@@ -140,49 +147,48 @@ export class LevelingWindow {
    * POE LOG
    */
   setPoeLog(poeLog: PathOfExileLog): void {
-    this._PoeLog = poeLog
-    this._LogLoaded = false
+    if (poeLog !== null) {
+      this._PoeLog = poeLog
+      this._LogLoaded = false
 
-    /**********************************
-     * Poe Log Events
-     */
-    this._PoeLog.on("parsingComplete", () => {
-      this._LogLoaded = true
+      this._PoeLog.on("parsingComplete", () => {
+        this._LogLoaded = true
 
-      console.log("send parsing complete")
+        console.log("send parsing complete")
 
-      this._Window.webContents.send("levelingRenderer", ["player", this._MyPlayer])
-      this._Window.webContents.send("conn", this._MyConn)
-    })
-
-    this._PoeLog.on("login", data => {
-      this._MyConn = data
-      if (this._LogLoaded === true) this._Window.webContents.send("conn", this._MyConn)
-    })
-
-    this._PoeLog.on("level", data => {
-      this._MyPlayer.name = data.name
-      this._MyPlayer.characterClass = this.getCharacterClass(data.characterClass)
-      this._MyPlayer.characterAscendancy = data.characterClass
-      this._MyPlayer.level = data.level
-
-      if (this._LogLoaded === true) {
-        console.log("level up : send player")
         this._Window.webContents.send("levelingRenderer", ["player", this._MyPlayer])
-      }
-    })
+        this._Window.webContents.send("conn", this._MyConn)
+      })
 
-    this._PoeLog.on("area", area => {
-      if (area.type === "area") {
-        this._MyPlayer.currentZoneName = area.name
-        this._MyPlayer.currentZoneAct = area.info[0].act
+      this._PoeLog.on("login", data => {
+        this._MyConn = data
+        if (this._LogLoaded === true) this._Window.webContents.send("conn", this._MyConn)
+      })
+
+      this._PoeLog.on("level", data => {
+        this._MyPlayer.name = data.name
+        this._MyPlayer.characterClass = this.getCharacterClass(data.characterClass)
+        this._MyPlayer.characterAscendancy = data.characterClass
+        this._MyPlayer.level = data.level
 
         if (this._LogLoaded === true) {
-          console.log("area change : send player")
-          this._Window.webContents.send("levelingRenderer", ["playerArea", this._MyPlayer])
+          console.log("level up : send player")
+          this._Window.webContents.send("levelingRenderer", ["player", this._MyPlayer])
         }
-      }
-    })
+      })
+
+      this._PoeLog.on("area", area => {
+        if (area.type === "area") {
+          this._MyPlayer.currentZoneName = area.name
+          this._MyPlayer.currentZoneAct = area.info[0].act
+
+          if (this._LogLoaded === true) {
+            console.log("area change : send player")
+            this._Window.webContents.send("levelingRenderer", ["playerArea", this._MyPlayer])
+          }
+        }
+      })
+    }
   }
 
   setCanClose(state: boolean): void {
@@ -209,9 +215,13 @@ export class LevelingWindow {
     return _character.classe
   }
 
-  OpenLocalHelperFile(file: string): void {
-    const exts = ["png", "jpg", "gif"]
-    let filename = path.join(getLocalCustomPath(), "images", "memo", file)
+  OpenLocalHelpersDir(): void {
+    shell.openPath(this.getLocalHelpersDir())
+  }
+
+  OpenHelperFile(file: string): void {
+    const exts = ["png", "jpg"]
+    let filename = path.join(this.getLocalHelpersDir(), file)
 
     for (const ext of exts) {
       console.log(filename + "." + ext)
@@ -220,29 +230,55 @@ export class LevelingWindow {
         break
       }
     }
+
     shell.openPath(filename)
   }
 
+  private InitHelpers(): void {
+    this._HelperFiles = [] as string[]
+    if (!fs.existsSync(this.getLocalHelpersDir())) {
+      fs.mkdirSync(this.getLocalHelpersDir(), { recursive: true })
+      fs.readdirSync(path.join(getAssetPath(), "helpers"), { withFileTypes: true }).forEach(item => {
+        if (item.isFile) {
+          fs.copyFileSync(
+            path.join(getAssetPath(), "helpers", item.name),
+            path.join(this.getLocalHelpersDir(), item.name)
+          )
+        }
+      })
+    }
+
+    fs.readdirSync(this.getLocalHelpersDir(), { withFileTypes: true }).forEach(item => {
+      this._HelperFiles.push(path.basename(item.name, path.extname(item.name)))
+    })
+  }
+
   private InitJsonData(): void {
+    this.InitHelpers()
+
     this.LoadJsonClassesGuidesIdentities()
-    this.loadCurClassGuideFromJson(this._AppStore.get("curClassGuide") as string)
+    this.loadCurClassGuideFromJson(this._AppStore.get("curClassGuide","default") as string)
 
     this.LoadJsonActsGuidesIdentities()
-    this.loadCurActsGuideFromJson(this._AppStore.get("curActsGuide") as string)
+    this.loadCurActsGuideFromJson(this._AppStore.get("curActsGuide", "default") as string)
+
+    this._ClassesJson = loadJsonClasses()
 
     this._RichTextJson = loadJsonRichText(this._CurActsGuide)
-    this._ClassesJson = loadJsonClasses()
   }
 
   reloadAll(): void {
+    this.InitHelpers()
+
+    this._ClassesJson = loadJsonClasses()
+
     this.LoadJsonClassesGuidesIdentities()
     this.loadCurClassGuideFromJson()
 
-    this.LoadJsonClassesGuidesIdentities()
+    this.LoadJsonActsGuidesIdentities()
     this.loadCurActsGuideFromJson()
 
     this._RichTextJson = loadJsonRichText(this._CurActsGuide)
-    this._ClassesJson = loadJsonClasses()
 
     this._Window.webContents.send("levelingRenderer", [
       "All",
@@ -285,7 +321,8 @@ export class LevelingWindow {
 
     let _ident = this._ClassesGuidesIdentities.find(identity => identity.name === guideName)
 
-    if (!_ident) _ident = this._ClassesGuidesIdentities[0]
+    if (!_ident) _ident = this._ClassesGuidesIdentities.find(identity => identity.name === "default")
+
     this._CurClassGuide = loadJson(_ident.filename) as IClassesGuide
     this._CurClassGuide = Object.assign(this._CurClassGuide, { identity: _ident })
     console.log(this._CurClassGuide)
@@ -293,9 +330,9 @@ export class LevelingWindow {
     if (this._CurClassGuide.acts) {
       this._CurClassGuide.acts.forEach(act => {
         if (fs.existsSync(path.join(_ident.sysAssetPath, "tree-" + act.act + ".png")))
-          act.treeimage = _ident.webAssetPath + "/tree-" + act.act + ".png"
+          act.treeimage = _ident.webAssetPath + "tree-" + act.act + ".png"
         else if (fs.existsSync(path.join(_ident.sysAssetPath, "tree-" + act.act + ".jpg")))
-          act.treeimage = _ident.webAssetPath + "/tree-" + act.act + ".jpg"
+          act.treeimage = _ident.webAssetPath + "tree-" + act.act + ".jpg"
         else {
           InfoMessages.push(
             `Le fichier ${path.join(
@@ -369,7 +406,7 @@ export class LevelingWindow {
     guide.identity.webAssetPath = "../assets/actsguides/default/"
     guide.identity.sysAssetPath = path.join(getAssetPath(), "actsguides", "default")
     this._ActsGuidesIdentities = [guide.identity]
-    console.log("look for ActsGuide in : ", filename)
+    console.log("Guide trouvé : ", filename)
 
     const customGuideDir = path.join(getLocalCustomPath(), "actsguides")
     if (!fs.existsSync(customGuideDir)) {
@@ -380,42 +417,70 @@ export class LevelingWindow {
         if (fs.existsSync(filename)) {
           console.log("look for ActsGuide in : ", filename)
           guide = loadJson(filename) as IActsGuide
-          guide.identity.filename = filename
-          guide.identity.webAssetPath = "userdata://actsguides/" + dir + "/"
-          guide.identity.sysAssetPath = path.join(path.join(customGuideDir, dir))
-          this._ActsGuidesIdentities.push(guide.identity)
+          if (guide) {
+            guide.identity.filename = filename
+            guide.identity.webAssetPath = "userdata://actsguides/" + dir + "/"
+            guide.identity.sysAssetPath = path.join(path.join(customGuideDir, dir))
+            this._ActsGuidesIdentities.push(guide.identity)
+          }
         }
       })
     }
   }
 
   loadCurActsGuideFromJson(actsGuideName?: string): void {
+    console.log("Chargement du ActsGuide", actsGuideName)
+
     const InfoMessages = [] as string[]
     if (actsGuideName === undefined) actsGuideName = this._CurActsGuide.identity.name
 
-    let _ident = this._ActsGuidesIdentities.find(identity => identity.name === actsGuideName)
+    let _default_ident = this._ActsGuidesIdentities.find(identity => identity.name === actsGuideName)
 
-    if (!_ident) _ident = this._ActsGuidesIdentities[0]
-    this._CurActsGuide = loadJson(_ident.filename) as IActsGuide
-    this._CurActsGuide = Object.assign(this._CurActsGuide, { identity: _ident })
-    console.log(this._CurActsGuide)
+    if (!_default_ident)
+      _default_ident = this._ActsGuidesIdentities.find(identity => identity.name === "default")
 
-    if (this._CurActsGuide.acts) {
-      //TODO: use custom zone guide images
-      // this._CurActGuide.acts.forEach(act => {
-      //   // if (fs.existsSync(path.join(_ident.sysAssetPath, "zones")))
-      //   //   console.log("Chargement des images zones personnelles.")
-      // })
-    } else {
-      InfoMessages.push(`L'ActGuide ne contient aucun act.`)
-    }
-    if (InfoMessages.length > 0)
-      dialog.showMessageBox(null, {
-        message: `Au moins un élément de l'ActsGuide "${actsGuideName}" n'a pas été chargés correctement.`,
-        detail: InfoMessages.join("\n"),
-        title: "Avertissement au chargement de l'ActsGuide",
-        type: "warning",
+    const _defaultActGuide = loadJson(_default_ident.filename) as IActsGuide
+
+    if (actsGuideName !== "default") {
+      let _ident = this._ActsGuidesIdentities.find(identity => identity.name === actsGuideName)
+
+      if (!_ident) _ident = this._ActsGuidesIdentities[0]
+      const _tmpActsGuide = loadJson(_ident.filename) as IActsGuide
+      Object.assign(_tmpActsGuide, { identity: _ident })
+
+      _defaultActGuide.acts.forEach(_act => {
+        _act.zones.forEach(_zone => {
+          const _tmp_zone = _tmpActsGuide.acts
+            .find(__act => __act.actid === _act.actid)
+            .zones.find(__zone => __zone.name === _zone.name)
+
+          _tmp_zone.name !== undefined
+            ? (_zone.altimage = _tmp_zone.altimage)
+            : InfoMessages.push(
+                `Le champ 'altimage' est manquant dans la zone  ${_zone.name} de l'act ${_act.act}`
+              )
+          _tmp_zone.image !== undefined
+            ? (_zone.image = _tmp_zone.image)
+            : InfoMessages.push(
+                `Le champ 'image' est manquant dans la zone  ${_zone.name} de l'act ${_act.act}`
+              )
+          _tmp_zone.note !== undefined
+            ? (_zone.note = _tmp_zone.note)
+            : InfoMessages.push(
+                `Le champ 'note' est manquant dans la zone  ${_zone.name} de l'act ${_act.act}`
+              )
+        })
       })
+
+      if (InfoMessages.length > 0)
+        dialog.showMessageBox(null, {
+          message: `Au moins un élément de l'ActsGuide "${actsGuideName}" n'a pas été chargé correctement.`,
+          detail: InfoMessages.join("\n"),
+          title: "Avertissement au chargement de l'ActsGuide",
+          type: "warning",
+        })
+    }
+    this._CurActsGuide = _defaultActGuide
   }
 
   duplicateCurActsGuide(): void {
@@ -440,7 +505,10 @@ export class LevelingWindow {
               // console.log(
               //   `cp ${path.join(_ident.sysAssetPath, "zones", zItem.name, imgItem.name)} ${path.join(dst, actsGuideName, "zones", zItem.name, imgItem.name)}`
               // )
-              fs.copyFileSync(path.join(_ident.sysAssetPath, "zones", zItem.name, imgItem.name), path.join(dst, actsGuideName, "zones", zItem.name, imgItem.name))
+              fs.copyFileSync(
+                path.join(_ident.sysAssetPath, "zones", zItem.name, imgItem.name),
+                path.join(dst, actsGuideName, "zones", zItem.name, imgItem.name)
+              )
             }
           }
         )
@@ -454,7 +522,7 @@ export class LevelingWindow {
     _dst_actsGuidejson.identity = {} as ActGuideIdentity
     _dst_actsGuidejson.acts = [] as IAct[]
 
-    Object.assign( _dst_actsGuidejson.identity, _src_actsGuideJson.identity)
+    Object.assign(_dst_actsGuidejson.identity, _src_actsGuideJson.identity)
 
     _dst_actsGuidejson.identity.name = actsGuideName
     _src_actsGuideJson.acts.forEach(act => {
@@ -484,6 +552,10 @@ export class LevelingWindow {
 
   getLocalActsGuidesDir(): string {
     return path.join(getLocalCustomPath(), "actsguides")
+  }
+
+  getLocalHelpersDir(): string {
+    return path.join(getLocalCustomPath(), "helpers")
   }
 
   makeMenus(): void {
@@ -537,6 +609,7 @@ export class LevelingWindow {
       },
       {
         label: "helpers",
+        id: "helpers",
         submenu: [
           {
             label: "Wraeclast",
@@ -554,28 +627,13 @@ export class LevelingWindow {
             type: "separator",
           },
           {
-            label: "Ultimatum",
+            label: "Ouvrir le dossier des helpers",
             click: () => {
-              this.OpenLocalHelperFile("ultimatum")
+              this.OpenLocalHelpersDir()
             },
           },
           {
-            label: "Heist",
-            click: () => {
-              this.OpenLocalHelperFile("heist")
-            },
-          },
-          {
-            label: "Delve",
-            click: () => {
-              this.OpenLocalHelperFile("delve")
-            },
-          },
-          {
-            label: "Vendor Recipes",
-            click: () => {
-              this.OpenLocalHelperFile("vendorRecipes")
-            },
+            type: "separator",
           },
         ],
       },
@@ -623,11 +681,23 @@ export class LevelingWindow {
       },
     ])
 
+    this._HelperFiles.forEach(helper => {
+      this._Menu.getMenuItemById("helpers").submenu.append(
+        new MenuItem({
+          label: `${helper}`,
+          click: () => {
+            console.log("loading helper file : ", helper)
+            this.OpenHelperFile(helper)
+          },
+        })
+      )
+    })
+
     this._ActsGuidesIdentities.forEach(_identity => {
       const _menu = new MenuItem({
-        label: _identity.name,
+        label: `${_identity.game_version} - ${_identity.name} `,
         click: () => {
-          console.log("loading class Guide : ", _identity.name)
+          console.log("loading act Guide : ", _identity.name)
           this.changeCurActsGuide(_identity.name)
         },
       })
@@ -655,7 +725,7 @@ export class LevelingWindow {
       }
       _menu.submenu.append(
         new MenuItem({
-          label: _identity.name,
+          label: `${_identity.game_version} - ${_identity.name} `,
           id: "classG_" + _identity.class + "_" + _identity.name,
           click: () => {
             console.log("loading class Guide : ", _identity.name)
