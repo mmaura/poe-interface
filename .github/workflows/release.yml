@@ -13,33 +13,64 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  pre-release:
+  ubuntu-tagged-release:
     # The type of runner that the job will run on
-    runs-on: ${{ matrix.os }}
-    name: release for ${{ matrix.os }}
+    runs-on: ubuntu-latest
+    name: package for ubuntu-latest
 
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
       - name: install deps
         run: yarn        
       - name: package 
+        run: yarn package --platform linux --arch x64
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          files: |
+            out/**/*.zip
+            out/**/*.deb
+
+  windows-tagged-release:
+    runs-on: windows-latest
+    name: package for Windows-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: install deps
+        run: yarn        
+      - name: package 
+        run: yarn package
+      - name: make 
         run: yarn make
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
-          title: "Latest Build"
           files: |
             out/**/*.zip
             out/**/*.exe
-            out/**/*.deb
+            
+  darwin-tagged-release:
+    runs-on: darwin-latest
+    name: package for darwin-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: install deps
+        run: yarn        
+      - name: package 
+        run: yarn package
+      - name: make 
+        run: yarn make
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          files: |
+            out/**/*.zip
             out/**/*.dmg
-        
-        
-        
