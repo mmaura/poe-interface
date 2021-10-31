@@ -3,6 +3,8 @@
 Companion to POE
 ![alt](https://raw.githubusercontent.com/mmaura/poe-interface/main/docs/screen_1.png)
 
+This is not another overlay. It's make to be on the second screen and to work primary under linux.
+
 ## Building
 ### Developement
 

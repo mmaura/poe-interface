@@ -1,4 +1,4 @@
-import { app, Tray, shell, Menu, Notification, nativeImage, session } from "electron"
+import { app, Tray, shell, Menu, Notification, nativeImage, session, protocol } from "electron"
 
 import PathOfExileLog from "poe-log-monitor"
 import Store from "electron-store"
@@ -8,7 +8,7 @@ import os from "os"
 import { ConfigWindow } from "./main/ConfigWindow"
 import { LevelingWindow } from "./main/LevelingWindow"
 
-import { getAssetPath } from "./modules/functions"
+import { getAssetPath, getLocalCustomPath } from "./modules/functions"
 
 const reactDevToolsPath = path.join(
   os.homedir(),
@@ -25,37 +25,46 @@ const schema = {
   poe_log_path: {
     type: "string",
   },
+  curClassGuide: {
+    type: "string",
+    default: "default",
+  },
+  curActsGuide: {
+    type: "string",
+    default: "default",
+  },
+  OpenDirOnDuplicate:{
+    type: "boolean",
+    default: true
+  },
+  OpenEditorOnDuplicate:{
+    type: "boolean",
+    default: true
+  }
+
 } as const
 
 const AppStore = new Store({ schema: schema })
 
 const AssetPath = getAssetPath()
 const AppIcon = nativeImage.createFromPath(`${AssetPath}/AppIcon.png`)
-// console.log("AssetPath : \t %s", AssetPath)
-// console.log("icon: \t\t %s", `${AssetPath}/AppIcon.png`)
-// console.log("__dirname: \t%s", __dirname)
+
+protocol.registerSchemesAsPrivileged([
+  { scheme: 'userdata', privileges: { bypassCSP: true, standard: true, secure: true } }
+])
+
 
 app.whenReady().then(async () => {
-  session.defaultSession.loadExtension(reactDevToolsPath)
+  if (!app.isPackaged) session.defaultSession.loadExtension(reactDevToolsPath)
 
-  console.log("AppPackaged: %o ", app.isPackaged)
+  protocol.registerFileProtocol("userdata", (request, callback) => {
+    // console.log(request)
+    const url = request.url.substr(9)
+    // console.log(path.normalize(`${getLocalCustomPath()}/${url}`))
+    callback({ path: path.normalize(`${getLocalCustomPath()}/${url}`) })
+  })
 
-  // // pour servir les images pour le renderer
-  // session.defaultSession.protocol.registerFileProtocol(
-  //   "static",
-  //   (request, callback) => {
-  //     const fileUrl = request.url.replace("static://", "");
-  //     const filePath = path.join(
-  //       app.getAppPath(),
-  //       ".webpack/renderer/assets",
-  //       fileUrl
-  //     );
-  //     console.log(filePath)
-  //     callback(filePath);
-  //   }
-  // );
   AppTray = new Tray(AppIcon)
-
   AppTray.setToolTip("POE Interface")
   AppTray.setContextMenu(TrayMenu)
 
@@ -81,7 +90,7 @@ app.whenReady().then(async () => {
   }
 
   configWindow = new ConfigWindow(AppStore, AppIcon)
-  levelingGuideWindow = new LevelingWindow(AppIcon, LevelingWindowMenu)
+  levelingGuideWindow = new LevelingWindow(AppStore, AppIcon)
 
   if (configWindow.getPoeLogPath() === null) {
     configWindow.show()
@@ -175,125 +184,5 @@ const TrayMenu: Menu = Menu.buildFromTemplate([
     click: () => {
       app.quit()
     },
-  },
-])
-
-const LevelingWindowMenu: Menu = Menu.buildFromTemplate([
-  {
-    label: "links",
-    submenu: [
-      {
-        label: "Site PathOfExile",
-        click: () => {
-          shell.openExternal("https://www.pathofexile.com/")
-        },
-      },
-      {
-        label: "Site POE Wiki",
-        click: () => {
-          shell.openExternal("https://www.poewiki.net/")
-        },
-      },
-      {
-        label: "Site PathOfExile Trade",
-        click: () => {
-          shell.openExternal("https://www.pathofexile.com/")
-        },
-      },
-      {
-        label: "Site PathOfExile Trade",
-        click: () => {
-          shell.openExternal("https://www.pathofexile.com/trade/")
-        },
-      },
-      {
-        label: "Site Poe Trade",
-        click: () => {
-          shell.openExternal("https://poe.trade/")
-        },
-      },
-      {
-        type: "separator",
-      },
-      {
-        label: "Site du Template",
-        id: "templateUrl",
-        enabled: false,
-      },
-    ],
-  },
-  {
-    label: "helpers",
-    submenu: [
-      {
-        label: "Wraeclast",
-        click: () => {
-          shell.openExternal("https://wraeclast.com/")
-        },
-      },
-      {
-        label: "PoeDb",
-        click: () => {
-          shell.openExternal("https://poedb.tw/")
-        },
-      },
-      {
-        type: "separator",
-      },
-      {
-        label: "Ultimatum",
-        click: () => {
-          levelingGuideWindow.OpenLocalHelperFile("ultimatum")
-        },
-      },
-      {
-        label: "Heist",
-        click: () => {
-          levelingGuideWindow.OpenLocalHelperFile("heist")
-        },
-      },
-      {
-        label: "Delve",
-        click: () => {
-          levelingGuideWindow.OpenLocalHelperFile("delve")
-        },
-      },
-      {
-        label: "Vendor Recipes",
-        click: () => {
-          levelingGuideWindow.OpenLocalHelperFile("vendorRecipes")
-        },
-      },
-    ],
-  },
-
-  {
-    label: "Fichier",
-    submenu: [
-      {
-        label: "Recharger tous les fichiers (conf/guides)",
-        click: () => {
-          levelingGuideWindow.ReloadAll()
-        },
-      },
-      {
-        label: "Configuration",
-        click: () => {
-          configWindow.show()
-        },
-      },
-      {
-        label: "Fermer",
-        click: () => {
-          levelingGuideWindow.hide()
-        },
-      },
-      {
-        label: "Quitter",
-        click: () => {
-          app.quit()
-        },
-      },
-    ],
   },
 ])

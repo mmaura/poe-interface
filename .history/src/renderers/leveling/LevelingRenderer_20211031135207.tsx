@@ -17,24 +17,20 @@ function App(props: { Init: any }) {
   const [curZoneName, setcurZoneName] = useState(props.Init[6] as string)
 
   const curAct = useMemo(() => {
-    console.log("**useMemo curAct", curActID)
+    console.log("Memo curAct", curActID)
     const _act = ActsGuide.acts.find(e => e.actid === curActID)
-    console.log("return: ",_act)
-
+    console.log(_act)
     return _act
   }, [ActsGuide, curActID])
 
   const curZone = useMemo(() => {
-    console.log("**useMemo curZone", curZoneName)
+    console.log("Memo curZone", curZoneName)
     if (curAct && curAct.zones) {
       const _zone = curAct.zones.find(e => e.name === curZoneName)
       if (!_zone) return curAct.zones[0]
-      console.log("return : ",_zone)
+      console.log(_zone)
       return _zone
-    } else {
-      console.log("return: null")
-      return null
-    }
+    } else return null
   }, [curZoneName, curAct, ActsGuide])
 
   /*********************************
@@ -54,27 +50,22 @@ function App(props: { Init: any }) {
    * Effects
    */
   useEffect(() => {
-    console.log("**UseEffect [CurPlayer]")
+    console.log("effect CurPlayer change")
     if (curActID !== curPlayer.currentZoneAct) {
       setcurActID(curPlayer.currentZoneAct)
-      console.log("setcurActID: ",curAct)
+      console.log(curAct)
 
       const _act = ActsGuide.acts.find(act => act.actid === curPlayer.currentZoneAct)
       if (_act) {
         const _zone = _act.zones.find(e => e.name === curPlayer.currentZoneName)
         if (!_zone) {
-          console.log("setcurZoneName: ", curAct.zones[0].name)
           setcurZoneName(curAct.zones[0].name)
-        } else {
-          console.log("setcurZoneName: ", curPlayer.currentZoneName)
-          setcurZoneName(curPlayer.currentZoneName)}
+          // setcurZone(curAct.zones[0])
+        } else setcurZoneName(curPlayer.currentZoneName)
       }
     } else {
       const _zone = curAct.zones.find(e => e.name === curPlayer.currentZoneName)
-      if (_zone) {
-        console.log("setcurZoneName: ", curPlayer.currentZoneName)
-        setcurZoneName(curPlayer.currentZoneName)
-      }
+      if (_zone) setcurZoneName(curPlayer.currentZoneName)
     }
   }, [curPlayer])
   /**********************************
@@ -94,7 +85,6 @@ function App(props: { Init: any }) {
           setcurGuide(arg[1])
           break
         case "actsGuide":
-          console.log("setActsGuide :", arg[1])
           setActsGuide(arg[1])
           break
         case "All":

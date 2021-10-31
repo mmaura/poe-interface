@@ -19,8 +19,7 @@ function App(props: { Init: any }) {
   const curAct = useMemo(() => {
     console.log("**useMemo curAct", curActID)
     const _act = ActsGuide.acts.find(e => e.actid === curActID)
-    console.log("return: ",_act)
-
+    console.log(_act)
     return _act
   }, [ActsGuide, curActID])
 
@@ -29,12 +28,9 @@ function App(props: { Init: any }) {
     if (curAct && curAct.zones) {
       const _zone = curAct.zones.find(e => e.name === curZoneName)
       if (!_zone) return curAct.zones[0]
-      console.log("return : ",_zone)
+      console.log(_zone)
       return _zone
-    } else {
-      console.log("return: null")
-      return null
-    }
+    } else return null
   }, [curZoneName, curAct, ActsGuide])
 
   /*********************************
@@ -57,24 +53,18 @@ function App(props: { Init: any }) {
     console.log("**UseEffect [CurPlayer]")
     if (curActID !== curPlayer.currentZoneAct) {
       setcurActID(curPlayer.currentZoneAct)
-      console.log("setcurActID: ",curAct)
+      console.log(curAct)
 
       const _act = ActsGuide.acts.find(act => act.actid === curPlayer.currentZoneAct)
       if (_act) {
         const _zone = _act.zones.find(e => e.name === curPlayer.currentZoneName)
         if (!_zone) {
-          console.log("setcurZoneName: ", curAct.zones[0].name)
           setcurZoneName(curAct.zones[0].name)
-        } else {
-          console.log("setcurZoneName: ", curPlayer.currentZoneName)
-          setcurZoneName(curPlayer.currentZoneName)}
+        } else setcurZoneName(curPlayer.currentZoneName)
       }
     } else {
       const _zone = curAct.zones.find(e => e.name === curPlayer.currentZoneName)
-      if (_zone) {
-        console.log("setcurZoneName: ", curPlayer.currentZoneName)
-        setcurZoneName(curPlayer.currentZoneName)
-      }
+      if (_zone) setcurZoneName(curPlayer.currentZoneName)
     }
   }, [curPlayer])
   /**********************************
@@ -94,7 +84,6 @@ function App(props: { Init: any }) {
           setcurGuide(arg[1])
           break
         case "actsGuide":
-          console.log("setActsGuide :", arg[1])
           setActsGuide(arg[1])
           break
         case "All":

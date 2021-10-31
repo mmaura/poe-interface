@@ -5,7 +5,7 @@ import { ActContext, PlayerContext } from "./LevelingRenderer"
 
 import ReactTooltip from "react-tooltip"
 import Icon from "@mdi/react"
-import { mdiEye, mdiMinus, mdiPlus, mdiReload } from "@mdi/js"
+import { mdiArrowUpBold, mdiEye, mdiMinus, mdiPlus, mdiReload } from "@mdi/js"
 
 export function Player(): JSX.Element {
   const curPlayer = useContext(PlayerContext)
@@ -43,7 +43,7 @@ export function Player(): JSX.Element {
 
 export function LevelingGuide(props: {
   curZone: IZone
-  Acts: IActs[]
+  Acts: IActsGuide
   onActChange: ChangeEventHandler<any>
   onZoneChange: ChangeEventHandler<any>
 }): JSX.Element {
@@ -57,7 +57,7 @@ export function LevelingGuide(props: {
     <div className="w-96">
       <div className="flex flex-row flex-nowrap px-5 py-2 space-x-2">
         <select className="lvlg-map-feature min-w-min" value={curAct.actid} onChange={onActChange}>
-          {Acts.map(function (act: IActs) {
+          {Acts.acts.map((act: IAct) => {
             return (
               <option key={act.actid} value={act.actid}>
                 {act.act}
@@ -117,7 +117,7 @@ export function ZoneNotes(props: { curRichText: IRichText[]; curZone: IZone }): 
   )
 }
 
-export function ZoneMap(props: { curAct: IActs; curZone: IZone }): JSX.Element {
+export function ZoneMap(props: { curAct: IAct; curZone: IZone }): JSX.Element {
   const curZone = props.curZone
   const curAct = props.curAct
 
@@ -127,7 +127,7 @@ export function ZoneMap(props: { curAct: IActs; curZone: IZone }): JSX.Element {
     <div className="container flex flex-col min-h-map-container h-full">
       <div className="flex flex-row flex-wrap h-full">
         {curZone.image && curZone.image[0] !== "none"
-          ? curZone.image.map((val) => {
+          ? curZone.image.map(val => {
               const path = "../assets/images/zones/" + curAct.act + "/" + val + ".png"
               return <img key={path} className="w-32" src={path} />
             })
@@ -168,24 +168,24 @@ export function ZoneMap(props: { curAct: IActs; curZone: IZone }): JSX.Element {
   //   )
 }
 
-export function SkillTree(props: { curGuide: IGuide }): JSX.Element {
+export function SkillTree(props: { curGuide: IClassesGuide }): JSX.Element {
   const curGuide = props.curGuide
   const curAct = useContext(ActContext)
 
   let tree = ""
 
-  if (curGuide.acts[curAct.actid - 1]) {
+  if (curGuide.acts && curGuide.acts[curAct.actid - 1]) {
     tree = curGuide.acts[curAct.actid - 1].treeimage
     return <img src={tree} />
   }
   return null
 }
 
-export function ZoneGem(props: { curGuide: IGuide}): JSX.Element {
+export function ZoneGem(props: { curGuide: IClassesGuide }): JSX.Element {
   const curGuide = props.curGuide
 
   const curPlayer = useContext(PlayerContext) as IAppPlayer
-  const curAct = useContext(ActContext) as IActs
+  const curAct = useContext(ActContext) as IAct
 
   const [lvlRange, setlvlRange] = useState(6)
   const [showAll, setshowAll] = useState(false)
@@ -195,10 +195,10 @@ export function ZoneGem(props: { curGuide: IGuide}): JSX.Element {
 
     if (curGuide && curGuide.acts) {
       curGuide.acts
-        .filter((act) => act.act == curAct.actid || showAll)
-        .map((act) =>
-          act.gears.map((gear) =>
-            gear.gems.map((_gem) => {
+        .filter(act => act.act == curAct.actid || showAll)
+        .map(act =>
+          act.gears.map(gear =>
+            gear.gems.map(_gem => {
               if (
                 !_gems.includes(_gem) &&
                 (Math.abs(_gem.required_lvl - curPlayer.level) < lvlRange || showAll)
@@ -243,7 +243,7 @@ export function ZoneGem(props: { curGuide: IGuide}): JSX.Element {
           </span>
         </div>
         <div className="overflow-y-auto h-80 max-h-80">
-          {gems.map((_gem) => {
+          {gems.map(_gem => {
             return <LongGem key={_gem.name} gem={_gem} />
           })}
         </div>
@@ -258,16 +258,16 @@ export function LongGem(props: { gem: IGems }): JSX.Element {
   const curGem = props.gem
 
   const curPlayer = useContext(PlayerContext) as IAppPlayer
-  const curAct = useContext(ActContext) as IActs
+  const curAct = useContext(ActContext) as IAct
 
   const curBuy = useMemo(() => {
     let _buy = [] as IBuy[]
 
-    _buy = curGem.buy.filter((buy) => {
+    _buy = curGem.buy.filter(buy => {
       return buy.available_to.includes(curPlayer.characterClass) && buy.act === curAct.actid
     })
     if (_buy.length === 0)
-      _buy = curGem.buy.filter((buy) => {
+      _buy = curGem.buy.filter(buy => {
         return buy.available_to.includes(curPlayer.characterClass)
       })
 
@@ -333,7 +333,9 @@ export function Gem(props: { curGem: IGems }): JSX.Element {
       data-effect="solid"
       data-place="left"
       data-delay-hide="1000"
-    > <ReactTooltip key={curGem.name} />
+    >
+      {" "}
+      <ReactTooltip key={curGem.name} />
       <img
         data-tip={curGem.name}
         onClick={gemClick}
@@ -357,32 +359,35 @@ function GemSpan(props: { text: string; classColor: string }): JSX.Element {
   )
 }
 
-export function ZoneGears(props: {
-  curRichText: IRichText[]
-  curGuide: IGuide
-}): JSX.Element {
+export function ZoneGears(props: { curRichText: IRichText[]; curGuide: IClassesGuide }): JSX.Element {
   const curAct = useContext(ActContext)
-  
-  const curRichText = props.curRichText
-  
-  const [curGuide, setcurGuide] = useState(props.curGuide)
 
-    const SendReload = useCallback(() => {
-    window.poe_interfaceAPI.sendSync("guide", "reload").then((e) => {
-      setcurGuide(e)
-    })
-  }, [])
+  const curRichText = props.curRichText
+  const curGuide =props.curGuide
+
+  console.log("zonegear: ", curGuide)
+
+  // const SendReload = useCallback(() => {
+  //   window.poe_interfaceAPI.sendSync("guide", "reload").then(e => {
+  //     setcurGuide(e)
+  //   })
+  // }, [])
 
   const curGearsAct = useMemo(() => {
-    if (curGuide && curGuide.acts) return curGuide.acts.find((act) => act.act == curAct.actid)
+    if (curGuide && curGuide.acts) 
+      return curGuide.acts.find(act => act.act === curAct.actid)
+    else
+      return {} as IGuideAct
   }, [curAct, curGuide])
+
+  console.log("curGearsAct: ", curGearsAct)
 
   return (
     <div className="relative flex flex-col mb-2">
       <h2>Gears</h2>
-      <span className="absolute top-1 right-1 cursor-pointer" onClick={SendReload}>
+      {/* <span className="absolute top-1 right-1 cursor-pointer" onClick={SendReload}>
         <Icon path={mdiReload} size={1} title="Recharger tous les jsons" />
-      </span>
+      </span> */}
       {curGearsAct && curGearsAct.gears ? (
         <div>
           {curGearsAct.notes ? <RichText curRichText={curRichText} text={curGearsAct.notes} /> : null}
@@ -441,6 +446,10 @@ export function RichText(props: { curRichText: IRichText[]; text: string }): JSX
   let str = ""
   const curRichText = props.curRichText
 
+//   const replaces = [
+//     {search:/\b(top|haut)\b/, replace:"<Icon path={mdiArrowUpBold} size={1} />"}
+// ]
+
   text = useMemo(() => {
     console.log(text)
     if (curRichText) {
@@ -450,11 +459,16 @@ export function RichText(props: { curRichText: IRichText[]; text: string }): JSX
         const subst = `<span class='richtext-${filtre.classe}'>$1</span>`
         text = text.replace(regex, subst)
       }
+      // for (const replace of replaces){
+      //   text = text.replace(RegExp(replace.search, "gi"), replace.replace)
+      // }
+
+
     }
 
     return text
   }, [text])
 
-  if (text) return <p dangerouslySetInnerHTML={{ __html: text }} />
+  if (text) return <p dangerouslySetInnerHTML={{ __html: text }} /> 
   else return null
 }

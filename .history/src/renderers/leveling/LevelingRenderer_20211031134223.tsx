@@ -17,25 +17,22 @@ function App(props: { Init: any }) {
   const [curZoneName, setcurZoneName] = useState(props.Init[6] as string)
 
   const curAct = useMemo(() => {
-    console.log("**useMemo curAct", curActID)
+    console.log("Memo curAct", curActID)
     const _act = ActsGuide.acts.find(e => e.actid === curActID)
-    console.log("return: ",_act)
-
+    console.log(_act)
     return _act
   }, [ActsGuide, curActID])
 
   const curZone = useMemo(() => {
-    console.log("**useMemo curZone", curZoneName)
-    if (curAct && curAct.zones) {
+    console.log("Memo curZone", curZoneName)
+    if (curAct.zones) {
       const _zone = curAct.zones.find(e => e.name === curZoneName)
       if (!_zone) return curAct.zones[0]
-      console.log("return : ",_zone)
+      console.log(_zone)
       return _zone
-    } else {
-      console.log("return: null")
-      return null
-    }
-  }, [curZoneName, curAct, ActsGuide])
+    }el
+    return null
+  }, [curZoneName, curAct])
 
   /*********************************
    * Events
@@ -54,27 +51,22 @@ function App(props: { Init: any }) {
    * Effects
    */
   useEffect(() => {
-    console.log("**UseEffect [CurPlayer]")
+    console.log("effect CurPlayer change")
     if (curActID !== curPlayer.currentZoneAct) {
       setcurActID(curPlayer.currentZoneAct)
-      console.log("setcurActID: ",curAct)
+      console.log(curAct)
 
       const _act = ActsGuide.acts.find(act => act.actid === curPlayer.currentZoneAct)
       if (_act) {
         const _zone = _act.zones.find(e => e.name === curPlayer.currentZoneName)
         if (!_zone) {
-          console.log("setcurZoneName: ", curAct.zones[0].name)
           setcurZoneName(curAct.zones[0].name)
-        } else {
-          console.log("setcurZoneName: ", curPlayer.currentZoneName)
-          setcurZoneName(curPlayer.currentZoneName)}
+          // setcurZone(curAct.zones[0])
+        } else setcurZoneName(curPlayer.currentZoneName)
       }
     } else {
       const _zone = curAct.zones.find(e => e.name === curPlayer.currentZoneName)
-      if (_zone) {
-        console.log("setcurZoneName: ", curPlayer.currentZoneName)
-        setcurZoneName(curPlayer.currentZoneName)
-      }
+      if (_zone) setcurZoneName(curPlayer.currentZoneName)
     }
   }, [curPlayer])
   /**********************************
@@ -94,7 +86,6 @@ function App(props: { Init: any }) {
           setcurGuide(arg[1])
           break
         case "actsGuide":
-          console.log("setActsGuide :", arg[1])
           setActsGuide(arg[1])
           break
         case "All":
@@ -109,54 +100,45 @@ function App(props: { Init: any }) {
     }
   }, [])
 
-  if (curAct && curZone)
-    return (
-      <ActContext.Provider value={curAct}>
-        <PlayerContext.Provider value={curPlayer}>
-          <div className="p-2 h-full">
-            <div className="flex flex-row flex-nowrap pb-2 items-center h-full">
-              <div className="flex-grow-0">
-                <Player />
-                <h1>{curAct && curZone ? `${curAct.act} : ${curZone.name}` : null}</h1>
-              </div>
-              <div className="flex-grow h-full">
-                <ZoneMap curZone={curZone} curAct={curAct} />
-              </div>
-              <div className="flex-grow-0 h-full">
-                <LevelingGuide
-                  onActChange={onActChange}
-                  onZoneChange={onZoneChange}
-                  Acts={ActsGuide}
-                  curZone={curZone}
-                />
-              </div>
+  return (
+    <ActContext.Provider value={curAct}>
+      <PlayerContext.Provider value={curPlayer}>
+        <div className="p-2 h-full">
+          <div className="flex flex-row flex-nowrap pb-2 items-center h-full">
+            <div className="flex-grow-0">
+              <Player />
+              <h1>{curAct.act + " : " + curZone.name}</h1>
             </div>
-            <div className="flex flex-row gap-2">
-              <div className="flex flex-grow flex-shrink flex-col gap-2 w-notes-container">
-                <div className="flex-grow ">
-                  <ZoneNotes curZone={curZone} curRichText={curRichText} />
-                </div>
-                <div className="flex-grow-0 flex-shrink items-end">
-                  <SkillTree curGuide={curGuide} />
-                </div>
-              </div>
-              <div className="container flex-shrink-0 flex-grow-0 w-gear-container">
-                <ZoneGears curGuide={curGuide} curRichText={curRichText} />
-                <ZoneGem curGuide={curGuide} />
-              </div>
+            <div className="flex-grow h-full">
+              <ZoneMap curZone={curZone} curAct={curAct} />
+            </div>
+            <div className="flex-grow-0 h-full">
+              <LevelingGuide
+                onActChange={onActChange}
+                onZoneChange={onZoneChange}
+                Acts={ActsGuide}
+                curZone={curZone}
+              />
             </div>
           </div>
-        </PlayerContext.Provider>
-      </ActContext.Provider>
-    )
-  else
-    return (
-      <p>
-        `L'ActsGuide ne contient pas d'acts ou de zones, vérifiez le Guide <b>{ActsGuide.identity.name}</b>
-        <br />
-        Fichier: <b>{ActsGuide.identity.filename}</b>`
-      </p>
-    )
+          <div className="flex flex-row gap-2">
+            <div className="flex flex-grow flex-shrink flex-col gap-2 w-notes-container">
+              <div className="flex-grow ">
+                <ZoneNotes curZone={curZone} curRichText={curRichText} />
+              </div>
+              <div className="flex-grow-0 flex-shrink items-end">
+                <SkillTree curGuide={curGuide} />
+              </div>
+            </div>
+            <div className="container flex-shrink-0 flex-grow-0 w-gear-container">
+              <ZoneGears curGuide={curGuide} curRichText={curRichText} />
+              <ZoneGem curGuide={curGuide} />
+            </div>
+          </div>
+        </div>
+      </PlayerContext.Provider>
+    </ActContext.Provider>
+  )
 }
 
 window.poe_interfaceAPI.sendSync("Init", "get").then(e => {

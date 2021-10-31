@@ -13,7 +13,9 @@
       "Weaver",
       "Oak",
       "Gravicius",
-      "Piety"
+      "Piety",
+      "Daresso",
+      "Kaom"
     ],
     "classe": "boss"
   },
@@ -38,7 +40,10 @@
       "The Eternal Nightmare",
       "The Root of the Problem",
       "The Siren's Cadence",
+      "miasmeter",
+      "Kitava",
       "Allflame",
+      "Ribbon Spool",
       "collect",
       "find",
       "logout",

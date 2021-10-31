@@ -492,6 +492,12 @@ export class LevelingWindow {
         label: "Fichier",
         submenu: [
           {
+            label: "Recharger tous les fichiers (conf/guides)",
+            click: () => {
+              this.reloadAll()
+            },
+          },
+          {
             label: "Fermer",
             click: () => {
               this.hide()
@@ -585,7 +591,7 @@ export class LevelingWindow {
           {
             label: "Recharger toutes les données",
             click: () => {
-              this.reloadAll()
+              this.InitJsonData()
               this.makeMenus()
             },
           },

@@ -57,7 +57,7 @@ function App(props: { Init: any }) {
     console.log("**UseEffect [CurPlayer]")
     if (curActID !== curPlayer.currentZoneAct) {
       setcurActID(curPlayer.currentZoneAct)
-      console.log("setcurActID: ",curAct)
+      console.log(curAct)
 
       const _act = ActsGuide.acts.find(act => act.actid === curPlayer.currentZoneAct)
       if (_act) {

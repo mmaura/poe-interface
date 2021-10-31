@@ -7,7 +7,7 @@ import React, {
 import ReactTooltip from "react-tooltip";
 
 export function ZoneMenu(props: {
-  curGuide: IGuide;
+  curGuide: IClassesGuide;
 }): JSX.Element {
   const [curGuide, setGuide] = useState(() => {
     return props.curGuide;

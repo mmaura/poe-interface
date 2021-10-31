@@ -77,7 +77,6 @@ export interface ActGuideIdentity {
   filename?: string
   webAssetPath?: string
   sysAssetPath?: string
-  game_version: number;
 }
 
   /***********************
