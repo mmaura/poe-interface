@@ -62,7 +62,8 @@ app.whenReady().then(async () => {
 
   protocol.registerFileProtocol("userdata", (request, callback) => {
     const url = request.url.substr(9)
-    callback({ path: path.normalize(`${getLocalCustomPath()}/${url}`) })
+    console.log(decodeURI(path.normalize(`${getLocalCustomPath()}/${url}`)))
+    callback({ path: decodeURI(path.normalize(`${getLocalCustomPath()}/${url}`)) })
   })
 
   AppTray = new Tray(AppIcon)

@@ -121,7 +121,7 @@ function App(props: { Init: any }) {
                 <h1>{curAct && curZone ? `${curAct.act} : ${curZone.name}` : null}</h1>
               </div>
               <div className="flex-grow h-full">
-                <ZoneMap curZone={curZone} curAct={curAct} />
+                <ZoneMap curZone={curZone} curAct={curAct} actsGuideIdent={ActsGuide.identity}/>
               </div>
               <div className="flex-grow-0 h-full">
                 <div className="text-center">

@@ -117,9 +117,11 @@ export function ZoneNotes(props: { curRichText: IRichText[]; curZone: IZone }): 
   )
 }
 
-export function ZoneMap(props: { curAct: IAct; curZone: IZone }): JSX.Element {
+export function ZoneMap(props: { curAct: IAct; curZone: IZone , actsGuideIdent: ActGuideIdentity}): JSX.Element {
   const curZone = props.curZone
   const curAct = props.curAct
+  const actsGuideIdent = props.actsGuideIdent
+
 
   console.log("ZoneMap", curZone)
 
@@ -128,7 +130,9 @@ export function ZoneMap(props: { curAct: IAct; curZone: IZone }): JSX.Element {
       <div className="flex flex-row flex-wrap h-full">
         {curZone.image && curZone.image[0] !== "none"
           ? curZone.image.map(val => {
-              const path = "../assets/images/zones/" + curAct.act + "/" + val + ".png"
+            // const path = "../assets/images/zones/" + curAct.act + "/" + val + ".png"
+            const path = `${actsGuideIdent.webAssetPath}zones/${curAct.act}/${val}.png`
+
               return <img key={path} className="w-32" src={path} />
             })
           : null}

@@ -69,7 +69,9 @@ export class LevelingWindow {
         preload: LEVELING_WINDOW_PRELOAD_WEBPACK_ENTRY,
       },
     })
-    this._Window.setBounds(this._AppStore.get('levelingWinBounds', { x: 1, y: 1, width: 1400, height: 980 }) as Rectangle)
+    this._Window.setBounds(
+      this._AppStore.get("levelingWinBounds", { x: 1, y: 1, width: 1400, height: 980 }) as Rectangle
+    )
 
     this.InitJsonData()
     this.InitHelpers()
@@ -87,7 +89,7 @@ export class LevelingWindow {
         e.preventDefault()
       }
       // console.log("bounds: ",this._Window.getBounds())
-      this._AppStore.set('levelingWinBounds', this._Window.getBounds())
+      this._AppStore.set("levelingWinBounds", this._Window.getBounds())
     })
 
     this._Window.on("closed", () => {
@@ -180,10 +182,14 @@ export class LevelingWindow {
       this._PoeLog.on("area", area => {
         if (area.type === "area") {
           this._MyPlayer.currentZoneName = area.name
-          this._MyPlayer.currentZoneAct = area.info[0].act
+
+          let _area = area.info.find(info => Math.abs(info.level - this._MyPlayer.level) < 20)
+          if (!_area) _area = area.info[0]
+
+          this._MyPlayer.currentZoneAct = _area.act
 
           if (this._LogLoaded === true) {
-            console.log("area change : send player")
+            console.log("area change : ", area)
             this._Window.webContents.send("levelingRenderer", ["playerArea", this._MyPlayer])
           }
         }
@@ -257,7 +263,7 @@ export class LevelingWindow {
     this.InitHelpers()
 
     this.LoadJsonClassesGuidesIdentities()
-    this.loadCurClassGuideFromJson(this._AppStore.get("curClassGuide","default") as string)
+    this.loadCurClassGuideFromJson(this._AppStore.get("curClassGuide", "default") as string)
 
     this.LoadJsonActsGuidesIdentities()
     this.loadCurActsGuideFromJson(this._AppStore.get("curActsGuide", "default") as string)
@@ -406,7 +412,7 @@ export class LevelingWindow {
     guide.identity.webAssetPath = "../assets/actsguides/default/"
     guide.identity.sysAssetPath = path.join(getAssetPath(), "actsguides", "default")
     this._ActsGuidesIdentities = [guide.identity]
-    console.log("Guide trouvé : ", filename)
+    console.log("ActGuide trouvé : ", filename)
 
     const customGuideDir = path.join(getLocalCustomPath(), "actsguides")
     if (!fs.existsSync(customGuideDir)) {
@@ -415,7 +421,7 @@ export class LevelingWindow {
       fs.readdirSync(customGuideDir).forEach(dir => {
         filename = path.join(customGuideDir, dir, "guide.json")
         if (fs.existsSync(filename)) {
-          console.log("look for ActsGuide in : ", filename)
+          console.log("ActGuide trouvé : ", filename)
           guide = loadJson(filename) as IActsGuide
           if (guide) {
             guide.identity.filename = filename
@@ -440,6 +446,7 @@ export class LevelingWindow {
       _default_ident = this._ActsGuidesIdentities.find(identity => identity.name === "default")
 
     const _defaultActGuide = loadJson(_default_ident.filename) as IActsGuide
+    Object.assign(_defaultActGuide, { identity: _default_ident })
 
     if (actsGuideName !== "default") {
       let _ident = this._ActsGuidesIdentities.find(identity => identity.name === actsGuideName)
@@ -480,6 +487,7 @@ export class LevelingWindow {
           type: "warning",
         })
     }
+    console.log("this._CurActsGuide :",_defaultActGuide)
     this._CurActsGuide = _defaultActGuide
   }
 
