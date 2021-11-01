@@ -1,11 +1,10 @@
-import React, { ChangeEventHandler, useContext, useState, useMemo, useCallback } from "react"
+import React, { ChangeEventHandler, useContext, useState, useMemo, useCallback, useEffect } from "react"
 
-// import { GetAllActs } from "../modules/functions"
-import { ActContext, PlayerContext } from "./LevelingRenderer"
+import { CurActContext, PlayerContext, RichTextContext } from "./LevelingRenderer"
 
 import ReactTooltip from "react-tooltip"
 import Icon from "@mdi/react"
-import { mdiArrowUpBold, mdiEye, mdiMinus, mdiPlus, mdiReload } from "@mdi/js"
+import { mdiContentSave, mdiEye, mdiMinus, mdiNoteEdit, mdiPlus } from "@mdi/js"
 
 export function Player(): JSX.Element {
   const curPlayer = useContext(PlayerContext)
@@ -50,7 +49,7 @@ export function LevelingGuide(props: {
   const { curZone, onActChange, onZoneChange } = props
 
   const Acts = props.Acts
-  const curAct = useContext(ActContext)
+  const curAct = useContext(CurActContext)
   const curPlayer = useContext(PlayerContext)
 
   return (
@@ -89,14 +88,37 @@ export function LevelingGuide(props: {
   )
 }
 
-export function ZoneNotes(props: { curRichText: IRichText[]; curZone: IZone }): JSX.Element {
-  const curZone = props.curZone
-  const curRichText = props.curRichText
+export function ZoneNotes(props: { curZone: IZone; onSave: (text: string) => void }): JSX.Element {
+  const { onSave, curZone } = props
 
-  console.log("ZoneNote", curZone)
+  const [text, settext] = useState(curZone.note)
+  const [isOnEdit, setisOnEdit] = useState(false)
+
+  useEffect(() => {
+    settext(curZone.note)
+  }, [curZone])
+
+  const onSaveText = useCallback(() => {
+    setisOnEdit(!isOnEdit)
+    console.log("onSaveText:", text)
+    onSave(text)
+  }, [isOnEdit, text])
+
+  const editNote = useCallback(() => {
+    setisOnEdit(!isOnEdit)
+  }, [isOnEdit])
+
+  const onChange = useCallback(e => {
+    settext(e.target.value)
+  }, [])
+
+  console.log("ZoneNote", text)
 
   return (
     <div className="container flex flex-col min-h-note-container relative">
+      <div className="absolute top-0 left-0 flex flex-row gap-1">
+        <EditSaveButton isOnEdit={isOnEdit} onSave={onSaveText} onEdit={editNote} />
+      </div>
       <h2>Notes</h2>
       <div className="absolute top-0 right-0 flex flex-row gap-1">
         {curZone.hasRecipe ? (
@@ -111,18 +133,62 @@ export function ZoneNotes(props: { curRichText: IRichText[]; curZone: IZone }): 
         ) : null}
       </div>
       <div className="text-xl">
-        {curZone.note ? <RichText curRichText={curRichText} text={curZone.note} /> : null}
+        <RichNotes isOnEdit={isOnEdit} onChange={onChange}>
+          {text}
+        </RichNotes>
       </div>
     </div>
   )
 }
 
-export function ZoneMap(props: { curAct: IAct; curZone: IZone , actsGuideIdent: ActGuideIdentity}): JSX.Element {
-  const curZone = props.curZone
-  const curAct = props.curAct
-  const actsGuideIdent = props.actsGuideIdent
+export function EditSaveButton(props: {
+  onSave: () => void
+  onEdit: () => void
+  isOnEdit: boolean
+}): JSX.Element {
+  const { onEdit, onSave, isOnEdit } = props
 
+  return (
+    <div>
+      {isOnEdit ? (
+        <span className="cursor-pointer" onClick={onSave}>
+          <Icon path={mdiContentSave} size={1} title="Sauvegarder" />
+        </span>
+      ) : (
+        <span className="cursor-pointer" onClick={onEdit}>
+          <Icon path={mdiNoteEdit} size={1} title="Éditer" />
+        </span>
+      )}
+    </div>
+  )
+}
 
+export function RichNotes(props: {
+  children: string
+  isOnEdit: boolean
+  onChange: ChangeEventHandler<any>
+}): JSX.Element {
+  const { isOnEdit, children, onChange } = props
+
+  return (
+    <div>
+      {isOnEdit ? <EditText onChange={onChange}>{children}</EditText> : <RichText>{children}</RichText>}
+    </div>
+  )
+}
+export function EditText(props: { onChange: ChangeEventHandler<any>; children: string }): JSX.Element {
+  const { onChange } = props
+  return (
+    <textarea className="container w-full min-h-note-container" value={props.children} onChange={onChange} />
+  )
+}
+
+export function ZoneMap(props: {
+  curAct: IAct
+  curZone: IZone
+  actsGuideIdent: ActGuideIdentity
+}): JSX.Element {
+  const { curZone, curAct, actsGuideIdent } = props
   console.log("ZoneMap", curZone)
 
   return (
@@ -130,9 +196,7 @@ export function ZoneMap(props: { curAct: IAct; curZone: IZone , actsGuideIdent: 
       <div className="flex flex-row flex-wrap h-full">
         {curZone.image && curZone.image[0] !== "none"
           ? curZone.image.map(val => {
-            // const path = "../assets/images/zones/" + curAct.act + "/" + val + ".png"
-            const path = `${actsGuideIdent.webAssetPath}zones/${curAct.act}/${val}.png`
-
+              const path = `${actsGuideIdent.webAssetPath}zones/${curAct.act}/${val}.png`
               return <img key={path} className="w-32" src={path} />
             })
           : null}
@@ -144,37 +208,11 @@ export function ZoneMap(props: { curAct: IAct; curZone: IZone , actsGuideIdent: 
       ) : null}
     </div>
   )
-
-  // if (curZone.image && curZone.image[0] !== "none" && curZone.image.length > 0) {
-  //   return (
-  //     <div className="container flex flex-col min-h-map-container">
-  //       <div className="flex flex-row flex-wrap">
-  //         {curZone.image.map((val) => {
-  //           const path = "../assets/images/zones/" + curAct.act + "/" + val + ".png"
-  //           return <img key={path} className="w-32" src={path} />
-  //         })}
-  //       </div>
-  //       <div className="">
-  //         <span>{curZone.altimage !== "none" ? curZone.altimage : ""}</span>
-  //       </div>
-  //     </div>
-  //   )
-  // } else
-  //   return (
-  //     <div className="container flex flex-col min-h-map-container">
-  //       <div className="">
-  //         <h2>Navigation</h2>
-  //       </div>
-  //       <div className="">
-  //         <span>{curZone.altimage !== "none" ? curZone.altimage : ""}</span>
-  //       </div>
-  //     </div>
-  //   )
 }
 
 export function SkillTree(props: { curGuide: IClassesGuide }): JSX.Element {
   const curGuide = props.curGuide
-  const curAct = useContext(ActContext)
+  const curAct = useContext(CurActContext)
 
   let tree = ""
 
@@ -189,7 +227,7 @@ export function ZoneGem(props: { curGuide: IClassesGuide }): JSX.Element {
   const curGuide = props.curGuide
 
   const curPlayer = useContext(PlayerContext) as IAppPlayer
-  const curAct = useContext(ActContext) as IAct
+  const curAct = useContext(CurActContext) as IAct
 
   const [lvlRange, setlvlRange] = useState(6)
   const [showAll, setshowAll] = useState(false)
@@ -262,7 +300,7 @@ export function LongGem(props: { gem: IGems }): JSX.Element {
   const curGem = props.gem
 
   const curPlayer = useContext(PlayerContext) as IAppPlayer
-  const curAct = useContext(ActContext) as IAct
+  const curAct = useContext(CurActContext) as IAct
 
   const curBuy = useMemo(() => {
     let _buy = [] as IBuy[]
@@ -363,11 +401,10 @@ function GemSpan(props: { text: string; classColor: string }): JSX.Element {
   )
 }
 
-export function ZoneGears(props: { curRichText: IRichText[]; curGuide: IClassesGuide }): JSX.Element {
-  const curAct = useContext(ActContext)
+export function ZoneGears(props: { curGuide: IClassesGuide }): JSX.Element {
+  const curAct = useContext(CurActContext)
 
-  const curRichText = props.curRichText
-  const curGuide =props.curGuide
+  const curGuide = props.curGuide
 
   console.log("zonegear: ", curGuide)
 
@@ -378,10 +415,8 @@ export function ZoneGears(props: { curRichText: IRichText[]; curGuide: IClassesG
   // }, [])
 
   const curGearsAct = useMemo(() => {
-    if (curGuide && curGuide.acts) 
-      return curGuide.acts.find(act => act.act === curAct.actid)
-    else
-      return {} as IGuideAct
+    if (curGuide && curGuide.acts) return curGuide.acts.find(act => act.act === curAct.actid)
+    else return {} as IGuideAct
   }, [curAct, curGuide])
 
   console.log("curGearsAct: ", curGearsAct)
@@ -394,13 +429,13 @@ export function ZoneGears(props: { curRichText: IRichText[]; curGuide: IClassesG
       </span> */}
       {curGearsAct && curGearsAct.gears ? (
         <div>
-          {curGearsAct.notes ? <RichText curRichText={curRichText} text={curGearsAct.notes} /> : null}
+          {curGearsAct.notes ? <RichText>{curGearsAct.notes}</RichText> : null}
 
           <div className="flex flex-row flex-wrap gap-2 items-start">
             {curGearsAct.gears.map((gear, index) => {
               return (
                 <div key={gear.name + index} className="max-w-xs">
-                  <Gear gear={gear} curRichText={curRichText} />
+                  <Gear gear={gear} />
                 </div>
               )
             })}
@@ -411,9 +446,8 @@ export function ZoneGears(props: { curRichText: IRichText[]; curGuide: IClassesG
   )
 }
 
-function Gear(props: { gear: Gear; curRichText: IRichText[] }): JSX.Element {
+function Gear(props: { gear: Gear }): JSX.Element {
   const gear = props.gear
-  const curRichText = props.curRichText
 
   //console.log(gear)
 
@@ -437,7 +471,7 @@ function Gear(props: { gear: Gear; curRichText: IRichText[] }): JSX.Element {
         </div>
         {gear.notes ? (
           <div className="flex-grow">
-            <RichText curRichText={curRichText} text={gear.notes} />
+            <RichText>{gear.notes}</RichText>
           </div>
         ) : null}
       </div>
@@ -445,14 +479,13 @@ function Gear(props: { gear: Gear; curRichText: IRichText[] }): JSX.Element {
   )
 }
 
-export function RichText(props: { curRichText: IRichText[]; text: string }): JSX.Element {
-  let text = props.text
+export function RichText(props: { children: string }): JSX.Element {
+  let text = props.children
   let str = ""
-  const curRichText = props.curRichText
-
-//   const replaces = [
-//     {search:/\b(top|haut)\b/, replace:"<Icon path={mdiArrowUpBold} size={1} />"}
-// ]
+  const curRichText = useContext(RichTextContext)
+  //   const replaces = [
+  //     {search:/\b(top|haut)\b/, replace:"<Icon path={mdiArrowUpBold} size={1} />"}
+  // ]
 
   text = useMemo(() => {
     console.log(text)
@@ -466,13 +499,11 @@ export function RichText(props: { curRichText: IRichText[]; text: string }): JSX
       // for (const replace of replaces){
       //   text = text.replace(RegExp(replace.search, "gi"), replace.replace)
       // }
-
-
     }
 
     return text
   }, [text])
 
-  if (text) return <p dangerouslySetInnerHTML={{ __html: text }} /> 
+  if (text) return <p dangerouslySetInnerHTML={{ __html: text }} />
   else return null
 }

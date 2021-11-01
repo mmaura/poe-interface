@@ -6,7 +6,8 @@ import "./index.css"
 import { Player, LevelingGuide, ZoneNotes, ZoneMap, SkillTree, ZoneGem, ZoneGears } from "./Components"
 
 export const PlayerContext = React.createContext({} as IAppPlayer)
-export const ActContext = React.createContext({} as IAct)
+export const CurActContext = React.createContext({} as IAct)
+export const RichTextContext = React.createContext({} as IRichText[])
 
 function App(props: { Init: any }) {
   const [ActsGuide, setActsGuide] = useState(props.Init[1] as IActsGuide)
@@ -50,6 +51,17 @@ function App(props: { Init: any }) {
     },
     [curAct]
   )
+
+  const onZoneNoteSave = useCallback((text: string) => {
+    console.log("text", text)
+    window.poe_interfaceAPI
+      .sendSync("levelingRenderer", "save", "zoneNotes", { zoneName: curZoneName, actId: curActID }, text)
+      .then(e => {
+        console.log(e)
+      })
+    console.log("save")
+  }, [curZoneName,curActID])
+
   /**********************************
    * Effects
    */
@@ -112,47 +124,50 @@ function App(props: { Init: any }) {
 
   if (curAct && curZone)
     return (
-      <ActContext.Provider value={curAct}>
+      <CurActContext.Provider value={curAct}>
         <PlayerContext.Provider value={curPlayer}>
-          <div className="p-2 h-full">
-            <div className="flex flex-row flex-nowrap pb-2 items-center h-full">
-              <div className="flex-grow-0">
-                <Player />
-                <h1>{curAct && curZone ? `${curAct.act} : ${curZone.name}` : null}</h1>
-              </div>
-              <div className="flex-grow h-full">
-                <ZoneMap curZone={curZone} curAct={curAct} actsGuideIdent={ActsGuide.identity}/>
-              </div>
-              <div className="flex-grow-0 h-full">
-                <div className="text-center">
-                  <u>ActGuide:</u> {ActsGuide.identity.name} - <u>ClassGuide:</u> {curGuide.identity.name}
+          <RichTextContext.Provider value={curRichText}>
+            <div className="p-2 h-full">
+              <div className="flex flex-row flex-nowrap pb-2 items-center h-full">
+                <div className="flex-grow-0">
+                  <Player />
+                  <h1>{curAct && curZone ? `${curAct.act} : ${curZone.name}` : null}</h1>
                 </div>
+                <div className="flex-grow h-full">
+                  <ZoneMap curZone={curZone} curAct={curAct} actsGuideIdent={ActsGuide.identity} />
+                </div>
+                <div className="flex-grow-0 h-full">
+                  <div className="text-center">
+                    <u>ActGuide:</u> {ActsGuide.identity.name} - <u>ClassGuide:</u> {curGuide.identity.name}
+                  </div>
 
-                <LevelingGuide
-                  onActChange={onActChange}
-                  onZoneChange={onZoneChange}
-                  Acts={ActsGuide}
-                  curZone={curZone}
-                />
-              </div>
-            </div>
-            <div className="flex flex-row gap-2">
-              <div className="flex flex-grow flex-shrink flex-col gap-2 w-notes-container">
-                <div className="flex-grow ">
-                  <ZoneNotes curZone={curZone} curRichText={curRichText} />
-                </div>
-                <div className="flex-grow-0 flex-shrink items-end">
-                  <SkillTree curGuide={curGuide} />
+                  <LevelingGuide
+                    onActChange={onActChange}
+                    onZoneChange={onZoneChange}
+                    Acts={ActsGuide}
+                    curZone={curZone}
+                  />
                 </div>
               </div>
-              <div className="container flex-shrink-0 flex-grow-0 w-gear-container">
-                <ZoneGears curGuide={curGuide} curRichText={curRichText} />
-                <ZoneGem curGuide={curGuide} />
+              <div className="flex flex-row gap-2">
+                <div className="flex flex-grow flex-shrink flex-col gap-2 w-notes-container">
+                  <div className="flex-grow ">
+                    {/* <ZoneNotes curZone={curZone} curRichText={curRichText} /> */}
+                    <ZoneNotes curZone={curZone} onSave={onZoneNoteSave} />
+                  </div>
+                  <div className="flex-grow-0 flex-shrink items-end">
+                    <SkillTree curGuide={curGuide} />
+                  </div>
+                </div>
+                <div className="container flex-shrink-0 flex-grow-0 w-gear-container">
+                  <ZoneGears curGuide={curGuide}  />
+                  <ZoneGem curGuide={curGuide} />
+                </div>
               </div>
             </div>
-          </div>
+          </RichTextContext.Provider>
         </PlayerContext.Provider>
-      </ActContext.Provider>
+      </CurActContext.Provider>
     )
   else
     return (
@@ -164,6 +179,7 @@ function App(props: { Init: any }) {
     )
 }
 
-window.poe_interfaceAPI.sendSync("Init", "get").then(e => {
+window.poe_interfaceAPI.sendSync("levelingRenderer", "Init").then(e => {
+  console.log(e)
   ReactDOM.render(<App Init={e} />, document.getElementById("root"))
 })

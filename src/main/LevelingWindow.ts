@@ -99,28 +99,41 @@ export class LevelingWindow {
     /**********************************
      * IPC
      */
-    ipcMain.handle("Init", (event: IpcMainInvokeEvent, ...arg) => {
-      console.log("****** ipcMain handle Init: %o", arg)
+    ipcMain.handle("levelingRenderer", (event: IpcMainInvokeEvent, ...arg) => {
+      console.log("****** ipcMain handle 'levelingRenderer': %o", arg)
 
-      return [
-        "Init",
-        this._CurActsGuide,
-        this._RichTextJson,
-        this._CurClassGuide,
-        this._MyPlayer,
-        this._CurActsGuide.acts[0].actid,
-        this._CurActsGuide.acts[0].zones[0].name,
-      ]
-    })
-    ipcMain.handle("richText", (event: IpcMainInvokeEvent, ...arg) => {
-      console.log("******ipcMain handle richText: %o", arg)
-      switch (arg[0] as string) {
-        case "reload":
-          this._RichTextJson = loadJsonRichText(this._CurActsGuide)
-          break
+      switch (arg[0]) {
+        case "Init":
+          console.log("Init")
+          return [
+            "Init",
+            this._CurActsGuide,
+            this._RichTextJson,
+            this._CurClassGuide,
+            this._MyPlayer,
+            this._CurActsGuide.acts[0].actid,
+            this._CurActsGuide.acts[0].zones[0].name,
+          ]
+
+        case "save":
+          switch(arg[1]){
+            case "zoneNotes":
+              //arg[2]{ zoneName: 'The Twilight Strand', actId: 6 }
+        
+              this.ActsGuidesSaveZoneNote(arg[2], arg[3])
+          }
+          console.log("save note.")
       }
-      return this._RichTextJson
     })
+    // ipcMain.handle("richText", (event: IpcMainInvokeEvent, ...arg) => {
+    //   console.log("******ipcMain handle richText: %o", arg)
+    //   switch (arg[0] as string) {
+    //     case "reload":
+    //       this._RichTextJson = loadJsonRichText(this._CurActsGuide)
+    //       break
+    //   }
+    //   return this._RichTextJson
+    // })
 
     // ipcMain.handle("player", (event: IpcMainInvokeEvent, ...arg) => {
     // 	console.log("******ipcMain handle player: %o", arg)
@@ -131,18 +144,18 @@ export class LevelingWindow {
     // 	return this._ActJson
     // })
 
-    ipcMain.handle("guide", (event: IpcMainInvokeEvent, ...arg) => {
-      console.log("ipcMain handle guide: %o", arg)
+    // ipcMain.handle("guide", (event: IpcMainInvokeEvent, ...arg) => {
+    //   console.log("ipcMain handle guide: %o", arg)
 
-      switch (arg[0] as string) {
-        case "reload":
-          console.log("reload:", this._CurClassGuide.identity.filename)
-          this.loadCurClassGuideFromJson()
-          break
-      }
-      event.returnValue = this._CurClassGuide
-      return this._CurClassGuide
-    })
+    //   switch (arg[0] as string) {
+    //     case "reload":
+    //       console.log("reload:", this._CurClassGuide.identity.filename)
+    //       this.loadCurClassGuideFromJson()
+    //       break
+    //   }
+    //   event.returnValue = this._CurClassGuide
+    //   return this._CurClassGuide
+    // })
   }
 
   /**********************************
@@ -488,7 +501,7 @@ export class LevelingWindow {
           type: "warning",
         })
     }
-    console.log("this._CurActsGuide :",_defaultActGuide)
+    console.log("this._CurActsGuide :", _defaultActGuide)
     this._CurActsGuide = _defaultActGuide
   }
 
@@ -557,6 +570,12 @@ export class LevelingWindow {
     this.LoadJsonActsGuidesIdentities()
     this.loadCurActsGuideFromJson(actsGuideName)
     this.makeMenus()
+  }
+
+  ActsGuidesSaveZoneNote(zone : {zoneName: string, actId: number}, note: string): void{
+    // const curloadJson(this._CurActsGuide.identity.filename)
+    console.log('')
+
   }
 
   getLocalActsGuidesDir(): string {

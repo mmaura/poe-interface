@@ -1,8 +1,8 @@
 export interface poe_interfaceAPI {
   cleanup: (channel: string) => void
-  send: (channel: string, ...arg: any) => Promise<any>
-  sendSync: (channel: string, ...arg: any) => Promise<any>
-  receive: (channel: string, func: (event: any, ...arg: any) => void) => void
+  send: (channel: string, ...arg: any[]) => Promise<any>
+  sendSync: (channel: string, ...arg: any[]) => Promise<any>
+  receive: (channel: string, func: (event: any, ...arg: any[]) => void) => void
   openExternal: (url: string) => void
   openWiki: (page: string) => void
 }

@@ -8,15 +8,15 @@ contextBridge.exposeInMainWorld("poe_interfaceAPI", {
   cleanup: (channel: string) => {
     ipcRenderer.removeAllListeners(channel)
   },
-  send: async (channel: string, args: any) => {
+  send: async (channel: string, ...args: any[]) => {
     return ipcRenderer
-      .invoke(channel, args)
+      .invoke(channel, ...args)
       .catch((e) => console.log(e))
       .then((e) => console.log("ipcRender send : %s %o \nreturn: %o ", channel, args, e))
   },
-  sendSync: async (channel: string, args: any) => {
+  sendSync: async (channel: string, ...args: any[]) => {
     return await ipcRenderer
-      .invoke(channel, args)
+      .invoke(channel, ...args)
       .catch((e) => console.log(e))
       .then((e) => {
         console.log("ipcRender sendSync : %s %o \nreturn: %o ", channel, args, e)
