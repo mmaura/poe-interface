@@ -6965,6 +6965,18 @@ typedarray@^0.0.6:
   resolved "https://registry.npmjs.org/typedarray/-/typedarray-0.0.6.tgz"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
+typesafe-i18n@^2.48.0:
+  version "2.48.0"
+  resolved "https://registry.yarnpkg.com/typesafe-i18n/-/typesafe-i18n-2.48.0.tgz#1e41be53ddf729dca2ab8743ecddcecb0a0e66cb"
+  integrity sha512-PeWvVb3/EQTCXL5s02PFWMOv+0aO4q59ekrv7yPWFsnqTWbA6/RCKFLQZKsfqIiiJ3UUIG1H0f5R2H8DKBm5fQ==
+  dependencies:
+    typesafe-utils "^1.16.2"
+
+typesafe-utils@^1.16.2:
+  version "1.16.2"
+  resolved "https://registry.yarnpkg.com/typesafe-utils/-/typesafe-utils-1.16.2.tgz#ba3647f005eabb4f037995e7b4e706ab15af6544"
+  integrity sha512-5Ej1sd5V541LPxlJEs4JKpsmF0zvMcwakXJ/s2N9SpdYAEr6CQcgr2COF350nxaO1FSbHYfL+tEKBcMcLDrdOQ==
+
 typescript@^4.4.3:
   version "4.4.3"
   resolved "https://registry.npmjs.org/typescript/-/typescript-4.4.3.tgz"
