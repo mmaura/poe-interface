@@ -191,6 +191,7 @@ export class LevelingWindow {
           if (this._LogLoaded === true) {
             console.log("area change : ", area)
             this._Window.webContents.send("levelingRenderer", ["playerArea", this._MyPlayer])
+            this._Window.show()
           }
         }
       })
