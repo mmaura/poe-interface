@@ -43,10 +43,10 @@ export function loadJson(filename: string): any {
     const dataFile = fs.readFileSync(filename)
     const Json = JSON.parse(dataFile.toLocaleString())
     return Json
-    } catch (error : any) {
+  } catch (error: any) {
     dialog.showMessageBox(null, {
       message: `une erreur est survenue au chargement du fichier :`,
-      detail: `\n ${filename}.\n\n ${error.message}` ,
+      detail: `\n ${filename}.\n\n ${error.message}`,
       title: "Erreur de chargement Json",
       type: "error",
     })
@@ -92,4 +92,37 @@ export async function DlAllGemImg(win: BrowserWindow) {
     }
   }
   console.log("downloaded: %d , total: %d", dldFiles, InitialGems.length)
+}
+
+
+export function extractGuide(): void {
+  const _defaultActGuide = loadJson("/home/mmaura/Sources/poe-interface/src/assets/actsguides/default/guide.json") as IActsGuide
+  const dstActGuide = {} as IActsGuide
+  dstActGuide.identity = {} as ActGuideIdentity
+  dstActGuide.acts = [] as IAct[]
+
+  Object.assign(dstActGuide.identity, _defaultActGuide.identity)
+  dstActGuide.identity.name = "default-fr"
+
+  _defaultActGuide.acts.forEach(act => {
+    const _act = {} as IAct
+    _act.act = act.act
+    _act.actid = act.actid
+    _act.zones = [] as IZone[]
+    act.zones.forEach(zone => {
+      const _zone = {} as IZone
+      _zone.hasRecipe = zone.hasRecipe
+      _zone.hasWaypoint = zone.hasWaypoint
+      _zone.haspassive = zone.haspassive
+      _zone.hastrial = zone.hastrial
+      _zone.level = zone.level
+      _zone.name = zone.name
+      _zone.quest = zone.quest
+      _zone.questRewardsSkills = zone.questRewardsSkills
+      _zone.recipe = zone.recipe
+      _act.zones.push(_zone)
+    })
+    dstActGuide.acts.push(_act)
+    fs.writeFileSync("/home/mmaura/Sources/poe-interface/src/assets/actsguides/default/test.json", JSON.stringify(dstActGuide,null, 2))
+  })
 }

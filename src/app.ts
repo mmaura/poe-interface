@@ -50,6 +50,9 @@ let PoeLog: PathOfExileLog
 //   },
 // } as const
 
+
+
+
 const AppStore = new Store()
 const AppIcon = nativeImage.createFromPath(path.join(getAssetPath(), "AppIcon.png"))
 
