@@ -95,6 +95,7 @@ export function ZoneNotes(props: { curZone: IZone; onSave: (text: string) => voi
   const [isOnEdit, setisOnEdit] = useState(false)
 
   useEffect(() => {
+
     settext(curZone.note)
   }, [curZone])
 
@@ -196,9 +197,9 @@ export function ZoneMap(props: {
       <div className="flex flex-row flex-wrap h-full">
         {curZone.image && curZone.image[0] !== "none"
           ? curZone.image.map(val => {
-              const path = `${actsGuideIdent.webAssetPath}zones/${curAct.act}/${val}.png`
-              return <img key={path} className="w-32" src={path} />
-            })
+            const path = `${actsGuideIdent.webAssetPath}zones/${curAct.act}/${val}.png`
+            return <img key={path} className="w-32" src={path} />
+          })
           : null}
       </div>
       {curZone.altimage !== "none" ? (
@@ -456,17 +457,16 @@ function Gear(props: { gear: Gear }): JSX.Element {
       <p>{gear.name}</p>
       <div className="flex flex-row gap-2 ">
         <div
-          className={`${
-            (gear.gems ? gear.gems.length : 0) + (gear.chasses ? gear.chasses.length : 0) <= 3
+          className={`${(gear.gems ? gear.gems.length : 0) + (gear.chasses ? gear.chasses.length : 0) <= 3
               ? "poe-item-3slots"
               : "poe-item-xslots"
-          } flex-none`}
+            } flex-none`}
         >
           {gear.gems ? gear.gems.map((gem, index) => <Gem key={gem.name + index} curGem={gem} />) : null}
           {gear.chasses
             ? gear.chasses.map((color, index) => (
-                <div className={`poe-${color}-socket`} key={color + index}></div>
-              ))
+              <div className={`poe-${color}-socket`} key={color + index}></div>
+            ))
             : null}
         </div>
         {gear.notes ? (
