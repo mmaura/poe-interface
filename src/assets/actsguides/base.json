@@ -1,0 +1,1715 @@
+{
+  "identity": {
+    "name": "default-fr",
+    "lang": "fr",
+    "game_version": 3.16
+  },
+  "acts": [
+    {
+      "act": "Act I",
+      "actid": 1,
+      "zones": [
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 1,
+          "name": "The Twilight Strand",
+          "quest": "Enemy at the Gate",
+          "questRewardsSkills": true
+        },
+        {
+          "hasRecipe": false,
+          "hasWaypoint": true,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 2,
+          "name": "The Coast",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 3,
+          "name": "The Tidal Island",
+          "quest": "Mercy Mission",
+          "questRewardsSkills": true
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 4,
+          "name": "The Mud Flats",
+          "quest": "Breaking Some Eggs",
+          "questRewardsSkills": true
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 5,
+          "name": "The Fetid Pool",
+          "quest": "A Dirty Job",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "hasWaypoint": true,
+          "haspassive": true,
+          "hastrial": false,
+          "level": 5,
+          "name": "The Submerged Passage",
+          "quest": "Dweller of the Deep",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": true,
+          "hastrial": false,
+          "level": 6,
+          "name": "The Flooded Depths",
+          "quest": "Dweller of the Deep",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "hasWaypoint": true,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 6,
+          "name": "The Ledge",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 7,
+          "name": "The Climb",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "hasWaypoint": true,
+          "haspassive": false,
+          "hastrial": true,
+          "level": 8,
+          "name": "The Lower Prison",
+          "quest": "The Caged Brute",
+          "questRewardsSkills": true
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 9,
+          "name": "The Upper Prison",
+          "quest": "The Caged Brute",
+          "questRewardsSkills": true
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 10,
+          "name": "Prisoner's Gate",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "hasWaypoint": true,
+          "haspassive": true,
+          "hastrial": false,
+          "level": 11,
+          "name": "The Ship Graveyard",
+          "quest": "The Marooned Mariner",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": true,
+          "hastrial": false,
+          "level": 12,
+          "name": "The Ship Graveyard Cave",
+          "quest": "The Marooned Mariner",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "hasWaypoint": true,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 12,
+          "name": "The Cavern of Wrath",
+          "quest": "The Siren's Cadence",
+          "questRewardsSkills": true
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 13,
+          "name": "The Cavern of Anger",
+          "quest": "The Siren's Cadence",
+          "questRewardsSkills": true
+        }
+      ]
+    },
+    {
+      "act": "Act II",
+      "actid": 2,
+      "zones": [
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 13,
+          "name": "The Southern Forest",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 14,
+          "name": "The Old Fields",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 15,
+          "name": "The Den",
+          "quest": "The Great White Beast",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "hasWaypoint": true,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 15,
+          "name": "The Riverways",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 15,
+          "name": "The Crossroads",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 15,
+          "name": "The Chamber of Sins Level 1",
+          "quest": "Intruders in Black",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": true,
+          "level": 16,
+          "name": "The Chamber of Sins Level 2",
+          "quest": "Intruders in Black",
+          "questRewardsSkills": true
+        },
+        {
+          "hasRecipe": false,
+          "hasWaypoint": true,
+          "haspassive": true,
+          "hastrial": false,
+          "level": 16,
+          "name": "The Broken Bridge",
+          "quest": "Deal with the Bandits",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 16,
+          "name": "The Fellshrine Ruins",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": true,
+          "level": 17,
+          "name": "The Crypt Level 1",
+          "quest": "Through Sacred Ground",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 18,
+          "name": "The Crypt Level 2",
+          "quest": "Through Sacred Ground",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": true,
+          "hastrial": false,
+          "level": 17,
+          "name": "The Western Forest",
+          "quest": "Deal with the Bandits",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 18,
+          "name": "The Weaver's Chambers",
+          "quest": "Sharp and Cruel",
+          "questRewardsSkills": true
+        },
+        {
+          "hasRecipe": false,
+          "hasWaypoint": true,
+          "haspassive": true,
+          "hastrial": false,
+          "level": 19,
+          "name": "The Wetlands",
+          "quest": "Deal with the Bandits",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 20,
+          "name": "The Vaal Ruins",
+          "quest": "The Root of the Problem",
+          "questRewardsSkills": true
+        },
+        {
+          "hasRecipe": false,
+          "hasWaypoint": true,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 21,
+          "name": "The Northern Forest",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 21,
+          "name": "The Dread Thicket",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": true,
+          "hasWaypoint": true,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 22,
+          "name": "The Caverns",
+          "quest": "none",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "(10–14)% increased Movement Speed"
+            ],
+            "tooltip": "Movement Speed - Rank 1"
+          }
+        },
+        {
+          "hasRecipe": true,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 23,
+          "name": "The Ancient Pyramid",
+          "quest": "Shadow of the Vaal",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "(37–51)% increased Spell Damage (2H)",
+              "(25–34)% increased Spell Damage (1H)"
+            ],
+            "tooltip": "Spell Damage - Rank 1"
+          }
+        }
+      ]
+    },
+    {
+      "act": "Act III",
+      "actid": 3,
+      "zones": [
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 23,
+          "name": "The City of Sarn",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 24,
+          "name": "The Slums",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": true,
+          "hasWaypoint": true,
+          "haspassive": false,
+          "hastrial": true,
+          "level": 25,
+          "name": "The Crematorium",
+          "quest": "Lost in Love",
+          "questRewardsSkills": true,
+          "recipe": {
+            "mods": [
+              "Adds (8–11) to (16–20) Fire Damage to Attacks",
+              "Adds (24–27) to (28–35) Fire Damage (2H)",
+              "Adds (16–21) to (31–36) Fire Damage to Spells (2H)",
+              "Adds (16–18) to (19–23) Fire Damage",
+              "Adds (12–16) to (23–27) Fire Damage to Spells (1H)",
+              "(9–12)% increased Fire Damage",
+              "(37–51)% increased Fire Damage (2H)",
+              "(25–34)% increased Fire Damage (1H)"
+            ],
+            "tooltip": "Fire Damage - Rank 1"
+          }
+        },
+        {
+          "hasRecipe": true,
+          "hasWaypoint": true,
+          "haspassive": true,
+          "hastrial": false,
+          "level": 26,
+          "name": "The Sewers",
+          "quest": "Victario's Secrets",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "Adds (9–12) to (18–21) Physical Damage (2H)",
+              "Adds (6–8) to (13–15) Physical Damage (1H)",
+              "Adds (3–5) to (6–8) Physical Damage to Attacks",
+              "(9–12)% increased Global Physical Damage",
+              "(40–59)% increased Physical Damage"
+            ],
+            "tooltip": "Physical Damage - Rank 1"
+          }
+        },
+        {
+          "hasRecipe": false,
+          "hasWaypoint": true,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 26,
+          "name": "The Marketplace",
+          "quest": "A Swing of Hope",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": true,
+          "haspassive": false,
+          "hastrial": true,
+          "level": 27,
+          "name": "The Catacombs",
+          "quest": "none",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "(15–23)% increased Elemental Damage with Attack Skills"
+            ],
+            "tooltip": "Elemental Damage with Attacks - Rank 1"
+          }
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 27,
+          "name": "The Battlefront",
+          "quest": "The Ribbon Spool",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 27,
+          "name": "The Solaris Temple Level 1",
+          "quest": "The Gemling Queen",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": true,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 28,
+          "name": "The Solaris Temple Level 2",
+          "quest": "The Gemling Queen",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "Adds (6–8) to (14–18) Cold Damage to Attacks",
+              "Adds (24–27) to (28–35) Cold Damage (2H)",
+              "Adds (16–18) to (19–23) Cold Damage",
+              "Adds (14–19) to (28–33) Cold Damage to Spells (2H)",
+              "Adds (10–13) to (19–22) Cold Damage to Spells (1H)",
+              "(9–12)% increased Cold Damage",
+              "(37–51)% increased Cold Damage (2H)",
+              "(25–34)% increased Cold Damage (1H)"
+            ],
+            "tooltip": "Cold Damage - Rank 1"
+          }
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 29,
+          "name": "The Docks",
+          "quest": "Fiery Dust/Swing of Hope",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 29,
+          "name": "The Ebony Barracks",
+          "quest": "Sever the Right Hand",
+          "questRewardsSkills": true
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": true,
+          "hastrial": false,
+          "level": 29,
+          "name": "The Lunaris Temple Level 1",
+          "quest": "Piety's Pets",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": true,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 30,
+          "name": "The Lunaris Temple Level 2",
+          "quest": "none",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "Adds (2–4) to (40–55) Lightning Damage (2H)",
+              "Adds (1–5) to (59–63) Lightning Damage to Spells (2H)",
+              "Adds (1–4) to (39–42) Lightning Damage to Spells (1H)",
+              "Adds (1–4) to (32–36) Lightning Damage to Attacks",
+              "Adds (1–3) to (27–37) Lightning Damage",
+              "(9–12)% increased Lightning Damage",
+              "(37–51)% increased Lightning Damage (2H)",
+              "(25–34)% increased Lightning Damage (1H)"
+            ],
+            "tooltip": "Lightning Damage - Rank 1"
+          }
+        },
+        {
+          "hasRecipe": true,
+          "haspassive": false,
+          "hastrial": true,
+          "level": 30,
+          "name": "The Imperial Gardens",
+          "quest": "A Swing of Hope",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "+(6–9) to all Attributes"
+            ],
+            "tooltip": "All Attributes - Rank 1"
+          }
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 30,
+          "name": "The Library",
+          "quest": "A Fixture of Fate",
+          "questRewardsSkills": true
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 31,
+          "name": "The Archives",
+          "quest": "A Fixture of Fate",
+          "questRewardsSkills": true
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 32,
+          "name": "The Sceptre of God",
+          "quest": "Sceptre of God",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 33,
+          "name": "The Upper Sceptre of God",
+          "quest": "Sceptre of God",
+          "questRewardsSkills": false
+        }
+      ]
+    },
+    {
+      "act": "Act IV",
+      "actid": 4,
+      "zones": [
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 33,
+          "name": "The Aqueduct",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": true,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 34,
+          "name": "The Dried Lake",
+          "quest": "Breaking the Seal",
+          "questRewardsSkills": true,
+          "recipe": {
+            "mods": [
+              "(9–11)% increased Cast Speed (1H)",
+              "(8–10)% increased Attack Speed",
+              "(7–12)% increased Attack Speed",
+              "(6–8)% increased Cast Speed",
+              "(3–5)% increased Attack Speed",
+              "(12–15)% increased Cast Speed (2H)"
+            ],
+            "tooltip": "Attack and Cast Speed - Rank 1"
+          }
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 34,
+          "name": "The Mines Level 1",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": true,
+          "hastrial": false,
+          "level": 35,
+          "name": "The Mines Level 2",
+          "quest": "An Indomitable Spirit",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": true,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 36,
+          "name": "The Crystal Veins",
+          "quest": "none",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "+(21–28)% to Lightning Resistance",
+              "+(21–28)% to Fire Resistance",
+              "+(21–28)% to Cold Resistance"
+            ],
+            "tooltip": "Elemental Resistances - Rank 2"
+          }
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 37,
+          "name": "Daresso's Dream",
+          "quest": "The King of Desire",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 38,
+          "name": "The Grand Arena",
+          "quest": "The King of Desire",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 37,
+          "name": "Kaom's Dream",
+          "quest": "The King of Fury",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 38,
+          "name": "Kaom's Stronghold",
+          "quest": "The King of Fury",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 38,
+          "name": "The Belly of the Beast Level 1",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": true,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 39,
+          "name": "The Belly of the Beast Level 2",
+          "quest": "none",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "Adds (6–8) to (14–18) Chaos Damage to Attacks",
+              "(9–12)% increased Chaos Damage",
+              "(37–51)% increased Chaos Damage (2H)",
+              "(25–34)% increased Chaos Damage (1H)"
+            ],
+            "tooltip": "Chaos Damage - Rank 1"
+          }
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 40,
+          "name": "The Harvest",
+          "quest": "The Eternal Nightmare",
+          "questRewardsSkills": true
+        },
+        {
+          "hasRecipe": true,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 40,
+          "name": "The Ascent",
+          "quest": "none",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "+(21–25) to Strength",
+              "+(21–25) to Intelligence",
+              "+(21–25) to Dexterity"
+            ],
+            "tooltip": "Attributes - Rank 2"
+          }
+        }
+      ]
+    },
+    {
+      "act": "Act V",
+      "actid": 5,
+      "zones": [
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 41,
+          "name": "The Slave Pens",
+          "quest": "Return to Oriath",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": true,
+          "hastrial": false,
+          "level": 41,
+          "name": "The Control Blocks",
+          "quest": "In Serive to Science/They Key to Freedom",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 42,
+          "name": "Oriath Square",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 42,
+          "name": "The Templar Courts",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": true,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 43,
+          "name": "The Chamber of Innocence",
+          "quest": "Death to Purity",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "(15–19)% increased Movement Speed"
+            ],
+            "tooltip": "Movement Speed - Rank 2"
+          }
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 44,
+          "name": "The Torched Courts",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 44,
+          "name": "The Ruined Square",
+          "quest": "The King's Feast",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": true,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 44,
+          "name": "The Ossuary",
+          "quest": "The Ravenous God",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "Adds (7–11) to (16–19) Physical Damage (1H)",
+              "Adds (5–7) to (8–10) Physical Damage to Attacks",
+              "Adds (11–15) to (23–27) Physical Damage (2H)",
+              "(60–79)% increased Physical Damage",
+              "(13–16)% increased Global Physical Damage"
+            ],
+            "tooltip": "Physical Damage - Rank 2"
+          }
+        },
+        {
+          "hasRecipe": true,
+          "haspassive": true,
+          "hastrial": false,
+          "level": 44,
+          "name": "The Reliquary",
+          "quest": "Kitava's Torments",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "+(91–120) to Accuracy Rating",
+              "+(91–120) to Accuracy Rating"
+            ],
+            "tooltip": "Accuracy - Rank 1"
+          }
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 45,
+          "name": "The Cathedral Rooftop",
+          "quest": "The Ravenous God",
+          "questRewardsSkills": false
+        }
+      ]
+    },
+    {
+      "act": "Act VI",
+      "actid": 6,
+      "zones": [
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 45,
+          "name": "The Twilight Strand",
+          "quest": "Fallen from Grace",
+          "questRewardsSkills": true
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 45,
+          "name": "The Coast",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 45,
+          "name": "The Tidal Island",
+          "quest": "Bestel's Epic",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": true,
+          "hastrial": false,
+          "level": 46,
+          "name": "The Mud Flats",
+          "quest": "The Father of War",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": true,
+          "haspassive": true,
+          "hastrial": false,
+          "level": 46,
+          "name": "The Karui Fortress",
+          "quest": "The Father of War",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "+(40–50) to Evasion Rating",
+              "+(40–50) to Armour",
+              "+(27–34) to maximum Energy Shield",
+              "(34–45)% increased Evasion Rating",
+              "(34–45)% increased Evasion and Energy Shield",
+              "(34–45)% increased Energy Shield",
+              "(34–45)% increased Armour and Evasion",
+              "(34–45)% increased Armour and Energy Shield",
+              "(34–45)% increased Armour"
+            ],
+            "tooltip": "Defences - Rank 1"
+          }
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 46,
+          "name": "The Ridge",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": true,
+          "haspassive": false,
+          "hastrial": true,
+          "level": 47,
+          "name": "The Lower Prison",
+          "quest": "Essence of Umbra",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "+(10–12)% to Fire and Lightning Resistances",
+              "+(10–12)% to Fire and Cold Resistances",
+              "+(10–12)% to Cold and Lightning Resistances"
+            ],
+            "tooltip": "Double Resistances - Rank 1"
+          }
+        },
+        {
+          "hasRecipe": true,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 47,
+          "name": "Shavronne's Tower",
+          "quest": "Essence of Umbra",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "(52–66)% increased Spell Damage (2H)",
+              "(35–44)% increased Spell Damage (1H)"
+            ],
+            "tooltip": "Spell Damage - Rank 2"
+          }
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": true,
+          "hastrial": false,
+          "level": 47,
+          "name": "Prisoner's Gate",
+          "quest": "The Cloven One",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": true,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 48,
+          "name": "The Western Forest",
+          "quest": "none",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "+(26–30) to Strength",
+              "+(26–30) to Intelligence",
+              "+(26–30) to Dexterity"
+            ],
+            "tooltip": "Attributes - Rank 3"
+          }
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 48,
+          "name": "The Riverways",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": true,
+          "hastrial": false,
+          "level": 48,
+          "name": "The Wetlands",
+          "quest": "The Puppet Mistress",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 49,
+          "name": "The Southern Forest",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 49,
+          "name": "The Cavern of Anger",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": true,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 49,
+          "name": "The Beacon",
+          "quest": "none",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "+(35–44) to maximum Mana",
+              "+(26–40) to maximum Life"
+            ],
+            "tooltip": "Life and Mana - Rank 2"
+          }
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 50,
+          "name": "The Brine King's Reef",
+          "quest": "The Brine King",
+          "questRewardsSkills": false
+        }
+      ]
+    },
+    {
+      "act": "Act VII",
+      "actid": 7,
+      "zones": [
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 50,
+          "name": "The Broken Bridge",
+          "quest": "The Silver Locket",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 51,
+          "name": "The Crossroads",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 51,
+          "name": "The Fellshrine Ruins",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": true,
+          "haspassive": false,
+          "hastrial": true,
+          "level": 51,
+          "name": "The Crypt",
+          "quest": "Essence of the Artist",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "(11–20)% increased Damage over Time"
+            ],
+            "tooltip": "Damage over Time - Rank 1"
+          }
+        },
+        {
+          "hasRecipe": true,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 52,
+          "name": "The Chamber of Sins Level 1",
+          "quest": "Essence of the Artist/Web of Secrets",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "Adds (5–8) to (90–120) Lightning Damage (2H)",
+              "Adds (3–9) to (109–115) Lightning Damage to Spells (2H)",
+              "Adds (3–5) to (60–80) Lightning Damage",
+              "Adds (2–6) to (73–77) Lightning Damage to Spells (1H)",
+              "Adds (1–5) to (41–48) Lightning Damage to Attacks",
+              "(52–66)% increased Lightning Damage (2H)",
+              "(35–44)% increased Lightning Damage (1H)",
+              "(13–16)% increased Lightning Damage"
+            ],
+            "tooltip": "Lightning Damage - Rank 2"
+          }
+        },
+        {
+          "hasRecipe": true,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 52,
+          "name": "The Chamber of Sins Level 2",
+          "quest": "none",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "(20–30)% increased Mana Regeneration Rate"
+            ],
+            "tooltip": "Mana Regen - Rank 1"
+          }
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 52,
+          "name": "Maligaro's Sanctum",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 53,
+          "name": "The Den",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": true,
+          "hastrial": false,
+          "level": 53,
+          "name": "The Ashen Fields",
+          "quest": "The Master of a Million Faces",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 53,
+          "name": "The Northern Forest",
+          "quest": "In Memory of Greust",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": true,
+          "haspassive": true,
+          "hastrial": false,
+          "level": 53,
+          "name": "The Dread Thicket",
+          "quest": "Queen of Despair/Lighting the Way",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "Adds (50–60) to (63–73) Fire Damage (2H)",
+              "Adds (33–40) to (42–49) Fire Damage",
+              "Adds (28–38) to (57–66) Fire Damage to Spells (2H)",
+              "Adds (21–28) to (42–49) Fire Damage to Spells (1H)",
+              "Adds (12–17) to (26–30) Fire Damage to Attacks",
+              "(52–66)% increased Fire Damage (2H)",
+              "(35–44)% increased Fire Damage (1H)",
+              "(13–16)% increased Fire Damage"
+            ],
+            "tooltip": "Fire Damage - Rank 2"
+          }
+        },
+        {
+          "hasRecipe": true,
+          "haspassive": true,
+          "hastrial": false,
+          "level": 54,
+          "name": "The Causeway",
+          "quest": "Kishara's Star",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "Adds (50–60) to (63–73) Cold Damage (2H)",
+              "Adds (33–40) to (42–49) Cold Damage",
+              "Adds (26–34) to (52–60) Cold Damage to Spells (2H)",
+              "Adds (17–23) to (34–40) Cold Damage to Spells (1H)",
+              "Adds (11–15) to (23–27) Cold Damage to Attacks",
+              "(52–66)% increased Cold Damage (2H)",
+              "(35–44)% increased Cold Damage (1H)",
+              "(13–16)% increased Cold Damage"
+            ],
+            "tooltip": "Cold Damage - Rank 2"
+          }
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 54,
+          "name": "The Vaal City",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 54,
+          "name": "The Temple of Decay Level 1",
+          "quest": "The Mother of Spiders",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": true,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 55,
+          "name": "The Temple of Decay Level 2",
+          "quest": "The Mother of Spiders",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "+(121–200) to Accuracy Rating",
+              "+(121–150) to Accuracy Rating"
+            ],
+            "tooltip": "Accuracy - Rank 2"
+          }
+        }
+      ]
+    },
+    {
+      "act": "Act VIII",
+      "actid": 8,
+      "zones": [
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 55,
+          "name": "The Sarn Ramparts",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 56,
+          "name": "The Toxic Conduits",
+          "quest": "Essence of the Hag",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": true,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 56,
+          "name": "Doedre's Cesspool",
+          "quest": "Essence of the Hag",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "+(29–35)% to Lightning Resistance",
+              "+(29–35)% to Fire Resistance",
+              "+(29–35)% to Cold Resistance"
+            ],
+            "tooltip": "Elemental Resistances - Rank 3"
+          }
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 56,
+          "name": "The Grand Promenade",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": true,
+          "hastrial": false,
+          "level": 57,
+          "name": "The Quay",
+          "quest": "Love is Dead",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": true,
+          "hastrial": false,
+          "level": 57,
+          "name": "The Grain Gate",
+          "quest": "The Gemling Legion",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 58,
+          "name": "The Imperial Fields",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 59,
+          "name": "The Solaris Temple Level 1",
+          "quest": "Solar Eclipse",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": true,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 59,
+          "name": "The Solaris Temple Level 2",
+          "quest": "Solar Eclipse",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "(6–8)% increased Trap Throwing Speed",
+              "(6–8)% increased Mine Laying Speed"
+            ],
+            "tooltip": "Traps and Mines - Rank 1"
+          }
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 58,
+          "name": "The Solaris Concourse",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": true,
+          "haspassive": false,
+          "hastrial": true,
+          "level": 57,
+          "name": "The Bath House",
+          "quest": "The Wings of Vastiri",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "(5–10)% increased Flask effect duration"
+            ],
+            "tooltip": "Flask Duration - Rank 1"
+          }
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": true,
+          "hastrial": false,
+          "level": 58,
+          "name": "The High Gardens",
+          "quest": "Reflection of Terror",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 58,
+          "name": "The Lunaris Concourse",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 59,
+          "name": "The Lunaris Temple Level 1",
+          "quest": "Lunar Eclipse",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": true,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 59,
+          "name": "The Lunaris Temple Level 2",
+          "quest": "Lunar Eclipse",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "Minions have (11–15)% increased maximum Life",
+              "Minions deal (9–16)% increased Damage (1H)",
+              "Minions deal (14–25)% increased Damage (2H)",
+              "Minions deal (10–20)% increased Damage"
+            ],
+            "tooltip": "Minions - Rank 1"
+          }
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 60,
+          "name": "The Harbour Bridge",
+          "quest": "none",
+          "questRewardsSkills": false
+        }
+      ]
+    },
+    {
+      "act": "Act IX",
+      "actid": 9,
+      "zones": [
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 61,
+          "name": "The Blood Aqueduct",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 61,
+          "name": "The Descent",
+          "quest": "none",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": true,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 61,
+          "name": "The Vastiri Desert",
+          "quest": "The Storm Blade",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "(16–20)% increased Cast Speed (2H)",
+              "(12–14)% increased Cast Speed (1H)",
+              "(11–15)% increased Attack Speed"
+            ],
+            "tooltip": "Attack and Cast Speed - Rank 2"
+          }
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": true,
+          "hastrial": false,
+          "level": 61,
+          "name": "The Oasis",
+          "quest": "Queen of the Sands",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 62,
+          "name": "The Foothills",
+          "quest": "Fastis Fortuna",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": true,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 62,
+          "name": "The Boiling Lake",
+          "quest": "Recurring Nightmare",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "(67–81)% increased Spell Damage (2H)",
+              "(45–54)% increased Spell Damage (1H)"
+            ],
+            "tooltip": "Spell Damage - Rank 3"
+          }
+        },
+        {
+          "hasRecipe": true,
+          "haspassive": false,
+          "hastrial": true,
+          "level": 62,
+          "name": "The Tunnel",
+          "quest": "none",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "+(10–13) to all Attributes"
+            ],
+            "tooltip": "All Attributes - Rank 2"
+          }
+        },
+        {
+          "hasRecipe": true,
+          "haspassive": true,
+          "hastrial": false,
+          "level": 63,
+          "name": "The Quarry",
+          "quest": "The Ruler of Highgate",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "Adds (18–24) to (36–42) Physical Damage (2H)",
+              "Adds (13–17) to (26–30) Physical Damage (1H)",
+              "(80–99)% increased Physical Damage"
+            ],
+            "tooltip": "Physical Damage - Rank 3"
+          }
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 63,
+          "name": "The Refinery",
+          "quest": "Recurring Nightmare",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 63,
+          "name": "The Belly of the Beast",
+          "quest": "Recurring Nightmare",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 64,
+          "name": "The Rotting Core",
+          "quest": "Recurring Nightmare",
+          "questRewardsSkills": false
+        }
+      ]
+    },
+    {
+      "act": "Act X",
+      "actid": 10,
+      "zones": [
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 64,
+          "name": "The Cathedral Rooftop",
+          "quest": "Safe Passage",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 64,
+          "name": "The Ravaged Square",
+          "quest": "",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 65,
+          "name": "The Torched Courts",
+          "quest": "",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": true,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 65,
+          "name": "The Desecrated Chambers",
+          "quest": "Death and Rebirth",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "+(45–54) to maximum Mana",
+              "+(41–55) to maximum Life"
+            ],
+            "tooltip": "Life and Mana - Rank 3"
+          }
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": true,
+          "hastrial": false,
+          "level": 66,
+          "name": "The Control Blocks",
+          "quest": "Vilenta's Vengeance",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": true,
+          "haspassive": false,
+          "hastrial": true,
+          "level": 67,
+          "name": "The Ossuary",
+          "quest": "No Love for Old Ghosts",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "Adds (11–15) to (23–27) Chaos Damage to Attacks",
+              "(52–66)% increased Chaos Damage (2H)",
+              "(35–44)% increased Chaos Damage (1H)",
+              "(13–16)% increased Chaos Damage"
+            ],
+            "tooltip": "Chaos Damage - Rank 2"
+          }
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 67,
+          "name": "The Reliquary",
+          "quest": "Map to Tsoatha",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 66,
+          "name": "The Canals",
+          "quest": "",
+          "questRewardsSkills": false
+        },
+        {
+          "hasRecipe": true,
+          "haspassive": true,
+          "hastrial": false,
+          "level": 67,
+          "name": "The Feeding Trough",
+          "quest": "An End to Hunger",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "+(60–80) to Evasion Rating",
+              "+(60–80) to Armour",
+              "+(35–45) to maximum Energy Shield",
+              "(45–55)% increased Evasion Rating",
+              "(45–55)% increased Evasion and Energy Shield",
+              "(45–55)% increased Energy Shield",
+              "(45–55)% increased Armour and Evasion",
+              "(45–55)% increased Armour and Energy Shield",
+              "(45–55)% increased Armour"
+            ],
+            "tooltip": "Defences - Rank 2"
+          }
+        }
+      ]
+    },
+    {
+      "act": "Epilogue",
+      "actid": 11,
+      "zones": [
+        {
+          "hasRecipe": true,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 69,
+          "name": "Oriath",
+          "quest": "From Nightmare into Dream",
+          "questRewardsSkills": false,
+          "recipe": {
+            "mods": [
+              "(20–24)% increased Movement Speed"
+            ],
+            "tooltip": "Movement Speed - Rank 3"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -24,6 +24,7 @@ import {
   getLocalCustomPath,
   getAssetPath,
   loadJson,
+  extractGuide,
 } from "../modules/functions"
 
 declare const LEVELING_WINDOW_WEBPACK_ENTRY: string
@@ -116,10 +117,10 @@ export class LevelingWindow {
           ]
 
         case "save":
-          switch(arg[1]){
+          switch (arg[1]) {
             case "zoneNotes":
               //arg[2]{ zoneName: 'The Twilight Strand', actId: 6 }
-        
+
               this.ActsGuidesSaveZoneNote(arg[2], arg[3])
           }
           console.log("save note.")
@@ -418,6 +419,17 @@ export class LevelingWindow {
     this.makeMenus()
   }
 
+  LoadBaseActsGuidesIdentities(): void {
+    const filename = path.join(getAssetPath(), "actsguides", "base.json")
+    const guide = loadJson(filename) as IActsGuide
+
+    guide.identity.filename = filename
+    // guide.identity.webAssetPath = "../assets/actsguides/default/"
+    // guide.identity.sysAssetPath = path.join(getAssetPath(), "actsguides", "default")
+    this._ActsGuidesIdentities = [guide.identity]
+    console.log("ActGuide trouvé : ", filename)
+  }
+
   LoadJsonActsGuidesIdentities(): void {
     let filename = path.join(getAssetPath(), "actsguides", "default", "guide.json")
     let guide = loadJson(filename) as IActsGuide
@@ -478,18 +490,18 @@ export class LevelingWindow {
           _tmp_zone.name !== undefined
             ? (_zone.altimage = _tmp_zone.altimage)
             : InfoMessages.push(
-                `Le champ 'altimage' est manquant dans la zone  ${_zone.name} de l'act ${_act.act}`
-              )
+              `Le champ 'altimage' est manquant dans la zone  ${_zone.name} de l'act ${_act.act}`
+            )
           _tmp_zone.image !== undefined
             ? (_zone.image = _tmp_zone.image)
             : InfoMessages.push(
-                `Le champ 'image' est manquant dans la zone  ${_zone.name} de l'act ${_act.act}`
-              )
+              `Le champ 'image' est manquant dans la zone  ${_zone.name} de l'act ${_act.act}`
+            )
           _tmp_zone.note !== undefined
             ? (_zone.note = _tmp_zone.note)
             : InfoMessages.push(
-                `Le champ 'note' est manquant dans la zone  ${_zone.name} de l'act ${_act.act}`
-              )
+              `Le champ 'note' est manquant dans la zone  ${_zone.name} de l'act ${_act.act}`
+            )
         })
       })
 
@@ -572,7 +584,7 @@ export class LevelingWindow {
     this.makeMenus()
   }
 
-  ActsGuidesSaveZoneNote(zone : {zoneName: string, actId: number}, note: string): void{
+  ActsGuidesSaveZoneNote(zone: { zoneName: string, actId: number }, note: string): void {
     // const curloadJson(this._CurActsGuide.identity.filename)
     console.log('')
 
@@ -732,6 +744,8 @@ export class LevelingWindow {
       this._Menu.getMenuItemById("actsGuide").submenu.append(_menu)
     })
 
+
+
     if (this._CurClassGuide.identity.url) {
       this._Menu.getMenuItemById("templateUrl").click = () => {
         shell.openExternal(this._CurClassGuide.identity.url)
@@ -763,6 +777,23 @@ export class LevelingWindow {
       )
       this._Menu.getMenuItemById("classGuide").submenu.append(_menu)
     })
+
+    if (app.isPackaged === false) {
+      const _menu = new MenuItem(
+        {
+          type: "submenu",
+          label: "Dev Menu",
+          submenu: [{
+            label: `extract actGuide`,
+            click: () => {
+              console.log("extract guide")
+              extractGuide()
+            }
+          }]
+        })
+      this._Menu.append(_menu)
+    }
+
     this._Window.setMenu(this._Menu)
   }
 
