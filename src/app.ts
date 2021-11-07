@@ -119,6 +119,7 @@ app.whenReady().then(async () => {
       icon: AppIcon,
     }).show()
 
+    if (!levelingGuideWindow) levelingGuideWindow = new LevelingWindow(AppStore, AppIcon)
     levelingGuideWindow.show()
   }
 })

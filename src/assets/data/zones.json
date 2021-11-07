@@ -1,7 +1,7 @@
 {
   "identity": {
-    "name": "default-fr",
-    "lang": "fr",
+    "name": "base",
+    "lang": "en",
     "game_version": 3.16
   },
   "acts": [

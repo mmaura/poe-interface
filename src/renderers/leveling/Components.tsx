@@ -187,7 +187,7 @@ export function EditText(props: { onChange: ChangeEventHandler<any>; children: s
 export function ZoneMap(props: {
   curAct: IAct
   curZone: IZone
-  actsGuideIdent: ActGuideIdentity
+  actsGuideIdent: GuideIdentity
 }): JSX.Element {
   const { curZone, curAct, actsGuideIdent } = props
   console.log("ZoneMap", curZone)
