@@ -6,11 +6,12 @@ import Store from "electron-store"
 import PathOfExileLog from "poe-log-monitor"
 import merge from 'lodash.merge'
 
-import { getLocalCustomPath, getAssetPath, extractActsBaseGuide, debugMsg, extractActsCustomGuide, } from "../modules/functions"
+import { getLocalCustomPath, getAssetPath, extractActsBaseGuide, debugMsg, extractActsCustomGuide, getAbsCustomPath, } from "../modules/functions"
 
 import { ClassesGuides } from "../modules/ClassesGuides"
 import { JsonFile } from "../modules/JsonFile"
 import { ActsGuides } from "../modules/ActsGuides"
+import { GameHelpers } from "../modules/GameHelper"
 
 declare const LEVELING_WINDOW_WEBPACK_ENTRY: string
 declare const LEVELING_WINDOW_PRELOAD_WEBPACK_ENTRY: never
@@ -33,6 +34,7 @@ export class LevelingWindow {
   private RichTextJson: JsonFile<IRichText[]>
   private ClassesJson: JsonFile<IClasses[]>
   private Zones: JsonFile<IActsGuide>
+  private GameHelpers: GameHelpers
 
   private _MyPlayer: IAppPlayer
   private _MyConn: plm_conn
@@ -49,6 +51,7 @@ export class LevelingWindow {
     this.RichTextJson = new JsonFile(path.join(getAssetPath(), "data", "richtext.json"))
     this.ClassesJson = new JsonFile(path.join(getAssetPath(), "data", "classes.json"))
     this.Zones = new JsonFile(path.join(getAssetPath(), "data", "zones.json"))
+    this.GameHelpers = new GameHelpers()
 
     this._Window = new BrowserWindow({
       width: 1370,
@@ -199,52 +202,51 @@ export class LevelingWindow {
   }
 
   OpenCustomDir(): void {
-    shell.openPath(this.getLocalHelpersDir())
+    shell.openPath(getAbsCustomPath())
   }
 
-  OpenHelperFile(file: string): void {
-    const exts = ["png", "jpg"]
-    let filename = path.join(this.getLocalHelpersDir(), file)
+  // OpenHelperFile(file: string): void {
+  //   const exts = ["png", "jpg"]
+  //   let filename = path.join(this.getLocalHelpersDir(), file)
 
-    for (const ext of exts) {
-      console.log(filename + "." + ext)
-      if (fs.existsSync(filename + "." + ext)) {
-        filename = filename + "." + ext
-        break
-      }
-    }
+  //   for (const ext of exts) {
+  //     console.log(filename + "." + ext)
+  //     if (fs.existsSync(filename + "." + ext)) {
+  //       filename = filename + "." + ext
+  //       break
+  //     }
+  //   }
 
-    shell.openPath(filename)
-  }
+  //   shell.openPath(filename)
+  // }
 
-  private InitHelpers(): void {
-    this._HelperFiles = [] as string[]
-    if (!fs.existsSync(this.getLocalHelpersDir())) {
-      fs.mkdirSync(this.getLocalHelpersDir(), { recursive: true })
-      fs.readdirSync(path.join(getAssetPath(), "helpers"), { withFileTypes: true })
-        .forEach(item => {
-          if (item.isFile) {
-            fs.copyFileSync(
-              path.join(getAssetPath(), "helpers", item.name),
-              path.join(this.getLocalHelpersDir(), item.name)
-            )
-          }
-        })
-    }
-    fs.readdirSync(this.getLocalHelpersDir(), { withFileTypes: true }).forEach(item => {
-      this._HelperFiles.push(path.basename(item.name, path.extname(item.name)))
-    })
-  }
+  // private InitHelpers(): void {
+  //   this._HelperFiles = [] as string[]
+  //   if (!fs.existsSync(this.getLocalHelpersDir())) {
+  //     fs.mkdirSync(this.getLocalHelpersDir(), { recursive: true })
+  //     fs.readdirSync(path.join(getAssetPath(), "helpers"), { withFileTypes: true })
+  //       .forEach(item => {
+  //         if (item.isFile) {
+  //           fs.copyFileSync(
+  //             path.join(getAssetPath(), "helpers", item.name),
+  //             path.join(this.getLocalHelpersDir(), item.name)
+  //           )
+  //         }
+  //       })
+  //   }
+  //   fs.readdirSync(this.getLocalHelpersDir(), { withFileTypes: true }).forEach(item => {
+  //     this._HelperFiles.push(path.basename(item.name, path.extname(item.name)))
+  //   })
+  // }
 
   private async LoadData() {
-    this.InitHelpers()
-
     await Promise.all([
       this.ClassGuides.Init(this._AppStore.get("curClassGuide", "default") as string),
       this.ActsGuides.Init(this._AppStore.get("curActsGuide", "default") as string),
       this.RichTextJson.load(),
       this.ClassesJson.load(),
       this.Zones.load(),
+      this.GameHelpers.Init(),
     ]).catch(err => {
       const msg = `Error On LoadData\n${err}\n${this.ClassGuides.Warning.join('\n')}\n${this.ActsGuides.Warning.join('\n')}`
       debugMsg(msg)
@@ -262,9 +264,9 @@ export class LevelingWindow {
     console.log('')
   }
 
-  getLocalHelpersDir(): string {
-    return path.join(getLocalCustomPath(), "helpers")
-  }
+  // getLocalHelpersDir(): string {
+  //   return path.join(getLocalCustomPath(), "helpers")
+  // }
 
   changeCurClassGuide(filename: string): void {
     this._Window.webContents.send("levelingRenderer", ["classGuide", this.ClassGuides.setCurGuide(filename)])
@@ -304,7 +306,6 @@ export class LevelingWindow {
           },
         ],
       },
-
       {
         label: "Web sites",
         submenu: [
@@ -400,17 +401,19 @@ export class LevelingWindow {
       },
     ])
 
-    this._HelperFiles.forEach(helper => {
-      this._Menu.getMenuItemById("helpers").submenu.append(
-        new MenuItem({
-          label: `${helper}`,
-          click: () => {
-            console.log("loading helper file : ", helper)
-            this.OpenHelperFile(helper)
-          },
-        })
-      )
-    })
+    //TODO: generer le menu dans la nouvelle classe
+    //
+    // this._HelperFiles.forEach(helper => {
+    //   this._Menu.getMenuItemById("helpers").submenu.append(
+    //     new MenuItem({
+    //       label: `${helper}`,
+    //       click: () => {
+    //         console.log("loading helper file : ", helper)
+    //         this.OpenHelperFile(helper)
+    //       },
+    //     })
+    //   )
+    // })
 
     this.ActsGuides.getIdentities().forEach(_identity => {
       const _menu = new MenuItem({
