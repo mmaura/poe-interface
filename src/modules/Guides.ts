@@ -4,7 +4,7 @@ import { debugMsg, errorMsg } from './functions'
 import { JsonFile } from './JsonFile'
 import { DataLoader } from './DataLoader'
 
-export interface GuideType {
+interface GuideType {
     identity: GuideIdentity;
 }
 
@@ -87,7 +87,7 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
      * populate Identities with the Guides.
      */
     private async populateIdentities(dirPath: string, webPath: string) {
-        return await this.getFilesList(dirPath)
+        return await this.FilesFromSubPath(dirPath, [".json"])
             .then(files => {
                 if (files) files.forEach(f => {
                     const json = new JsonFile<T>(f)
@@ -95,7 +95,8 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
                         json.load()
                         const object = json.getObject()
                         object.identity.filename = f
-                        object.identity.webAssetPath = `${webPath}/${f.split(path.sep)[f.split(path.sep).length - 2]}`
+                        // object.identity.webAssetPath = `${webPath}/${f.split(path.sep)[f.split(path.sep).length - 2]}`
+                        object.identity.webAssetPath = this.MakeWebPath(webPath, f)
                         object.identity.sysAssetPath = path.dirname(f)
                         this.Identities.push(object.identity)
                     }
@@ -153,37 +154,5 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
                 debugMsg(`cp ${path.join(src, item.name)} ${path.join(dst, item.name)} `)
             }
         })
-    }
-
-    /**
-     * 
-     * @returns array of json guide filename for a directory (string)
-     */
-    private async getFilesList(dirPath: string): Promise<string[]> {
-        return await this._getDirFileList(dirPath)
-    }
-
-    /**
-     * 
-     * @param dir the directory to parse to find Guides
-     * @returns array of json guide filename (string)
-     */
-    private async _getDirFileList(dir: string): Promise<string[]> {
-        const _files = [] as string[]
-
-        debugMsg(`1 dir = ${dir} `)
-        fs.readdirSync(dir, { withFileTypes: true }).forEach(sdir => {
-            const dir2 = path.join(dir, sdir.name)
-            debugMsg(`2 dir = ${dir2} `)
-            if (sdir.isDirectory())
-                fs.readdirSync(dir2, { withFileTypes: true }).forEach(f => {
-                    const file = path.join(dir2, f.name)
-                    if ((f.isFile()) && (path.extname(f.name) === '.json')) {
-                        debugMsg(`push:  ** ${file} ** `)
-                        _files.push(file)
-                    }
-                })
-        })
-        return _files
     }
 }

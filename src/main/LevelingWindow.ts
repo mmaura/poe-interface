@@ -27,8 +27,6 @@ export class LevelingWindow {
   private _PoeLog: PathOfExileLog
   private _LogLoaded: boolean
 
-  private _HelperFiles: string[]
-
   private ClassGuides: ClassesGuides
   private ActsGuides: ActsGuides
   private RichTextJson: JsonFile<IRichText[]>
@@ -205,40 +203,6 @@ export class LevelingWindow {
     shell.openPath(getAbsCustomPath())
   }
 
-  // OpenHelperFile(file: string): void {
-  //   const exts = ["png", "jpg"]
-  //   let filename = path.join(this.getLocalHelpersDir(), file)
-
-  //   for (const ext of exts) {
-  //     console.log(filename + "." + ext)
-  //     if (fs.existsSync(filename + "." + ext)) {
-  //       filename = filename + "." + ext
-  //       break
-  //     }
-  //   }
-
-  //   shell.openPath(filename)
-  // }
-
-  // private InitHelpers(): void {
-  //   this._HelperFiles = [] as string[]
-  //   if (!fs.existsSync(this.getLocalHelpersDir())) {
-  //     fs.mkdirSync(this.getLocalHelpersDir(), { recursive: true })
-  //     fs.readdirSync(path.join(getAssetPath(), "helpers"), { withFileTypes: true })
-  //       .forEach(item => {
-  //         if (item.isFile) {
-  //           fs.copyFileSync(
-  //             path.join(getAssetPath(), "helpers", item.name),
-  //             path.join(this.getLocalHelpersDir(), item.name)
-  //           )
-  //         }
-  //       })
-  //   }
-  //   fs.readdirSync(this.getLocalHelpersDir(), { withFileTypes: true }).forEach(item => {
-  //     this._HelperFiles.push(path.basename(item.name, path.extname(item.name)))
-  //   })
-  // }
-
   private async LoadData() {
     await Promise.all([
       this.ClassGuides.Init(this._AppStore.get("curClassGuide", "default") as string),
@@ -263,10 +227,6 @@ export class LevelingWindow {
     // const curloadJson(this._CurActsGuide.identity.filename)
     console.log('')
   }
-
-  // getLocalHelpersDir(): string {
-  //   return path.join(getLocalCustomPath(), "helpers")
-  // }
 
   changeCurClassGuide(filename: string): void {
     this._Window.webContents.send("levelingRenderer", ["classGuide", this.ClassGuides.setCurGuide(filename)])
@@ -414,6 +374,7 @@ export class LevelingWindow {
     //     })
     //   )
     // })
+    this.GameHelpers.AppendMenu(this._Menu.getMenuItemById("helpers"))
 
     this.ActsGuides.getIdentities().forEach(_identity => {
       const _menu = new MenuItem({

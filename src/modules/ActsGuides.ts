@@ -1,5 +1,4 @@
 import { Guides } from "./Guides"
-import { JsonFile } from "./JsonFile"
 
 export class ActsGuides extends Guides<IActsGuide> {
     protected CurGuide: IActsGuide

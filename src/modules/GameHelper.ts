@@ -1,31 +1,33 @@
 import path from 'path'
 import fs from 'fs'
-import { shell } from 'electron'
+import { MenuItem, shell } from 'electron'
 import { DataLoader } from './DataLoader'
+import { debugMsg } from './functions'
 
-export class GameHelpers extends DataLoader{
-    Files: string[]
+interface HelperFile {
+    filename: string;
+    webpath: string;
+}
+
+export class GameHelpers extends DataLoader {
+    Files: HelperFile[]
 
     constructor() {
         super("helpers")
     }
 
-    Init(): void {
-        this.Files = [] as string[]
-        if (fs.existsSync(this.getAbsCustomPath())) {
-            fs.readdirSync(this.getAbsCustomPath(), { withFileTypes: true })
-                .forEach(f => {
-                    if (f.isFile() && path.extname(f.name) === ".png") {
-                        this.Files.push(path.join(this.getAbsCustomPath(),f.name))
-                    }
-                })
-        }
-
-        fs.readdirSync(this.getAbsCustomPath(), { withFileTypes: true }).forEach(item => {
-            this.Files.push(path.basename(item.name, path.extname(item.name)))
-        })
+    async Init(): Promise<void> {
+        await Promise.all([
+            this.Populate(this.getAbsPackagedPath(), this.getPackagedWebBaseName()),
+            this.Populate(this.getAbsCustomPath(), this.getCustomWebBaseName())
+        ])
     }
 
+    async Populate(dirPath: string, webPath: string): Promise<void> {
+        await this.FilesFromPath(dirPath, [".png", ".jpg", "txt"]).then(f =>
+            f.forEach(_f =>
+                this.Files.push({ filename: _f, webpath: this.MakeWebPath(webPath, _f) })))
+    }
 
     OpenHelperFile(file: string): void {
         const exts = ["png", "jpg"]
@@ -39,5 +41,19 @@ export class GameHelpers extends DataLoader{
             }
         }
         shell.openPath(filename)
+    }
+
+    AppendMenu(menuHelpers: MenuItem): void {
+        if (this.Files !== undefined) this.Files.forEach(f => {
+            menuHelpers.submenu.append(
+                new MenuItem({
+                    label: `${f}`,
+                    click: () => {
+                        debugMsg(`loading helper file :  ${f.filename}`)
+                        shell.openPath(f.filename)
+                    },
+                })
+            )
+        })
     }
 }
