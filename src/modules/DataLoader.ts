@@ -47,12 +47,12 @@ export class DataLoader {
      * @param exts array of extension to return with the dot
      * @returns array of json guide filename (string)
      */
-    protected async FilesFromSubPath(dir: string, exts: string[]): Promise<string[]> {
+    protected FilesFromSubPath(dir: string, exts: string[]): string[] {
         const _files = [] as string[]
 
         fs.readdirSync(dir, { withFileTypes: true }).forEach(sdir => {
             // const dir2 = path.join(dir, sdir.name)
-            if (sdir.isDirectory()) this.FilesFromPath(path.join(dir, sdir.name), exts).then(f => { _files.push(...f) })
+            if (sdir.isDirectory()) _files.push(...this.FilesFromPath(path.join(dir, sdir.name), exts))
             // fs.readdirSync(dir2, { withFileTypes: true }).forEach(f => {
             //     const file = path.join(dir2, f.name)
             //     if ((f.isFile()) && (exts.includes(path.extname(f.name)))) {
@@ -63,13 +63,12 @@ export class DataLoader {
         return _files
     }
 
-    protected async FilesFromPath(dir: string, exts: string[]): Promise<string[]> {
+    protected FilesFromPath(dir: string, exts: string[]): string[] {
         const _files = [] as string[]
 
         fs.readdirSync(dir, { withFileTypes: true }).forEach(f => {
-            const file = path.join(dir, f.name)
             if ((f.isFile()) && (exts.includes(path.extname(f.name)))) {
-                _files.push(file)
+                _files.push(path.join(dir, f.name))
             }
         })
         return _files

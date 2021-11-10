@@ -1,12 +1,11 @@
 import { BrowserWindow, ipcMain, NativeImage, IpcMainInvokeEvent, app, Menu, shell, MenuItem, dialog, Rectangle } from "electron"
 import path from "path"
-import fs from "fs"
 
 import Store from "electron-store"
 import PathOfExileLog from "poe-log-monitor"
 import merge from 'lodash.merge'
 
-import { getLocalCustomPath, getAssetPath, extractActsBaseGuide, debugMsg, extractActsCustomGuide, getAbsCustomPath, } from "../modules/functions"
+import { getAssetPath, extractActsBaseGuide, debugMsg, extractActsCustomGuide, getAbsCustomPath, } from "../modules/functions"
 
 import { ClassesGuides } from "../modules/ClassesGuides"
 import { JsonFile } from "../modules/JsonFile"
@@ -361,69 +360,9 @@ export class LevelingWindow {
       },
     ])
 
-    //TODO: generer le menu dans la nouvelle classe
-    //
-    // this._HelperFiles.forEach(helper => {
-    //   this._Menu.getMenuItemById("helpers").submenu.append(
-    //     new MenuItem({
-    //       label: `${helper}`,
-    //       click: () => {
-    //         console.log("loading helper file : ", helper)
-    //         this.OpenHelperFile(helper)
-    //       },
-    //     })
-    //   )
-    // })
     this.GameHelpers.AppendMenu(this._Menu.getMenuItemById("helpers"))
-
-    this.ActsGuides.getIdentities().forEach(_identity => {
-      const _menu = new MenuItem({
-        label: this.ActsGuides.getGuideLabel(_identity.filename),
-        icon: _identity.filename === this.ActsGuides.getCurGuideID() ? this._Icon : undefined,
-
-        id: `${_identity.filename}`,
-        click: () => {
-          console.log(`loading acts Guide :${this.ActsGuides.getGuideLabel(_identity.filename)} \n ${_identity.filename}`)
-          this.changeCurActsGuide(_identity.filename)
-        },
-      })
-      this._Menu.getMenuItemById("actsGuide").submenu.append(_menu)
-    })
-
-
-    if (this.ClassGuides.getCurGuide().identity.url) {
-      this._Menu.getMenuItemById("templateUrl").click = () => {
-        shell.openExternal(this.ClassGuides.getCurGuide().identity.url)
-      }
-      this._Menu.getMenuItemById("templateUrl").enabled = true
-    }
-
-    this.ClassGuides.getIdentities().forEach(_identity => {
-      let must_append = false
-      let _menu = this._Menu.getMenuItemById("classesG_" + _identity.class)
-
-      if (!_menu) {
-        _menu = new MenuItem({
-          label: _identity.class,
-          id: "classesG_" + _identity.class,
-          submenu: [],
-        })
-        must_append = true
-      }
-
-      _menu.submenu.append(
-        new MenuItem({
-          label: this.ClassGuides.getGuideLabel(_identity.filename),
-          icon: _identity.filename === this.ClassGuides.getCurGuideID() ? this._Icon : undefined,
-          id: `${_identity.filename}`,
-          click: () => {
-            console.log(`loading class Guide :${this.ClassGuides.getGuideLabel(_identity.filename)} \n ${_identity.filename}`)
-            this.changeCurClassGuide(_identity.filename)
-          },
-        })
-      )
-      if (must_append === true) this._Menu.getMenuItemById("classGuide").submenu.append(_menu)
-    })
+    this.ActsGuides.AppendMenu(this._Menu.getMenuItemById("actsGuide"), this.changeCurActsGuide)
+    this.ClassGuides.AppendMenu(this._Menu.getMenuItemById("classGuide"), this.changeCurClassGuide)
 
     if (app.isPackaged === false) {
       const _menu = new MenuItem(
@@ -436,7 +375,7 @@ export class LevelingWindow {
               console.log("extract guide")
               extractActsBaseGuide()
             }
-          },{
+          }, {
             label: `extract actCustomGuide`,
             click: () => {
               console.log("extract guide")
@@ -446,6 +385,7 @@ export class LevelingWindow {
         })
       this._Menu.append(_menu)
     }
+
     this._Window.setMenu(this._Menu)
   }
 }

@@ -22,37 +22,6 @@ let configWindow: ConfigWindow
 let AppTray: Tray
 let PoeLog: PathOfExileLog
 
-// const schema = {
-//   poe_log_path: {
-//     type: "string",
-//   },
-//   curClassGuide: {
-//     type: "string",
-//     default: "default",
-//   },
-//   curActsGuide: {
-//     type: "string",
-//     default: "default",
-//   },
-//   OpenDirOnDuplicate: {
-//     type: "boolean",
-//     default: true,
-//   },
-//   OpenEditorOnDuplicate: {
-//     type: "boolean",
-//     default: true,
-//   },
-//   lelvelingWinBounds: {
-//     x: { type: "number", default: 1 },
-//     y: { type: "number", default: 1 },
-//     width: { type: "number", default: 1 },
-//     height: { type: "number", default: 1 }
-//   },
-// } as const
-
-
-
-
 const AppStore = new Store()
 const AppIcon = nativeImage.createFromPath(path.join(getAssetPath(), "AppIcon.png"))
 

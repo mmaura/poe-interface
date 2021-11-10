@@ -87,29 +87,27 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
      * populate Identities with the Guides.
      */
     private async populateIdentities(dirPath: string, webPath: string) {
-        return await this.FilesFromSubPath(dirPath, [".json"])
-            .then(files => {
-                if (files) files.forEach(f => {
-                    const json = new JsonFile<T>(f)
-                    try {
-                        json.load()
-                        const object = json.getObject()
-                        object.identity.filename = f
-                        // object.identity.webAssetPath = `${webPath}/${f.split(path.sep)[f.split(path.sep).length - 2]}`
-                        object.identity.webAssetPath = this.MakeWebPath(webPath, f)
-                        object.identity.sysAssetPath = path.dirname(f)
-                        this.Identities.push(object.identity)
-                    }
-                    catch (e) {
-                        errorMsg(`Error on affecting packaged identity : for file ${f}\n\t${e}`)
-                        this.Warning.push(`Error on affecting packaged identity : for file ${f}\n\t${e}`)
-                    }
-                })
-                else {
-                    debugMsg('No packaged guide found !!')
-                    this.Warning.push('No packaged guide found !!')
-                }
-            })
+        const files = this.FilesFromSubPath(dirPath, [".json"])
+        if (files) files.forEach(f => {
+            const json = new JsonFile<T>(f)
+            try {
+                json.load()
+                const object = json.getObject()
+                object.identity.filename = f
+                // object.identity.webAssetPath = `${webPath}/${f.split(path.sep)[f.split(path.sep).length - 2]}`
+                object.identity.webAssetPath = this.MakeWebPath(webPath, f)
+                object.identity.sysAssetPath = path.dirname(f)
+                this.Identities.push(object.identity)
+            }
+            catch (e) {
+                errorMsg(`Error on affecting packaged identity : for file ${f}\n\t${e}`)
+                this.Warning.push(`Error on affecting packaged identity : for file ${f}\n\t${e}`)
+            }
+        })
+        else {
+            debugMsg('No packaged guide found !!')
+            this.Warning.push('No packaged guide found !!')
+        }
     }
 
     /**
