@@ -1,38 +1,31 @@
 import path from 'path'
 import fs from 'fs'
 import { shell } from 'electron'
-import { getAbsCustomPath, getAssetPath } from './functions'
+import { DataLoader } from './DataLoader'
 
-export class GameHelpers {
+export class GameHelpers extends DataLoader{
     Files: string[]
-    Subdirectory: string
 
     constructor() {
-        this.Subdirectory = "helpers"
+        super("helpers")
     }
 
     Init(): void {
         this.Files = [] as string[]
-        if (!fs.existsSync(this.getAbsCustomPath())) {
-            fs.mkdirSync(this.getAbsCustomPath(), { recursive: true })
-            fs.readdirSync(path.join(getAssetPath(), "helpers"), { withFileTypes: true })
-                .forEach(item => {
-                    if (item.isFile) {
-                        fs.copyFileSync(
-                            path.join(getAssetPath(), "helpers", item.name),
-                            path.join(this.getAbsCustomPath(), item.name)
-                        )
+        if (fs.existsSync(this.getAbsCustomPath())) {
+            fs.readdirSync(this.getAbsCustomPath(), { withFileTypes: true })
+                .forEach(f => {
+                    if (f.isFile() && path.extname(f.name) === ".png") {
+                        this.Files.push(path.join(this.getAbsCustomPath(),f.name))
                     }
                 })
         }
+
         fs.readdirSync(this.getAbsCustomPath(), { withFileTypes: true }).forEach(item => {
             this.Files.push(path.basename(item.name, path.extname(item.name)))
         })
     }
 
-    getAbsCustomPath(): string {
-        return path.join(getAbsCustomPath(), this.Subdirectory)
-    }
 
     OpenHelperFile(file: string): void {
         const exts = ["png", "jpg"]

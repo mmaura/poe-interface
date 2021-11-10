@@ -1,21 +1,24 @@
 import path from 'path'
 import fs, { constants } from 'fs'
-import { getAbsPackagedPath, getAbsCustomPath, getPackagedWebBaseName, getCustomWebBaseName, debugMsg, errorMsg } from './functions'
+import { debugMsg, errorMsg } from './functions'
 import { JsonFile } from './JsonFile'
+import { DataLoader } from './DataLoader'
 
+export interface GuideType {
+    identity: GuideIdentity;
+}
 
-export abstract class Guides<Type>{
+export abstract class Guides<T extends GuideType> extends DataLoader {
     protected Identities = [] as GuideIdentity[]
-    protected subDirectory: string
-    protected CurGuide: any
+    protected CurGuide: T
 
-    abstract parseCurGuide() : void
+    abstract parseCurGuide(): void
 
     public Warning: string[]
 
 
     constructor(subdir: string) {
-        this.subDirectory = subdir
+        super(subdir)
         this.Warning = ["Guide constructed."]
     }
 
@@ -30,8 +33,8 @@ export abstract class Guides<Type>{
             this.populateIdentities(this.getAbsPackagedPath(), this.getPackagedWebBaseName()),
             this.populateIdentities(this.getAbsCustomPath(), this.getCustomWebBaseName())
                 .catch(e => {
-                    debugMsg(`Error on loading custom class guides.\n\t${e}`)
-                    this.Warning.push(`Error on loading custom class guides.\n\t${e}`)
+                    debugMsg(`Error on loading custom guides.\n\t${e}`)
+                    this.Warning.push(`Error on loading custom guides.\n\t${e}`)
                 }),
         ])
     }
@@ -57,26 +60,26 @@ export abstract class Guides<Type>{
         return curIdent
     }
 
-    getCurGuide(): any {
+    getCurGuide(): T {
         return this.CurGuide
     }
 
     public getCurGuideLabel(): string {
-        return `${this.CurGuide.game_version} - ${this.CurGuide.lang} - ${this.CurGuide.name}`
+        return `${this.CurGuide.identity.game_version} - ${this.CurGuide.identity.lang} - ${this.CurGuide.identity.name}`
     }
 
     public getCurGuideID(): string {
         return `${this.CurGuide.identity.filename}`
     }
 
-    async setCurGuide(guideName?: string): Promise<Type> {
+    async setCurGuide(guideName?: string): Promise<T> {
         const curIdent = this.getIdentityByFilename(guideName)
-        const json = new JsonFile<IActsGuide>(curIdent.filename)
-        json.load()   
+        const json = new JsonFile<T>(curIdent.filename)
+        json.load()
         this.CurGuide = json.getObject()
         this.CurGuide.identity = curIdent
 
-        await this.parseCurGuide()
+        this.parseCurGuide()
         return this.CurGuide
     }
 
@@ -87,7 +90,7 @@ export abstract class Guides<Type>{
         return await this.getFilesList(dirPath)
             .then(files => {
                 if (files) files.forEach(f => {
-                    const json = new JsonFile<any>(f)
+                    const json = new JsonFile<T>(f)
                     try {
                         json.load()
                         const object = json.getObject()
@@ -123,7 +126,7 @@ export abstract class Guides<Type>{
 
             this._recursiveCopyFileSync(this.getCurGuide().identity.sysAssetPath, dstPath)
 
-            const json = new JsonFile<any>(path.join(dstPath, "guide.json"))
+            const json = new JsonFile<T>(path.join(dstPath, "guide.json"))
             json.load()
             const guide = json.getObject()
             guide.identity.name = classGuideName
@@ -183,37 +186,4 @@ export abstract class Guides<Type>{
         })
         return _files
     }
-
-    /**
-     * 
-     * @returns the base absolute path of the packaged assets files
-     */
-    protected getAbsPackagedPath(): string {
-        return path.join(getAbsPackagedPath(), this.subDirectory)
-    }
-
-    /**
-     * 
-     * @returns the web base path of the packaged assets files
-     */
-    protected getPackagedWebBaseName(): string {
-        return [getPackagedWebBaseName(), this.subDirectory].join('/')
-    }
-
-    /**
-     * 
-     * @returns the base absolute path of the custom assets files
-     */
-    protected getAbsCustomPath(): string {
-        return path.join(getAbsCustomPath(), this.subDirectory)
-    }
-
-    /**
-     * 
-     * @returns the web base path of the custom assets files
-     */
-    protected getCustomWebBaseName(): string {
-        return [getCustomWebBaseName(), this.subDirectory].join('/')
-    }
-
 }
