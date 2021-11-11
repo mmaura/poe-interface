@@ -2,25 +2,16 @@ import { Guides } from "./Guides"
 import path from 'path'
 import fs from 'fs'
 import { debugMsg, findGem, getAssetPath } from './functions'
-import { MenuItem, NativeImage, nativeImage } from "electron"
-
-interface callback {
-    (filename: string): void
-}
+import { MenuItem, NativeImage, nativeImage, shell } from "electron"
 
 export class ClassesGuides extends Guides<IClassesGuide>{
     protected CurGuide: IClassesGuide
     public Warning: string[]
-    Icon : NativeImage
+    Icon: NativeImage
 
     constructor() {
         super("classguides")
-        this.Icon =  nativeImage.createFromPath(path.join(getAssetPath(), "/images/arrow-right-bold.png"))
-    }
-
-    async Init(defaultGuideFilename?: string): Promise<IClassesGuide> {
-        await super.Init()
-        return await this.setCurGuide(defaultGuideFilename)
+        this.Icon = nativeImage.createFromPath(path.join(getAssetPath(), "/images/arrow-right-bold.png"))
     }
 
     parseCurGuide(): void {
@@ -50,22 +41,18 @@ export class ClassesGuides extends Guides<IClassesGuide>{
         } else this.Warning.push(`no acts for guide ${this.CurGuide.identity.filename} .`)
     }
 
-    AppendMenu(menu: MenuItem, callback: callback): void {
-        // if (this.getCurGuide().identity.url) {
-        //     menu.getMenuItemById("templateUrl").click = () => {
-        //       shell.openExternal(this.ClassGuides.getCurGuide().identity.url)
-        //     }
-        //     menu.getMenuItemById("templateUrl").enabled = true
-        //   }
+    AppendMenu(menu: MenuItem): void {
+        let _menu: MenuItem
 
-        this.getIdentities().forEach(_identity => {
+        this.getIdentities().forEach((_identity: ClassGuideIdentity) => {
             let must_append = false
-            let _menu = menu.submenu.getMenuItemById("classesG_" + _identity.class)
+            _menu = menu.submenu.getMenuItemById("classesG_" + _identity.class)
 
             if (!_menu) {
                 _menu = new MenuItem({
                     label: _identity.class,
                     id: "classesG_" + _identity.class,
+                    icon: _identity.filename === this.getCurGuideID() ? this.Icon : undefined,
                     submenu: [],
                 })
                 must_append = true
@@ -75,11 +62,24 @@ export class ClassesGuides extends Guides<IClassesGuide>{
                 new MenuItem({
                     label: this.getGuideLabel(_identity.filename),
                     icon: _identity.filename === this.getCurGuideID() ? this.Icon : undefined,
-                    id: `${_identity.filename}`,
-                    click: () => {
-                        debugMsg(`loading class Guide :${this.getGuideLabel(_identity.filename)} \n ${_identity.filename}`)
-                        callback(_identity.filename)
-                    },
+                    submenu: [
+                        {
+                            label: "WebSite",
+                            click: () => {
+                                shell.openExternal(_identity.url)
+                            },
+                            enabled: (_identity.url !== undefined)
+                        },
+                        {
+                            label: "Select",
+                            id: `${_identity.filename}`,
+                            click: () => {
+                                debugMsg(`loading class Guide :${this.getGuideLabel(_identity.filename)} \n ${_identity.filename}`)
+                                this.setCurGuide(_identity.filename)
+                            }
+                        }
+
+                    ]
                 })
             )
             if (must_append === true) menu.submenu.append(_menu)

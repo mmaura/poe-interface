@@ -3,25 +3,15 @@ import { debugMsg, getAssetPath } from "./functions"
 import { Guides } from "./Guides"
 import path from 'path'
 
-interface callback {
-    (filename: string): void
-}
-
 export class ActsGuides extends Guides<IActsGuide> {
     protected CurGuide: IActsGuide
     public Warning: string[]
-    Icon : NativeImage
+    Icon: NativeImage
 
     constructor() {
         super("actsguides")
-        this.Icon =  nativeImage.createFromPath(path.join(getAssetPath(), "/images/arrow-right-bold.png"))
+        this.Icon = nativeImage.createFromPath(path.join(getAssetPath(), "/images/arrow-right-bold.png"))
     }
-
-    async Init(defaultGuideFilename?: string): Promise<IActsGuide> {
-        await super.Init()
-        return await this.setCurGuide(defaultGuideFilename)
-    }
-
 
     parseCurGuide(): void {
         if (this.CurGuide.acts) this.CurGuide.acts.forEach(_act => {
@@ -48,8 +38,9 @@ export class ActsGuides extends Guides<IActsGuide> {
         else this.Warning.push("no acts found in guide")
     }
 
-    AppendMenu(menu: MenuItem, callback: callback): void {
-        this.getIdentities().forEach(_identity => {
+    AppendMenu(menu: MenuItem): void {
+
+        this.getIdentities().forEach((_identity : ActGuideIdentity) => {
             const _menu = new MenuItem({
                 label: this.getGuideLabel(_identity.filename),
                 icon: _identity.filename === this.getCurGuideID() ? this.Icon : undefined,
@@ -57,10 +48,19 @@ export class ActsGuides extends Guides<IActsGuide> {
                 id: `${_identity.filename}`,
                 click: () => {
                     debugMsg(`loading acts Guide :${this.getGuideLabel(_identity.filename)} \n ${_identity.filename}`)
-                    callback(_identity.filename)
+                    this.setCurGuide(_identity.filename)
                 },
             })
             menu.submenu.append(_menu)
         })
+    }
+
+
+    SaveZoneNote(actid: number, zonename: string, text: string):void{
+        return
+    }
+
+    zoneNavigationNote(actid: number, zonename: string, text: string):void{
+        return
     }
 }

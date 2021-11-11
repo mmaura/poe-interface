@@ -21,13 +21,17 @@ export class GameHelpers extends DataLoader {
     async Init(): Promise<void> {
         await Promise.all([
             this.Populate(this.getAbsPackagedPath(), this.getPackagedWebBaseName()),
-            this.Populate(this.getAbsCustomPath(), this.getCustomWebBaseName()),
+            this.Populate(this.getAbsCustomPath(), this.getCustomWebBaseName())
+                .catch(e => {
+                    debugMsg(`Info on loading custom helpers.\n\t${e}`)
+                    // this.Warning.push(`Info on loading custom helpers.\n\t${e}`)
+                }),
         ])
     }
 
     async Populate(dirPath: string, webPath: string): Promise<void> {
         this.FilesFromPath(dirPath, [".png", ".jpg", ".txt"]).forEach(f =>
-            this.Files.push({ filename: f, webpath: this.MakeWebPath(webPath, f), name: path.basename(f, path.extname(f)) }))
+            this.Files.push({ filename: f, webpath: this.getWebPath(webPath, f), name: path.basename(f, path.extname(f)) }))
     }
 
     AppendMenu(menuHelpers: MenuItem): void {

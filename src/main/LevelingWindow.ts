@@ -1,11 +1,12 @@
 import { BrowserWindow, ipcMain, NativeImage, IpcMainInvokeEvent, app, Menu, shell, MenuItem, dialog, Rectangle } from "electron"
 import path from "path"
+import fs from "fs"
 
 import Store from "electron-store"
 import PathOfExileLog from "poe-log-monitor"
 import merge from 'lodash.merge'
 
-import { getAssetPath, extractActsBaseGuide, debugMsg, extractActsCustomGuide, getAbsCustomPath, } from "../modules/functions"
+import { getAssetPath, extractActsBaseGuide, extractActsCustomGuide, getAbsCustomPath, } from "../modules/functions"
 
 import { ClassesGuides } from "../modules/ClassesGuides"
 import { JsonFile } from "../modules/JsonFile"
@@ -45,6 +46,7 @@ export class LevelingWindow {
 
     this.ClassGuides = new ClassesGuides()
     this.ActsGuides = new ActsGuides()
+
     this.RichTextJson = new JsonFile(path.join(getAssetPath(), "data", "richtext.json"))
     this.ClassesJson = new JsonFile(path.join(getAssetPath(), "data", "classes.json"))
     this.Zones = new JsonFile(path.join(getAssetPath(), "data", "zones.json"))
@@ -64,16 +66,16 @@ export class LevelingWindow {
       }
     })
 
-    this.LoadData().then(() => {
+    this.LoadData().finally(() => {
       this.makeMenus()
 
       this._Window.loadURL(LEVELING_WINDOW_WEBPACK_ENTRY)
       if (!app.isPackaged) this._Window.webContents.openDevTools({ mode: "detach" })
-
       this._Window.setBounds(this._AppStore.get("levelingWinBounds", { x: 1, y: 1, width: 1400, height: 980 }) as Rectangle)
-    }).catch(e => {
-      dialog.showMessageBox(null, { title: "Error", message: `unable to load data.\n${e}`, icon: AppIcon })
     })
+    // .catch(e => {
+    //   dialog.showMessageBox(null, { title: "Error", message: `unable to load data.\n${e}`, icon: AppIcon })
+    // })
 
     /**********************************
      * IPC
@@ -97,11 +99,13 @@ export class LevelingWindow {
           ]
 
         case "save": switch (arg[1]) {
-          case "zoneNotes":
-            console.log("save note.")
-            this.ActsGuidesSaveZoneNote(arg[2], arg[3])
+          case "zoneNote":
+            this.ActsGuides.SaveZoneNote(arg[2], arg[3], arg[4])
             break
-        }
+            case "zoneNavigationNote":
+              this.ActsGuides.zoneNavigationNote(arg[2], arg[3], arg[4])
+              break
+          }
       }
     })
 
@@ -119,8 +123,34 @@ export class LevelingWindow {
     this._Window.on("closed", () => {
       this._Window = null
     })
-  }
 
+
+    /************************
+     * Guides Events
+     */
+    this.ClassGuides.on("GuideChange", (guide => {
+      this._Window.webContents.send("levelingRenderer", ["classGuide", guide])
+      this._AppStore.set("curClassGuide", guide.identity.filename)
+      this.makeMenus()
+    }))
+
+    this.ClassGuides.on("Log", ((msg, level) => {
+      // LogMessage(msg, level)
+    }))
+
+    this.ActsGuides.on("GuideChange", (guide => {
+      const MergedActGuide = {} as IActsGuide
+      merge(MergedActGuide, this.Zones.getObject(), guide)
+
+      this._Window.webContents.send("levelingRenderer", ["actsGuide", MergedActGuide])
+      this._AppStore.set("curActsGuide", guide.identity.filename)
+      this.makeMenus()
+    }))
+
+    this.ActsGuides.on("Log", ((msg, level) => {
+      // LogMessage(msg, level)
+    }))
+  }
   /**********************************
    * POE LOG
    */
@@ -199,6 +229,7 @@ export class LevelingWindow {
   }
 
   OpenCustomDir(): void {
+    if (!fs.existsSync(getAbsCustomPath())) fs.mkdirSync(getAbsCustomPath(), { recursive: true })
     shell.openPath(getAbsCustomPath())
   }
 
@@ -210,59 +241,28 @@ export class LevelingWindow {
       this.ClassesJson.load(),
       this.Zones.load(),
       this.GameHelpers.Init(),
-    ]).catch(err => {
-      const msg = `Error On LoadData\n${err}\n${this.ClassGuides.Warning.join('\n')}\n${this.ActsGuides.Warning.join('\n')}`
-      debugMsg(msg)
-      dialog.showMessageBox(null, {
-        message: `Error on loading class guides.`,
-        detail: msg,
-        title: "Error",
-        type: "warning",
-      })
-    })
+    ])
   }
 
-  ActsGuidesSaveZoneNote(zone: { zoneName: string, actId: number }, note: string): void {
-    // const curloadJson(this._CurActsGuide.identity.filename)
-    console.log('')
-  }
-
-  changeCurClassGuide(filename: string): void {
-    this._Window.webContents.send("levelingRenderer", ["classGuide", this.ClassGuides.setCurGuide(filename)])
-    this._AppStore.set("curClassGuide", filename)
-  }
-
-  changeCurActsGuide(filename: string): void {
-    this._Window.webContents.send("levelingRenderer", ["actsGuide", this.ActsGuides.setCurGuide(filename)])
-    this._AppStore.set("curActsGuide", filename)
-  }
+  // ActsGuidesSaveZoneNote(zone: { zoneName: string, actId: number }, note: string): void {
+  //   // const curloadJson(this._CurActsGuide.identity.filename)
+  //   console.log('')
+  // }
 
   makeMenus(): void {
     this._Menu = Menu.buildFromTemplate([
       {
-        label: "Fichier",
+        label: "File",
         submenu: [
           {
-            label: "OpenCustom directory",
+            label: "Open Custom directory",
             click: () => {
               this.OpenCustomDir()
             },
           },
-          {
-            type: "separator",
-          },
-          {
-            label: "Hide",
-            click: () => {
-              this.hide()
-            },
-          },
-          {
-            label: "Quit application",
-            click: () => {
-              app.quit()
-            },
-          },
+          { type: "separator" },
+          { role: "hide" },
+          { role: 'quit' },
         ],
       },
       {
@@ -310,9 +310,7 @@ export class LevelingWindow {
               shell.openExternal("https://poedb.tw/")
             },
           },
-          {
-            type: "separator",
-          },
+          { type: "separator" },
         ],
       },
       {
@@ -350,19 +348,14 @@ export class LevelingWindow {
             label: "acts guides",
             id: "actsGuide",
             submenu: [],
-          },
-          {
-            label: "Current class guide web site",
-            id: "templateUrl",
-            enabled: false,
-          },
+          }
         ],
       },
     ])
 
     this.GameHelpers.AppendMenu(this._Menu.getMenuItemById("helpers"))
-    this.ActsGuides.AppendMenu(this._Menu.getMenuItemById("actsGuide"), this.changeCurActsGuide)
-    this.ClassGuides.AppendMenu(this._Menu.getMenuItemById("classGuide"), this.changeCurClassGuide)
+    this.ActsGuides.AppendMenu(this._Menu.getMenuItemById("actsGuide"))
+    this.ClassGuides.AppendMenu(this._Menu.getMenuItemById("classGuide"))
 
     if (app.isPackaged === false) {
       const _menu = new MenuItem(
@@ -385,7 +378,6 @@ export class LevelingWindow {
         })
       this._Menu.append(_menu)
     }
-
     this._Window.setMenu(this._Menu)
   }
 }

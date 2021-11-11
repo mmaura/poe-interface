@@ -1,10 +1,12 @@
-import React, { ChangeEventHandler, useContext, useState, useMemo, useCallback, useEffect } from "react"
+import React, { ChangeEvent, ChangeEventHandler, useContext, useState, useMemo, useCallback, useEffect } from "react"
 
-import { CurActContext, PlayerContext, RichTextContext } from "./LevelingRenderer"
+import { CurActContext, PlayerContext } from "./LevelingRenderer"
 
 import ReactTooltip from "react-tooltip"
 import Icon from "@mdi/react"
 import { mdiContentSave, mdiEye, mdiMinus, mdiNoteEdit, mdiPlus } from "@mdi/js"
+import { RichNoteEditable, RichNoteText } from "./RichNoteEditable"
+import { TextEditable } from "./TextEditable"
 
 export function Player(): JSX.Element {
   const curPlayer = useContext(PlayerContext)
@@ -46,9 +48,8 @@ export function LevelingGuide(props: {
   onActChange: ChangeEventHandler<any>
   onZoneChange: ChangeEventHandler<any>
 }): JSX.Element {
-  const { curZone, onActChange, onZoneChange } = props
+  const { curZone, Acts, onActChange, onZoneChange } = props
 
-  const Acts = props.Acts
   const curAct = useContext(CurActContext)
   const curPlayer = useContext(PlayerContext)
 
@@ -95,7 +96,6 @@ export function ZoneNotes(props: { curZone: IZone; onSave: (text: string) => voi
   const [isOnEdit, setisOnEdit] = useState(false)
 
   useEffect(() => {
-
     settext(curZone.note)
   }, [curZone])
 
@@ -133,10 +133,10 @@ export function ZoneNotes(props: { curZone: IZone; onSave: (text: string) => voi
           <img className="w-socket h-socket" src="../assets/images/waypoint.png" />
         ) : null}
       </div>
-      <div className="text-xl">
-        <RichNotes isOnEdit={isOnEdit} onChange={onChange}>
+      <div className="text-xl flex-grow relative">
+        <RichNoteEditable isOnEdit={isOnEdit} onChange={onChange}>
           {text}
-        </RichNotes>
+        </RichNoteEditable>
       </div>
     </div>
   )
@@ -164,36 +164,46 @@ export function EditSaveButton(props: {
   )
 }
 
-export function RichNotes(props: {
-  children: string
-  isOnEdit: boolean
-  onChange: ChangeEventHandler<any>
-}): JSX.Element {
-  const { isOnEdit, children, onChange } = props
 
-  return (
-    <div>
-      {isOnEdit ? <EditText onChange={onChange}>{children}</EditText> : <RichText>{children}</RichText>}
-    </div>
-  )
-}
-export function EditText(props: { onChange: ChangeEventHandler<any>; children: string }): JSX.Element {
-  const { onChange } = props
-  return (
-    <textarea className="container w-full min-h-note-container" value={props.children} onChange={onChange} />
-  )
-}
-
-export function ZoneMap(props: {
+export function Navigation(props: {
   curAct: IAct
   curZone: IZone
   actsGuideIdent: GuideIdentity
+  onSave: (text: string) => void
 }): JSX.Element {
-  const { curZone, curAct, actsGuideIdent } = props
+  const { curZone, curAct, actsGuideIdent, onSave } = props
   console.log("ZoneMap", curZone)
 
+  const [text, settext] = useState(curZone.note)
+  const [isOnEdit, setisOnEdit] = useState(false)
+
+
+  useEffect(() => {
+    settext(curZone.altimage)
+  }, [curZone])
+
+  const onSaveText = useCallback(() => {
+    setisOnEdit(!isOnEdit)
+    console.log("onSaveText:", text)
+    onSave(text)
+  }, [isOnEdit, text])
+
+  const editNote = useCallback(() => {
+    setisOnEdit(!isOnEdit)
+  }, [isOnEdit])
+
+  const onChange = useCallback(e => {
+    settext(e.target.value)
+  }, [])
+
+
+
   return (
-    <div className="container flex flex-col min-h-map-container h-full">
+    <div className="container flex flex-col min-h-map-container h-full relative">
+      <div className="absolute top-0 left-0 flex flex-row gap-1">
+        <EditSaveButton isOnEdit={isOnEdit} onSave={onSaveText} onEdit={editNote} />
+      </div>
+
       <div className="flex flex-row flex-wrap h-full">
         {curZone.image && curZone.image[0] !== "none"
           ? curZone.image.map(val => {
@@ -203,8 +213,10 @@ export function ZoneMap(props: {
           : null}
       </div>
       {curZone.altimage !== "none" ? (
-        <div className="text-xl h-full">
-          <p>{curZone.altimage}</p>
+        <div className="text-lg h-full flex-grow align-baseline relative">
+          <RichNoteEditable isOnEdit={isOnEdit} onChange={onChange}>
+            {text}
+          </RichNoteEditable>
         </div>
       ) : null}
     </div>
@@ -430,7 +442,7 @@ export function ZoneGears(props: { curGuide: IClassesGuide }): JSX.Element {
       </span> */}
       {curGearsAct && curGearsAct.gears ? (
         <div>
-          {curGearsAct.notes ? <RichText>{curGearsAct.notes}</RichText> : null}
+          {curGearsAct.notes ? <RichNoteText>{curGearsAct.notes}</RichNoteText> : null}
 
           <div className="flex flex-row flex-wrap gap-2 items-start">
             {curGearsAct.gears.map((gear, index) => {
@@ -458,8 +470,8 @@ function Gear(props: { gear: Gear }): JSX.Element {
       <div className="flex flex-row gap-2 ">
         <div
           className={`${(gear.gems ? gear.gems.length : 0) + (gear.chasses ? gear.chasses.length : 0) <= 3
-              ? "poe-item-3slots"
-              : "poe-item-xslots"
+            ? "poe-item-3slots"
+            : "poe-item-xslots"
             } flex-none`}
         >
           {gear.gems ? gear.gems.map((gem, index) => <Gem key={gem.name + index} curGem={gem} />) : null}
@@ -471,7 +483,7 @@ function Gear(props: { gear: Gear }): JSX.Element {
         </div>
         {gear.notes ? (
           <div className="flex-grow">
-            <RichText>{gear.notes}</RichText>
+            <RichNoteText>{gear.notes}</RichNoteText>
           </div>
         ) : null}
       </div>
@@ -479,31 +491,67 @@ function Gear(props: { gear: Gear }): JSX.Element {
   )
 }
 
-export function RichText(props: { children: string }): JSX.Element {
-  let text = props.children
-  let str = ""
-  const curRichText = useContext(RichTextContext)
-  //   const replaces = [
-  //     {search:/\b(top|haut)\b/, replace:"<Icon path={mdiArrowUpBold} size={1} />"}
-  // ]
+export function GuideIdentity(props: {
+  identity: GuideIdentity, onSave: (identity: GuideIdentity) => void, children: string
+}): JSX.Element {
+  const { onSave, identity, children} = props
 
-  text = useMemo(() => {
-    console.log(text)
-    if (curRichText) {
-      for (const filtre of curRichText) {
-        str = filtre.data.join("|")
-        const regex = new RegExp(`(\\b${str})\\b`, "gi")
-        const subst = `<span class='richtext-${filtre.classe}'>$1</span>`
-        text = text.replace(regex, subst)
-      }
-      // for (const replace of replaces){
-      //   text = text.replace(RegExp(replace.search, "gi"), replace.replace)
-      // }
+  const [idName, setidName] = useState(identity.name)
+  const [idLang, setidlang] = useState(identity.lang)
+  const [idGameVersion, setidGameVersion] = useState(identity.game_version)
+  const [isOnEdit, setisOnEdit] = useState(false)
+
+  useEffect(() => {
+    setidName(identity.name)
+    setidGameVersion(identity.game_version)
+    setidlang(identity.lang)
+  }, [identity])
+
+  const onSaveIdentity = useCallback(() => {
+    setisOnEdit(!isOnEdit)
+    identity.name = idName
+    identity.lang = idLang
+    identity.game_version = idGameVersion
+    onSave(identity)
+  }, [isOnEdit, idName, idLang, idGameVersion])
+
+  const editNote = useCallback(() => {
+    setisOnEdit(!isOnEdit)
+  }, [isOnEdit])
+
+  const onChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    switch (e.target.name) {
+      case "name":
+        setidName(e.target.value)
+        break
+      case "game_version":
+        // eslint-disable-next-line no-case-declarations
+        const ver = Number(e.target.value)
+        if (ver) setidGameVersion(ver)
+        break
+      case "lang":
+        setidlang(e.target.value)
+        break
     }
+  }, [idGameVersion, idLang, idName])
 
-    return text
-  }, [text])
-
-  if (text) return <p dangerouslySetInnerHTML={{ __html: text }} />
-  else return null
+  return (
+    <div className="flex flex-row gap-1 w-full">
+      <div className="flex-grow-0 w-24">
+        <h3>{children}</h3>
+      </div>
+      <div className="flex-auto">
+        <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="name">{idName}</TextEditable>
+      </div>
+      <div className="w-10">
+        <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="game_version">{idGameVersion.toString()}</TextEditable>
+      </div>
+      <div className="w-6">
+        <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="lang">{idLang}</TextEditable>
+      </div>
+      <div className="w-6">
+        <EditSaveButton isOnEdit={isOnEdit} onSave={onSaveIdentity} onEdit={editNote} />
+      </div>
+    </div>
+  )
 }

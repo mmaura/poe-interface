@@ -3,7 +3,7 @@ import * as ReactDOM from "react-dom"
 
 import "../index.css"
 import "./index.css"
-import { Player, LevelingGuide, ZoneNotes, ZoneMap, SkillTree, ZoneGem, ZoneGears } from "./Components"
+import { Player, LevelingGuide, ZoneNotes, Navigation, SkillTree, ZoneGem, ZoneGears, GuideIdentity } from "./Components"
 
 export const PlayerContext = React.createContext({} as IAppPlayer)
 export const CurActContext = React.createContext({} as IAct)
@@ -53,15 +53,22 @@ function App(props: { Init: any }) {
   )
 
   const onZoneNoteSave = useCallback((text: string) => {
-    console.log("text", text)
-    window.poe_interfaceAPI
-      .sendSync("levelingRenderer", "save", "zoneNotes", { zoneName: curZoneName, actId: curActID }, text)
-      .then(e => {
-        console.log(e)
-      })
-    console.log("save")
+    window.poe_interfaceAPI.sendSync("levelingRenderer", "save", "zoneNote", curActID, curZoneName, text)
+
   }, [curZoneName, curActID])
 
+  const onZoneNavigationNoteSave = useCallback((text: string) => {
+    window.poe_interfaceAPI.sendSync("levelingRenderer", "save", "zoneNavigationNote", curActID, curZoneName, text)
+
+  }, [curZoneName, curActID])
+
+  const onActGuideIdentitySave = useCallback((identity: GuideIdentity) => {
+    window.poe_interfaceAPI.sendSync("levelingRenderer", "save", "identity", identity)
+  }, [])
+
+  const onClassGuideIdentitySave = useCallback((identity: GuideIdentity) => {
+    window.poe_interfaceAPI.sendSync("levelingRenderer", "save", "identity", identity)
+  }, [])
   /**********************************
    * Effects
    */
@@ -133,12 +140,11 @@ function App(props: { Init: any }) {
                 <h1>{curAct && curZone ? `${curAct.act} : ${curZone.name}` : null}</h1>
               </div>
               <div className="flex-grow h-full">
-                <ZoneMap curZone={curZone} curAct={curAct} actsGuideIdent={actsGuide.identity} />
+                <Navigation curZone={curZone} curAct={curAct} actsGuideIdent={actsGuide.identity} onSave={onZoneNavigationNoteSave} />
               </div>
               <div className="flex-grow-0 h-full">
-                <div className="text-center">
-                  <u>ActGuide:</u> {actsGuide.identity.name} - <u>ClassGuide:</u> {classGuide.identity.name}
-                </div>
+                <GuideIdentity identity={actsGuide.identity} onSave={onActGuideIdentitySave}>Acte Guide</GuideIdentity>
+                <GuideIdentityClass identity={classGuide.identity} onSave={onClassGuideIdentitySave}>Class Guide</GuideIdentityClass>
 
                 <LevelingGuide
                   onActChange={onActChange}
@@ -150,11 +156,11 @@ function App(props: { Init: any }) {
             </div>
             <div className="flex flex-row gap-2">
               <div className="flex flex-grow flex-shrink flex-col gap-2 w-notes-container">
-                <div className="flex-grow ">
+                <div className="flex-grow-0 flex-shrink-0 ">
                   {/* <ZoneNotes curZone={curZone} curRichText={curRichText} /> */}
                   <ZoneNotes curZone={curZone} onSave={onZoneNoteSave} />
                 </div>
-                <div className="flex-grow-0 flex-shrink items-end">
+                <div className="flex-grow flex-shrink items-end">
                   <SkillTree curGuide={classGuide} />
                 </div>
               </div>

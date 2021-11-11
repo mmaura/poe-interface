@@ -4,9 +4,11 @@ import { debugMsg, errorMsg } from './functions'
 import { JsonFile } from './JsonFile'
 import { DataLoader } from './DataLoader'
 
+
 interface GuideType {
     identity: GuideIdentity;
 }
+
 
 export abstract class Guides<T extends GuideType> extends DataLoader {
     protected Identities = [] as GuideIdentity[]
@@ -26,17 +28,20 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
      * 
      * @param defaultGuideName the guide name to load
      */
-    async Init(): Promise<any> {
+    async Init(defaultGuideFilename?: string): Promise<any> {
         this.Identities = [] as GuideIdentity[]
 
-        await Promise.all([
-            this.populateIdentities(this.getAbsPackagedPath(), this.getPackagedWebBaseName()),
+        Promise.all([
+            this.populateIdentities(this.getAbsPackagedPath(), this.getPackagedWebBaseName(), true),
             this.populateIdentities(this.getAbsCustomPath(), this.getCustomWebBaseName())
                 .catch(e => {
-                    debugMsg(`Error on loading custom guides.\n\t${e}`)
-                    this.Warning.push(`Error on loading custom guides.\n\t${e}`)
+                    debugMsg(`Info on loading custom guides.\n\t${e}`)
+                    this.Warning.push(`Info on loading custom guides.\n\t${e}`)
                 }),
-        ])
+        ]).then(()=>{
+            this.setCurGuide(defaultGuideFilename)
+        })
+
     }
 
     getIdentities(): GuideIdentity[] {
@@ -72,7 +77,7 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
         return `${this.CurGuide.identity.filename}`
     }
 
-    async setCurGuide(guideName?: string): Promise<T> {
+    async setCurGuide(guideName?: string): Promise<void> {
         const curIdent = this.getIdentityByFilename(guideName)
         const json = new JsonFile<T>(curIdent.filename)
         json.load()
@@ -80,22 +85,24 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
         this.CurGuide.identity = curIdent
 
         this.parseCurGuide()
-        return this.CurGuide
+        this.emit("GuideChange", this.CurGuide)
+        // return this.CurGuide
     }
 
     /**
      * populate Identities with the Guides.
      */
-    private async populateIdentities(dirPath: string, webPath: string) {
+    private async populateIdentities(dirPath: string, webPath: string, readOnly?: boolean) {
         const files = this.FilesFromSubPath(dirPath, [".json"])
         if (files) files.forEach(f => {
             const json = new JsonFile<T>(f)
             try {
                 json.load()
                 const object = json.getObject()
+                if ((readOnly) && (readOnly === true)) object.identity.readonly = true
                 object.identity.filename = f
                 // object.identity.webAssetPath = `${webPath}/${f.split(path.sep)[f.split(path.sep).length - 2]}`
-                object.identity.webAssetPath = this.MakeWebPath(webPath, f)
+                object.identity.webAssetPath = this.getWebPath(webPath, f)
                 object.identity.sysAssetPath = path.dirname(f)
                 this.Identities.push(object.identity)
             }

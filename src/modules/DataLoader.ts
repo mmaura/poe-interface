@@ -1,11 +1,13 @@
 import path from 'path'
 import fs from 'fs'
 import { getAbsPackagedPath, getAbsCustomPath, getPackagedWebBaseName, getCustomWebBaseName } from './functions'
+import { EventEmitter } from 'events';
 
-export class DataLoader {
+export class DataLoader extends EventEmitter {
     protected subDirectory: string
 
     constructor(subdir: string) {
+        super()
         this.subDirectory = subdir
     }
 
@@ -51,14 +53,7 @@ export class DataLoader {
         const _files = [] as string[]
 
         fs.readdirSync(dir, { withFileTypes: true }).forEach(sdir => {
-            // const dir2 = path.join(dir, sdir.name)
             if (sdir.isDirectory()) _files.push(...this.FilesFromPath(path.join(dir, sdir.name), exts))
-            // fs.readdirSync(dir2, { withFileTypes: true }).forEach(f => {
-            //     const file = path.join(dir2, f.name)
-            //     if ((f.isFile()) && (exts.includes(path.extname(f.name)))) {
-            //         _files.push(file)
-            //     }
-            // })
         })
         return _files
     }
@@ -74,7 +69,7 @@ export class DataLoader {
         return _files
     }
 
-    MakeWebPath(webPath: string, filename: string): string {
+    getWebPath(webPath: string, filename: string): string {
         return `${webPath}/${filename.split(path.sep)[filename.split(path.sep).length - 2]}`
     }
 }
