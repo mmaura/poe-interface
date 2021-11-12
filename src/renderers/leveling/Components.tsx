@@ -4,7 +4,7 @@ import { CurActContext, PlayerContext } from "./LevelingRenderer"
 
 import ReactTooltip from "react-tooltip"
 import Icon from "@mdi/react"
-import { mdiContentSave, mdiEye, mdiMinus, mdiNoteEdit, mdiPlus } from "@mdi/js"
+import { mdiContentSave, mdiEye, mdiImageSearch, mdiMinus, mdiNoteEdit, mdiPlus } from "@mdi/js"
 import { RichNoteEditable, RichNoteText } from "./RichNoteEditable"
 import { TextEditable } from "./TextEditable"
 
@@ -54,36 +54,32 @@ export function LevelingGuide(props: {
   const curPlayer = useContext(PlayerContext)
 
   return (
-    <div className="w-96">
-      <div className="flex flex-row flex-nowrap px-5 py-2 space-x-2">
-        <select className="lvlg-map-feature min-w-min" value={curAct.actid} onChange={onActChange}>
-          {Acts.acts.map((act: IAct) => {
-            return (
-              <option key={act.actid} value={act.actid}>
-                {act.act}
-              </option>
-            )
-          })}
-        </select>
+    <div className="flex flex-row flex-nowrap space-x-2">
+      <select className="lvlg-map-feature min-w-min input" value={curAct.actid} onChange={onActChange}>
+        {Acts.acts.map((act: IAct) => {
+          return (
+            <option key={act.actid} value={act.actid}>
+              {act.act}
+            </option>
+          )
+        })}
+      </select>
 
-        <select className="lvlg-map-feature flex-grow" value={curZone.name} onChange={onZoneChange}>
-          {curAct.zones.map((zone: IZone) => {
-            return (
-              <option key={zone.level + "-" + zone.name} value={zone.name}>
-                {zone.name}
-              </option>
-            )
-          })}
-        </select>
+      <select className=" lvlg-map-feature flex-grow input" value={curZone.name} onChange={onZoneChange}>
+        {curAct.zones.map((zone: IZone) => {
+          return (
+            <option key={zone.level + "-" + zone.name} value={zone.name}>
+              {zone.name}
+            </option>
+          )
+        })}
+      </select>
 
-        <div
-          className={`lvlg-map-feature enabled text-center align-middle text-4xl  font-bold 
-                ${curZone.level - curPlayer.level > 2 ? "text-yellow-500 border-yellow-500" : ""}
+      <div
+        className={`lvlg-map-feature align-middle text-center text-1xl font-bold ${curZone.level - curPlayer.level > 2 ? "text-yellow-500 border-yellow-500" : ""}
                 ${curZone.level - curPlayer.level > 4 ? "text-red-500 border-red-500" : ""}
-                ${curPlayer.level - curZone.level > 5 ? "disabled" : ""}`}
-        >
-          {curZone.level}
-        </div>
+                ${curPlayer.level - curZone.level > 5 ? "disabled" : ""}`}        >
+        {curZone.level}
       </div>
     </div>
   )
@@ -118,7 +114,7 @@ export function ZoneNotes(props: { curZone: IZone; onSave: (text: string) => voi
   return (
     <div className="container flex flex-col min-h-note-container relative">
       <div className="absolute top-0 left-0 flex flex-row gap-1">
-        <EditSaveButton isOnEdit={isOnEdit} onSave={onSaveText} onEdit={editNote} />
+        <EditSaveNoteButton isOnEdit={isOnEdit} onSave={onSaveText} onEdit={editNote} />
       </div>
       <h2>Notes</h2>
       <div className="absolute top-0 right-0 flex flex-row gap-1">
@@ -142,7 +138,7 @@ export function ZoneNotes(props: { curZone: IZone; onSave: (text: string) => voi
   )
 }
 
-export function EditSaveButton(props: {
+export function EditSaveNoteButton(props: {
   onSave: () => void
   onEdit: () => void
   isOnEdit: boolean
@@ -152,18 +148,33 @@ export function EditSaveButton(props: {
   return (
     <div>
       {isOnEdit ? (
-        <span className="cursor-pointer" onClick={onSave}>
+        <div className="cursor-pointer iconInput" onClick={onSave}>
           <Icon path={mdiContentSave} size={1} title="Sauvegarder" />
-        </span>
+        </div>
       ) : (
-        <span className="cursor-pointer" onClick={onEdit}>
+        <div className="cursor-pointer iconInput" onClick={onEdit}>
           <Icon path={mdiNoteEdit} size={1} title="Éditer" />
-        </span>
+        </div>
       )}
     </div>
   )
 }
 
+export function EditSaveImageButton(props: {
+  onClick: () => void
+
+}): JSX.Element {
+  const { onClick } = props
+
+  return (
+    <div>
+      <div className=" iconInput" onClick={onClick}>
+        <Icon path={mdiImageSearch} size={1} title="Éditer" />
+      </div>
+
+    </div>
+  )
+}
 
 export function Navigation(props: {
   curAct: IAct
@@ -196,44 +207,45 @@ export function Navigation(props: {
     settext(e.target.value)
   }, [])
 
-
-
   return (
-    <div className="container flex flex-col min-h-map-container h-full relative">
-      <div className="absolute top-0 left-0 flex flex-row gap-1">
-        <EditSaveButton isOnEdit={isOnEdit} onSave={onSaveText} onEdit={editNote} />
-      </div>
-
-      <div className="flex flex-row flex-wrap h-full">
-        {curZone.image && curZone.image[0] !== "none"
-          ? curZone.image.map(val => {
-            const path = `${actsGuideIdent.webAssetPath}zones/${curAct.act}/${val}.png`
-            return <img key={path} className="w-32" src={path} />
-          })
-          : null}
-      </div>
-      {curZone.altimage !== "none" ? (
-        <div className="text-lg h-full flex-grow align-baseline relative">
-          <RichNoteEditable isOnEdit={isOnEdit} onChange={onChange}>
-            {text}
-          </RichNoteEditable>
+    <div className=" min-h-map-container h-full relative">
+      <div className="ml-7 flex flex-col items-stretch">
+        <div className="p-0 flex flex-row flex-wrap h-full ">
+          {curZone.image && curZone.image[0] !== "none"
+            ? curZone.image.map(val => {
+              const path = `${actsGuideIdent.webAssetPath}/zones/${curAct.act}/${val}.png`
+              return <img key={path} className="w-32" src={path} />
+            })
+            : null}
         </div>
-      ) : null}
+        {curZone.altimage !== "none" ? (
+          <div className=" justify-end text-lg align-baseline ">
+            <RichNoteEditable isOnEdit={isOnEdit} onChange={onChange}>{text}</RichNoteEditable>
+          </div>
+
+        ) : null}
+      </div>
+      <div className="absolute top-0 left-0 flex flex-row gap-1">
+        <EditSaveNoteButton isOnEdit={isOnEdit} onSave={onSaveText} onEdit={editNote} />
+      </div>
     </div>
   )
 }
 
-export function SkillTree(props: { curGuide: IClassesGuide }): JSX.Element {
-  const curGuide = props.curGuide
+export function SkillTree(props: { curGuide: IClassesGuide, onClassGuideSkilltreeChange: () => void }): JSX.Element {
+  const { curGuide, onClassGuideSkilltreeChange } = props
   const curAct = useContext(CurActContext)
 
-  let tree = ""
 
-  if (curGuide.acts && curGuide.acts[curAct.actid - 1]) {
-    tree = curGuide.acts[curAct.actid - 1].treeimage
-    return <img src={tree} />
-  }
-  return null
+  return (
+    <div className="relative">
+      {(curGuide.acts && curGuide.acts.find(a => a.act === curAct.actid)) ? <img src={curGuide.acts.find(a => a.act === curAct.actid).treeimage} /> : null}
+      <div className="absolute p-0 top-0 left-0">
+        <EditSaveImageButton onClick={onClassGuideSkilltreeChange} />
+      </div>
+    </div>
+  )
+
 }
 
 export function ZoneGem(props: { curGuide: IClassesGuide }): JSX.Element {
@@ -286,14 +298,14 @@ export function ZoneGem(props: { curGuide: IClassesGuide }): JSX.Element {
       <div className="relative">
         <h2>Liste des courses</h2>
         <div className="flex flex-row gap-1 absolute top-1 right-1 ">
-          <span className="cursor-pointer" onClick={LvlRangePlus}>
+          <span className="iconInput" onClick={LvlRangePlus}>
             <Icon path={mdiPlus} size={1} title="Afficher tout / filtré par lvl et act" />
           </span>
-          <span className="cursor-pointer">{lvlRange}</span>
-          <span className="cursor-pointer" onClick={LvlRangeMoins}>
+          <span className="iconInput">{lvlRange}</span>
+          <span className="iconInput" onClick={LvlRangeMoins}>
             <Icon path={mdiMinus} size={1} title="Afficher tout / filtré par lvl et act" />
           </span>
-          <span className="cursor-pointer" onClick={inverseShowAll}>
+          <span className="iconInput" onClick={inverseShowAll}>
             <Icon path={mdiEye} size={1} title="Afficher tout / filtré par lvl et act" />
           </span>
         </div>
@@ -552,7 +564,7 @@ export function ActGuideIdentity(props: {
         <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="lang" value={idLang} />
       </div>
       <div className="w-6">
-        <EditSaveButton isOnEdit={isOnEdit} onSave={onSaveIdentity} onEdit={editNote} />
+        <EditSaveNoteButton isOnEdit={isOnEdit} onSave={onSaveIdentity} onEdit={editNote} />
       </div>
     </div>
   )
@@ -566,6 +578,7 @@ export function ClassGuideIdentity(props: {
   const [idName, setidName] = useState(identity.name)
   const [idLang, setidlang] = useState(identity.lang)
   const [idClass, setidclass] = useState(identity.class)
+  const [idUrl, setidurl] = useState(identity.url)
 
   const [idGameVersion, setidGameVersion] = useState(identity.game_version)
   const [isOnEdit, setisOnEdit] = useState(false)
@@ -575,6 +588,7 @@ export function ClassGuideIdentity(props: {
     setidGameVersion(identity.game_version)
     setidlang(identity.lang)
     setidclass(identity.class)
+    setidurl(identity.url)
   }, [identity])
 
   const onSaveIdentity = useCallback(() => {
@@ -583,6 +597,7 @@ export function ClassGuideIdentity(props: {
     identity.lang = idLang
     identity.game_version = idGameVersion
     identity.class = idClass
+    identity.url = idUrl
     onSave(identity)
   }, [isOnEdit, idName, idLang, idGameVersion, idClass])
 
@@ -612,24 +627,29 @@ export function ClassGuideIdentity(props: {
   }, [idGameVersion, idLang, idName])
 
   return (
-    <div className="flex flex-row gap-1 w-full">
-      <div className="flex-grow-0 w-24">
-        <h3>{children}</h3>
+    <div className="flex flex-col gap-1 w-full overflow-hidden">
+      <div className="flex flex-row gap-1 w-full">
+        <div className="flex-grow-0 flex-shrink w-24">
+          <h3>{children}</h3>
+        </div>
+        <div className="flex-auto">
+          <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="name" value={idName} />
+        </div>
+        <div className="flex-auto">
+          <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="class" value={idClass}>{playerClasses}</TextEditable>
+        </div>
+        <div className="w-10">
+          <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="game_version" value={idGameVersion.toString()} />
+        </div>
+        <div className="w-6">
+          <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="lang" value={idLang} />
+        </div>
+        <div className="w-6">
+          <EditSaveNoteButton isOnEdit={isOnEdit} onSave={onSaveIdentity} onEdit={editNote} />
+        </div>
       </div>
-      <div className="flex-auto">
-        <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="name" value={idName} />
-      </div>
-      <div className="flex-auto">
-        <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="class" value={idClass}>{playerClasses}</TextEditable>
-      </div>
-      <div className="w-10">
-        <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="game_version" value={idGameVersion.toString()} />
-      </div>
-      <div className="w-6">
-        <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="lang" value={idLang} />
-      </div>
-      <div className="w-6">
-        <EditSaveButton isOnEdit={isOnEdit} onSave={onSaveIdentity} onEdit={editNote} />
+      <div className="flex-auto w-full overflow-hidden">
+        <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="url" value={idUrl} />
       </div>
     </div>
   )

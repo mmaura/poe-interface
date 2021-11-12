@@ -23,16 +23,16 @@ export function TextEditable(props: {
 
 export function TextInput(props: { onChange: ChangeEventHandler<HTMLInputElement>, value: string, name: string }): JSX.Element {
   const { onChange, value, name } = props
-  return (<input className="h-6 w-full focus:border-poe-60 border-2 rounded-sm p-0 m-0" name={name} value={value} onChange={onChange} />)
+  return (<input className="h-6 w-full input p-0 m-0" name={name} value={value} onChange={onChange} />)
 }
 
 export function ListInput(props: { onChange: ChangeEventHandler<HTMLSelectElement>, children: IPlayerClasses[], value: string, name: string }): JSX.Element {
   const { onChange, children, name, value } = props
   return (
-    <select className="h-6 w-full focus:border-poe-60 border-2 rounded-sm p-0 m-0" value={value} name={name} onChange={onChange} >
+    <select className="h-6 w-full input p-0 m-0" value={value} name={name} onChange={onChange} >
       {children.map(c => {
         return (<>
-          <option value={c.classe} key={c.classe} >{c.classe}</option>
+          <option disabled={true} value={c.classe} key={c.classe} >{c.classe}</option>
           <SubListInput parent={c} />
         </>
         )

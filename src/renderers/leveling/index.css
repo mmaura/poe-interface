@@ -1,25 +1,68 @@
-
 @layer components {
-   .lvlg-map-feature { @apply h-icon w-icon rounded-md border-2 p-1 border-poe-96;}
-   .enabled { @apply shadow-lg border-poe-50 ;}
-   .disabled { @apply shadow-none filter grayscale border-poe-96 ;}
+  .lvlg-map-feature {
+    @apply h-icon w-icon rounded-md border-2 p-1 border-poe-96;
+  }
+  .enabled {
+    @apply shadow-lg border-poe-50;
+  }
+  .disabled {
+    @apply shadow-none filter grayscale border-poe-96;
+  }
 
-   .container { @apply bg-gradient-to-l from-poe-98 via-poe-97 to-poe-98 border-poe-50 shadow-xl px-2 py-3 ;}
+  .container {
+    @apply bg-gradient-to-l from-poe-98 via-poe-97 to-poe-98 border-poe-50 shadow-xl px-2 py-3;
+  }
 
-   .inventory { @apply bg-inventory h-inventory w-inventory p-0 m-0 overflow-hidden ;}
-   .inventory-text { @apply absolute left-inventory-text text-sm text-left pl-2 pt-1 overflow-hidden whitespace-nowrap ;}
-   
-   .avatar {@apply bg-inventory h-avatar w-avatar ;}
+  .inventory {
+    @apply bg-inventory h-inventory w-inventory p-0 m-0 overflow-hidden;
+  }
+  .inventory-text {
+    @apply absolute left-inventory-text text-sm text-left pl-2 pt-1 overflow-hidden whitespace-nowrap;
+  }
 
-   .poe-item-3slots {@apply flex flex-col border-poe-96 border-2 rounded-xl ;}
-   .poe-item-xslots {@apply grid grid-cols-2  border-poe-96 border-2 rounded-xl ;}
-   .poe-red-socket {@apply bg-socket bg-skred w-socket h-socket;}
-   .poe-green-socket {@apply bg-socket bg-skgreen w-socket h-socket;}
-   .poe-blue-socket {@apply bg-socket bg-skblue w-socket h-socket;}
-   .poe-white-socket {@apply bg-socket bg-skwhite w-socket h-socket;}
-   .richtext-boss{@apply text-red-600 underline }
-   .richtext-quest{@apply  text-poe-60 underline }
-   .richtext-waypoint{@apply  text-poe-50 underline }
-   .richtext-trials{@apply  text-poe-3 underline }
-   .richtext-zones{@apply  text-poe-2 underline }
+  .avatar {
+    @apply bg-inventory h-avatar w-avatar;
+  }
+
+  .input {
+    @apply appearance-none rounded-md focus:border-poe-60 border-poe-96 border-2 bg-poe-96 text-poe-4;
+  }
+
+  .iconInput {
+    @apply text-opacity-50 text-poe-1 hover:text-poe-4 cursor-pointer;
+  }
+
+  .poe-item-3slots {
+    @apply flex flex-col border-poe-96 border-2 rounded-xl;
+  }
+  .poe-item-xslots {
+    @apply grid grid-cols-2  border-poe-96 border-2 rounded-xl;
+  }
+  .poe-red-socket {
+    @apply bg-socket bg-skred w-socket h-socket;
+  }
+  .poe-green-socket {
+    @apply bg-socket bg-skgreen w-socket h-socket;
+  }
+  .poe-blue-socket {
+    @apply bg-socket bg-skblue w-socket h-socket;
+  }
+  .poe-white-socket {
+    @apply bg-socket bg-skwhite w-socket h-socket;
+  }
+  .richtext-boss {
+    @apply text-red-600 underline;
+  }
+  .richtext-quest {
+    @apply text-poe-60 underline;
+  }
+  .richtext-waypoint {
+    @apply text-poe-50 underline;
+  }
+  .richtext-trials {
+    @apply text-poe-3 underline;
+  }
+  .richtext-zones {
+    @apply text-poe-2 underline;
+  }
 }

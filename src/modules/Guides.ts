@@ -3,13 +3,10 @@ import fs, { constants } from 'fs'
 import { debugMsg, errorMsg } from './functions'
 import { JsonFile } from './JsonFile'
 import { DataLoader } from './DataLoader'
-import { merge } from 'lodash'
-
 
 interface GuideType {
     identity: GuideIdentity;
 }
-
 
 export abstract class Guides<T extends GuideType> extends DataLoader {
     protected Identities = [] as GuideIdentity[]
@@ -163,7 +160,7 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
             const guide = json.getObject()
             guide.identity.name = classGuideName
             json.setObject(guide)
-            await json.save()
+            json.save()
 
             return newFilename
         }

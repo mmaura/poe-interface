@@ -79,9 +79,10 @@ module.exports = {
       },  
       width: {
         'avatar': '110px;',
-        'inventory': '328px;',
+        'inventory': '300px;',
         'gear-container': '820px',
-        'notes-container': '580px'
+        'notes-container': '580px',
+        'guide-container': "400px"
       },
       height: {
         'avatar': '80px;',
@@ -93,7 +94,7 @@ module.exports = {
         'inventory-line2': '44px',
       },
       spacing: {
-        'icon': '64px',
+        'icon': '32px',
         'socket': '35px'
 
       },

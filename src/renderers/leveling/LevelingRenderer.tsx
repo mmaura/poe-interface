@@ -17,7 +17,7 @@ function App(props: { Init: any }) {
   const [curActID, setcurActID] = useState(props.Init[5] as number)
   const [curZoneName, setcurZoneName] = useState(props.Init[6] as string)
   const [playerClasses, setplayerClasses] = useState(props.Init[7] as IPlayerClasses[])
-  
+
 
   const curAct = useMemo(() => {
     console.log("**useMemo curAct", curActID)
@@ -67,6 +67,10 @@ function App(props: { Init: any }) {
   const onActGuideIdentitySave = useCallback((identity: GuideIdentity) => {
     window.poe_interfaceAPI.sendSync("levelingRenderer", "saveCurActGuide", "identity", identity)
   }, [])
+
+  const onClassGuideSkilltreeChange = useCallback(() => {
+    window.poe_interfaceAPI.sendSync("levelingRenderer", "saveClassGuide", "skilltree", curActID)
+  }, [curActID])
 
   const onClassGuideIdentitySave = useCallback((identity: GuideIdentity) => {
     window.poe_interfaceAPI.sendSync("levelingRenderer", "saveCurClassGuide", "identity", identity)
@@ -147,16 +151,10 @@ function App(props: { Init: any }) {
               <div className="flex-grow h-full">
                 <Navigation curZone={curZone} curAct={curAct} actsGuideIdent={actsGuide.identity} onSave={onNavigationNoteSave} />
               </div>
-              <div className="flex-grow-0 h-full">
-                <ActGuideIdentity identity={actsGuide.identity} onSave={onActGuideIdentitySave}>Acte Guide</ActGuideIdentity>
-                <ClassGuideIdentity identity={classGuide.identity} onSave={onClassGuideIdentitySave} playerClasses={playerClasses}>Class Guide</ClassGuideIdentity>
-
-                <LevelingGuide
-                  onActChange={onActChange}
-                  onZoneChange={onZoneChange}
-                  Acts={actsGuide}
-                  curZone={curZone}
-                />
+              <div className="flex-grow-0 h-full guide-container px-1">
+                <ActGuideIdentity identity={actsGuide.identity} onSave={onActGuideIdentitySave}>Acts</ActGuideIdentity>
+                <ClassGuideIdentity identity={classGuide.identity} onSave={onClassGuideIdentitySave} playerClasses={playerClasses}>Ascendancy</ClassGuideIdentity>
+                <LevelingGuide onActChange={onActChange} onZoneChange={onZoneChange} Acts={actsGuide} curZone={curZone} />
               </div>
             </div>
             <div className="flex flex-row gap-2">
@@ -166,7 +164,7 @@ function App(props: { Init: any }) {
                   <ZoneNotes curZone={curZone} onSave={onZoneNoteSave} />
                 </div>
                 <div className="flex-grow flex-shrink items-end">
-                  <SkillTree curGuide={classGuide} />
+                  <SkillTree curGuide={classGuide} onClassGuideSkilltreeChange={onClassGuideSkilltreeChange} />
                 </div>
               </div>
               <div className="container flex-shrink-0 flex-grow-0 w-gear-container">

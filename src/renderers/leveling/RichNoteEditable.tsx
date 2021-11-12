@@ -14,8 +14,8 @@ export function RichNoteEditable(props: {
 }
 
 export function RichNoteTextarea(props: { onChange: ChangeEventHandler<HTMLTextAreaElement>; children: string }): JSX.Element {
-  const { onChange } = props
-  return (<textarea className="container w-full h-full absolute  border-poe-96 border-2 rounded-sm p-0 m-0" value={props.children} onChange={onChange} />)
+  const { onChange, children } = props
+  return (<textarea className="container content-end w-full h-full min-h-full min-w-full absolute input p-0 m-0" placeholder="Input" value={children} onChange={onChange} />)
 }
 
 export function RichNoteText(props: { children: string }): JSX.Element {

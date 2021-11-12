@@ -103,8 +103,9 @@ export class ClassesGuides extends Guides<IClassesGuide>{
                             },
                             {
                                 label: "Duplicate",
-                                click: () => { this.DuplicateGuide(asc.filename).then((f) => 
-                                    this.Init(f)) 
+                                click: () => {
+                                    this.DuplicateGuide(asc.filename).then((f) =>
+                                        this.Init(f))
                                 },
                             },
                         ]
@@ -147,72 +148,25 @@ export class ClassesGuides extends Guides<IClassesGuide>{
                         },
                         {
                             label: "Duplicate",
-                            click: () => { this.DuplicateGuide(classe.filename).then((f) => 
-                                this.setCurGuide(f)) 
+                            click: () => {
+                                this.DuplicateGuide(classe.filename).then((f) =>
+                                    this.setCurGuide(f))
                             },
                         },
-                ]
+                    ]
                 }))
             })
             menu.submenu.append(classMenu)
         })
+    }
 
+    getTreeImagePath(actid: number): string {
+        return this.CurGuide.acts.find(a => a.act === actid) ? path.join(this.CurGuide.identity.sysAssetPath, this.CurGuide.acts.find(a => a.act === actid).treeimage) : ""
+    }
 
-
-
-
-
-        // this.getIdentities().sort(t => t.readonly === true ? -1 : 1).forEach((_identity: ClassGuideIdentity) => {
-        //     // let must_append = false
-        //     // _menu = menu.submenu.getMenuItemById(`ClassG_${_identity.class}`)
-
-        //     // if (!_menu) {
-        //     //     _menu = new MenuItem({
-        //     //         label: _identity.class,
-        //     //         id: `ClassG_${_identity.class}`,
-        //     //         icon: _identity.filename === this.getCurGuideID() ? this.Icon : undefined,
-        //     //         submenu: [],
-        //     //     })
-        //     //     must_append = true
-        //     // }
-
-        //     // if (mustAppendSeparator && !(_identity.readonly === true)) {
-        //     //     mustAppendSeparator = false
-        //     //     const _menu = new MenuItem({ type: "separator" })
-        //     //     menu.submenu.append(_menu)
-        //     // }
-        //     // else mustAppendSeparator = true
-        //     try {
-        //         menu.submenu.getMenuItemById(`ClassG_${_identity.class}`).submenu.append(
-        //             new MenuItem({
-        //                 label: this.getGuideLabel(_identity.filename),
-        //                 icon: _identity.filename === this.getCurGuideID() ? this.Icon : undefined,
-        //                 submenu: [
-        //                     {
-        //                         label: "Select it",
-        //                         id: `${_identity.filename}`,
-        //                         click: () => {
-        //                             debugMsg(`loading class Guide :${this.getGuideLabel(_identity.filename)} \n ${_identity.filename}`)
-        //                             this.setCurGuide(_identity.filename)
-        //                         }
-        //                     },
-        //                     {
-        //                         label: "WebSite",
-        //                         click: () => {
-        //                             shell.openExternal(_identity.url)
-        //                         },
-        //                         enabled: (_identity.url !== undefined)
-        //                     },
-        //                 ]
-        //             })
-        //         )
-        //     }
-        //     catch (e) {
-        //         this.Warning.push(`Error when create menu${e}`)
-        //     }
-        //     // if (must_append === true) menu.submenu.append(_menu)
-        // })
-
+    setTreeImagePath(filename: string, actid: number): void {
+        fs.copyFileSync(filename, path.normalize(`${this.CurGuide.identity.sysAssetPath}${path.sep}tree-${actid}${path.extname(filename)}`))
+        this.parseCurGuide()
     }
 }
 

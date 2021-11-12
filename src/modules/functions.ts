@@ -85,6 +85,7 @@ export function extractActsBaseGuide(): void {
       _zone.quest = zone.quest
       _zone.questRewardsSkills = zone.questRewardsSkills
       _zone.recipe = zone.recipe
+      _zone.image = zone.image
       _act.zones.push(_zone)
     })
     dstActGuide.acts.push(_act)

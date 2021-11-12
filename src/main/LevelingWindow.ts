@@ -1,4 +1,6 @@
-import { BrowserWindow, ipcMain, NativeImage, IpcMainInvokeEvent, app, Menu, shell, MenuItem, dialog, Rectangle } from "electron"
+import { BrowserWindow, ipcMain, NativeImage, IpcMainInvokeEvent, app, Menu, shell, MenuItem, dialog, Rectangle, OpenDialogReturnValue } from "electron"
+// import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from 'electron-devtools-installer'
+
 import path from "path"
 import fs from "fs"
 
@@ -70,7 +72,16 @@ export class LevelingWindow {
       this.makeMenus()
 
       this._Window.loadURL(LEVELING_WINDOW_WEBPACK_ENTRY)
-      if (!app.isPackaged) this._Window.webContents.openDevTools({ mode: "detach" })
+      if (!app.isPackaged) {
+        this._Window.webContents.openDevTools({ mode: "detach" })
+        // // Install extensions
+        // installExtension(REACT_DEVELOPER_TOOLS)
+        //   .then(name => console.log(`Added Extension:  ${name}`))
+        //   .catch(err => console.log('An error occurred: ', err));
+        // installExtension(REDUX_DEVTOOLS)
+        //   .then(name => console.log(`Added Extension:  ${name}`))
+        //   .catch(err => console.log('An error occurred: ', err));
+      }
       this._Window.setBounds(this._AppStore.get("levelingWinBounds", { x: 1, y: 1, width: 1400, height: 980 }) as Rectangle)
     })
     // .catch(e => {
@@ -111,6 +122,21 @@ export class LevelingWindow {
             this.makeMenus()
             break
         }
+          break
+        case "saveClassGuide": switch (arg[1]) {
+          case "skilltree":
+            console.log(`Choose skilltree ${arg[2]}`)
+            console.log(this.ClassGuides.getTreeImagePath(arg[2]))
+            this.loadImage(`Choose skilltree for act ${arg[2]}`, this.ClassGuides.getTreeImagePath(arg[2])).then((result) => {
+              if (!result.canceled) {
+                this.ClassGuides.setTreeImagePath(result.filePaths[0], arg[2])
+                this._Window.webContents.send("levelingRenderer", ["classGuide", this.ClassGuides.getCurGuide()])
+              }
+              console.log(result)
+            })
+            break
+        }
+          break
       }
     })
 
@@ -155,6 +181,15 @@ export class LevelingWindow {
     this.ActsGuides.on("Log", ((msg, level) => {
       // LogMessage(msg, level)
     }))
+  }
+
+  async loadImage(title: string, defaultPath: string): Promise<OpenDialogReturnValue> {
+    return dialog.showOpenDialog(this._Window, {
+      defaultPath: defaultPath,
+      title: title,
+      filters: [{ name: 'Images', extensions: ['jpg', 'png'] }],
+      properties: ['openFile',]
+    })
   }
   /**********************************
    * POE LOG
