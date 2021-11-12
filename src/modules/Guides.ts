@@ -3,6 +3,7 @@ import fs, { constants } from 'fs'
 import { debugMsg, errorMsg } from './functions'
 import { JsonFile } from './JsonFile'
 import { DataLoader } from './DataLoader'
+import { merge } from 'lodash'
 
 
 interface GuideType {
@@ -38,7 +39,7 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
                     debugMsg(`Info on loading custom guides.\n\t${e}`)
                     this.Warning.push(`Info on loading custom guides.\n\t${e}`)
                 }),
-        ]).then(()=>{
+        ]).then(() => {
             this.setCurGuide(defaultGuideFilename)
         })
 
@@ -86,9 +87,33 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
 
         this.parseCurGuide()
         this.emit("GuideChange", this.CurGuide)
-        // return this.CurGuide
     }
 
+    SaveIdentity(identity: GuideIdentity): void {
+        if (identity.class) {
+            this.CurGuide.identity.class = identity.class
+        }
+        if (identity.url) {
+            this.CurGuide.identity.url = identity.url
+        }
+        this.CurGuide.identity.name = identity.name
+        this.CurGuide.identity.lang = identity.lang
+        this.CurGuide.identity.game_version = identity.game_version
+        this.saveCurGuide()
+    }
+
+    async saveCurGuide(): Promise<void> {
+        const json = new JsonFile<T>(this.CurGuide.identity.filename)
+        const tmp = JSON.parse(JSON.stringify(this.CurGuide)) as T
+        delete tmp.identity.filename
+        delete tmp.identity.readonly
+        delete tmp.identity.sysAssetPath
+        delete tmp.identity.webAssetPath
+
+        json.setObject(tmp)
+        json.save()
+        this.emit("GuideSaved", this.CurGuide)
+    }
     /**
      * populate Identities with the Guides.
      */
@@ -122,7 +147,7 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
      * @param name name(optional) of the new guide
      * @returns true or throw error
      */
-    async DuplicateCurGuide(name?: string): Promise<boolean> {
+    async DuplicateCurGuide(name?: string): Promise<string> {
         try {
             let classGuideName = ""
             if (name) classGuideName = name
@@ -130,22 +155,50 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
 
             const dstPath = path.join(this.getAbsCustomPath(), classGuideName)
 
+            const newFilename = path.join(dstPath, path.basename(this.getCurGuide().identity.filename))
             this._recursiveCopyFileSync(this.getCurGuide().identity.sysAssetPath, dstPath)
 
-            const json = new JsonFile<T>(path.join(dstPath, "guide.json"))
+            const json = new JsonFile<T>(newFilename)
             json.load()
             const guide = json.getObject()
             guide.identity.name = classGuideName
             json.setObject(guide)
             await json.save()
 
-            return true
+            return newFilename
         }
         catch (e) {
             errorMsg(e)
-            return false
         }
     }
+
+    /**
+     * 
+     * @param filename name(optional) of the new guide
+     * @returns true or throw error
+     */
+    async DuplicateGuide(filename?: string): Promise<string> {
+        try {
+            const srcIdent = this.getIdentityByFilename(filename)
+            const dstPath = path.join(this.getAbsCustomPath(), Date.now().toString())
+
+            const newFilename = path.join(dstPath, path.basename(srcIdent.filename))
+            this._recursiveCopyFileSync(srcIdent.sysAssetPath, dstPath)
+
+            const json = new JsonFile<T>(newFilename)
+            json.load()
+            const guide = json.getObject()
+            guide.identity.name = `${srcIdent.name} copy`
+            json.setObject(guide)
+            json.save()
+
+            return newFilename
+        }
+        catch (e) {
+            errorMsg(e)
+        }
+    }
+
 
     private _recursiveCopyFileSync(src: string, dst: string): void {
         debugMsg(`mkdir ${dst}`)

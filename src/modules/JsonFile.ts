@@ -12,16 +12,15 @@ export class JsonFile <Type> {
     }
 
 
-    async save(): Promise<boolean> {
+    save(): void {
+        // fs.copyFileSync(this._FileName, `${path.dirname(this._FileName)}${path.sep}${path.basename(this._FileName,path.extname(this._FileName))}${Date()}${path.extname(this._FileName)}`)
         fs.writeFileSync(this._FileName, JSON.stringify(this._JsonObject, null, 2))
-        return true
     }
 
     load(): void {
         try {
             const data = fs.readFileSync(this._FileName)
             this._JsonObject = JSON.parse(data.toLocaleString())
-            // return this._JsonObject
         } catch (err: any) {
             throw new Error(`unable to open file: ${this._FileName}.\n\n ${err.message}`);
         }

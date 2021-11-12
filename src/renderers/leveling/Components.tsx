@@ -67,7 +67,7 @@ export function LevelingGuide(props: {
         </select>
 
         <select className="lvlg-map-feature flex-grow" value={curZone.name} onChange={onZoneChange}>
-          {curAct.zones.map(function (zone: IZone) {
+          {curAct.zones.map((zone: IZone) => {
             return (
               <option key={zone.level + "-" + zone.name} value={zone.name}>
                 {zone.name}
@@ -491,13 +491,14 @@ function Gear(props: { gear: Gear }): JSX.Element {
   )
 }
 
-export function GuideIdentity(props: {
-  identity: GuideIdentity, onSave: (identity: GuideIdentity) => void, children: string
+export function ActGuideIdentity(props: {
+  identity: ActGuideIdentity, onSave: (identity: ActGuideIdentity) => void, children: string
 }): JSX.Element {
-  const { onSave, identity, children} = props
+  const { onSave, identity, children } = props
 
   const [idName, setidName] = useState(identity.name)
   const [idLang, setidlang] = useState(identity.lang)
+
   const [idGameVersion, setidGameVersion] = useState(identity.game_version)
   const [isOnEdit, setisOnEdit] = useState(false)
 
@@ -522,7 +523,8 @@ export function GuideIdentity(props: {
   const onChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     switch (e.target.name) {
       case "name":
-        setidName(e.target.value)
+        if (e.target.value.search(/^[a-z|A-Z|0-9|_]*$/gm) !== -1)
+          setidName(e.target.value)
         break
       case "game_version":
         // eslint-disable-next-line no-case-declarations
@@ -541,13 +543,90 @@ export function GuideIdentity(props: {
         <h3>{children}</h3>
       </div>
       <div className="flex-auto">
-        <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="name">{idName}</TextEditable>
+        <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="name" value={idName} />
       </div>
       <div className="w-10">
-        <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="game_version">{idGameVersion.toString()}</TextEditable>
+        <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="game_version" value={idGameVersion.toString()} />
       </div>
       <div className="w-6">
-        <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="lang">{idLang}</TextEditable>
+        <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="lang" value={idLang} />
+      </div>
+      <div className="w-6">
+        <EditSaveButton isOnEdit={isOnEdit} onSave={onSaveIdentity} onEdit={editNote} />
+      </div>
+    </div>
+  )
+}
+
+export function ClassGuideIdentity(props: {
+  identity: ClassGuideIdentity, onSave: (identity: ClassGuideIdentity) => void, children: string, playerClasses: IPlayerClasses[]
+}): JSX.Element {
+  const { onSave, identity, children, playerClasses } = props
+
+  const [idName, setidName] = useState(identity.name)
+  const [idLang, setidlang] = useState(identity.lang)
+  const [idClass, setidclass] = useState(identity.class)
+
+  const [idGameVersion, setidGameVersion] = useState(identity.game_version)
+  const [isOnEdit, setisOnEdit] = useState(false)
+
+  useEffect(() => {
+    setidName(identity.name)
+    setidGameVersion(identity.game_version)
+    setidlang(identity.lang)
+    setidclass(identity.class)
+  }, [identity])
+
+  const onSaveIdentity = useCallback(() => {
+    setisOnEdit(!isOnEdit)
+    identity.name = idName
+    identity.lang = idLang
+    identity.game_version = idGameVersion
+    identity.class = idClass
+    onSave(identity)
+  }, [isOnEdit, idName, idLang, idGameVersion, idClass])
+
+  const editNote = useCallback(() => {
+    setisOnEdit(!isOnEdit)
+  }, [isOnEdit])
+
+  const onChange = useCallback((e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    switch (e.target.name) {
+      case "name":
+        if (e.target.value.search(/^[a-z|A-Z|0-9|_]*$/gm) !== -1)
+          setidName(e.target.value)
+        break
+      case "game_version":
+        // eslint-disable-next-line no-case-declarations
+        const ver = Number(e.target.value)
+        if (ver) setidGameVersion(ver)
+        break
+      case "lang":
+        setidlang(e.target.value)
+        break
+      case "class":
+        console.log(e)
+        setidclass(e.target.value)
+        break
+    }
+  }, [idGameVersion, idLang, idName])
+
+  return (
+    <div className="flex flex-row gap-1 w-full">
+      <div className="flex-grow-0 w-24">
+        <h3>{children}</h3>
+      </div>
+      <div className="flex-auto">
+        <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="name" value={idName} />
+      </div>
+      <div className="flex-auto">
+        <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="class" value={idClass}>{playerClasses}</TextEditable>
+      </div>
+      <div className="w-10">
+        <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="game_version" value={idGameVersion.toString()} />
+      </div>
+      <div className="w-6">
+        <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="lang" value={idLang} />
       </div>
       <div className="w-6">
         <EditSaveButton isOnEdit={isOnEdit} onSave={onSaveIdentity} onEdit={editNote} />

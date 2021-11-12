@@ -39,8 +39,15 @@ export class ActsGuides extends Guides<IActsGuide> {
     }
 
     AppendMenu(menu: MenuItem): void {
+        let mustAppendSeparator = true
 
-        this.getIdentities().forEach((_identity : ActGuideIdentity) => {
+        this.getIdentities().sort(t => (t.readonly === true) ? -1 : 1).forEach((_identity: ActGuideIdentity) => {
+            if (mustAppendSeparator && !(_identity.readonly === true)) {
+                mustAppendSeparator = false
+                const _menu = new MenuItem({ type: "separator" })
+                menu.submenu.append(_menu)
+            }
+
             const _menu = new MenuItem({
                 label: this.getGuideLabel(_identity.filename),
                 icon: _identity.filename === this.getCurGuideID() ? this.Icon : undefined,
@@ -55,12 +62,13 @@ export class ActsGuides extends Guides<IActsGuide> {
         })
     }
 
-
-    SaveZoneNote(actid: number, zonename: string, text: string):void{
-        return
+    SaveZoneNote(actid: number, zonename: string, zonenote: string): void {
+        this.CurGuide.acts.find(act => act.actid === actid).zones.find(zone => zonename === zone.name).note = zonenote
+        this.saveCurGuide()
     }
 
-    zoneNavigationNote(actid: number, zonename: string, text: string):void{
-        return
+    SaveNavigationNote(actid: number, zonename: string, altimage: string): void {
+        this.CurGuide.acts.find(act => act.actid === actid).zones.find(zone => zonename === zone.name).altimage = altimage
+        this.saveCurGuide()
     }
 }

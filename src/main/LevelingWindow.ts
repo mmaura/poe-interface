@@ -30,7 +30,7 @@ export class LevelingWindow {
   private ClassGuides: ClassesGuides
   private ActsGuides: ActsGuides
   private RichTextJson: JsonFile<IRichText[]>
-  private ClassesJson: JsonFile<IClasses[]>
+  private PlayersClasses: JsonFile<IPlayerClasses[]>
   private Zones: JsonFile<IActsGuide>
   private GameHelpers: GameHelpers
 
@@ -48,7 +48,7 @@ export class LevelingWindow {
     this.ActsGuides = new ActsGuides()
 
     this.RichTextJson = new JsonFile(path.join(getAssetPath(), "data", "richtext.json"))
-    this.ClassesJson = new JsonFile(path.join(getAssetPath(), "data", "classes.json"))
+    this.PlayersClasses = new JsonFile(path.join(getAssetPath(), "data", "classes.json"))
     this.Zones = new JsonFile(path.join(getAssetPath(), "data", "zones.json"))
     this.GameHelpers = new GameHelpers()
 
@@ -96,16 +96,21 @@ export class LevelingWindow {
             this._MyPlayer,
             MergedActGuide.acts[0].actid,
             MergedActGuide.acts[0].zones[0].name,
+            this.PlayersClasses.getObject()
           ]
 
-        case "save": switch (arg[1]) {
+        case "saveCurActGuide": switch (arg[1]) {
           case "zoneNote":
             this.ActsGuides.SaveZoneNote(arg[2], arg[3], arg[4])
             break
-            case "zoneNavigationNote":
-              this.ActsGuides.zoneNavigationNote(arg[2], arg[3], arg[4])
-              break
-          }
+          case "NavigationNote":
+            this.ActsGuides.SaveNavigationNote(arg[2], arg[3], arg[4])
+            break
+          case "identity":
+            this.ActsGuides.SaveIdentity(arg[2])
+            this.makeMenus()
+            break
+        }
       }
     })
 
@@ -222,7 +227,7 @@ export class LevelingWindow {
   }
 
   getCharacterClass(characterClass: string): string {
-    const _character = this.ClassesJson.getObject().find((e: IClasses) => {
+    const _character = this.PlayersClasses.getObject().find((e: IPlayerClasses) => {
       if (e.classe === characterClass || e.ascendancy.includes(characterClass)) return true
     })
     return _character.classe
@@ -238,16 +243,11 @@ export class LevelingWindow {
       this.ClassGuides.Init(this._AppStore.get("curClassGuide", "default") as string),
       this.ActsGuides.Init(this._AppStore.get("curActsGuide", "default") as string),
       this.RichTextJson.load(),
-      this.ClassesJson.load(),
+      this.PlayersClasses.load(),
       this.Zones.load(),
       this.GameHelpers.Init(),
     ])
   }
-
-  // ActsGuidesSaveZoneNote(zone: { zoneName: string, actId: number }, note: string): void {
-  //   // const curloadJson(this._CurActsGuide.identity.filename)
-  //   console.log('')
-  // }
 
   makeMenus(): void {
     this._Menu = Menu.buildFromTemplate([
@@ -260,9 +260,65 @@ export class LevelingWindow {
               this.OpenCustomDir()
             },
           },
+          {
+            label: "Reload all data",
+            click: () => {
+              const MergedActGuide = {} as IActsGuide
+              merge(MergedActGuide, this.Zones.getObject(), this.ActsGuides.getCurGuide())
+
+              this.LoadData().then(() => this._Window.webContents.send("levelingRenderer", ["All",
+                MergedActGuide,
+                this.RichTextJson.getObject(),
+                this.ClassGuides.getCurGuide(),
+                this.PlayersClasses.getObject()
+              ]))
+            },
+          },
+
           { type: "separator" },
           { role: "hide" },
           { role: 'quit' },
+        ],
+      },
+      {
+        label: "Class guides",
+        id: "classGuide",
+        submenu: [],
+      },
+      {
+        label: "acts guides",
+        id: "actsGuide",
+        submenu: [
+          {
+            label: "Duplicate current guide",
+            click: () => {
+              this.ActsGuides.DuplicateCurGuide().then(guide => {
+                this.ActsGuides.setCurGuide(guide)
+                this.LoadData()
+              })
+            },
+          },
+          { type: "separator" },
+
+        ],
+      },
+      {
+        label: "helpers",
+        id: "helpers",
+        submenu: [
+          {
+            label: "Wraeclast",
+            click: () => {
+              shell.openExternal("https://wraeclast.com/")
+            },
+          },
+          {
+            label: "PoeDb",
+            click: () => {
+              shell.openExternal("https://poedb.tw/")
+            },
+          },
+          { type: "separator" },
         ],
       },
       {
@@ -294,68 +350,11 @@ export class LevelingWindow {
           },
         ],
       },
-      {
-        label: "helpers",
-        id: "helpers",
-        submenu: [
-          {
-            label: "Wraeclast",
-            click: () => {
-              shell.openExternal("https://wraeclast.com/")
-            },
-          },
-          {
-            label: "PoeDb",
-            click: () => {
-              shell.openExternal("https://poedb.tw/")
-            },
-          },
-          { type: "separator" },
-        ],
-      },
-      {
-        label: "Guides",
-        submenu: [
-          {
-            label: "Reload all data",
-            click: () => {
-              this.LoadData()
-            },
-          },
-          {
-            label: "Duplicate the current class guide",
-            click: () => {
-              this.ClassGuides.DuplicateCurGuide()
-              this.LoadData()
-            },
-          },
-          {
-            label: "Duplicate the current acts guide",
-            click: () => {
-              this.ActsGuides.DuplicateCurGuide()
-              this.LoadData()
-            },
-          },
-          {
-            type: "separator",
-          },
-          {
-            label: "class guides",
-            id: "classGuide",
-            submenu: [],
-          },
-          {
-            label: "acts guides",
-            id: "actsGuide",
-            submenu: [],
-          }
-        ],
-      },
     ])
 
     this.GameHelpers.AppendMenu(this._Menu.getMenuItemById("helpers"))
     this.ActsGuides.AppendMenu(this._Menu.getMenuItemById("actsGuide"))
-    this.ClassGuides.AppendMenu(this._Menu.getMenuItemById("classGuide"))
+    this.ClassGuides.AppendMenu(this._Menu.getMenuItemById("classGuide"), this.PlayersClasses.getObject())
 
     if (app.isPackaged === false) {
       const _menu = new MenuItem(

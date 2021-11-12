@@ -3,7 +3,7 @@ import * as ReactDOM from "react-dom"
 
 import "../index.css"
 import "./index.css"
-import { Player, LevelingGuide, ZoneNotes, Navigation, SkillTree, ZoneGem, ZoneGears, GuideIdentity } from "./Components"
+import { Player, LevelingGuide, ZoneNotes, Navigation, SkillTree, ZoneGem, ZoneGears, ActGuideIdentity, ClassGuideIdentity } from "./Components"
 
 export const PlayerContext = React.createContext({} as IAppPlayer)
 export const CurActContext = React.createContext({} as IAct)
@@ -16,6 +16,8 @@ function App(props: { Init: any }) {
   const [curPlayer, setcurPlayer] = useState(props.Init[4] as IAppPlayer)
   const [curActID, setcurActID] = useState(props.Init[5] as number)
   const [curZoneName, setcurZoneName] = useState(props.Init[6] as string)
+  const [playerClasses, setplayerClasses] = useState(props.Init[7] as IPlayerClasses[])
+  
 
   const curAct = useMemo(() => {
     console.log("**useMemo curAct", curActID)
@@ -53,22 +55,23 @@ function App(props: { Init: any }) {
   )
 
   const onZoneNoteSave = useCallback((text: string) => {
-    window.poe_interfaceAPI.sendSync("levelingRenderer", "save", "zoneNote", curActID, curZoneName, text)
+    window.poe_interfaceAPI.sendSync("levelingRenderer", "saveCurActGuide", "zoneNote", curActID, curZoneName, text)
 
   }, [curZoneName, curActID])
 
-  const onZoneNavigationNoteSave = useCallback((text: string) => {
-    window.poe_interfaceAPI.sendSync("levelingRenderer", "save", "zoneNavigationNote", curActID, curZoneName, text)
+  const onNavigationNoteSave = useCallback((text: string) => {
+    window.poe_interfaceAPI.sendSync("levelingRenderer", "saveCurActGuide", "NavigationNote", curActID, curZoneName, text)
 
   }, [curZoneName, curActID])
 
   const onActGuideIdentitySave = useCallback((identity: GuideIdentity) => {
-    window.poe_interfaceAPI.sendSync("levelingRenderer", "save", "identity", identity)
+    window.poe_interfaceAPI.sendSync("levelingRenderer", "saveCurActGuide", "identity", identity)
   }, [])
 
   const onClassGuideIdentitySave = useCallback((identity: GuideIdentity) => {
-    window.poe_interfaceAPI.sendSync("levelingRenderer", "save", "identity", identity)
+    window.poe_interfaceAPI.sendSync("levelingRenderer", "saveCurClassGuide", "identity", identity)
   }, [])
+
   /**********************************
    * Effects
    */
@@ -97,6 +100,7 @@ function App(props: { Init: any }) {
       }
     }
   }, [curPlayer])
+
   /**********************************
    * IPC
    */
@@ -121,6 +125,7 @@ function App(props: { Init: any }) {
           setactsGuide(arg[1])
           setcurRichText(arg[2])
           setclassGuide(arg[3])
+          setplayerClasses(arg[4])
           break
       }
     })
@@ -140,11 +145,11 @@ function App(props: { Init: any }) {
                 <h1>{curAct && curZone ? `${curAct.act} : ${curZone.name}` : null}</h1>
               </div>
               <div className="flex-grow h-full">
-                <Navigation curZone={curZone} curAct={curAct} actsGuideIdent={actsGuide.identity} onSave={onZoneNavigationNoteSave} />
+                <Navigation curZone={curZone} curAct={curAct} actsGuideIdent={actsGuide.identity} onSave={onNavigationNoteSave} />
               </div>
               <div className="flex-grow-0 h-full">
-                <GuideIdentity identity={actsGuide.identity} onSave={onActGuideIdentitySave}>Acte Guide</GuideIdentity>
-                <GuideIdentityClass identity={classGuide.identity} onSave={onClassGuideIdentitySave}>Class Guide</GuideIdentityClass>
+                <ActGuideIdentity identity={actsGuide.identity} onSave={onActGuideIdentitySave}>Acte Guide</ActGuideIdentity>
+                <ClassGuideIdentity identity={classGuide.identity} onSave={onClassGuideIdentitySave} playerClasses={playerClasses}>Class Guide</ClassGuideIdentity>
 
                 <LevelingGuide
                   onActChange={onActChange}

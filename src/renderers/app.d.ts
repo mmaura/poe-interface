@@ -76,7 +76,7 @@ declare global {
    * classes.json
    */
 
-  export interface IClasses {
+  export interface IPlayerClasses {
     classe?: string
     ascendancy?: string[]
   }
@@ -93,6 +93,8 @@ declare global {
     webAssetPath?: string
     sysAssetPath?: string
     readonly?: boolean
+    class?: string
+    url?: string
   }
 
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -101,7 +103,6 @@ declare global {
 
   export interface ClassGuideIdentity extends GuideIdentity {
     class: string
-    url: string
   }
 
 
