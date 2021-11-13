@@ -49,15 +49,37 @@ export class DataLoader extends EventEmitter {
      * @param exts array of extension to return with the dot
      * @returns array of json guide filename (string)
      */
-    protected FilesFromSubPath(dir: string, exts: string[]): string[] {
-        const _files = [] as string[]
-
-        fs.readdirSync(dir, { withFileTypes: true }).forEach(sdir => {
-            if (sdir.isDirectory()) _files.push(...this.FilesFromPath(path.join(dir, sdir.name), exts))
-        })
-        return _files
+    protected GuideFromSubPath(dir: string): string {
+        let guideFile : string
+        for (const sdir of fs.readdirSync(dir, { withFileTypes: true })){
+            if (sdir.isDirectory()) {
+                guideFile = this.GuideFromPath(path.join(dir, sdir.name))
+                if (guideFile !== undefined) return guideFile
+            }
+        }
+        return undefined
     }
 
+    /**
+     * 
+     * @param dir path where to search
+     * @returns absolute guide path with filename
+     */
+    protected GuideFromPath(dir: string): string {
+        for (const f of fs.readdirSync(dir, { withFileTypes: true })){
+            if ((f.isFile()) && (f.name === "guide.json")) {
+                return path.join(dir, f.name)
+            }
+        }
+        return undefined
+    }
+
+    /**
+     * 
+     * @param dir path where to search
+     * @param exts extension files to match
+     * @returns array of files path with filename
+     */
     protected FilesFromPath(dir: string, exts: string[]): string[] {
         const _files = [] as string[]
 
@@ -66,9 +88,15 @@ export class DataLoader extends EventEmitter {
                 _files.push(path.join(dir, f.name))
             }
         })
-        return _files
+        return undefined
     }
 
+    /**
+     * Append relative path to webpath
+     * @param webPath 
+     * @param filename 
+     * @returns complete url to file
+     */
     getWebPath(webPath: string, filename: string): string {
         return `${webPath}/${filename.split(path.sep)[filename.split(path.sep).length - 2]}`
     }

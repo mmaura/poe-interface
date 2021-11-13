@@ -93,79 +93,68 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
         if (identity.url) {
             this.CurGuide.identity.url = identity.url
         }
-        this.CurGuide.identity.name = identity.name
+        if (this.CurGuide.identity.name !== identity.name) {
+            this.CurGuide.identity.name = identity.name
+            this.RenameGuideFolder(identity.name, this.CurGuide.identity.filename)
+        }
         this.CurGuide.identity.lang = identity.lang
         this.CurGuide.identity.game_version = identity.game_version
         this.saveCurGuide()
     }
 
-    async saveCurGuide(): Promise<void> {
-        const json = new JsonFile<T>(this.CurGuide.identity.filename)
-        const tmp = JSON.parse(JSON.stringify(this.CurGuide)) as T
-        delete tmp.identity.filename
-        delete tmp.identity.readonly
-        delete tmp.identity.sysAssetPath
-        delete tmp.identity.webAssetPath
-
-        json.setObject(tmp)
-        json.save()
-        this.emit("GuideSaved", this.CurGuide)
+    RenameGuideFolder(newName: string, filename: string): void {
+        const oldName = filename.split(path.sep)[filename.split(path.sep).length - 2]
+        fs.renameSync(path.join(this.getAbsCustomPath(), oldName), path.normalize(path.join(this.getAbsCustomPath(), newName)))
     }
+
+    /**
+     * Record guide.json file after deleting unwanted keys.
+     * Make a reload of guides
+     */
+    async saveCurGuide(): Promise<void> {
+        try {
+            const json = new JsonFile<T>(this.CurGuide.identity.filename)
+            const tmp = JSON.parse(JSON.stringify(this.CurGuide)) as T
+            delete tmp.identity.filename
+            delete tmp.identity.readonly
+            delete tmp.identity.sysAssetPath
+            delete tmp.identity.webAssetPath
+
+            json.setObject(tmp)
+            json.save()
+        }
+        catch (e) {
+
+        }
+        finally {
+            this.Init(this.CurGuide.identity.filename)
+        }
+    }
+
     /**
      * populate Identities with the Guides.
      */
     private async populateIdentities(dirPath: string, webPath: string, readOnly?: boolean) {
-        const files = this.FilesFromSubPath(dirPath, [".json"])
-        if (files) files.forEach(f => {
-            const json = new JsonFile<T>(f)
+        const files = this.GuideFromSubPath(dirPath)
+        if (files) {
+            const json = new JsonFile<T>(files)
             try {
                 json.load()
                 const object = json.getObject()
                 if ((readOnly) && (readOnly === true)) object.identity.readonly = true
-                object.identity.filename = f
-                // object.identity.webAssetPath = `${webPath}/${f.split(path.sep)[f.split(path.sep).length - 2]}`
-                object.identity.webAssetPath = this.getWebPath(webPath, f)
-                object.identity.sysAssetPath = path.dirname(f)
+                object.identity.filename = files
+                object.identity.webAssetPath = this.getWebPath(webPath, files)
+                object.identity.sysAssetPath = path.dirname(files)
                 this.Identities.push(object.identity)
             }
             catch (e) {
-                errorMsg(`Error on affecting packaged identity : for file ${f}\n\t${e}`)
-                this.Warning.push(`Error on affecting packaged identity : for file ${f}\n\t${e}`)
+                errorMsg(`Error on affecting packaged identity : for file ${files}\n\t${e}`)
+                this.Warning.push(`Error on affecting packaged identity : for file ${files}\n\t${e}`)
             }
-        })
+        }
         else {
             debugMsg('No packaged guide found !!')
             this.Warning.push('No packaged guide found !!')
-        }
-    }
-
-    /**
-     * 
-     * @param name name(optional) of the new guide
-     * @returns true or throw error
-     */
-    async DuplicateCurGuide(name?: string): Promise<string> {
-        try {
-            let classGuideName = ""
-            if (name) classGuideName = name
-            else classGuideName = Date.now().toString()
-
-            const dstPath = path.join(this.getAbsCustomPath(), classGuideName)
-
-            const newFilename = path.join(dstPath, path.basename(this.getCurGuide().identity.filename))
-            this._recursiveCopyFileSync(this.getCurGuide().identity.sysAssetPath, dstPath)
-
-            const json = new JsonFile<T>(newFilename)
-            json.load()
-            const guide = json.getObject()
-            guide.identity.name = classGuideName
-            json.setObject(guide)
-            json.save()
-
-            return newFilename
-        }
-        catch (e) {
-            errorMsg(e)
         }
     }
 
@@ -176,6 +165,8 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
      */
     async DuplicateGuide(filename?: string): Promise<string> {
         try {
+            if (!filename) filename = this.CurGuide.identity.filename
+
             const srcIdent = this.getIdentityByFilename(filename)
             const dstPath = path.join(this.getAbsCustomPath(), Date.now().toString())
 
@@ -185,7 +176,7 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
             const json = new JsonFile<T>(newFilename)
             json.load()
             const guide = json.getObject()
-            guide.identity.name = `${srcIdent.name} copy`
+            guide.identity.name = `${srcIdent.name}_copy`
             json.setObject(guide)
             json.save()
 
@@ -196,7 +187,11 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
         }
     }
 
-
+    /**
+     * copy recursively a directory
+     * @param src 
+     * @param dst 
+     */
     private _recursiveCopyFileSync(src: string, dst: string): void {
         debugMsg(`mkdir ${dst}`)
         fs.mkdirSync(dst, { recursive: true })

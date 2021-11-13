@@ -14,6 +14,7 @@ import { ClassesGuides } from "../modules/ClassesGuides"
 import { JsonFile } from "../modules/JsonFile"
 import { ActsGuides } from "../modules/ActsGuides"
 import { GameHelpers } from "../modules/GameHelper"
+import winston from "winston"
 
 declare const LEVELING_WINDOW_WEBPACK_ENTRY: string
 declare const LEVELING_WINDOW_PRELOAD_WEBPACK_ENTRY: never
@@ -39,7 +40,7 @@ export class LevelingWindow {
   private _MyPlayer: IAppPlayer
   private _MyConn: plm_conn
 
-  constructor(appStore: Store, AppIcon: NativeImage) {
+  constructor(appStore: Store, AppIcon: NativeImage, MyLogger: winston.Logger) {
     this._AppStore = appStore
     this._Icon = AppIcon
 
@@ -327,9 +328,8 @@ export class LevelingWindow {
           {
             label: "Duplicate current guide",
             click: () => {
-              this.ActsGuides.DuplicateCurGuide().then(guide => {
-                this.ActsGuides.setCurGuide(guide)
-                this.LoadData()
+              this.ActsGuides.DuplicateGuide().then(guide => {
+                this.ActsGuides.Init(guide)
               })
             },
           },

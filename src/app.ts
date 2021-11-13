@@ -6,10 +6,21 @@ import path from "path"
 import os from "os"
 import fs from "fs"
 
+import winston from "winston"
+
 import { ConfigWindow } from "./main/ConfigWindow"
 import { LevelingWindow } from "./main/LevelingWindow"
 
 import { getAssetPath, getLocalCustomPath } from "./modules/functions"
+
+const MyLogger = winston.createLogger({
+  transports: [
+    new winston.transports.File({ filename: path.join(getLocalCustomPath(), "log.txt") }),
+    new winston.transports.Console(),
+    ]
+})
+
+MyLogger.log('info', 'starting')
 
 const reactDevToolsPath = path.join(
   os.homedir(),
@@ -44,7 +55,7 @@ app.whenReady().then(async () => {
 
   AppStore.onDidChange("poe_log_path", newValue => {
     CreatePoeLog(newValue as string)
-    if (!levelingGuideWindow) levelingGuideWindow = new LevelingWindow(AppStore, AppIcon)
+    if (!levelingGuideWindow) levelingGuideWindow = new LevelingWindow(AppStore, AppIcon, MyLogger)
     levelingGuideWindow.setPoeLog(PoeLog)
     levelingGuideWindow.show()
   })
@@ -70,7 +81,7 @@ app.whenReady().then(async () => {
     configWindow.show()
   } else {
     CreatePoeLog(configWindow.getPoeLogPath())
-    levelingGuideWindow = new LevelingWindow(AppStore, AppIcon)
+    levelingGuideWindow = new LevelingWindow(AppStore, AppIcon, MyLogger)
     levelingGuideWindow.setPoeLog(PoeLog)
     levelingGuideWindow.show()
   }
@@ -88,7 +99,7 @@ app.whenReady().then(async () => {
       icon: AppIcon,
     }).show()
 
-    if (!levelingGuideWindow) levelingGuideWindow = new LevelingWindow(AppStore, AppIcon)
+    if (!levelingGuideWindow) levelingGuideWindow = new LevelingWindow(AppStore, AppIcon, MyLogger)
     levelingGuideWindow.show()
   }
 })

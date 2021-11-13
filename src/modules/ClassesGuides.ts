@@ -80,6 +80,7 @@ export class ClassesGuides extends Guides<IClassesGuide>{
 
                 //pour chaque guide d'ascendance
                 ascendancyGuides.forEach(asc => {
+                    if((asc.readonly === true)) mustAppendSeparator = true
                     if (mustAppendSeparator && !(asc.readonly === true)) {
                         mustAppendSeparator = false
                         ascendancyMenu.submenu.append(new MenuItem({ type: "separator" }))
@@ -150,7 +151,7 @@ export class ClassesGuides extends Guides<IClassesGuide>{
                             label: "Duplicate",
                             click: () => {
                                 this.DuplicateGuide(classe.filename).then((f) =>
-                                    this.setCurGuide(f))
+                                    this.Init(f))
                             },
                         },
                     ]
