@@ -1,0 +1,593 @@
+{
+  "acts": [
+    {
+      "actid": 1,
+      "zones": [
+        {
+          "name": "The Coast",
+          "note": "Sağ tarafına yapışarak duvarı takip et.\n+ WP yi al.\n> The Mud Flats (wpnin sağında)\n2. Gelişinde;\n> Tidal Island (wpnin aşağısında)"
+        },
+        {
+          "name": "The Tidal Island",
+          "note": "+ Hailrake'yi öldür.\n- Logout\n< \"Mercy Mission\" (Nessa)\n> Submerged Passage"
+        },
+        {
+          "name": "The Mud Flats",
+          "note": "+3 görev itemını topla\nSağ üstte nehirdeki yolu aç.\n> The Submerged Passage"
+        },
+        {
+          "name": "The Fetid Pool",
+          "note": "R,SKIP\nDaire şeklinde ilerle herşeyi öldür.\nYan görev yapmamak büyük zaman kazandırır."
+        },
+        {
+          "name": "The Submerged Passage",
+          "note": "+Wp yi al.\n> The Coast (wp ile)\n2. Gelişinde;\nKöprüyü bul ve portal bırak.\n> The Ledge (köprüyü geçtikten sonra)\n3. Gelişinde;\n> Flooded Depths"
+        },
+        {
+          "name": "The Flooded Depths",
+          "note": "+ The Dweller of the Deep'i öldür.\n- Logout\n< \"The Dweller of the Deep\" (Tarkleigh)\n> The Ledge"
+        },
+        {
+          "name": "The Ledge",
+          "note": "+ WP yi al.(merkezde)\n> City\n> Bıraktığımız portala dön.(Submerged Passage)\n2. gelişinde wpnin yanındaki küçük totemler yönünde git.\n> The Climb"
+        },
+        {
+          "name": "The Climb",
+          "note": "Sağ üstte git Navaliyi serbest bırak.\n> Lower Prison"
+        },
+        {
+          "name": "The Lower Prison",
+          "note": "+ Wpyi al.\n+ Trial'ı tamamla.\n> The Upper Prison"
+        },
+        {
+          "name": "The Upper Prison",
+          "note": "> The Warden's Quarters\n> The Warden's Chambers (Yerdeki kanları takip et)\n+ Brutusu öldür.\n- Logout\n< \"The Caged Brute\" (Tarkleigh)\n> Prisoners Gate"
+        },
+        {
+          "name": "Prisoner's Gate",
+          "note": "Yolun çıkıntıya sahip tarafını ara, genellikle sağ tarafta. \n> The Ship Graveyard"
+        },
+        {
+          "name": "The Ship Graveyard",
+          "note": "+ WPyi al.\n> Ship Graveyard Cave\n+ Allflame görev itemını al.\n> Ship Graveyard\n> Cavern of Wrath\nWp ile geri dönüşünde;\n+ Kill Fairgraves\n- Logout\n< \"The Marooned Mariner\" (Bestel)\n> Cavern of Wrath (teleport)"
+        },
+        {
+          "name": "The Cavern of Wrath",
+          "note": "+ WPyi al\n> Ship Graveyard (teleport)\n2. gelişinde; düz ilerle\n> The Cavern of Anger"
+        },
+        {
+          "name": "The Cavern of Anger",
+          "note": "Yol genelde sağ aşağı doğru. Ruhları takip edebilirsin. Altın yığınları görürsen bossa yaklaştın.\n> Merveil's Lair\n+ Mervel'i öldür.\n> The Southern Forest (Act 1 End)"
+        }
+      ]
+    },
+    {
+      "actid": 10,
+      "zones": [
+        {
+          "name": "The Ravaged Square",
+          "note": "Birçok bölgeye geçiş var.\n+ İlk olarak sağa doğru wpye ilerle ve al. \n> Torched Courts(1) (wpnin aşağı sağında)\n2.gelişinde; \n> The Control Blocks(2) (bölgenin sol aşağısında)\n3.gelişinde;\n> The Ossuary (wpnin üstü)\n4.gelişinde; \nR,Kitava'dan önce labı yapabilirsin.\n> The Canals (wpnin sağından)"
+        },
+        {
+          "name": "The Control Blocks",
+          "note": "> Arena (boss odası)\n+ Vilenta'yı öldür(passive)\n- Logout.\n> The Ravaged Square (wp ile)"
+        },
+        {
+          "name": "The Ossuary",
+          "note": "> The Bone Pits\n+ Trial tamamla.\n- Logout\n> The Ravaged Square(wp ile)\nG,TRIAL - Dart traps\nG,CRAFT - Chaos damage"
+        },
+        {
+          "name": "The Torched Courts",
+          "note": "Saat yönünün tersi şeklinde daire çizerek ilerle.\n> The Desecrated Chambers"
+        },
+        {
+          "name": "The Desecrated Chambers",
+          "note": "+ Wp yi al.\nDevam et.\n> Sanctum of Innocence (boss odası)\n+ Avarius'u öldür.\n- Logout.\n> The Ravaged Square (wp ile)\nG,CRAFT - Life/Mana"
+        },
+        {
+          "name": "The Reliquary",
+          "note": "(Skiple burayı)\nGörev itemı genellikle köşelerde bulunur."
+        },
+        {
+          "name": "The Canals",
+          "note": "Yukarı sola ilerle.\nYolu ve köprüyü görünce takip et. \n> The Feeding Trough"
+        },
+        {
+          "name": "The Feeding Trough",
+          "note": "Linear, sonuna kadar ilerle\n+ Sin ile konuş.\n> Altar of Hunger\n+ Kitava'yı öldür.\nG,CRAFT - Defenses\n(Campain bitti. Yazar: @ForeverOflu )"
+        }
+      ]
+    },
+    {
+      "actid": 11,
+      "zones": [
+        {
+          "name": "The Fallen Courts",
+          "note": "Duvara solunu vererek takip et Dominus' office'i bul.\n+ Keyi al.\n> Oriath\n> The Haunted Reliquary (sol alt)"
+        },
+        {
+          "name": "The Haunted Reliquary",
+          "note": "Keyi iki taraftada kullanıp kapının kilidini aç.\nHerşeyi öldür.\n> Hideout\n+ Kirac ile konuş.\nR,Hideout'un yoksa town'da Helena ile konuşup sahip olabilirsin."
+        }
+      ]
+    },
+    {
+      "actid": 2,
+      "zones": [
+        {
+          "name": "The Old Fields",
+          "note": "Sağa doğru yolu takip et.\n> The Crossroads"
+        },
+        {
+          "name": "The Den",
+          "note": "B,SKIPLE Quicksilver Flask ihtiyacın yoksa.\nGreat White Beast'i öldür. Logout at."
+        },
+        {
+          "name": "The Crossroads",
+          "note": "Yolu takip et waypointe kadar.\n+ Wp yi al.\n> The Chamber of Sins Level 1 (wp nin yukarısından)\n2. gelişinde;\n> The Broken Bridge (wp nin sağından)\n3.gelişinde;\n> The Felshrine Ruins (wp nin aşağısından)"
+        },
+        {
+          "name": "The Chamber of Sins Level 1",
+          "note": "Bölgenin ortasına git.\n+ Wp yi al.\nWp ye yakın taraftan ilerle. \n> The Chamber of Sins Level 2"
+        },
+        {
+          "name": "The Chamber of Sins Level 2",
+          "note": "+ Trial tamamla (sol üstte)\nAşağı sağa ilerle\n+ Fidelitas'i öldür (Baleful Gem itemı al)\n- Logout\n> The Crossroads(wp ile)"
+        },
+        {
+          "name": "The Broken Bridge",
+          "note": "Sağa doğru yolu takip et. \n+ Kraityn'i öldür. \n- Logout\n> The Crossroads(wp ile)"
+        },
+        {
+          "name": "The Fellshrine Ruins",
+          "note": "Yolu takip et.\n> The Crypt"
+        },
+        {
+          "name": "The Crypt Level 1",
+          "note": "+ Trial tamamla.\n- Logout\n> The Riverways"
+        },
+        {
+          "name": "The Riverways",
+          "note": "Yolu takip et kırıp köprüden karşıya atla. \n+ Wpyi al.\nYolu takip et.\n> Western Forest\n2. gelişinde;\nYukarıya doğru git.\n> The Wetlands"
+        },
+        {
+          "name": "The Western Forest",
+          "note": "+ Yolu takip et wpyi aç.\nYolu takip et yolun wp olan tarafında kırık yol bul Alira orada.\n+ Alirayı öldür.\nYola geri dön yolun solunu takip etmeye devam et. \n+ Blackguards'ı öldür görev itemını al ve duvara yerleştir.\nGeri dön aliranın ters yönünde ilerle\n> Weaver's Chambers"
+        },
+        {
+          "name": "The Weaver's Chambers",
+          "note": "Sol yol ortaya çıktığında sola gidin, aksi takdirde sağ tarafta döngü yapın.\n> Weaver's Nest\n+ The Weaver'ı öldür ve görev itemını al.\n- Logout \nAct 1'e dönüp skillpoint ödülünü al.\n> The Riverways (wp ile)"
+        },
+        {
+          "name": "The Wetlands",
+          "note": "+ Oak'ı öldür (Bölgenin merkezinde)\nSonrasında sola doğru devam et.\n+ Waypointin yanından Tree Roots'a tıkla.\n(Bu noktada banditler ile işin bitmiş olması gerek)\n> Vaal Ruins"
+        },
+        {
+          "name": "The Vaal Ruins",
+          "note": "Zigzag yaparak ilerle. \n> Northern Forest"
+        },
+        {
+          "name": "The Northern Forest",
+          "note": "Sağ üstte ilerle. \n> The Caverns"
+        },
+        {
+          "name": "The Dread Thicket",
+          "note": "SKIP"
+        },
+        {
+          "name": "The Caverns",
+          "note": "Wpye kadar linear.\nG,CRAFT - Movement speed\n> Ancient Pyramid"
+        },
+        {
+          "name": "The Ancient Pyramid",
+          "note": "Çıkış genelde girişin çaprazındadır.\nMerdivenler ile sona kadar ilerle. \n+ Vaal OverSoul'u öldür.\nG,CRAFT - Spell damage\nAct 2 sonu.\n> The City of Sarn"
+        }
+      ]
+    },
+    {
+      "actid": 3,
+      "zones": [
+        {
+          "name": "The Slums",
+          "note": "The Sewers girişini bul, yakınındaki merdivenlerden aşağı doğru ilerle \n> The Crematorium\nTekrar gelişinde; The Sewers'ın kilidini aç.\n> The Sewers"
+        },
+        {
+          "name": "The Crematorium",
+          "note": "+ Get WP\nGenelde sol tarafın doğru yol olma şansı daha yüksek.\n+ Complete trial\n+ Piety'i öldürüp görev itemını al.\n- Logout\n< Sewer anahtarını al.\n> The Slums\nG,CRAFT - Fire damage"
+        },
+        {
+          "name": "The Sewers",
+          "note": "+ 1. Stashı bul (wp ye gelmeden)\n+ Wp yi al.\n+ 2. ve 3. stash wpnin yanında ve yukarıda.\n> The Marketplace\nTekrar geldiğinde;\n+ Yukarı solda blocklanmış kapıya tıklayıp aç.\n> The Ebony Barracks\nG,CRAFT - Physical damage"
+        },
+        {
+          "name": "The Marketplace",
+          "note": "Genelde yol yukarı sağ doğrudur.\n+ WP yi al.\n> The Catacombs\n2. gelişinde; sağa doğru devam et.\n> The Battlefront\nG,Görev itemını skiple."
+        },
+        {
+          "name": "The Catacombs",
+          "note": "+ Trial tamamla craftı al.\n- Logout\n> The Marketplace (wp ile)\nG,CRAFT - Ele Damage w/ Attack"
+        },
+        {
+          "name": "The Battlefront",
+          "note": "Yukarı git sonra sola dön.\n+ WP yi al. \n+ Solda Captain Aurelianus'u öldür ve görev itemını al.\nYukarı ve sola devam et.\n> The Docks\n2. gelişinde; Yukarı sola devam et. \n> The Solaris Temple Level 1"
+        },
+        {
+          "name": "The Docks",
+          "note": "Genelde soldan gidiliyor. \n+ Supply Container'ı aç ve görev itemını al.\n- Logout.\n< \"Victario's Secrets\" (Hargan)\n> The Battlefront (wp ile)"
+        },
+        {
+          "name": "The Solaris Temple Level 1",
+          "note": "Kırmızı halıyı takip et.\n> The Solaris Temple Level 2"
+        },
+        {
+          "name": "The Solaris Temple Level 2",
+          "note": "Kırmızı halıyı takip et.\n+ Lady Dialla ile konuş ödülü al.\n> The Sewers (bölgedeki wp ile)\nG,CRAFT - Cold damage"
+        },
+        {
+          "name": "The Ebony Barracks",
+          "note": "+ WP yi al.\nYukarı doğru devam et, kırmızı halının ordaki \n+ General Gravicius'u öldür.\nYukarı doğru devam et.\n> The Lunaris Temple Level 1\n2.gelişinde; Kırmızı çadırdan sağa doğru ilerle. \n> Imperial Gardens"
+        },
+        {
+          "name": "The Lunaris Temple Level 1",
+          "note": "Halıyı takip et.\n+ WP yi al.\n> The Lunaris Temple Level 2"
+        },
+        {
+          "name": "The Lunaris Temple Level 2",
+          "note": "Merdivenlerden yukarı çık.\n+ Tek araç olan tarafı seç devam et. \n+ Piety'i öldür. Görev itemini al.\n- Logout.\n< \"Piety's Pets\" (Grigor)\n> The Ebony Barracks (wp ile.)\nG,CRAFT - Lightning damage"
+        },
+        {
+          "name": "The Imperial Gardens",
+          "note": "Yolu takip et.\n+ WP yi al.\n+ Trial tamamla (wpnin sağında)\nWpnin yukarısında Library var(Gem Dükkanı)(İsteğe bağlı)\nWpden aşağıya doğru yolu takip et.\n> The Sceptre of God (kapıyı aç)\nG,CRAFT - All attributes"
+        },
+        {
+          "name": "The Library",
+          "note": "+ Wp yi al.\n> The Archive (loose candle)\n2. gelişinde;\n< \"A Fixture of Fate\" (Siosa)\n> Imperial Gardens (wp ile.)"
+        },
+        {
+          "name": "The Archives",
+          "note": "+ 4 Golden Pages i bul.\n- Logout.\nGem alıcaksan currency'nin yanında olması lazım.\n> The Library (wp ile)"
+        },
+        {
+          "name": "The Sceptre of God",
+          "note": "Merdivenlerden yukarıya doğru çık.\n> The Upper Sceptre of God"
+        },
+        {
+          "name": "The Upper Sceptre of God",
+          "note": "Merdivenlerden yukarı çık. Boss odasına geç.\n+ Dominus’u öldür. (act sonu)\n> The Aqueduct "
+        }
+      ]
+    },
+    {
+      "actid": 4,
+      "zones": [
+        {
+          "name": "The Dried Lake",
+          "note": "+ Voll'u öldür ve görev itemını al.\nG,CRAFT - Attack/Cast speed\n- Logout.\n+ Mines girişini tıklayıp aç.\n> The Mines Level 1"
+        },
+        {
+          "name": "The Mines Level 1",
+          "note": "Yukarı sola git.\n> The Mines Level 2"
+        },
+        {
+          "name": "The Mines Level 2",
+          "note": "+ Deshret’s Spirit'ı özgür bırak (haritada ünlem)\n> The Crystal Veins"
+        },
+        {
+          "name": "The Crystal Veins",
+          "note": "Aşağı daha sonra sol üstte ilerle.\n+ Wp yi al. (Towna gidip passive point alabilirsin.)\nG,CRAFT - Resistance\n> Daresso's Dream\n2. gelişinde;\n> Kaom's Dream\n3. gelişinde;\n+ Dialla ile konuş.\n> The Belly of the Beast Level 1"
+        },
+        {
+          "name": "Daresso's Dream",
+          "note": "Yukarı sağa ilerle.\n> The Grand Arena"
+        },
+        {
+          "name": "Kaom's Dream",
+          "note": "Sonuna kadar git.\n> Kaom's Stronghold"
+        },
+        {
+          "name": "The Grand Arena",
+          "note": "Wpden aşağı sonra sola git. 3 bossun olduğu odayı bul.\n+ Bossları öldür.\n> The Ring of Blades\n+ Daresso'yu öldür. Görev itemini al.\n- Logout.\n> The Crystal Veins(wp ile)"
+        },
+        {
+          "name": "Kaom's Stronghold",
+          "note": "> Caldera of the King\n+ Kaom'u öldür. Görev itemini lootla.\n- Logout.\n> The Crystal Veins(wp ile)"
+        },
+        {
+          "name": "The Belly of the Beast Level 1",
+          "note": "Yukarı solda çıkış.\n> The Belly of the Beast Level 2"
+        },
+        {
+          "name": "The Belly of the Beast Level 2",
+          "note": "Yukarı solda çıkış.\n> The Bowels of the Beast\n+ Piety'i öldür.(Beam'e dikkat! Etrafında dön.)\n+ Öldürkten sonra Piety ile konuş.\n> The Harvest\nG,CRAFT - Chaos damage"
+        },
+        {
+          "name": "The Harvest",
+          "note": "+ Wp yi al.\nBölgede 3 mini bossu öldürdükten sonra yol açılıyor.\n+ 3 Boossu öldür görev itemlarını al.\n- Logout.\n> The Harvest\n+ Piety ile konuş.\n> The Black Core\n+ Malachai'yi öldür.\n- Logout\n> The Ascent (sağ üst)"
+        },
+        {
+          "name": "The Ascent",
+          "note": "Yukarı sonra sağa git.\n+ Resanator'ü aktif et.(act sonu)\n> Oriath Portal\nG,CRAFT - Ailment, Stun and Curse Mitigation"
+        }
+      ]
+    },
+    {
+      "actid": 5,
+      "zones": [
+        {
+          "name": "The Control Blocks",
+          "note": "Yukarı sola git.\n+ Experimental supplies'ı bul. Miasmeter' i lootla.\nSağa git bossu bul.\n+ Justicar Casticus'u öldür. Görev itemını al.\nSağa devam et.\n> Oriath Square"
+        },
+        {
+          "name": "Oriath Square",
+          "note": "+ Wpyi al.\nYukarı sağ sonra aşağı ilerle.\n> Templar Courts Entrance"
+        },
+        {
+          "name": "The Templar Courts",
+          "note": "Saat yönünde bölgede daire çiz.\n> The Chamber of Innocence"
+        },
+        {
+          "name": "The Chamber of Innocence",
+          "note": "Yukarı sola git. Saat yönün tersine spiral şeklinde git.\n> The Sanctum of Innocence\n+ High Templar Avarius’u öldür.\n> The Chamber of Innocence\nWpnin yukarısına ilerle.\n> The Torched Courts\nG,CRAFT - Movement speed"
+        },
+        {
+          "name": "The Torched Courts",
+          "note": "Saat yönününün tersine bölgede daire çiz.\n> The Ruined Square"
+        },
+        {
+          "name": "The Ruined Square",
+          "note": "3 bölgeye geçiş var. İlk olarak yukarı solda wpyi aç.\n> The Ossuary (wpnin üst taradında)\n2. gelişinde;\n> The Reliquary (Sol en aşağıda)\n3. gelişinde; \n> The Cathedral Rooftop (Sol üst)"
+        },
+        {
+          "name": "The Ossuary",
+          "note": "Saat yönünde layout var.\n+ Görev itemını bul ve al.\n- Logout.\n> Ruined Square (wp ile)\nG,CRAFT - Physical damage"
+        },
+        {
+          "name": "The Reliquary",
+          "note": "3 köşeden görev itemı topla.\n- Logout.\n> Ruined Square (wp ile)\nG,CRAFT - Accuracy"
+        },
+        {
+          "name": "The Cathedral Rooftop",
+          "note": "Kitava'yı öldürmeden Lab yapabilirsin.\nSol üst tarafa ilerle.\n> The Cathedral Apex\n+ Kitava'yı öldür (act sonu)\n> Sail to Wraeclast"
+        }
+      ]
+    },
+    {
+      "actid": 6,
+      "zones": [
+        {
+          "name": "The Coast",
+          "note": "Sağ üste doğru git. \n> The Mud Flats"
+        },
+        {
+          "name": "The Tidal Island",
+          "note": "R,Zaman kazanmak için bu bölgeyi skiple."
+        },
+        {
+          "name": "The Mud Flats",
+          "note": "Yukarı veya sağa doğru git.\n+ Bossu öldür ve anahtarı al.\nBu anahtar ile sol tarafta bölge girişini aç.\n> The Karui Fortress"
+        },
+        {
+          "name": "The Karui Fortress",
+          "note": "Sağ taraftan git.\n> Tukohama's Keep\n+ Tukohama'yı öldür(Pantheon)\n> The Karui Fortress\nYukarı devam et.\n> The Ridge\nG,CRAFT - Defences"
+        },
+        {
+          "name": "The Ridge",
+          "note": "Sağ düz devam et, yol sonunda yukarı sola dön.\n> The Lower Prison"
+        },
+        {
+          "name": "The Lower Prison",
+          "note": "+ Trial tamamla.\n> Shavronne's Tower\nG,CRAFT - Double resistance"
+        },
+        {
+          "name": "Shavronne's Tower",
+          "note": "4 mini zone, merdivenler ile ilerle.\n> Prison Rooftop\n+ Shavronne and Brutus'u öldür(pantheon)\n> The Warden's Chambers\n> The Prisoner's Gate\nG,CRAFT - Spell damage"
+        },
+        {
+          "name": "Prisoner's Gate",
+          "note": "Aşağıya doğru ilerle.\n> Valley of the Fire Drinker\n+ Aberrath'ı öldür. (Pantheon)\nYolu takip et.\n> The Western Forest"
+        },
+        {
+          "name": "The Riverways",
+          "note": "Waypointi bulana kadar yolu takip et.\n+ Wpyi al.\n> The Wetlands (wp yukarısında.)\n2. gelişinde;\nWpden devam et.\n> The Southern Forest"
+        },
+        {
+          "name": "The Wetlands",
+          "note": "Yukarı sola ilerle.\n> The Spawning Ground\n+ Ryslatha'yı öldür(pantheon)\n- Logout.\n> The Riverways(wp ile)"
+        },
+        {
+          "name": "The Western Forest",
+          "note": "Yolu takip et.\n> The Riverways\nG,CRAFT - Attributes"
+        },
+        {
+          "name": "The Southern Forest",
+          "note": "Sağda duvarı takip ederek aşağıya in.\n+ Wpyi al.\n> The Cavern of Anger"
+        },
+        {
+          "name": "The Cavern of Anger",
+          "note": "+ Flag Chesti aç ve görev itemini al(girişte)\n> Passage\n2 layout. Ya sağa doğru git yada aşağı doğru git.\n> The Beacon"
+        },
+        {
+          "name": "The Beacon",
+          "note": "Kısayolu takip et.\n+ Taşlara eşlik et.\n+ Weylam ile konuş.\n> Sail to The Brine King's Reef\nG,CRAFT - Life/Mana"
+        },
+        {
+          "name": "The Brine King's Reef",
+          "note": "Yolu takip et.\n> The Brine King's Throne\n+ The Brine King'i öldür.(pantheon)\n+ Weylam ile konuş.\n> Sail to Act 7 (Act sonu)"
+        }
+      ]
+    },
+    {
+      "actid": 7,
+      "zones": [
+        {
+          "name": "The Crossroads",
+          "note": "Sola doğru git\n+ Waypointi al. (önemli)\nWpden aşağıya ilerle.\n> The Fellshrine Ruins(1)\n2. gelişinde;\nWpden yukarıya ilerle.\n> The Chamber of Sins Level 1(2)"
+        },
+        {
+          "name": "The Fellshrine Ruins",
+          "note": "Yolu takip edip aşağı sağa git. Sonrasında sağ üstte çık. \n> The Crypt"
+        },
+        {
+          "name": "The Crypt",
+          "note": "+ Trial tamamla. \nDaha sonra merdivenler ile ilerle.\n> The Crypt 2\n+ Addonu manual olarak Crypt 2'ye çevir.\nG,CRAFT - Damage over time"
+        },
+        {
+          "name": "The Chamber of Sins Level 1",
+          "note": "Bölgenin ortasına git.\n+ Wp yi al. \n+ Map device ile mapi aç.\n> Maligaro's Sanctum\nGeri döndüğünde; \n+ Silk ile konuşup anahtarları al.\nWpnin yakın olduğu yoldan devam et. \n> The Chamber of Sins Level 2\nG,CRAFT - Lightning damage"
+        },
+        {
+          "name": "Maligaro's Sanctum",
+          "note": "Köşeleri takip et, köprüyü geçip ilerle.\n> Maligaro's Workshop (boss alanı)\n+ Bossu öldürdürüp görev itemını al.\n+ Portal aç.\n> The Chamber of Sins Level 1"
+        },
+        {
+          "name": "The Chamber of Sins Level 2",
+          "note": "+ Trial tamamla. (sol tarafta)\nSağ üstte git.\n> The Den\nG,CRAFT - Mana regen"
+        },
+        {
+          "name": "The Den",
+          "note": "Düz layout.\n> The Ashen Fields"
+        },
+        {
+          "name": "The Ashen Fields",
+          "note": "Sol yolu takip et wp yakın.\n> The Fortress Encampment\n+ Greustu öldür.\n> The Northern Forest"
+        },
+        {
+          "name": "The Northern Forest",
+          "note": "+ Wp yi al.\nYukarı sol köşeyi takip ederek ilerle\n> The Dread Thicket(1)\n2. gelişinde; \nSağ üstte çık.\n> The Causeway(2)"
+        },
+        {
+          "name": "The Dread Thicket",
+          "note": "+ Tüm Firefly ları topla.\n> The Den Despair (boss alanı)\n+ Gruthkul'u öldür (passive)\n- Logout.\n> The Northern Forest (wp ile)\nG,CRAFT - Fire damage"
+        },
+        {
+          "name": "The Causeway",
+          "note": "Yukarı sağa git. \n+ Bölgeden çıkmadan önce Kishara’s Lockbox'ı lootla.\n> The Vaal City\nG,CRAFT - Cold damage"
+        },
+        {
+          "name": "The Vaal City",
+          "note": "Kalın duvarları takip et. \n+ Wpyi açıp Yeena ile konuş.\n> The Temple of Decay"
+        },
+        {
+          "name": "The Temple of Decay Level 1",
+          "note": "Oldukça uzun layout merdivenler ile boss alanına kadar ulaş.\n> The Temple of Decay Level 2\n> Arakaali's Web\n+ Arakaali yi öldür.(pantheon)\n> The Sarn Ramparts (act sonu)\nG,CRAFT - Accuracy"
+        }
+      ]
+    },
+    {
+      "actid": 8,
+      "zones": [
+        {
+          "name": "The Toxic Conduits",
+          "note": "Yerdeki siyah mürekkep izlerinin olduğu yoldan ilerle.\n> Doedre's Cesspool"
+        },
+        {
+          "name": "Doedre's Cesspool",
+          "note": "> The Cauldron (Loose Crate'i aç)\n+ Doedre the Vile'i öldür.\n+ Wpyi al 2 bölgeye geçiş var.\n> The Grand Promenade (wpnin solundan)\n2. gelişinde;\n> The Quay (wpnin sağından)\nG,CRAFT - Resistance"
+        },
+        {
+          "name": "The Grand Promenade",
+          "note": "Sağ duvarı takip et. \n> The Bath House"
+        },
+        {
+          "name": "The Bath House",
+          "note": "+ Wpyi al.\nAşağı , sağa sonra yukarı çık.\n+ Hector'u öldür. Chestten itemı al (bölgenin ortasında)\n+ Trial tamamla (yukarı sağ veya sol)\n> The High Gardens (yukarı sağ veya sol)\n2. gelişinde;\nSağ alta ilerle.\n> The Lunaris Concourse\nG,CRAFT - Flask duration"
+        },
+        {
+          "name": "The High Gardens",
+          "note": "> The Pool of Terror (boss alanı)\n+ Yugul'u öldür(pantheon)\n- Logout.\n> Bath House (wp ile)"
+        },
+        {
+          "name": "The Lunaris Concourse",
+          "note": "Merdivenlerden yukarıya doğru çık.\n+ Wp yi al. \nYukarıya doğru devam et\n> The Lunaris Temple Level 1\n2. gelişinde; \nWpden aşağıya in.\n> The Harbour Bridge"
+        },
+        {
+          "name": "The Lunaris Temple Level 1",
+          "note": "Halıları takip et.\n> The Lunaris Temple Level 2"
+        },
+        {
+          "name": "The Lunaris Temple Level 2",
+          "note": "Merdivenlerden yukarı çık. \n+ Yolun tek araba olan tarafından ilerle. \nBoss alanına ulaş. \n+ Dusk'u öldür. Moon Orbu al.\n- Logout\n> The Toxic Conduits (wp ile)\nG,CRAFT - Minions"
+        },
+        {
+          "name": "The Quay",
+          "note": "Bölgenin solundan aşağı ilerle.\n+ Görev itemını bul.(1)\nSol alta ilerle.\n> Resurrection Site (2)(item gerekli)\n+ Zombies'i öldür.\nGeri dön sağ üstte ilerle.\n> The Grain Gate (3)"
+        },
+        {
+          "name": "The Grain Gate",
+          "note": "+ Gemling Legionnaireyi bul ve öldür.(passive)\n> The Imperial Fields"
+        },
+        {
+          "name": "The Imperial Fields",
+          "note": "Yolu takip et wpyi aldıktan sonra yolu takip etmeye devam et. \n> The Solaris Temple Level 1"
+        },
+        {
+          "name": "The Solaris Concourse",
+          "note": "Halıları takip edip. Harbour Bridge'e gir."
+        },
+        {
+          "name": "The Solaris Temple Level 1",
+          "note": "Sola sonra yukarı ilerle.\n+ Wpyi al wp tarafından devam et. \n> The Solaris Temple Level 2"
+        },
+        {
+          "name": "The Solaris Temple Level 2",
+          "note": "Halıları takip et. Boss alanını bul.\n+ Dawn'ı öldür. Sun Orbu al.\n- Logout.\n> The Lunaris Concourse (wp ile)\nG,CRAFT - Traps and mines"
+        },
+        {
+          "name": "The Harbour Bridge",
+          "note": "Bölgenin ortasında boss arenası var.\n> The Sky Shrine\n+ Solaris ve Lunaris'i öldür(pantheon)\n> The Blood Aqueduct (act sonu)"
+        }
+      ]
+    },
+    {
+      "actid": 9,
+      "zones": [
+        {
+          "name": "The Descent",
+          "note": "> Supply Hoist\n> Supply Hoist\n> The Vastiri Desert"
+        },
+        {
+          "name": "The Vastiri Desert",
+          "note": "Sağa doğru ilerle \n+ Wp yi aç.(bölgenin ortasında)\nWpden sağa doğru git kum fırtınasını bul. \n+ Portal ile dönüp Sin den görev itemini al.\n> Vastiri Desert (portal ile geri dön)\n> The Oasis\n2. gelişinde;\nYukarı doğru git.\n> The Foothills\nG,CRAFT - Attack/Cast speed"
+        },
+        {
+          "name": "The Oasis",
+          "note": "> The Sand Pit (boss odası)\n+ Shakari'yi öldür(Pantheon)\n- Logout.\n> The Vastiri Desert (wp ile)"
+        },
+        {
+          "name": "The Foothills",
+          "note": "Yukarı sağa ilerle.\n+ Wpyi aç.\n> The Boiling Lake (wpnin sağında)\n2. gelişinde; \nSol yukarıya ilerle.\n> The Tunnel"
+        },
+        {
+          "name": "The Boiling Lake",
+          "note": "Bölgenin yukarısına git.\nTaştan heykellerin olduğu yerde boss.\n+ The Basilisk'i öldür. Görev itemını al.\n- Logout.\n> The Foothills\nG,CRAFT - Spell damage"
+        },
+        {
+          "name": "The Tunnel",
+          "note": "+ Trial tamamla(yol üzerinde)\n+ Wp yi al.\n> The Quarry (yukarıda)\nG,CRAFT - All attributes"
+        },
+        {
+          "name": "The Quarry",
+          "note": "+ Wpyi aç (bölgenin ortasında) \nSol aşağıya ilerle.\n> Shrine of The Winds(2)\n+ Garukhan'ı öldür(Pantheon)(passive)\n- Logout.\n> The Quarry(wp ile)\nSağ yukarıya doğru ilerle.\n> The Refinery\nSon gelişinde;\nSinle konuşup wp yanındaki girişi aç.\n> The Belly of the Beast\nG,CRAFT - Physical damage"
+        },
+        {
+          "name": "The Refinery",
+          "note": "Sağ üste ilerle(yerdeki yolları takip edebilirsin.)\n+ General Adus'u öldür.\n+ Açılan kapıdan görev itemini al.\n- Logout.\n> The Quarry (wp ile)"
+        },
+        {
+          "name": "The Belly of the Beast",
+          "note": "> The Rotting Core"
+        },
+        {
+          "name": "The Rotting Core",
+          "note": "Yukarı sola ilerle.\n> The Black Heart\n+ 3 portaldanda girip bosslarını kes ve geri dön.\nSon olarak Sin ile konuşup ortayı aç.\n> The Black Heart\n+ The Depraved Trinity'i öldür.\n+ Lilly ile konuş\n> Sail back to Oriath (act sonu)\n> Cathedral Rooftop"
+        }
+      ]
+    }
+  ],
+  "identity": {
+    "game_version": 3.16,
+    "class": "Templar",
+    "name": "Turkish",
+    "lang": "tr"
+  }
+}

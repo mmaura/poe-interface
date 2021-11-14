@@ -1,6 +1,7 @@
 {
   "identity": {
-    "name": "base"
+    "name": "base",
+    "webAssetPath": "images/zones/"
   },
   "acts": [
     {
@@ -15,9 +16,7 @@
           "name": "The Twilight Strand",
           "quest": "Enemy at the Gate",
           "questRewardsSkills": true,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -41,9 +40,7 @@
           "name": "The Tidal Island",
           "quest": "Mercy Mission",
           "questRewardsSkills": true,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -66,9 +63,7 @@
           "name": "The Fetid Pool",
           "quest": "A Dirty Job",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -106,9 +101,7 @@
           "name": "The Ledge",
           "quest": "none",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -192,9 +185,7 @@
           "name": "The Ship Graveyard Cave",
           "quest": "The Marooned Mariner",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -237,9 +228,7 @@
           "name": "The Southern Forest",
           "quest": "none",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -249,9 +238,7 @@
           "name": "The Old Fields",
           "quest": "none",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -261,9 +248,7 @@
           "name": "The Den",
           "quest": "The Great White Beast",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -273,9 +258,7 @@
           "name": "The Riverways",
           "quest": "none",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -285,9 +268,7 @@
           "name": "The Crossroads",
           "quest": "none",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -323,9 +304,7 @@
           "name": "The Broken Bridge",
           "quest": "Deal with the Bandits",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -335,9 +314,7 @@
           "name": "The Fellshrine Ruins",
           "quest": "none",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -347,9 +324,7 @@
           "name": "The Crypt Level 1",
           "quest": "Through Sacred Ground",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -359,9 +334,7 @@
           "name": "The Crypt Level 2",
           "quest": "Through Sacred Ground",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -371,9 +344,7 @@
           "name": "The Western Forest",
           "quest": "Deal with the Bandits",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -425,9 +396,7 @@
           "name": "The Northern Forest",
           "quest": "none",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -437,9 +406,7 @@
           "name": "The Dread Thicket",
           "quest": "none",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": true,
@@ -477,9 +444,7 @@
             ],
             "tooltip": "Spell Damage - Rank 1"
           },
-          "image": [
-            "none"
-          ]
+          "image": []
         }
       ]
     },
@@ -495,9 +460,7 @@
           "name": "The City of Sarn",
           "quest": "none",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -595,9 +558,7 @@
             ],
             "tooltip": "Elemental Damage with Attacks - Rank 1"
           },
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -746,9 +707,7 @@
           "name": "The Library",
           "quest": "A Fixture of Fate",
           "questRewardsSkills": true,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -758,9 +717,7 @@
           "name": "The Archives",
           "quest": "A Fixture of Fate",
           "questRewardsSkills": true,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -770,9 +727,7 @@
           "name": "The Sceptre of God",
           "quest": "Sceptre of God",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -782,9 +737,7 @@
           "name": "The Upper Sceptre of God",
           "quest": "Sceptre of God",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         }
       ]
     },
@@ -800,9 +753,7 @@
           "name": "The Aqueduct",
           "quest": "none",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": true,
@@ -887,9 +838,7 @@
           "name": "Daresso's Dream",
           "quest": "The King of Desire",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -899,9 +848,7 @@
           "name": "The Grand Arena",
           "quest": "The King of Desire",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -1143,9 +1090,7 @@
           "name": "The Cathedral Rooftop",
           "quest": "The Ravenous God",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         }
       ]
     },
@@ -1161,9 +1106,7 @@
           "name": "The Twilight Strand",
           "quest": "Fallen from Grace",
           "questRewardsSkills": true,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -1187,9 +1130,7 @@
           "name": "The Tidal Island",
           "quest": "Bestel's Epic",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -1281,9 +1222,7 @@
             ],
             "tooltip": "Spell Damage - Rank 2"
           },
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -1315,9 +1254,7 @@
             ],
             "tooltip": "Attributes - Rank 3"
           },
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -1339,9 +1276,7 @@
           "name": "The Wetlands",
           "quest": "The Puppet Mistress",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -1351,9 +1286,7 @@
           "name": "The Southern Forest",
           "quest": "none",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -1383,9 +1316,7 @@
             ],
             "tooltip": "Life and Mana - Rank 2"
           },
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -1414,9 +1345,7 @@
           "name": "The Broken Bridge",
           "quest": "The Silver Locket",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -1438,9 +1367,7 @@
           "name": "The Fellshrine Ruins",
           "quest": "none",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": true,
@@ -1515,9 +1442,7 @@
           "name": "Maligaro's Sanctum",
           "quest": "none",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -1542,9 +1467,7 @@
           "name": "The Ashen Fields",
           "quest": "The Master of a Million Faces",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -1554,9 +1477,7 @@
           "name": "The Northern Forest",
           "quest": "In Memory of Greust",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": true,
@@ -1579,9 +1500,7 @@
             ],
             "tooltip": "Fire Damage - Rank 2"
           },
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": true,
@@ -1604,9 +1523,7 @@
             ],
             "tooltip": "Cold Damage - Rank 2"
           },
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -1628,9 +1545,7 @@
           "name": "The Temple of Decay Level 1",
           "quest": "The Mother of Spiders",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": true,
@@ -1647,9 +1562,7 @@
             ],
             "tooltip": "Accuracy - Rank 2"
           },
-          "image": [
-            "none"
-          ]
+          "image": []
         }
       ]
     },
@@ -1665,9 +1578,7 @@
           "name": "The Sarn Ramparts",
           "quest": "none",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -1712,9 +1623,7 @@
           "name": "The Grand Promenade",
           "quest": "none",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -1750,9 +1659,7 @@
           "name": "The Imperial Fields",
           "quest": "none",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -1795,9 +1702,7 @@
           "name": "The Solaris Concourse",
           "quest": "none",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": true,
@@ -1826,9 +1731,7 @@
           "name": "The High Gardens",
           "quest": "Reflection of Terror",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -1887,9 +1790,7 @@
           "name": "The Harbour Bridge",
           "quest": "none",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         }
       ]
     },
@@ -1905,9 +1806,7 @@
           "name": "The Blood Aqueduct",
           "quest": "none",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -1981,9 +1880,7 @@
             ],
             "tooltip": "Spell Damage - Rank 3"
           },
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": true,
@@ -2059,9 +1956,7 @@
           "name": "The Rotting Core",
           "quest": "Recurring Nightmare",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         }
       ]
     },
@@ -2077,9 +1972,7 @@
           "name": "The Cathedral Rooftop",
           "quest": "Safe Passage",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -2132,9 +2025,7 @@
           "name": "The Control Blocks",
           "quest": "Vilenta's Vengeance",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": true,
@@ -2153,9 +2044,7 @@
             ],
             "tooltip": "Chaos Damage - Rank 2"
           },
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -2165,9 +2054,7 @@
           "name": "The Reliquary",
           "quest": "Map to Tsoatha",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": false,
@@ -2177,9 +2064,7 @@
           "name": "The Canals",
           "quest": "",
           "questRewardsSkills": false,
-          "image": [
-            "none"
-          ]
+          "image": []
         },
         {
           "hasRecipe": true,
@@ -2203,9 +2088,7 @@
             ],
             "tooltip": "Defences - Rank 2"
           },
-          "image": [
-            "none"
-          ]
+          "image": []
         }
       ]
     },
@@ -2227,9 +2110,46 @@
             ],
             "tooltip": "Movement Speed - Rank 3"
           },
-          "image": [
-            "none"
-          ]
+          "image": []
+        },
+        {
+          "hasRecipe": false,
+          "hasWaypoint": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 68,
+          "name": "The Templar Laboratory",
+          "quest": "",
+          "questRewardsSkills": false,
+          "recipe": {
+          },
+          "image": []
+        },
+        {
+          "hasRecipe": false,
+          "hasWaypoint": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 68,
+          "name": "The Fallen Courts",
+          "quest": "",
+          "questRewardsSkills": false,
+          "recipe": {
+          },
+          "image": []
+        },
+        {
+          "hasRecipe": false,
+          "hasWaypoint": false,
+          "haspassive": false,
+          "hastrial": false,
+          "level": 68,
+          "name": "The Haunted Reliquary",
+          "quest": "",
+          "questRewardsSkills": false,
+          "recipe": {
+          },
+          "image": []
         }
       ]
     }

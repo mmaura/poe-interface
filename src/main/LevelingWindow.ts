@@ -8,7 +8,7 @@ import Store from "electron-store"
 import PathOfExileLog from "poe-log-monitor"
 import merge from 'lodash.merge'
 
-import { getAssetPath, extractActsBaseGuide, extractActsCustomGuide, getAbsCustomPath, MyLogger, } from "../modules/functions"
+import { getAssetPath, extractActsBaseGuide, extractActsCustomGuide, getAbsCustomPath, MyLogger } from "../modules/functions"
 
 import { ClassesGuides } from "../modules/ClassesGuides"
 import { JsonFile } from "../modules/JsonFile"
@@ -132,11 +132,11 @@ export class LevelingWindow {
               console.log(result)
             })
             break
-            case "identity":
-              MyLogger.log('debug', `saveClassGuide: identity`)
-              this.ClassGuides.SaveIdentity(arg[2])
-              this.makeMenus()
-              break
+          case "identity":
+            MyLogger.log('debug', `saveClassGuide: identity`)
+            this.ClassGuides.SaveIdentity(arg[2])
+            this.makeMenus()
+            break
         }
           break
       }
@@ -178,10 +178,6 @@ export class LevelingWindow {
       this._Window.webContents.send("levelingRenderer", ["actsGuide", MergedActGuide])
       this._AppStore.set("curActsGuide", guide.identity.filename)
       this.makeMenus()
-    }))
-
-    this.ActsGuides.on("Log", ((msg, level) => {
-      // LogMessage(msg, level)
     }))
   }
 
@@ -325,18 +321,7 @@ export class LevelingWindow {
       {
         label: "acts guides",
         id: "actsGuide",
-        submenu: [
-          {
-            label: "Duplicate current guide",
-            click: () => {
-              this.ActsGuides.DuplicateGuide().then(guide => {
-                this.ActsGuides.Init(guide)
-              })
-            },
-          },
-          { type: "separator" },
-
-        ],
+        submenu: [],
       },
       {
         label: "helpers",
@@ -403,13 +388,15 @@ export class LevelingWindow {
               console.log("extract guide")
               extractActsBaseGuide()
             }
-          }, {
+          },
+          {
             label: `extract actCustomGuide`,
             click: () => {
               console.log("extract guide")
               extractActsCustomGuide()
             }
-          }]
+          },
+]
         })
       this._Menu.append(_menu)
     }

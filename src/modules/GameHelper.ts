@@ -25,7 +25,6 @@ export class GameHelpers extends DataLoader {
                 .catch(e => {
                     MyLogger.log('info', `No custom helpers in ${this.getAbsCustomPath()}`)
                     MyLogger.log('info', `${e}`)
-
                 }),
         ])
     }

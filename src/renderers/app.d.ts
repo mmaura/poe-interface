@@ -46,20 +46,20 @@ declare global {
   }
 
   export interface IAct {
-    act: string
+    act?: string
     actid: number
     zones: IZone[]
   }
 
   export interface IZone {
     hastrial?: boolean
-    image: string[]
+    image?: string[]
     note: string
     level?: number
     name: string
     haspassive?: boolean
     questRewardsSkills?: boolean
-    altimage: string
+    altimage?: string
     quest?: string
     hasRecipe?: boolean
     hasWaypoint?: boolean

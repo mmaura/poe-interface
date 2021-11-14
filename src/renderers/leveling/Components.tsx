@@ -176,7 +176,7 @@ export function Navigation(props: {
         <div className="p-0 flex flex-row flex-wrap h-full ">
           {curZone.image && curZone.image[0] !== "none"
             ? curZone.image.map(val => {
-              const path = `${actsGuideIdent.webAssetPath}/zones/${curAct.act}/${val}.png`
+              const path = `images/zones/${curAct.actid}/${val}.png`
               return <img key={path} className="w-32" src={path} />
             })
             : null}

@@ -4,6 +4,7 @@ Companion to POE
 ![alt](https://raw.githubusercontent.com/mmaura/poe-interface/main/docs/screen_1.png)
 
 This is not another overlay. It's make to be on the second screen. It is done and will **remain compatible with linux**.
+If you prefer Overlay application you probably want [PoE-Leveling-Guide](https://github.com/JusKillmeQik/PoE-Leveling-Guide).
 
 ## Features
 ### Leveling guide
@@ -39,6 +40,9 @@ https://github.com/klayveR/poe-log-monitor
 https://github.com/klayveR/poe-api-wrappers
 
 ### Others resources
+
+https://github.com/JusKillmeQik/PoE-Leveling-Guide
+
 https://github.com/karakasis/Path-of-Leveling/tree/master/json
 
 https://github.com/brather1ng/RePoE

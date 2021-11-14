@@ -8,22 +8,46 @@ import { JsonFile } from "./JsonFile"
 import winston from "winston"
 
 
+export const Lang = app.getLocaleCountryCode().toLowerCase()
+
+const myCustomLevels = {
+  levels: {
+    parseGuide: 0,
+    importGuide: 1,
+    info: 2,
+    debug: 3,
+    error: 4
+  },
+  colors: {
+    parseGuide: 'blue',
+    importGuide: 'green',
+    info: 'yellow',
+    debug: 'orange',
+    error: 'red'
+  }
+};
+
 export const MyLogger = winston.createLogger({
+  levels: myCustomLevels.levels,
   transports: [
-    new winston.transports.File({ filename: path.join(getLocalCustomPath(), "log.txt") }),
-    new winston.transports.Console(),
-    ]
+    new winston.transports.File({ filename: path.join(getLocalCustomPath(), "log.log") }),
+    new winston.transports.File({ filename: path.join(getLocalCustomPath(), 'error.log'), level: 'error' }),
+    new winston.transports.File({ filename: path.join(getLocalCustomPath(), 'info.log'), level: 'info' }),
+    new winston.transports.File({ filename: path.join(getLocalCustomPath(), 'import.log'), level: 'importGuide' }),
+    new winston.transports.File({ filename: path.join(getLocalCustomPath(), 'guides.log'), level: 'parseGuide' }),
+    // new winston.transports.Console(),
+  ]
 })
 
 MyLogger.log('info', 'starting')
+MyLogger.log('error', 'starting')
+MyLogger.log('error', `detected OS lang : ${Lang}`)
 
 export function findGem(name: string): IGems {
   return InitialGems.find(e => {
     return e.name === name
   })
 }
-
-
 
 export function getAssetPath(): string {
   const _AssetPath = app.isPackaged
@@ -40,8 +64,6 @@ export function getAssetPath(): string {
 export function getLocalCustomPath(): string {
   return path.join(app.getPath("userData"), "custom")
 }
-
-
 
 /**
  * Dev utils
@@ -182,14 +204,66 @@ export function getCustomWebBaseName(): string {
 
 }
 
-// export function debugMsg(msg: string): void {
-//   if (!app.isPackaged) {
-//     console.log(`=> ${msg}`)
-//   }
-// }
+// export function ImportPOELevelingGuide(buildPath: string): void {
+//   const dirs = fs.readdirSync(buildPath, { withFileTypes: true })
+//   const ActGuide = {} as IActsGuide
+//   ActGuide.acts = []
 
-// export function errorMsg(msg: string): void {
-//   const _msg = `${msg}`
-//   debugMsg(_msg)
-//   throw new Error(_msg);
+//   const match = buildPath.split(path.sep)[buildPath.split(path.sep).length - 1].match(/([0-9]\.[0-9]{2})\s(\w+)\s(\w+)/)
+//   MyLogger.log('importGuide', `Identity match in folder name: (${match} )`)
+
+//   try {
+//     ActGuide.identity = { game_version: Number(match[1]), class: match[2], name: match[3], lang: 'en' }
+//     MyLogger.log('importGuide', `for guide : (${ActGuide.identity.game_version} - ${ActGuide.identity.class} - ${ActGuide.identity.name} - ${ActGuide.identity.lang})`)
+//   }
+//   catch {
+//     MyLogger.log('importGuide', `unable to find name, or class, or version, defaulting..`)
+//     ActGuide.identity = { game_version: 3.16, class: "Templar", name: Date.now().toString(), lang: 'en' }
+//     MyLogger.log('importGuide', `for guide : (${ActGuide.identity.game_version} - ${ActGuide.identity.class} - ${ActGuide.identity.name} )`)
+//   }
+
+//   if (dirs) {
+//     dirs.forEach(file => {
+//       if (file.isDirectory()) {
+//         try {
+//           const [, act] = file.name.match(/Act\s([0-9]*)/)
+
+//           if (act) {
+//             const Zones = [] as IZone[]
+
+//             MyLogger.log('importGuide', `|-act:${act}->(${path.join(buildPath, file.name)})`)
+//             const dirss = fs.readdirSync(path.join(buildPath, file.name), { withFileTypes: true })
+//             if (dirss) {
+//               dirss.forEach(f => {
+//                 if (f.isFile()) {
+//                   if (f.name === 'notes.txt') {
+//                     MyLogger.log('importGuide', `|----notes->(${path.join(buildPath, file.name, f.name)})`)
+//                     const data = fs.readFileSync(path.join(buildPath, file.name, f.name))
+//                     const content = `${data.toLocaleString()}\n\n`
+//                     const zones = content.matchAll(/^zone:(.*?)\n(.*?)(.*?)\n\n/msg)
+//                     if (zones) {
+//                       try {
+//                         for (const zone of zones) {
+//                           MyLogger.log('importGuide', `|---------Zone->(${zone[1]})`)
+//                           Zones.push({ name: zone[1], note: zone[3] })
+//                         }
+//                       }
+//                       catch (e) {
+//                         MyLogger.log('importGuide', `|-------////---> Error when try to iterate (${zones})`)
+//                       }
+//                     }
+//                   }
+//                 }
+//               })
+//             }
+//             ActGuide.acts.push({ actid: Number(act), zones: Zones })
+//           }
+//         }
+//         catch(e){
+//           MyLogger.log('importGuide', `|-////->(${path.join(buildPath, file.name)})`)
+
+//         }
+//       }
+//     })
+//   }
 // }

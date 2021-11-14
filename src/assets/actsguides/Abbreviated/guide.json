@@ -1,0 +1,593 @@
+{
+  "acts": [
+    {
+      "actid": 1,
+      "zones": [
+        {
+          "name": "The Coast",
+          "note": "+ Get WP\n> The Mud Flats\n> Tidal Island"
+        },
+        {
+          "name": "The Tidal Island",
+          "note": "+ Kill Hailrake\n- Logout\n< \"Mercy Mission\" (Nessa)\n> Submerged Passage"
+        },
+        {
+          "name": "The Mud Flats",
+          "note": "+ Find 3 eggs (use rivers to find next egg)\n> The Submerged Passage"
+        },
+        {
+          "name": "The Fetid Pool",
+          "note": "+ Kill everything\n< \"A Dirty Job\""
+        },
+        {
+          "name": "The Submerged Passage",
+          "note": "+ Get WP\n> The Coast\n> The Flooded Depths\n+ Kill The Dweller of the Deep\n< \"The Dweller of the Deep\" (Tarkleigh)\n> The Ledge"
+        },
+        {
+          "name": "The Flooded Depths",
+          "note": "+ Kill The Dweller of the Deep\n- Logout\n< \"The Dweller of the Deep\" (Tarkleigh)\n> Submerged Passage"
+        },
+        {
+          "name": "The Ledge",
+          "note": "+ Get WP\n> The Climb"
+        },
+        {
+          "name": "The Climb",
+          "note": "+ Get WP\n> Lower Prison"
+        },
+        {
+          "name": "The Lower Prison",
+          "note": "+ Get WP\n+ Complete lab\n> The Upper Prison"
+        },
+        {
+          "name": "The Upper Prison",
+          "note": "> The Warden's Quarters\n> The Warden's Chambers\n+ Kill Brutus\n- Logout\n< \"The Caged Brute\" (Tarkleigh)\n> Prisoners Gate"
+        },
+        {
+          "name": "Prisoner's Gate",
+          "note": "> The Ship Graveyard"
+        },
+        {
+          "name": "The Ship Graveyard",
+          "note": "+ Get WP\n> Ship Graveyard Cave\n+ Get Allflame\n> Ship Graveyard\n> Cavern of Wrath\n+ Kill Fairgraves\n- Logout\n< \"The Marooned Mariner\" (Bestel)\n> Cavern of Wrath"
+        },
+        {
+          "name": "The Cavern of Wrath",
+          "note": "+ Get WP\n> TP to Ship Graveyard\n> The Cavern of Anger"
+        },
+        {
+          "name": "The Cavern of Anger",
+          "note": "> Merveil's Lair\n+ Kill Mervel\n> The Southern Forest\n> The Forest Encampment"
+        }
+      ]
+    },
+    {
+      "actid": 10,
+      "zones": [
+        {
+          "name": "The Ravaged Square",
+          "note": "+ Get WP (north)\n> The Torched Courts (north east)\n~~~~\n> The Ossuary\n~~~~\n+ Talk to Innocence\n> The Canals"
+        },
+        {
+          "name": "The Control Blocks",
+          "note": "> Arena\n+ Kill Vilenta\n< \"Vilenta's Vengeance\" (Lani)\n> Town\n> Ravaged Square"
+        },
+        {
+          "name": "The Ossuary",
+          "note": "> The Bone Pits\n+ Complete lab\n> Town\n> Ravaged Square\n> The Control Blocks (south)"
+        },
+        {
+          "name": "The Torched Courts",
+          "note": "> The Desecrated Chambers"
+        },
+        {
+          "name": "The Desecrated Chambers",
+          "note": "+ Get WP\n> Sanctum of Innocence\n+ Kill Avarius\n> Town\n< \"Safe Passage\" (Lani) and \"Death and Rebirth\" (Bannon)\n> Ravaged Square"
+        },
+        {
+          "name": "The Reliquary",
+          "note": "+ Find the Teardrop\n< \"Map to Tsoatha\""
+        },
+        {
+          "name": "The Canals",
+          "note": "> The Feeding Trough"
+        },
+        {
+          "name": "The Feeding Trough",
+          "note": "+ Talk to Sin\n> Altar of Hunger\n+ Kill Kitava\n< \"An End to Hunger\" (Lani)\n~~~~\nGG - Campaign done!"
+        }
+      ]
+    },
+    {
+      "actid": 11,
+      "zones": [
+        {
+          "name": "The Fallen Courts",
+          "note": "+ Pick up the Key\n> Oriath\n> The Haunted Reliquary"
+        },
+        {
+          "name": "The Haunted Reliquary",
+          "note": "+ Open the Vault\n> Hideout\n+ Talk to Kirac"
+        }
+      ]
+    },
+    {
+      "actid": 2,
+      "zones": [
+        {
+          "name": "The Old Fields",
+          "note": "> The Crossroads (Follow the road)"
+        },
+        {
+          "name": "The Den",
+          "note": "+ Kill the white bear\n< \"The Great White Beast\""
+        },
+        {
+          "name": "The Crossroads",
+          "note": "+ Get WP\n> The Broken Bridge (NE)\n> The Felshrine Ruins (SE)\n> The Chamber of Sins Level 1 (NW)"
+        },
+        {
+          "name": "The Chamber of Sins Level 1",
+          "note": "+ Get WP\n> The Chamber of Sins Level 2"
+        },
+        {
+          "name": "The Chamber of Sins Level 2",
+          "note": "+ Complete lab\n+ Kill Fidelitas (take Baleful Gem)\n+ Take to Helena\n- Logout\n< \"Intruders in Black\" (Greust)\n> The Riverways"
+        },
+        {
+          "name": "The Broken Bridge",
+          "note": "+ Kill Kraityn\n> Crossroads"
+        },
+        {
+          "name": "The Fellshrine Ruins",
+          "note": "> The Crypt"
+        },
+        {
+          "name": "The Crypt Level 1",
+          "note": "+ Get WP\n+ Complete Trial\n> Crossroads"
+        },
+        {
+          "name": "The Riverways",
+          "note": "+ Get WP\n> The Western Forest (SW)\n~~~~\n> The Wetlands (NW)"
+        },
+        {
+          "name": "The Western Forest",
+          "note": "+ Get WP\n+ Kill Blackguards and open the Blocked Pass (SW)\n> Town Act 1\n< \"The Way Forward\" (Bestel)\n> Western Forest\n+ Kill Alira\n> Weaver's Chambers"
+        },
+        {
+          "name": "The Weaver's Chambers",
+          "note": "> Weaver's Nest\n+ Kill The Weaver and take Maligaro's Spike\n< \"Sharp and Cruel\" (Silk)\n> The Riverways"
+        },
+        {
+          "name": "The Wetlands",
+          "note": "+ Kill Oak\n+ Get WP\n< \"Deal with the Bandits\" (Eramir)\n> The Wetlands\n> The Vaal Ruins (poison the tree roots)"
+        },
+        {
+          "name": "The Vaal Ruins",
+          "note": "+ Break the Seal\n> The Northern Forest"
+        },
+        {
+          "name": "The Northern Forest",
+          "note": "+ Get WP\n> The Caverns (top right, follow shoreline)"
+        },
+        {
+          "name": "The Dread Thicket",
+          "note": "This zone should be skipped to save time"
+        },
+        {
+          "name": "The Caverns",
+          "note": "+ Get WP\n> The Ancient Pyramid"
+        },
+        {
+          "name": "The Ancient Pyramid",
+          "note": "> Pyramid Apex\n+ Kill Vaal Oversoul\n> The City of Sarn"
+        }
+      ]
+    },
+    {
+      "actid": 3,
+      "zones": [
+        {
+          "name": "The Slums",
+          "note": "> The Crematorium\n~~~~\n+ Find Sewer Crating\n> The Slum Sewer"
+        },
+        {
+          "name": "The Crematorium",
+          "note": "+ Get WP\n+ Complete trial\n+ Kill Piety and take Tolman's Bracelet\n- Logout\n< \"Lost in Love\" (Clarissa)\n> The Slum"
+        },
+        {
+          "name": "The Sewers",
+          "note": "+ Find 1 Platinum Bust\n+ Get WP\n+ Find 2 more Platinum Busts\n> The Marketplace\n~~~~\n+ Use Infernal Talc on Undying Passage\n> The Ebony Barracks"
+        },
+        {
+          "name": "The Marketplace",
+          "note": "+ Get WP\n> The Catacombs\n~~~~\n> The Battlefront"
+        },
+        {
+          "name": "The Catacombs",
+          "note": "+ Complete lab\n> Marketplace"
+        },
+        {
+          "name": "The Battlefront",
+          "note": "+ Get WP\n+ Kill Captain Aurelianus, open Blackguard Chest and take Ribbon Spool\n> The Solaris Temple Level 1+\n~~~~\n> The Docks"
+        },
+        {
+          "name": "The Docks",
+          "note": "+ Open Supply Container and take Thaumetic Sulphate\n< \"Victario's Secrets\" (Hargan)\n> The Solaris Temple Level 2"
+        },
+        {
+          "name": "The Solaris Temple Level 1",
+          "note": "> The Solaris Temple Level 2"
+        },
+        {
+          "name": "The Solaris Temple Level 2",
+          "note": "+ Get WP\n> The Battlefront\n~~~~\n+ Talk to Lady Dialla\n> The Sewers"
+        },
+        {
+          "name": "The Ebony Barracks",
+          "note": "+ Get WP\n> The Lunaris Temple Level 1\n~~~~\n> The Imperial Gardens"
+        },
+        {
+          "name": "The Lunaris Temple Level 1",
+          "note": "+ Get WP\n> The Lunaris Temple Level 2"
+        },
+        {
+          "name": "The Lunaris Temple Level 2",
+          "note": "+ Kill Piety\n< \"Piety's Pets\" (Grigor)\n> The Ebony Barracks"
+        },
+        {
+          "name": "The Imperial Gardens",
+          "note": "+ Get WP\n> The Library\n~~~~\n+ Complete lab\n> The Sceptre of God"
+        },
+        {
+          "name": "The Library",
+          "note": "+ Get WP\n> The Archive (loose candle)\n~~~~\n< \"A Fixture of Fate\" (Siosa)\n> Imperial Gardens"
+        },
+        {
+          "name": "The Archives",
+          "note": "+ Find 4 Golden Pages\n> The Archive"
+        },
+        {
+          "name": "The Sceptre of God",
+          "note": "+ Get WP\n> The Upper Sceptre of God"
+        },
+        {
+          "name": "The Upper Sceptre of God",
+          "note": "+ Kill Dominus\n> The Aqueduct"
+        }
+      ]
+    },
+    {
+      "actid": 4,
+      "zones": [
+        {
+          "name": "The Dried Lake",
+          "note": "+ Kill Voll\n> Town\n+ Open the Mines\n> The Mines Level 1"
+        },
+        {
+          "name": "The Mines Level 1",
+          "note": "> The Mines Level 2"
+        },
+        {
+          "name": "The Mines Level 2",
+          "note": "+ Release Deshret's Spirit\n< \"An Indomitable Spirit\" (Tasuni)\n> The Crystal Veins"
+        },
+        {
+          "name": "The Crystal Veins",
+          "note": "+ Get WP\n< \"Breaking the Seal\" (Oyun)\n> Crystal Veins\n> Daresso's Dream\n~~~~\n> Kaom's Dream\n~~~~\n+ Talk to Dialla\n> The Belly of the Beast Level 1"
+        },
+        {
+          "name": "Daresso's Dream",
+          "note": "> The Grand Arena\n> The Ring of Blades\n+ Kill Daresso and take The Eye of Desire\n> The Crystal Veins"
+        },
+        {
+          "name": "Kaom's Dream",
+          "note": "> Kaom's Stronghold\n> Caldera of the King\n+ Kill Kaom and take The Eye of Fury\n> The Crystal Veins"
+        },
+        {
+          "name": "The Grand Arena",
+          "note": "If you have not done Kaom's Dream yet, take waypoint to Crystal Veins and do that first"
+        },
+        {
+          "name": "Kaom's Stronghold",
+          "note": "If you have not done Daresso's Dream yet, take waypoint to Crystal Veins and do that first"
+        },
+        {
+          "name": "The Belly of the Beast Level 1",
+          "note": "> The Belly of the Beast Level 2"
+        },
+        {
+          "name": "The Belly of the Beast Level 2",
+          "note": "> The Bowels of the Beast\n+ Kill Piety\n> The Harvest"
+        },
+        {
+          "name": "The Harvest",
+          "note": "+ Get WP\n< \"The King of Desire\" and \"The King of Fury\" (Dialla)\n~~~~\n> Kill Malachai's 3 Guardians\n> The Black Core\n+ Kill Malachai\n< \"The Eternal Nightmare\" (Tasuni)\n~~~~\n> Highgate\n> The Ascent"
+        },
+        {
+          "name": "The Ascent",
+          "note": "> Oriath Portal"
+        }
+      ]
+    },
+    {
+      "actid": 5,
+      "zones": [
+        {
+          "name": "The Control Blocks",
+          "note": "+ Find Miasmeter (experimental supplies)\n< \"In Service to Science\" (Vilenta)\n+ Kill Justicar Casticus and take Eyes of Zeal\n> Oriath Square"
+        },
+        {
+          "name": "Oriath Square",
+          "note": "+ Get WP\n< \"The Key to Freedom\" (Lani)\n> Templar Courts Entrance"
+        },
+        {
+          "name": "The Templar Courts",
+          "note": "> The Chamber of Innocence"
+        },
+        {
+          "name": "The Chamber of Innocence",
+          "note": "+ Get WP\n> The Sanctum of Innocence\n+ Kill High Templar Avarius\n> The Chamber of Innocence\n> The Torched Courts"
+        },
+        {
+          "name": "The Torched Courts",
+          "note": "> The Ruined Square"
+        },
+        {
+          "name": "The Ruined Square",
+          "note": "+ Get WP\n> The Reliquary\n~~~~\n> The Cathedral Rooftop"
+        },
+        {
+          "name": "The Ossuary",
+          "note": "+ Find Sign of Purity\n> The Ruined Square"
+        },
+        {
+          "name": "The Reliquary",
+          "note": "+ Find Kitava's Torments\n< \"Kitava's Torments\" (Lani)\n> The Ruined Square\n< \"Death to Purity\" (Lani)\n~~~~\n> The Ossuary"
+        },
+        {
+          "name": "The Cathedral Rooftop",
+          "note": "> The Cathedral Apex\n+ Kill Kitava\n> Sail to Wraeclast"
+        }
+      ]
+    },
+    {
+      "actid": 6,
+      "zones": [
+        {
+          "name": "The Coast",
+          "note": "+ Get WP\n> The Mud Flats"
+        },
+        {
+          "name": "The Tidal Island",
+          "note": "This zone should be skipped to save time"
+        },
+        {
+          "name": "The Mud Flats",
+          "note": "+ Kill The Dishonoured Queen and take the Eye of Conquest\n> The Karui Fortress"
+        },
+        {
+          "name": "The Karui Fortress",
+          "note": "> Tukohama's Keep\n+ Kill Tukohama\n+ Talk to Sin\n> The Karui Fortress\n> The Ridge"
+        },
+        {
+          "name": "The Ridge",
+          "note": "+ Get WP\n- Logout\n< \"The Father of War\" (Tarkleigh)\n> The Ridge\n> The Lower Prison"
+        },
+        {
+          "name": "The Lower Prison",
+          "note": "+ Get WP\n+ Complete lab\n> Shavronne's Tower"
+        },
+        {
+          "name": "Shavronne's Tower",
+          "note": "> Prison Rooftop\n+ Kill Shavronne and Brutus\n> The Warden's Chambers\n> The Prisoner's Gate"
+        },
+        {
+          "name": "Prisoner's Gate",
+          "note": "+ Get WP\n> Valley of the Fire Drinker\n+ Start fight with Abberath\n> The Cloven Pass\n> Valley of the Fire Drinker\n+ Kill Abberath\n< \"The Cloven One\" (Bestel)\n> The Western Forest"
+        },
+        {
+          "name": "The Riverways",
+          "note": "+ Get WP\n> The Wetlands"
+        },
+        {
+          "name": "The Wetlands",
+          "note": "> The Spawning Ground\n+ Kill The Puppet Mistress\n< \"The Puppet Mistress\" (Tarkleigh)\n> The Southern Forest"
+        },
+        {
+          "name": "The Western Forest",
+          "note": "+ Get WP\n> The Riverways"
+        },
+        {
+          "name": "The Southern Forest",
+          "note": "+ Get WP\n> The Cavern of Anger"
+        },
+        {
+          "name": "The Cavern of Anger",
+          "note": "+ Open the chest and take The Black Flag\n> Passage\n> The Beacon"
+        },
+        {
+          "name": "The Beacon",
+          "note": "+ Escort the 2 pillars\n+ Click on Ignition Switch\n+ Click on The Beacon\n+ Talk to Weylam\n> Sail to The Brine King's Reef"
+        },
+        {
+          "name": "The Brine King's Reef",
+          "note": "+ Get WP\n> The Brine King's Throne\n+ Kill The Brine King\n+ Talk to Weylam\n> Sail to Act 7"
+        }
+      ]
+    },
+    {
+      "actid": 7,
+      "zones": [
+        {
+          "name": "The Crossroads",
+          "note": "+ Get WP\n> The Fellshrine Ruins\n~~~~\n> The Chamber of Sins Level 1"
+        },
+        {
+          "name": "The Fellshrine Ruins",
+          "note": "> The Crypt"
+        },
+        {
+          "name": "The Crypt",
+          "note": "+ Open the Sarcophagus\n+ Find the Map\n> The Crossroads"
+        },
+        {
+          "name": "The Chamber of Sins Level 1",
+          "note": "+ Get WP\n+ Activate Map Device\n> Maligaro's Sanctum\n~~~~\n+ Talk to Silk and take Keys\n> The Chamber of Sins Level 2"
+        },
+        {
+          "name": "Maligaro's Sanctum",
+          "note": "> Maligaro's Workshop\n+ Kill Maligaro and take Black Venom\n> The Chamber of Sins Level 1"
+        },
+        {
+          "name": "The Chamber of Sins Level 2",
+          "note": "+ Complete lab\n~~~~\n> The Den"
+        },
+        {
+          "name": "The Den",
+          "note": "> The Ashen Fields"
+        },
+        {
+          "name": "The Ashen Fields",
+          "note": "> The Fortress Encampment\n+ Kill Greust\n> The Northern Forest"
+        },
+        {
+          "name": "The Northern Forest",
+          "note": "+ Get WP\n> The Dread Thicket"
+        },
+        {
+          "name": "The Dread Thicket",
+          "note": "+ Find all Fireflies\n> The Den Despair\n+ Kill Gruthkul\n< \"Queen of Despair\" (Eramir)\n< \"The Master of Million Faces\" (Eramir)\n> The Northern Forest\n> The Causeway"
+        },
+        {
+          "name": "The Causeway",
+          "note": "+ Open Kishara's Lockbox and take Kishara's Star\n> The Vaal City"
+        },
+        {
+          "name": "The Vaal City",
+          "note": "+ Get WP\n< \"Kishara's Star\" (Weylam)\n+ Give Fireflies to Yeena\n> The Temple of Decay Level 1"
+        },
+        {
+          "name": "The Temple of Decay Level 1",
+          "note": "> The Temple of Decay Level 2\n> Arakaali's Web\n+ Kill Arakaali\n> The Sarn Ramparts"
+        }
+      ]
+    },
+    {
+      "actid": 8,
+      "zones": [
+        {
+          "name": "The Toxic Conduits",
+          "note": "> Doedre's Cesspool\n~~~~\n> The Quay (right)"
+        },
+        {
+          "name": "Doedre's Cesspool",
+          "note": "+ Open Loose Crate\n> The Cauldron\n+ Kill Doedre the Vile\n> Sewer Outlet\n+ Get WP\n> The Grand Promenade (left)"
+        },
+        {
+          "name": "The Grand Promenade",
+          "note": "> The Bath House"
+        },
+        {
+          "name": "The Bath House",
+          "note": "+ Get WP\n+ Complete lab\n> The High Gardens"
+        },
+        {
+          "name": "The High Gardens",
+          "note": "> The High Gardens\n> The Pool of Terror\n+ Kill Yugul\n< \"Reflection of Terror\" (Hargan)\n> The Lunaris Concourse"
+        },
+        {
+          "name": "The Lunaris Concourse",
+          "note": "+ Get WP\n> The Lunaris Temple Level 1\n~~~~\n> The Harbour Bridge (down the stairs)"
+        },
+        {
+          "name": "The Lunaris Temple Level 1",
+          "note": "+ Get WP\n> The Lunaris Temple Level 2"
+        },
+        {
+          "name": "The Lunaris Temple Level 2",
+          "note": "+ Kill Dusk and take Moon Orb\n< \"Essence of the Hag\" (Hargan)\n- Logout\n> The Toxic Conduits"
+        },
+        {
+          "name": "The Quay",
+          "note": "+ Open Sealed Casket and take Ankh of Eternity\n> Resurrection Site\n+ Kill Tolman\n< \"Love is Dead\" (Clarissa)\n> The Grain Gate"
+        },
+        {
+          "name": "The Grain Gate",
+          "note": "+ Get WP\n+ Kill Gemling Legionnaires\n< \"The Gemling Legion\" (Maramoa)\n> The Imperial Fields"
+        },
+        {
+          "name": "The Imperial Fields",
+          "note": "+ Get WP\n> The Solaris Temple Level 1"
+        },
+        {
+          "name": "The Solaris Concourse",
+          "note": "> The Harbour Bridge"
+        },
+        {
+          "name": "The Solaris Temple Level 1",
+          "note": "+ Get WP\n> The Solaris Temple Level 2"
+        },
+        {
+          "name": "The Solaris Temple Level 2",
+          "note": "+ Kill Dawn andd take Sun Orb\n> Town\n> Lunaris Concourse"
+        },
+        {
+          "name": "The Harbour Bridge",
+          "note": "> The Sky Shrine\n+ Kill Solaris and Lunaris\n> The Blood Aqueduct"
+        }
+      ]
+    },
+    {
+      "actid": 9,
+      "zones": [
+        {
+          "name": "The Descent",
+          "note": "> Supply Hoist\n> Supply Hoist\n> The Vastiri Desert"
+        },
+        {
+          "name": "The Vastiri Desert",
+          "note": "+ Get WP\n+ Find Storm-Weathered Chest, Kill Mumies and take The Storm Blade\n> The Oasis (place TP outside and go back to town)\n< \"The Storm Blade\" (Petarus and Vanja)\n+ Talk to Sin\n+ Talk to Petarus and Vanja\n> Use TP\n> The Oasis"
+        },
+        {
+          "name": "The Oasis",
+          "note": "> The Sand Pit\n+ Damage Shakari\n> The Swallowing Sands\n+ Kill Shakari\n< \"Queen of the Sands\" (Irasha)\n> The Foothills"
+        },
+        {
+          "name": "The Foothills",
+          "note": "+ Kill Boulderback\n< \"Fastis Fortuna\" (Petarus and Vanja)\n> The Boiling Lake\n~~~~\n> The Tunnel"
+        },
+        {
+          "name": "The Boiling Lake",
+          "note": "+ Kill The Basilisk and take Basilisk Acid\n> Town\n> The Foothills"
+        },
+        {
+          "name": "The Tunnel",
+          "note": "+ Get WP\n+ Complete lab\n> The Quarry"
+        },
+        {
+          "name": "The Quarry",
+          "note": "+ Get WP\n> Shrine of the Winds\n+ Kill Garukhan\n< \"The Ruler of Highgate\" (Tasuni/Irasha)\n> The Refinery\n~~~~\n+ Talk to Sin\n> The Belly of the Beast"
+        },
+        {
+          "name": "The Refinery",
+          "note": "+ Kill General Adus, open Theurgic Precipitate Machine and take Trarthan Powder\n> Town\n> The Quarry"
+        },
+        {
+          "name": "The Belly of the Beast",
+          "note": "> The Rotting Core"
+        },
+        {
+          "name": "The Rotting Core",
+          "note": "> The Black Heart\n+ Talk to Sin\n> Enter the 3 areas and kill the spirit in these areas respectively\n+ Talk to Sin\n> The Black Heart\n+ Kill The Depraved Trinity\n+ Talk to Lilly\n> Sail back to Oriath"
+        }
+      ]
+    }
+  ],
+  "identity": {
+    "game_version": 3.16,
+    "class": "Templar",
+    "name": "Abbreviated",
+    "lang": "en"
+  }
+}

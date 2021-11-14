@@ -27,14 +27,14 @@ export function RichNoteText(props: { children: string }): JSX.Element {
   // ]
 
   text = useMemo(() => {
-    console.log(text)
-    if (curRichText) {
+    if ((curRichText) && (text)) {
       for (const filtre of curRichText) {
         str = filtre.data.join("|")
         const regex = new RegExp(`(\\b${str})\\b`, "gi")
         const subst = `<span class='richtext-${filtre.classe}'>$1</span>`
         text = text.replace(regex, subst)
       }
+      text = text.replace(/\n/g, '<br>')
       // for (const replace of replaces){
       //   text = text.replace(RegExp(replace.search, "gi"), replace.replace)
       // }

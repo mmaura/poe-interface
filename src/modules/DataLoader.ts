@@ -46,18 +46,17 @@ export class DataLoader extends EventEmitter {
     /**
      * 
      * @param dir the directory to parse to find Guides
-     * @param exts array of extension to return with the dot
      * @returns array of json guide filename (string)
      */
-    protected GuideFromSubPath(dir: string): string {
-        let guideFile : string
-        for (const sdir of fs.readdirSync(dir, { withFileTypes: true })){
+    protected GuideFromSubPath(dir: string): string[] {
+        const guideFile = [] as string[]
+        for (const sdir of fs.readdirSync(dir, { withFileTypes: true })) {
             if (sdir.isDirectory()) {
-                guideFile = this.GuideFromPath(path.join(dir, sdir.name))
-                if (guideFile !== undefined) return guideFile
+                const ret = this.GuideFromPath(path.join(dir, sdir.name))
+                if (guideFile !== undefined) guideFile.push(...ret)
             }
         }
-        return undefined
+        return guideFile
     }
 
     /**
@@ -65,13 +64,15 @@ export class DataLoader extends EventEmitter {
      * @param dir path where to search
      * @returns absolute guide path with filename
      */
-    protected GuideFromPath(dir: string): string {
-        for (const f of fs.readdirSync(dir, { withFileTypes: true })){
-            if ((f.isFile()) && (f.name === "guide.json")) {
-                return path.join(dir, f.name)
+    protected GuideFromPath(dir: string): string[] {
+        const guideFiles = [] as string[]
+        for (const f of fs.readdirSync(dir, { withFileTypes: true })) {
+            // if ((f.isFile()) && (f.name === "guide.json")) {
+            if (f.isFile()) {
+                guideFiles.push(path.join(dir, f.name))
             }
         }
-        return undefined
+        return guideFiles
     }
 
     /**

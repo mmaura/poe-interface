@@ -1,0 +1,593 @@
+{
+  "acts": [
+    {
+      "actid": 1,
+      "zones": [
+        {
+          "name": "The Coast",
+          "note": "Stick to the right side following the wall\nActivate Waypoint\n> Go to Mud Flats first\n---------------\nEntrance to Tidal Island is close to Waypoint\n> Go to Tidal Island for Hailrake"
+        },
+        {
+          "name": "The Tidal Island",
+          "note": "The side without a cliff is the shortest\n< Kill the Boss and Logout\n+ Get Quicksilver and all gems needed for lvl 4\n> TP to Submerged Passage"
+        },
+        {
+          "name": "The Mud Flats",
+          "note": "Little rivers connect the 3 items\nPick up all 3 items\n> Go to Submerged"
+        },
+        {
+          "name": "The Fetid Pool",
+          "note": "Go in a circle and kill everything\nThis quest is optional and should be skipped to save time"
+        },
+        {
+          "name": "The Submerged Passage",
+          "note": "Find Waypoint\n> TP to The Coast and go to Tidal Island for Quicksilver Flask quest\n---------------\nFind the bridge and place a portal\nWe will be back for Deep Dweller boss later\n> Go to The Ledge\n---------------\nSearch below the bridge for the entrance to the Flooded Depths\n> Go to Flooded Depths and kill the big crab"
+        },
+        {
+          "name": "The Flooded Depths",
+          "note": "Kill the Deep Dweller\n< Logout\n+ Take reward from Tarkleigh\n> TP to the Lower Prison"
+        },
+        {
+          "name": "The Ledge",
+          "note": "Little totems at the Waypoint point to the exit\n> Go to The Climb"
+        },
+        {
+          "name": "The Climb",
+          "note": "Always be going up\nFree Navali when you find her\n> Proceed to the Prison"
+        },
+        {
+          "name": "The Lower Prison",
+          "note": "> Go to town at the Waypoint\n> Take the portal you left to find the Flooded Depths\n---------------\nThere is a trial in this zone that you can do later thanks to the Waypoint\nTry right first for the exit\n> Go to Upper Prison\n_______________\nG,TRIAL:  Spike traps"
+        },
+        {
+          "name": "The Upper Prison",
+          "note": "Try left first.\n< Kill Brutus and Logout\n+ Pick up Gems\n> TP to the Prisoner's Gate"
+        },
+        {
+          "name": "Prisoner's Gate",
+          "note": "Look for the side of the road that has the ledge down, usually on the right side\n> Go to Ship Graveyard."
+        },
+        {
+          "name": "The Ship Graveyard",
+          "note": "Look for Waypoint first\nIf you find The Cave get the All Flame now\nOtherwise continue directly to Cavern of Wrath Waypoint\n---------------\nAt Cave:\nFind Allflame and skip boss \n< Logout if you already have Cavern of Wrath, otherwise find it\n> TP to Ship Graveyard\nKill Fairgraves\n< Logout\nUp your cold resistance (2x Sapphire ring)\n+ Passive from Bestel\n> TP To Cavern of Wrath"
+        },
+        {
+          "name": "The Cavern of Wrath",
+          "note": "If you didn't find Allflame yet\n> At Waypoint port back to The Ship Graveyard to find the Cave\n---------------\nAfter Allflame but before going to Merveil\n> TP to town\n+ Get Gems\nRight time to get 2x Sapphire rings\n> Go to Cavern of Wrath\n---------------\n> Go to Cavern of Anger"
+        },
+        {
+          "name": "The Cavern of Anger",
+          "note": "Often bottom right\nYou can follow the spirits\nIf you see piles of gold you're close to Merveil\nKill the boss\n> Go to the next Act"
+        }
+      ]
+    },
+    {
+      "actid": 10,
+      "zones": [
+        {
+          "name": "The Ravaged Square",
+          "note": "B,Leave a portal on start\nGo right up by wall\nSkip the first opening, take the second and cross the bridge (red part)\nLeft hand wall-follow to the Waypoint\n> TP to Town\n> Go back to your portal\nGo down\n> Proceed to Control Blocks\n---------------\nMove right don't cross the bridge\n> Proceed to Torched Courts\n---------------\nAfter killing Avarius\n> Go to the Ossuary\n--------------- \nTalk with Innocence\n> Proceed to the Canals"
+        },
+        {
+          "name": "The Control Blocks",
+          "note": "Right hand wall-follow\nUse movement skills to jump through fences\n> Go to Arena\n< Kill the Boss and Logout\n> TP to Ravaged Square"
+        },
+        {
+          "name": "The Ossuary",
+          "note": "Left hand wall follow to find the quest item and trial\nThe trial entrance is in the opening in the wall, the quest item is close to that opening, but you move away from the wall to find it\n< Logout\nG,Complete third Labyrinth and take third Ascendancy skill\n> TP to the Ravaged Square\n_______________\nG,TRIAL - Dart traps\nG,CRAFT - Chaos damage"
+        },
+        {
+          "name": "The Torched Courts",
+          "note": "Left hand wall-follow (up)\n> Go to Desecrated Chambers"
+        },
+        {
+          "name": "The Desecrated Chambers",
+          "note": "Good place to farm some levels if needed\n______________\nLeft hand wall-follow until you come to four pillars\nGo straight and up\n> Proceed to Sanctum Of Innnocence\n< Kill the boss and Logout\n> TP to Ravaged Square\n_______________\nG,CRAFT - Life/Mana"
+        },
+        {
+          "name": "The Reliquary",
+          "note": "The Quest item is always on the edge or a corner,\nit's mostly the right side\nUse move skill to cross gaps"
+        },
+        {
+          "name": "The Canals",
+          "note": "Move top left\nFollow the road and cross bridges when you see them\n> Go to the Feeding Trough"
+        },
+        {
+          "name": "The Feeding Trough",
+          "note": "Move top left, there shouldn't be any diversions,\nKill Kitava!\nEnjoy maps :)\n_______________\nG,CRAFT - Defenses \nR,RECOMMEND 3,700+ EHP, fire resist, good physical mitigations, fast movement skill"
+        }
+      ]
+    },
+    {
+      "actid": 11,
+      "zones": [
+        {
+          "name": "The Fallen Courts",
+          "note": "Left hand wall follow to find Dominus' office\nPick up the Key and return to Oriath for the entrance to the Haunted Reliquary in the bottom left"
+        },
+        {
+          "name": "The Haunted Reliquary",
+          "note": "Use the key on both sides of the door to open the Vault\nKill everything then talk to Kirac in your Hideout\nIf you don't have a Hideout, talk to Helena in town to obtain one"
+        }
+      ]
+    },
+    {
+      "actid": 2,
+      "zones": [
+        {
+          "name": "The Old Fields",
+          "note": "Follow the road\nY,If you don't have second Quicksilver Flask - find the Cave and leave portal there\n> Go to Crossroads"
+        },
+        {
+          "name": "The Den",
+          "note": "< Kill Great White Beast and Logout"
+        },
+        {
+          "name": "The Crossroads",
+          "note": "Follow the road and find Waypoint\n> TP to the town and go to portal into The Den\n< Kill bear, Logout\n---------------\n> Go to Crossroads\nGo north, find Chamber of Sins\n---------------\nGo east\n> Proceed to Broken Bridge\n---------------\nGo south\n> Proceed to Ruins"
+        },
+        {
+          "name": "The Chamber of Sins Level 1",
+          "note": "Circle to the center of the zone\nThe hallway next to the Waypoint always leads to the next zone\n> Go to Chamber level 2"
+        },
+        {
+          "name": "The Chamber of Sins Level 2",
+          "note": "Trial is right then up\nBoss is diagonally right and then down and left\n< Kill Fidelitas and Logout\n+ Get Gems\n---------------\n> Go to Crossroads\n_______________\nG,TRIAL - Sawblades"
+        },
+        {
+          "name": "The Broken Bridge",
+          "note": "Follow the road to the right\n< Kill Kraityn and Logout\n> Go to Crossroads"
+        },
+        {
+          "name": "The Fellshrine Ruins",
+          "note": "Follow the road to The Crypt"
+        },
+        {
+          "name": "The Crypt Level 1",
+          "note": "Find and complete Trial\n< Logout\n> Go to Riverways (left)\n_______________\nG,TRIAL - Spinning blades"
+        },
+        {
+          "name": "The Riverways",
+          "note": "Follow the road and use mobility skills to jump over bridges\nB,Activate Waypoint\n---------------\nWestern Forest is next on the road\n> Go to Western Forest\n---------------\nWetlands is always on the opposite side of the road near the Waypoint\n> Go to Wetlands"
+        },
+        {
+          "name": "The Western Forest",
+          "note": "Follow the road\nB,Activate Waypoint\nAlira is on the side of the Waypoint where the road has a broken section\nR,Kill Alira\n---------------\nFollow the road for The Way Forward quest\nKill boss, open the way back\n---------------\nThe Weaver's Chambers can be found on the opposite side of the road from Alira, with webbed trees\n> Go to Weaver's Chambers"
+        },
+        {
+          "name": "The Weaver's Chambers",
+          "note": "Go left when the left path spawns, otherwise loop around right side\n< Kill Weaver and Logout\n+ Get Gems\n+ 16% Two-Stone Rings\n> Go to Act 1\n+ Passive from Bestel\n> Go to Riverways"
+        },
+        {
+          "name": "The Wetlands",
+          "note": "Go to the left and up until the Waypoint is visible with the passage near it\n< Kill Oak in center and Logout\n+ 2 Passives and quest item from Eramir\n> Waypoint to The Wetlands\n> Go to Vaal Ruins"
+        },
+        {
+          "name": "The Vaal Ruins",
+          "note": "Try to determine the direction then zig and zag accordingly through the ruins\n> Go to Northern Forest"
+        },
+        {
+          "name": "The Northern Forest",
+          "note": "Go to the top right by following the shoreline\n> Go to The Caverns\nR,! Do Not go into the Dread Thinket"
+        },
+        {
+          "name": "The Dread Thicket",
+          "note": "This zone should be skipped to save time"
+        },
+        {
+          "name": "The Caverns",
+          "note": "Pretty much guessing where the exit spawned\nB,Activate Waypoint\nIf you still don't have MS boots\n> TP to Hideout and craft MS boots\notherwise\n> Go to the Ancient Pyramid\n_______________\nG,CRAFT - Movement speed"
+        },
+        {
+          "name": "The Ancient Pyramid",
+          "note": "1st exit is on right or left side from center point\nOther exits are diagonal from their entrance\nY,RECOMMEND lightning resist\nKill the boss\n> Go to Act 3\n_______________\nG,CRAFT - Spell damage"
+        }
+      ]
+    },
+    {
+      "actid": 3,
+      "zones": [
+        {
+          "name": "The Slums",
+          "note": "Find the grates to the sewers, then take the stairs down, follow until stairs up, then straight line to The Crematorium\n> Go to Crematorium\n---------------\nAfter you  have the keys\n> Go to The Sewers"
+        },
+        {
+          "name": "The Crematorium",
+          "note": "Going left generally has a high chance of success\nY,Lightining resistance vs Piety is recommended\n< Kill her and Logout\n---------------\n+ Check Clarissa for 2x +16 res rings and make it rare with essences\nPick up the Keys to the Sewers\n---------------\n> Go back to Slums\n_______________\nG,TRIAL - Furnace Traps\nG,CRAFT - Fire damage"
+        },
+        {
+          "name": "The Sewers",
+          "note": "Pick up the first bust before the Waypoint\nB,Don't forget the Waypoint\nAfter it is another\nRight and down there is a last bust\nUp and left is the exit\n> Go to Marketplace\n---------------\nBurn the Immortal Shit\n> Proceed to Ebony Barracks\n_______________\nG,CRAFT - Physical damage"
+        },
+        {
+          "name": "The Marketplace",
+          "note": "Usually up and right\nGo through the statue hall, get the Waypoint near The Catacombs\nSkip the quest item it's bad\n> Go to The Catacombs\n---------------\nThen right hand wall follow to find the exit\n> Go to The Battlefront\n_______________\nG,TRIAL in Catacombs - Blade Sentries"
+        },
+        {
+          "name": "The Catacombs",
+          "note": "_______________\nG,TRIAL - Blade sentries\nG,CRAFT - Ele Damage w/ Attack"
+        },
+        {
+          "name": "The Battlefront",
+          "note": "Go up and a bit left to Waypoint.\nPick up a Spool a bit left from Waypoint.\n> Go to The Docs\n---------------\nMove right and up looking for Solaris temple\nLvl 26 is good at this point\n> Go to Solaris Temple"
+        },
+        {
+          "name": "The Docks",
+          "note": "Skip Fairgraves\nLeft side first\nFind the Sulphite which is down some stairs\n< Logout\n> Go to Battlefronts again"
+        },
+        {
+          "name": "The Solaris Temple Level 1",
+          "note": "Follow the carpet until the exit\n> Proceed to Solaris level 2"
+        },
+        {
+          "name": "The Solaris Temple Level 2",
+          "note": "Follow the carpet but it can have dead ends\nTalk to Dialla\nCheck your stats and figure out what amulet you need more\n> TP to Sewers Waypoint\n_______________\nG,CRAFT - Cold damage"
+        },
+        {
+          "name": "The Ebony Barracks",
+          "note": "Go up for Lunaris temple\nB,Don't forget the Waypoint\nKill Gravicius\n> Proceed to Lunaris Temple\n---------------\nAfter Lunaris temple\nGo right and a bit up\n> Go to Imperial Gardens"
+        },
+        {
+          "name": "The Lunaris Temple Level 1",
+          "note": "Follow the carpet, don’t forget the Waypoint"
+        },
+        {
+          "name": "The Lunaris Temple Level 2",
+          "note": "Layout differs a lot, if you see stairs, go up these \nFind more stairs, until a larger area\nThere will be carts on both sides, pick the side where there is only one\n< Kill boss and Logout\n+ Look for 4-link at vendor\n> Go to Ebony Barracks\n_______________\nY,RECOMMEND lightning resist\nG,CRAFT - Lightning damage"
+        },
+        {
+          "name": "The Imperial Gardens",
+          "note": "Follow the road\nB,Activate Waypoint\nGo up left for a Trial\n< Logout\n> TP to Imperial Gardens (faster then walking back)\nWe are skipping library since we don't need it now\nFrom Waypoint go to the right and then up\n> Proceed to Sceptre of God\n_______________\nG,TRIAL - Dart Traps\nG,CRAFT - All attributes"
+        },
+        {
+          "name": "The Library",
+          "note": "Siosa will give you a quest here for all current gems\nHe is in the middle of the zone, near the Waypoint"
+        },
+        {
+          "name": "The Archives",
+          "note": "The golden pages are randomly spread across the whole zone\n< Logout after you have all 4\n> TP back to the The Library with currency in your inventory"
+        },
+        {
+          "name": "The Sceptre of God",
+          "note": "Exits spawn in a random corner, can often be found by travelling diagonally\n> Go to Upper Sceptre of God"
+        },
+        {
+          "name": "The Upper Sceptre of God",
+          "note": "Exits spawn in a random corner\nGo up diagonally until you spot barricades at exit\nKill the boss\n> Proceed to Act 4\n_______________\nB,RECOMMEND cold resist\nY,and lightning resist"
+        }
+      ]
+    },
+    {
+      "actid": 4,
+      "zones": [
+        {
+          "name": "The Dried Lake",
+          "note": "Kill Voll on one of the three spawns\n< Logout\nBreak The Mines door seal\n> Go to Mines\n_______________\nG,CRAFT - Attack/Cast speed"
+        },
+        {
+          "name": "The Mines Level 1",
+          "note": "Exit is usually in top left corner\n> Go to Mines lvl 2"
+        },
+        {
+          "name": "The Mines Level 2",
+          "note": "Varied layout and many dead ends\nYou should look for the spirit and kill her\n> Go to Crystal Veins"
+        },
+        {
+          "name": "The Crystal Veins",
+          "note": "Loop around bottom right to go to the top left exit\nFind Dialla\n> Go to Town\n+ Check for 4-link and good armor\nBench Craft resistance and rings\nG,Ascend and take first Ascendancy skill\n> TP back to Crystal Veins\n---------------\n> Go To Kaom (fire)\n> Go to Daresso (cold)\n---------------\nR,IMPORTANT - Staunching Life flask\n> Go to Einhar Area\nBeast craft \"of Staunching\" on flask\n> Go to Belly of the Beast\n_______________\nG,CRAFT - Resistance"
+        },
+        {
+          "name": "Daresso's Dream",
+          "note": "Move towards the top right, some dead ends\n> Go to Grand Arena"
+        },
+        {
+          "name": "Kaom's Dream",
+          "note": "Follow passages and bridges\n> Go to Kaom's Stronghold"
+        },
+        {
+          "name": "The Grand Arena",
+          "note": "If you have not done Kaom's Dream yet, take waypoint to Crystal Veins and do that first\nMove down left from Waypoint, then follow path\n< Kill Daresso and Logout\n> TP To Crystal Veins\n_______________\nB,RECOMMEND cold resist"
+        },
+        {
+          "name": "Kaom's Stronghold",
+          "note": "If you have not done Daresso's Dream yet, take waypoint to Crystal Veins and do that first\nFollow stairs and bridges\n_______________\nR,RECOMMEND fire resist"
+        },
+        {
+          "name": "The Belly of the Beast Level 1",
+          "note": "Aim for top left, many dead ends\nR,Watch out for bleeding\n> Go to level 2"
+        },
+        {
+          "name": "The Belly of the Beast Level 2",
+          "note": "Aim for top left, many dead ends\nKill the boss\n> Proceed to The Harvest\n_______________\nG,CRAFT - Chaos damage"
+        },
+        {
+          "name": "The Harvest",
+          "note": "Always one boss on right side, two left\n---------------\nTalk with Piety\n> Proceed to the Black Core\n< Kill boss and Logout\n+ Get Gems\nGo to the top right side\n> Proceed to the Ascent\n_______________\nMaligaro does physical so keep moving\nG,Stay in green aura against Doedre\nY,Shavronne deals lightning\nR,Malachi deals fire damage"
+        },
+        {
+          "name": "The Ascent",
+          "note": "G,TIP: dirty roads lead to exits\nGo up and left\nСross the bridge\nGo up and right\nsmall passage to the exit\n> Go to Act 5\n_______________\nG,CRAFT - Ailment, Stun and Curse Mitigation"
+        }
+      ]
+    },
+    {
+      "actid": 5,
+      "zones": [
+        {
+          "name": "The Control Blocks",
+          "note": "Go top left for the Miasmeter, then up and right\nKill boss for his \"eyes\"\n+ Get Silver Flask as reward\nUse it for speed boost often\n> Go to Oriath's Square"
+        },
+        {
+          "name": "Oriath Square",
+          "note": "Go top right until you cross the bridge, then down\n> Go to Templar Courts"
+        },
+        {
+          "name": "The Templar Courts",
+          "note": "Loop around clockwise\n> Go to the Chamber of Innocence"
+        },
+        {
+          "name": "The Chamber of Innocence",
+          "note": "Perfect zone to level up if needed\nGo up and left, and spiral counter clockwise\n> Go to Sanctum of Innocence\n---------------\nCheck Waypoint\nTalk to Bannon\n> Go to Torched Courts\n_______________\nG,CRAFT - Movement speed\nY,RECOMMEND lightning resist\nR,and fire resist"
+        },
+        {
+          "name": "The Torched Courts",
+          "note": "Loop around counter clockwise\n> Go to Ruinned Square"
+        },
+        {
+          "name": "The Ruined Square",
+          "note": "Proceed to Waypoint\n> Go into Ossuary\n---------------\nProceed to middle of the map\nB,Leave portal near big fountain.\n> Go down to Reliquary\n---------------\nMove up from portal\n> Go to Cathedral Rooftop"
+        },
+        {
+          "name": "The Ossuary",
+          "note": "Loop around clockwise\nPick up a sign\n< Logout\n> TP to the Ruined Square\n_______________\nG,CRAFT - Physical damage"
+        },
+        {
+          "name": "The Reliquary",
+          "note": "Start from down left\nFind multiple quest items in corners of the zone\nGo back to Waypoint\n> Waypoint to Town\n> Go to your portal\n_______________\nG,CRAFT - Accuracy"
+        },
+        {
+          "name": "The Cathedral Rooftop",
+          "note": "Consider running your first Labyrinth here if you still have not\nRun top left and kill Kitava!\n_______________\nR,RECOMMEND fire resist\nwith 1,500+ EHP"
+        }
+      ]
+    },
+    {
+      "actid": 6,
+      "zones": [
+        {
+          "name": "The Coast",
+          "note": "Go to the right side of the zone and go to the top right corner\nActivate Waypoint\n> Go to Mud Flats"
+        },
+        {
+          "name": "The Tidal Island",
+          "note": "This zone should be skipped to save time"
+        },
+        {
+          "name": "The Mud Flats",
+          "note": "Kill the Dishonoured Queen (1) on the right side\nPick up the key from Queen\nOpen the gate to the next zone (2) on the left side\n> Go to Karui Fortress"
+        },
+        {
+          "name": "The Karui Fortress",
+          "note": "Follow the right hand side\nKill Tukohama\nExit on left side and go up\n> Proceed to the Ridge\n_______________\nG,CRAFT - Defences\nR,RECOMMEND fire resist\nwith 1,500+ EHP"
+        },
+        {
+          "name": "The Ridge",
+          "note": "Follow the path until you can go right,\nthen follow that until you have a path up left\n> Go to the Lower Prison"
+        },
+        {
+          "name": "The Lower Prison",
+          "note": "You usually want to go down or left towards the exit\nGet the Waypoint\n> Go to Shavronne's Tower\n_______________\nG,TRIAL - Spike traps\nG,CRAFT - Double resistance"
+        },
+        {
+          "name": "Shavronne's Tower",
+          "note": "Follow the halls, going over bridges, for 4 minizones\n> Go up to Prison Rooftop\nKill boss\n> Go left to the Warden's Chamber\nPickup recipe\n< Logout.\n+ Take rewards (4-link)\n> TP To Prisoner's Gate\n_______________\nG,CRAFT - Spell damage\nY,RECOMMEND lightning resist\nwith physical mitigation"
+        },
+        {
+          "name": "Prisoner's Gate",
+          "note": "Go down the side of the road that has the cliff\nFight the Abberath\nFollow the road into the next area\n> Go to the Western Forest\n_______________\nR,RECOMMEND fire resist"
+        },
+        {
+          "name": "The Riverways",
+          "note": "Pick up Waypoint\nFollow the path up at the Waypoint\n> Go to Wetlands\n---------------\nFollow the road and when you reach the encampment go down and right\n> Go to Southern Forest"
+        },
+        {
+          "name": "The Wetlands",
+          "note": "Stick to the left hand side to find the entrance to the Spawning Ground\nKill the boss\n< Logout\nB,Perfect time to cap cold resist\n> TP to Riverways\n_______________\nG,RECOMMEND current life flasks, avoid chaos degens"
+        },
+        {
+          "name": "The Western Forest",
+          "note": "Follow the road to the Riverways\n> Go to Riverways\n_______________\nG,CRAFT - Attributes (in Alira's camp)"
+        },
+        {
+          "name": "The Southern Forest",
+          "note": "Follow the right and a bit up to The Cavern of Anger\n> Go to Cavern of Anger"
+        },
+        {
+          "name": "The Cavern of Anger",
+          "note": "B,Dont forget the black flag upon entering this zone\nGo down then up, then go right, the exit can be up or down\n> Go to the Beacon"
+        },
+        {
+          "name": "The Beacon",
+          "note": "Follow the shoreline until you reach the beacons\nMove the two columns\nBurn the flag\n> Go to the Brine King's Reef\n_______________\nG,CRAFT - Life/Mana"
+        },
+        {
+          "name": "The Brine King's Reef",
+          "note": "Follow the left hand shoreline to the Brine King's arena\n< Kill the boss and Logout\nTalk with vendors\n> Go to Act 7 from Waypoint\n_______________\nY,RECOMMEND lightning resist\nB,and cold resist"
+        }
+      ]
+    },
+    {
+      "actid": 7,
+      "zones": [
+        {
+          "name": "The Crossroads",
+          "note": "B,Don’t forget the Waypoint\nGo right down from Waypoint to (1) The Fellshrine Ruins\n> Proceed to Fellshrine Ruins\n---------------\nGo left from Waypoint to (2) The Chamber of Sins\n> Proceed to The Chamber of Sins"
+        },
+        {
+          "name": "The Fellshrine Ruins",
+          "note": "Follow the road\nGo down right until the end \nThen go up right\n> Go to the Crypt"
+        },
+        {
+          "name": "The Crypt",
+          "note": "Open the sarcophagus for Crypt level 2\nManually switch to Crypt 2 layout\n> Go to the Crypt 2\n_______________\nG,TRIAL - Spinning blades\nG,CRAFT - Damage over time"
+        },
+        {
+          "name": "The Chamber of Sins Level 1",
+          "note": "Loop around to the center, then activate the Waypoint\nUse your map from the Crypt in the map device\n> Go through the portals\n---------------\nAfter killing Maligaro\nGo through the hall behind the Waypoint to find the exit\n> Go To Chamber Level 2\n_______________\nG,CRAFT - Lightning damage"
+        },
+        {
+          "name": "Maligaro's Sanctum",
+          "note": "Follow the edges of the zone, and cross the bridges you encounter until you find the arena (Maligaro's Workshop)\nB,Use a portal scroll before the fight \nKill the boss\n> Go back to portal out to Silk\n_______________\nY,RECOMMEND lightning resist"
+        },
+        {
+          "name": "The Chamber of Sins Level 2",
+          "note": "Go to the top right side until you find the narrow long hallway\nIf you encounter a dead end when going to the top right, do a right hand wall-follow instead\nLoop clockwise around the final room\nClick the wall to reveal the exit\n> Go to the Den\n_______________\nG,TRIAL - Sawblades (left side)\nG,CRAFT - Mana regen"
+        },
+        {
+          "name": "The Den",
+          "note": "Go to the top left or right to find the exit\n> Go to The Ashen Fields"
+        },
+        {
+          "name": "The Ashen Fields",
+          "note": "Follow the road down to the left\nKill Greust\n> Go to the Northern Forest\n_______________\nR,RECOMMEND Bleed removal"
+        },
+        {
+          "name": "The Northern Forest",
+          "note": "Wall-follow the left/up side for The Dread Thicket\n> Go to the Dread Thicket\n---------------\nWall-follow the right side for The Causeway\n> Go to the Causeway"
+        },
+        {
+          "name": "The Dread Thicket",
+          "note": "Explore the zone and find the fireflies\nFind a cave\n> Go to the Den of Despair\nKill Gruthkul\n---------------\n> Go back to Thicket\nFinish collecting fireflies\n> Go to the Northern Forest\n_______________\nG,CRAFT - Fire damage"
+        },
+        {
+          "name": "The Causeway",
+          "note": "Go top right to the exit\nLoot Kishara's star at exit\n> Go to Vaal City\n_______________\nG,CRAFT - Cold damage"
+        },
+        {
+          "name": "The Vaal City",
+          "note": "Find and follow the thick walls to guide you to the exit\nActivate Waypoint\n> Go to Town\nTake all rewards\n> Go back to Vaal City\n> Proceed to the Temple of Decay"
+        },
+        {
+          "name": "The Temple of Decay Level 1",
+          "note": "Long zone with multiple levels\nGo diagonally to exits\n> Go to Level 2\nKill boss\n> Go to act 8\n_______________\nG,CRAFT - Accuracy\nY,RECOMMEND lightning resist"
+        }
+      ]
+    },
+    {
+      "actid": 8,
+      "zones": [
+        {
+          "name": "The Toxic Conduits",
+          "note": "Watch the black paint on the floor as you enter the zone to see in which direction it points you\nMove through zone\n> Go to Doedre's Cesspool\n_______________\nG,Danger: damage from the floor"
+        },
+        {
+          "name": "Doedre's Cesspool",
+          "note": "Find the path that doesn't have a dead end, this leads you all the way to the exit\n> Proceed to Cauldron via Loose Grate\nKill Doedre\nActivate Waypoint\n> Go left to The Grand Promenade\n---------------\nGo right\n> Proceed to The Quay\n_______________\nG,CRAFT - Resistance"
+        },
+        {
+          "name": "The Grand Promenade",
+          "note": "Wall-follow the right side\n> Go to the Bath House"
+        },
+        {
+          "name": "The Bath House",
+          "note": "Activate Waypoint and Go right\nKill Hector and pickup quest item\n> Go up to the High Gardens\n---------------\nAfter Yughul, go to opposite side for Trial\nGo down and right\n> Proceed to Lunaris Concourse\n_______________\nG,TRIAL - Furnace traps\nG,CRAFT - Flask duration"
+        },
+        {
+          "name": "The High Gardens",
+          "note": "Be careful when killing Porcupines\nFollow path to the end to kill Yugul\n_______________\nB,RECOMMEND cold resist"
+        },
+        {
+          "name": "The Lunaris Concourse",
+          "note": "Go up and right for Waypoint\nMove up and left for entrance to Lunaris Temple first\n> Proceed to Lunaris Temple\n---------------\nGo down and right\n> Proceed to the Harbour Bridge"
+        },
+        {
+          "name": "The Lunaris Temple Level 1",
+          "note": "Follow the carpets until end\nActivate the Waypoint\n> Go to Level 2"
+        },
+        {
+          "name": "The Lunaris Temple Level 2",
+          "note": "Look for staircases and go up these\nWhen you reach the larger area\nLook for vases on the opposite wall and pick the side where there is only one\n< Kill the boss and Logout\nG,Complete second Labyrinth and take second Ascendancy skill\n> TP to Doedre's Cesspool\n_______________\nG,CRAFT - Minions\nB,RECOMMEND cold resist"
+        },
+        {
+          "name": "The Quay",
+          "note": "Go to the bottom left\nPick up the quest item at (1) \nGo to the bottom right\n> Go to Resurrection Site\nKill boss\n> Leave the arena\nGo up right sticking along bottom edge\n> Go to Grain Gate"
+        },
+        {
+          "name": "The Grain Gate",
+          "note": "This zone has many buildings\nOnly enter and leave buildings through openings that have a guard's corpse next to it; they lead the way\nR,Kill the gemlings legion (near book)\n> Go to Imperial Fields"
+        },
+        {
+          "name": "The Imperial Fields",
+          "note": "Follow the road until the end \nContinue going that direction\n> Go to Solaris Temple"
+        },
+        {
+          "name": "The Solaris Concourse",
+          "note": "Follow the carpets to the Harbour Bridge"
+        },
+        {
+          "name": "The Solaris Temple Level 1",
+          "note": "Go down and left\nThen up and left\nThe Waypoint is always on the path\n> Go to Solaris level 2"
+        },
+        {
+          "name": "The Solaris Temple Level 2",
+          "note": "Y,Here is when Chaos recipe starts\nFollow the carpets\n< Kill the boss and Logout\n> Waypiont to Lunaris Concourse\n_______________\nG,CRAFT - Traps and mines\nR,RECOMMEND fire resist"
+        },
+        {
+          "name": "The Harbour Bridge",
+          "note": "Y,At this point, make sure you are doing the Chaos recipe\nGo up and to the middle to the arena\n> Proceed to arena\nKill the bosses\n> Go to Act 9\n_______________\nR,RECOMMEND fire resist\nB,and cold resist"
+        }
+      ]
+    },
+    {
+      "actid": 9,
+      "zones": [
+        {
+          "name": "The Descent",
+          "note": "Go up right to the supply hoist\nThen down left to another hoist\nThen up right to The Vastiri Desert\n> Go to Vastiri Desert"
+        },
+        {
+          "name": "The Vastiri Desert",
+          "note": "Go right to the Waypoint\n< Find the Chest with Mummies\nGo right to (2) for The Oasis\nThen get the quest item in town\n> Enter Oasis\n---------------\nThen top (1) for the Foothills\n> Proceed to the Foothills\n_______________\nG,CRAFT - Attack/Cast speed"
+        },
+        {
+          "name": "The Oasis",
+          "note": "Left or right wall follow, based on bottom or top being the dead end at the entrance\n< Kill boss and Logout\n> TP to the Vastiri Desert\n_______________\nR,RECOMMEND physical mitigation"
+        },
+        {
+          "name": "The Foothills",
+          "note": "Go top right first\nB,Don't forget to touch the Waypoint\n> Go right to The Boiling Lake (1)\n---------------\nFind big Centaur (up from waypoint)\nKill him and pick up a quest item\nGo up to (2) for The Tunnel\n> Proceed to The Tunnel"
+        },
+        {
+          "name": "The Boiling Lake",
+          "note": "Go to the top right of zone\nIf you spot petrified men you are close\n< Kill the boss and Logout\n> TP to The Foothills\nGo to the top left corner of the zone\n_______________\nG,CRAFT - Spell damage"
+        },
+        {
+          "name": "The Tunnel",
+          "note": "Go up and left for Trial\nThen go to the right and up the path\nActivate Waypoint\n> Proceed to the Quarry\n_______________\nG,TRIAL - Blade sentries\nG,CRAFT - All attributes"
+        },
+        {
+          "name": "The Quarry",
+          "note": "Activate Waypoint at center\nGo right side\n> Proceed to Refinery\n---------------\nGo left side (probably left up)\n> Proceed to Shrine of the Winds\n< Kill the boss and Logout\nGet Rewards\n> TP to the Quarry\nTalk to Sin and unlock the next zone\n> Proceed to the Belly of the Beast\n_______________\nG,CRAFT - Physical damage\nR,RECOMMEND physical mitigation\n3,000+ EHP and Movement skills"
+        },
+        {
+          "name": "The Refinery",
+          "note": "Follow the cart tracks to the building top left for Boss\n< Kill the Boss and Logout\n> TP to The Quarry\n_______________\nY,RECOMMEND lightning resist"
+        },
+        {
+          "name": "The Belly of the Beast",
+          "note": "Head top left in this zone and the next\n> Proceed to Rotting Core"
+        },
+        {
+          "name": "The Rotting Core",
+          "note": "Kill Doedre, Maligaro, and Shavronne again\nEnter the Black Heart\nKill the Depraved Trinity\n> Go to Act 10\n_______________\nY,RECOMMEND lightning resist\n3,200+ EHP and fast movement skill"
+        }
+      ]
+    }
+  ],
+  "identity": {
+    "game_version": 3.16,
+    "class": "Templar",
+    "name": "Detailed",
+    "lang": "en"
+  }
+}
