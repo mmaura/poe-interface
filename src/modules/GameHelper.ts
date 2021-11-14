@@ -1,7 +1,7 @@
 import path from 'path'
 import { MenuItem, shell } from 'electron'
 import { DataLoader } from './DataLoader'
-import { debugMsg } from './functions'
+import { MyLogger } from './functions'
 
 
 interface HelperFile {
@@ -23,15 +23,19 @@ export class GameHelpers extends DataLoader {
             this.Populate(this.getAbsPackagedPath(), this.getPackagedWebBaseName()),
             this.Populate(this.getAbsCustomPath(), this.getCustomWebBaseName())
                 .catch(e => {
-                    debugMsg(`Info on loading custom helpers.\n\t${e}`)
-                    // this.Warning.push(`Info on loading custom helpers.\n\t${e}`)
+                    MyLogger.log('info', `No custom helpers in ${this.getAbsCustomPath()}`)
+                    MyLogger.log('info', `${e}`)
+
                 }),
         ])
     }
 
     async Populate(dirPath: string, webPath: string): Promise<void> {
-        this.FilesFromPath(dirPath, [".png", ".jpg", ".txt"]).forEach(f =>
+        const Files = this.FilesFromPath(dirPath, [".png", ".jpg", ".txt"])
+        if (Files) Files.forEach(f =>
             this.Files.push({ filename: f, webpath: this.getWebPath(webPath, f), name: path.basename(f, path.extname(f)) }))
+        else
+            MyLogger.log('info', `No Helper file found in ${dirPath}`)
     }
 
     AppendMenu(menuHelpers: MenuItem): void {
@@ -40,7 +44,6 @@ export class GameHelpers extends DataLoader {
                 new MenuItem({
                     label: `${f.name}`,
                     click: () => {
-                        debugMsg(`loading helper file :  ${f.filename}`)
                         shell.openPath(f.filename)
                     },
                 })

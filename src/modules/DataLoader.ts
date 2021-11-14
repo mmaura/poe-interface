@@ -88,7 +88,7 @@ export class DataLoader extends EventEmitter {
                 _files.push(path.join(dir, f.name))
             }
         })
-        return undefined
+        return _files
     }
 
     /**

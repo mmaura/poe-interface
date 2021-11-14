@@ -1,12 +1,11 @@
 import { Guides } from "./Guides"
 import path from 'path'
 import fs from 'fs'
-import { debugMsg, findGem, getAssetPath } from './functions'
+import { findGem, getAssetPath, MyLogger } from './functions'
 import { MenuItem, NativeImage, nativeImage, shell } from "electron"
 
 export class ClassesGuides extends Guides<IClassesGuide>{
     protected CurGuide: IClassesGuide
-    public Warning: string[]
     Icon: NativeImage
 
     constructor() {
@@ -22,7 +21,7 @@ export class ClassesGuides extends Guides<IClassesGuide>{
                 else if (fs.existsSync(path.join(this.CurGuide.identity.sysAssetPath, "/tree-" + act.act + ".jpg")))
                     act.treeimage = this.CurGuide.identity.webAssetPath + "/tree-" + act.act + ".jpg"
                 else {
-                    this.Warning.push(`Missing file ${path.join(this.CurGuide.identity.sysAssetPath, `tree-${act.act}(.png|.jpg)`)}`)
+                    MyLogger.log('info', `Missing file ${path.join(this.CurGuide.identity.sysAssetPath, `tree-${act.act}(.png|.jpg)`)}`)
                     act.treeimage = null
                 }
                 if (act.gears) {
@@ -32,13 +31,13 @@ export class ClassesGuides extends Guides<IClassesGuide>{
                             gear.gem_info.forEach(({ name }) => {
                                 const _gem = findGem(name)
                                 if (_gem !== undefined) gear.gems.push(_gem)
-                                else this.Warning.push(`Gem ${name} was not found.`)
+                                else MyLogger.log('info', `Gem ${name} was not found.`)
                             })
-                        else this.Warning.push(`gear does not have gem, for act ${act.act}, gear: '${gear.name}'.`)
+                        else MyLogger.log('info', `gear does not have gem, for act ${act.act}, gear: '${gear.name}'.`)
                     })
-                } else this.Warning.push(`gears not exist for act ${act.act}.`)
+                } else MyLogger.log('info', `gears not exist for act ${act.act}.`)
             })
-        } else this.Warning.push(`no acts for guide ${this.CurGuide.identity.filename} .`)
+        } else MyLogger.log('info', `no acts for guide ${this.CurGuide.identity.filename} .`)
     }
 
     AppendMenu(menu: MenuItem, playersClasses: IPlayerClasses[]): void {
@@ -93,7 +92,7 @@ export class ClassesGuides extends Guides<IClassesGuide>{
                             {
                                 label: "Use it",
                                 click: () => {
-                                    debugMsg(`loading class Guide :${this.getGuideLabel(asc.filename)} \n ${asc.filename}`)
+                                    // debugMsg(`loading class Guide :${this.getGuideLabel(asc.filename)} \n ${asc.filename}`)
                                     this.setCurGuide(asc.filename)
                                 }
                             },
@@ -138,7 +137,7 @@ export class ClassesGuides extends Guides<IClassesGuide>{
                         {
                             label: "Use it",
                             click: () => {
-                                debugMsg(`loading class Guide :${this.getGuideLabel(classe.filename)} \n ${classe.filename}`)
+                                // debugMsg(`loading class Guide :${this.getGuideLabel(classe.filename)} \n ${classe.filename}`)
                                 this.setCurGuide(classe.filename)
                             }
                         },

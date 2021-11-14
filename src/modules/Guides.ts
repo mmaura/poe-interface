@@ -1,6 +1,6 @@
 import path from 'path'
 import fs, { constants } from 'fs'
-import { debugMsg, errorMsg } from './functions'
+import { MyLogger } from './functions'
 import { JsonFile } from './JsonFile'
 import { DataLoader } from './DataLoader'
 
@@ -14,12 +14,8 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
 
     abstract parseCurGuide(): void
 
-    public Warning: string[]
-
-
     constructor(subdir: string) {
         super(subdir)
-        this.Warning = ["Guide constructed."]
     }
 
     /**
@@ -32,11 +28,10 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
         Promise.all([
             this.populateIdentities(this.getAbsPackagedPath(), this.getPackagedWebBaseName(), true),
             this.populateIdentities(this.getAbsCustomPath(), this.getCustomWebBaseName())
-                .catch(e => {
-                    debugMsg(`Info on loading custom guides.\n\t${e}`)
-                    this.Warning.push(`Info on loading custom guides.\n\t${e}`)
+                .catch(() => {
+                    MyLogger.log('info', `No custom guide in ${this.getAbsCustomPath()}`)
                 }),
-        ]).then(() => {
+        ]).finally(() => {
             this.setCurGuide(defaultGuideFilename)
         })
 
@@ -64,7 +59,8 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
     }
 
     getCurGuide(): T {
-        return this.CurGuide
+        if (this.CurGuide) return this.CurGuide
+        else return undefined
     }
 
     public getCurGuideLabel(): string {
@@ -84,6 +80,7 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
 
         this.parseCurGuide()
         this.emit("GuideChange", this.CurGuide)
+        MyLogger.log('info', `set cur guide ${this.CurGuide.identity.filename}`)
     }
 
     SaveIdentity(identity: GuideIdentity): void {
@@ -113,6 +110,8 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
      */
     async saveCurGuide(): Promise<void> {
         try {
+            MyLogger.log('info', `save ${this.CurGuide.identity.filename}`)
+
             const json = new JsonFile<T>(this.CurGuide.identity.filename)
             const tmp = JSON.parse(JSON.stringify(this.CurGuide)) as T
             delete tmp.identity.filename
@@ -124,11 +123,10 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
             json.save()
         }
         catch (e) {
+            MyLogger.log('error', `Error when saving custom guide in ${this.CurGuide.identity.filename}`)
+        }
+        this.Init(this.CurGuide.identity.filename)
 
-        }
-        finally {
-            this.Init(this.CurGuide.identity.filename)
-        }
     }
 
     /**
@@ -148,13 +146,12 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
                 this.Identities.push(object.identity)
             }
             catch (e) {
-                errorMsg(`Error on affecting packaged identity : for file ${files}\n\t${e}`)
-                this.Warning.push(`Error on affecting packaged identity : for file ${files}\n\t${e}`)
+                MyLogger.log('error', `Error when loading custom guide in ${files}`)
+                MyLogger.log('error', `${e}`)
             }
         }
         else {
-            debugMsg('No packaged guide found !!')
-            this.Warning.push('No packaged guide found !!')
+            MyLogger.log('info', `No guide file found in ${dirPath}`)
         }
     }
 
@@ -183,7 +180,8 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
             return newFilename
         }
         catch (e) {
-            errorMsg(e)
+            MyLogger.log('error', `Error when duplicate custom guide in ${filename}`)
+            MyLogger.log('error', `${e}`)
         }
     }
 
@@ -193,7 +191,7 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
      * @param dst 
      */
     private _recursiveCopyFileSync(src: string, dst: string): void {
-        debugMsg(`mkdir ${dst}`)
+        MyLogger.log('info', `mkdir ${dst}`)
         fs.mkdirSync(dst, { recursive: true })
 
         fs.readdirSync(src, { withFileTypes: true }).forEach(item => {
@@ -201,7 +199,7 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
 
             if (item.isFile()) {
                 fs.copyFileSync(path.join(src, item.name), path.join(dst, item.name), constants.COPYFILE_EXCL)
-                debugMsg(`cp ${path.join(src, item.name)} ${path.join(dst, item.name)} `)
+                MyLogger.log('info', `cp ${path.join(src, item.name)} ${path.join(dst, item.name)} `)
             }
         })
     }

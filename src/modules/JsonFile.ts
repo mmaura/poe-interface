@@ -2,6 +2,7 @@ import { app } from 'electron'
 
 import fs from 'fs'
 import path from 'path'
+import { MyLogger } from './functions'
 
 export class JsonFile <Type> {
     private _FileName: string
@@ -21,8 +22,9 @@ export class JsonFile <Type> {
         try {
             const data = fs.readFileSync(this._FileName)
             this._JsonObject = JSON.parse(data.toLocaleString())
-        } catch (err: any) {
-            throw new Error(`unable to open file: ${this._FileName}.\n\n ${err.message}`);
+        } catch (err) {
+            MyLogger.log('error', `unable to open file: ${this._FileName}`)
+            MyLogger.log('error', `${err.message}`)
         }
     }
 

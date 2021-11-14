@@ -5,6 +5,17 @@ import path from "path"
 
 import InitialGems from "../assets/data/gems.json"
 import { JsonFile } from "./JsonFile"
+import winston from "winston"
+
+
+export const MyLogger = winston.createLogger({
+  transports: [
+    new winston.transports.File({ filename: path.join(getLocalCustomPath(), "log.txt") }),
+    new winston.transports.Console(),
+    ]
+})
+
+MyLogger.log('info', 'starting')
 
 export function findGem(name: string): IGems {
   return InitialGems.find(e => {
@@ -171,14 +182,14 @@ export function getCustomWebBaseName(): string {
 
 }
 
-export function debugMsg(msg: string): void {
-  if (!app.isPackaged) {
-    console.log(`=> ${msg}`)
-  }
-}
+// export function debugMsg(msg: string): void {
+//   if (!app.isPackaged) {
+//     console.log(`=> ${msg}`)
+//   }
+// }
 
-export function errorMsg(msg: string): void {
-  const _msg = `${msg}`
-  debugMsg(_msg)
-  throw new Error(_msg);
-}
+// export function errorMsg(msg: string): void {
+//   const _msg = `${msg}`
+//   debugMsg(_msg)
+//   throw new Error(_msg);
+// }

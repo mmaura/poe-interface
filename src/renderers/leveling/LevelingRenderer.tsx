@@ -55,17 +55,17 @@ function App(props: { Init: any }) {
   )
 
   const onZoneNoteSave = useCallback((text: string) => {
-    window.poe_interfaceAPI.sendSync("levelingRenderer", "saveCurActGuide", "zoneNote", curActID, curZoneName, text)
+    window.poe_interfaceAPI.sendSync("levelingRenderer", "saveActGuide", "zoneNote", curActID, curZoneName, text)
 
   }, [curZoneName, curActID])
 
   const onNavigationNoteSave = useCallback((text: string) => {
-    window.poe_interfaceAPI.sendSync("levelingRenderer", "saveCurActGuide", "NavigationNote", curActID, curZoneName, text)
+    window.poe_interfaceAPI.sendSync("levelingRenderer", "saveActGuide", "navigationNote", curActID, curZoneName, text)
 
   }, [curZoneName, curActID])
 
   const onActGuideIdentitySave = useCallback((identity: GuideIdentity) => {
-    window.poe_interfaceAPI.sendSync("levelingRenderer", "saveCurActGuide", "identity", identity)
+    window.poe_interfaceAPI.sendSync("levelingRenderer", "saveActGuide", "identity", identity)
   }, [])
 
   const onClassGuideSkilltreeChange = useCallback(() => {
@@ -73,7 +73,7 @@ function App(props: { Init: any }) {
   }, [curActID])
 
   const onClassGuideIdentitySave = useCallback((identity: GuideIdentity) => {
-    window.poe_interfaceAPI.sendSync("levelingRenderer", "saveCurClassGuide", "identity", identity)
+    window.poe_interfaceAPI.sendSync("levelingRenderer", "saveClassGuide", "identity", identity)
   }, [])
 
   /**********************************

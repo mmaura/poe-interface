@@ -1,11 +1,10 @@
 import { MenuItem, nativeImage, NativeImage } from "electron"
-import { debugMsg, getAssetPath } from "./functions"
+import { getAssetPath, MyLogger } from "./functions"
 import { Guides } from "./Guides"
 import path from 'path'
 
 export class ActsGuides extends Guides<IActsGuide> {
     protected CurGuide: IActsGuide
-    public Warning: string[]
     Icon: NativeImage
 
     constructor() {
@@ -23,25 +22,26 @@ export class ActsGuides extends Guides<IActsGuide> {
                 if (_tmp_zone) {
                     _tmp_zone.name !== undefined
                         ? (_zone.altimage = _tmp_zone.altimage)
-                        : this.Warning.push(`no 'altimage' field in ${_zone.name} act ${_act.act}`)
+                        : MyLogger.log('info', `no 'altimage' field in: act ${_act.act}, ${_zone.name}`)
                     _tmp_zone.image !== undefined
                         ? (_zone.image = _tmp_zone.image)
-                        : this.Warning.push(`no 'image' field in ${_zone.name} act ${_act.act}`)
+                        : MyLogger.log('info', `no 'image' field in: act ${_act.act}, ${_zone.name}`)
                     _tmp_zone.note !== undefined
                         ? (_zone.note = _tmp_zone.note)
-                        : this.Warning.push(`no 'note' field in ${_zone.name} act ${_act.act}`)
+                        :MyLogger.log('info', `no 'note' field in: act ${_act.act}, ${_zone.name}`)
                 }
-                else this.Warning.push(`no zone found in act:${_act.actid} and zone:${_zone.name} of guide`)
+                else MyLogger.log('info', `no zone found in act:${_act.actid}`)
             })
-            else this.Warning.push(`no zone found in act: ${_act.actid} guide`)
+            else MyLogger.log('info', `no zone found in act: ${_act.actid}`)
         })
-        else this.Warning.push("no acts found in guide")
+        else MyLogger.log('info', "no acts found in guide")
     }
 
     AppendMenu(menu: MenuItem): void {
         let mustAppendSeparator = true
 
-        this.getIdentities().sort(t => (t.readonly === true) ? -1 : 1).forEach((_identity: ActGuideIdentity) => {
+        const Identities = this.getIdentities().sort(t => (t.readonly === true) ? -1 : 1)
+        if (Identities) Identities.forEach((_identity: ActGuideIdentity) => {
             if (mustAppendSeparator && !(_identity.readonly === true)) {
                 mustAppendSeparator = false
                 const _menu = new MenuItem({ type: "separator" })
@@ -54,7 +54,6 @@ export class ActsGuides extends Guides<IActsGuide> {
 
                 id: `${_identity.filename}`,
                 click: () => {
-                    debugMsg(`loading acts Guide :${this.getGuideLabel(_identity.filename)} \n ${_identity.filename}`)
                     this.setCurGuide(_identity.filename)
                 },
             })

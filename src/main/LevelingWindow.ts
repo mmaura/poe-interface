@@ -8,13 +8,12 @@ import Store from "electron-store"
 import PathOfExileLog from "poe-log-monitor"
 import merge from 'lodash.merge'
 
-import { getAssetPath, extractActsBaseGuide, extractActsCustomGuide, getAbsCustomPath, } from "../modules/functions"
+import { getAssetPath, extractActsBaseGuide, extractActsCustomGuide, getAbsCustomPath, MyLogger, } from "../modules/functions"
 
 import { ClassesGuides } from "../modules/ClassesGuides"
 import { JsonFile } from "../modules/JsonFile"
 import { ActsGuides } from "../modules/ActsGuides"
 import { GameHelpers } from "../modules/GameHelper"
-import winston from "winston"
 
 declare const LEVELING_WINDOW_WEBPACK_ENTRY: string
 declare const LEVELING_WINDOW_PRELOAD_WEBPACK_ENTRY: never
@@ -40,7 +39,7 @@ export class LevelingWindow {
   private _MyPlayer: IAppPlayer
   private _MyConn: plm_conn
 
-  constructor(appStore: Store, AppIcon: NativeImage, MyLogger: winston.Logger) {
+  constructor(appStore: Store, AppIcon: NativeImage) {
     this._AppStore = appStore
     this._Icon = AppIcon
 
@@ -75,30 +74,22 @@ export class LevelingWindow {
       this._Window.loadURL(LEVELING_WINDOW_WEBPACK_ENTRY)
       if (!app.isPackaged) {
         this._Window.webContents.openDevTools({ mode: "detach" })
-        // // Install extensions
-        // installExtension(REACT_DEVELOPER_TOOLS)
-        //   .then(name => console.log(`Added Extension:  ${name}`))
-        //   .catch(err => console.log('An error occurred: ', err));
-        // installExtension(REDUX_DEVTOOLS)
-        //   .then(name => console.log(`Added Extension:  ${name}`))
-        //   .catch(err => console.log('An error occurred: ', err));
       }
       this._Window.setBounds(this._AppStore.get("levelingWinBounds", { x: 1, y: 1, width: 1400, height: 980 }) as Rectangle)
+    }).catch(e => {
+      MyLogger.log('info', `Some error when Loading data : ${e}`)
     })
-    // .catch(e => {
-    //   dialog.showMessageBox(null, { title: "Error", message: `unable to load data.\n${e}`, icon: AppIcon })
-    // })
 
     /**********************************
      * IPC
      */
     ipcMain.handle("levelingRenderer", (event: IpcMainInvokeEvent, ...arg) => {
       const MergedActGuide = {} as IActsGuide
-      console.log("****** ipcMain handle 'levelingRenderer': %o", arg)
+      MyLogger.log('debug', `ipcMain handle 'levelingRenderer': ${arg}`)
 
       switch (arg[0]) {
         case "Init":
-          console.log("Init")
+          MyLogger.log('debug', `Message: Init`)
           merge(MergedActGuide, this.Zones.getObject(), this.ActsGuides.getCurGuide())
           return [
             "Init",
@@ -111,14 +102,17 @@ export class LevelingWindow {
             this.PlayersClasses.getObject()
           ]
 
-        case "saveCurActGuide": switch (arg[1]) {
+        case "saveActGuide": switch (arg[1]) {
           case "zoneNote":
+            MyLogger.log('debug', `saveActGuide: zoneNote`)
             this.ActsGuides.SaveZoneNote(arg[2], arg[3], arg[4])
             break
-          case "NavigationNote":
+          case "navigationNote":
+            MyLogger.log('debug', `saveActGuide: NavigationNote`)
             this.ActsGuides.SaveNavigationNote(arg[2], arg[3], arg[4])
             break
           case "identity":
+            MyLogger.log('debug', `saveActGuide: identity`)
             this.ActsGuides.SaveIdentity(arg[2])
             this.makeMenus()
             break
@@ -126,6 +120,8 @@ export class LevelingWindow {
           break
         case "saveClassGuide": switch (arg[1]) {
           case "skilltree":
+            MyLogger.log('debug', `saveClassGuide: skilltree`)
+
             console.log(`Choose skilltree ${arg[2]}`)
             console.log(this.ClassGuides.getTreeImagePath(arg[2]))
             this.loadImage(`Choose skilltree for act ${arg[2]}`, this.ClassGuides.getTreeImagePath(arg[2])).then((result) => {
@@ -136,6 +132,11 @@ export class LevelingWindow {
               console.log(result)
             })
             break
+            case "identity":
+              MyLogger.log('debug', `saveClassGuide: identity`)
+              this.ClassGuides.SaveIdentity(arg[2])
+              this.makeMenus()
+              break
         }
           break
       }

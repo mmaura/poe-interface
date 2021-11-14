@@ -6,21 +6,10 @@ import path from "path"
 import os from "os"
 import fs from "fs"
 
-import winston from "winston"
-
 import { ConfigWindow } from "./main/ConfigWindow"
 import { LevelingWindow } from "./main/LevelingWindow"
 
-import { getAssetPath, getLocalCustomPath } from "./modules/functions"
-
-const MyLogger = winston.createLogger({
-  transports: [
-    new winston.transports.File({ filename: path.join(getLocalCustomPath(), "log.txt") }),
-    new winston.transports.Console(),
-    ]
-})
-
-MyLogger.log('info', 'starting')
+import { getAssetPath, getLocalCustomPath, MyLogger } from "./modules/functions"
 
 const reactDevToolsPath = path.join(
   os.homedir(),
@@ -41,7 +30,14 @@ protocol.registerSchemesAsPrivileged([
 ])
 
 app.whenReady().then(async () => {
-  if (!app.isPackaged) session.defaultSession.loadExtension(reactDevToolsPath)
+  if (!app.isPackaged) {
+    try {
+      session.defaultSession.loadExtension(reactDevToolsPath)
+    }
+    catch(e){
+      MyLogger.log('info', 'Unable to load React chrome extension')
+    }
+  }
 
   protocol.registerFileProtocol("userdata", (request, callback) => {
     const url = request.url.substr(9)
@@ -55,7 +51,7 @@ app.whenReady().then(async () => {
 
   AppStore.onDidChange("poe_log_path", newValue => {
     CreatePoeLog(newValue as string)
-    if (!levelingGuideWindow) levelingGuideWindow = new LevelingWindow(AppStore, AppIcon, MyLogger)
+    if (!levelingGuideWindow) levelingGuideWindow = new LevelingWindow(AppStore, AppIcon)
     levelingGuideWindow.setPoeLog(PoeLog)
     levelingGuideWindow.show()
   })
@@ -81,7 +77,7 @@ app.whenReady().then(async () => {
     configWindow.show()
   } else {
     CreatePoeLog(configWindow.getPoeLogPath())
-    levelingGuideWindow = new LevelingWindow(AppStore, AppIcon, MyLogger)
+    levelingGuideWindow = new LevelingWindow(AppStore, AppIcon)
     levelingGuideWindow.setPoeLog(PoeLog)
     levelingGuideWindow.show()
   }
@@ -99,7 +95,7 @@ app.whenReady().then(async () => {
       icon: AppIcon,
     }).show()
 
-    if (!levelingGuideWindow) levelingGuideWindow = new LevelingWindow(AppStore, AppIcon, MyLogger)
+    if (!levelingGuideWindow) levelingGuideWindow = new LevelingWindow(AppStore, AppIcon)
     levelingGuideWindow.show()
   }
 })
