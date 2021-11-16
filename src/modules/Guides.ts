@@ -64,6 +64,10 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
         return curIdent
     }
 
+    /**
+     * 
+     * @returns current guide or undefined
+     */
     getCurGuide(): T {
         if (this.CurGuide) return this.CurGuide
         else return undefined
