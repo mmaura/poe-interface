@@ -5,51 +5,51 @@
       "zones": [
         {
           "name": "The Twilight Strand",
-          "note": "Verrifer que le bon loot filter est activ�.\n________________\nSuivez la c�te en haut et � droite\nTuez Hillock\n> Aller � Lioneye's Watch\n---------------\nCheck vendors for linked weapons\nCheck vendors for + movement speed boots\nR,Prendre la gemme Smith\n---------------\n> Aller � The Coast"
+          "note": "Verrifer que le bon loot filter est activé.\n________________\nSuivez la côte en haut et à droite\nTuez Hillock\n> Aller à Lioneye's Watch\n---------------\nCheck vendors for linked weapons\nCheck vendors for + movement speed boots\nR,Prendre la gemme Smith\n---------------\n> Aller à The Coast"
         },
         {
           "name": "The Coast",
-          "note": "Restez sur le c�t� droit en suivant le mur\nActiver Waypoint\n> Aller � Mud Flats en premier\n---------------\nL'entr�e de Tidal Island est proche de Waypoint\n> Aller � Tidal Island pour Hailrake"
+          "note": "Restez sur le côté droit en suivant le mur\nActiver Waypoint\n> Aller à Mud Flats en premier\n---------------\nL'entrée de Tidal Island est proche de Waypoint\n> Aller à Tidal Island pour Hailrake"
         },
         {
           "name": "The Tidal Island",
-          "note": "Le c�t� sans falaise est le plus court\n< Tuer le Boss and Logout\n+ prendre Quicksilver et toutes les gemmes dont vous avez besoin pour lvl 4\n> TP vers Submerged Passage"
+          "note": "Le côté sans falaise est le plus court\n< Tuer le Boss and Logout\n+ prendre Quicksilver et toutes les gemmes dont vous avez besoin pour lvl 4\n> TP vers Submerged Passage"
         },
         {
           "name": "The Mud Flats",
-          "note": "Les petites rivi�res relient les 3 items\nRamasser les 3 items\n> Aller � Submerged"
+          "note": "Les petites rivières relient les 3 items\nRamasser les 3 items\n> Aller à Submerged"
         },
         {
           "name": "The Fetid Pool",
-          "note": "Va en cercle et tue tout\nR,Cette qu�te est facultative et doit �tre ignor�e pour gagner du temps"
+          "note": "Va en cercle et tue tout\nR,Cette quête est facultative et doit être ignorée pour gagner du temps"
         },
         {
           "name": "The Submerged Passage",
-          "note": "Trouver le Waypoint\n> TP vers The Coast et aller � Tidal Island pour la qu�te de la Quicksilver Flask\n---------------\nTrouvez le pont et placez un portail\nNous serons de retour pour le boss de Deep Dweller plus tard\n> Traverser le pont pour Aller � The Ledge\n---------------\nCherchez sous le pont l'entr�e des profondeurs inond�es\n> Aller � Flooded Depths et tuer le gros crabe"
+          "note": "Trouver le Waypoint\n> TP vers The Coast et aller à Tidal Island pour la quête de la Quicksilver Flask\n---------------\nTrouvez le pont et placez un portail\nNous serons de retour pour le boss de Deep Dweller plus tard\n> Traverser le pont pour Aller à The Ledge\n---------------\nCherchez sous le pont l'entrée des profondeurs inondées\n> Aller à Flooded Depths et tuer le gros crabe"
         },
         {
           "name": "The Flooded Depths",
-          "note": "Tuer le Deep Dweller\n< Logout\n+ Prendre la r�compence � Tarkleigh\n> TP vers Lower Prison"
+          "note": "Tuer le Deep Dweller\n< Logout\n+ Prendre la récompence à Tarkleigh\n> TP vers Lower Prison"
         },
         {
           "name": "The Ledge",
-          "note": "Petits totems au point de cheminement vers la sortie\n> Aller � The Climb"
+          "note": "Petits totems au point de cheminement vers la sortie\n> Aller à The Climb"
         },
         {
           "name": "The Climb",
-          "note": "Toujours monter\nLib�rez Navali quand vous la trouvez\n> Aller � the Prison"
+          "note": "Toujours monter\nLibérez Navali quand vous la trouvez\n> Aller à the Prison"
         },
         {
           "name": "The Lower Prison",
-          "note": "> Aller en ville au Waypoint\n> Prenez le portail vous avez laiss� pour retourner � Flooded Depths\n---------------\nIl y a un Trial dans cette zone que vous pouvez faire plus tard gr�ce au Waypoint\nEssayez d'abord pour la sortie\n> Aller � Upper Prison\n_______________\nG,TRIAL:  Spike traps"
+          "note": "> Aller en ville au Waypoint\n> Prenez le portail vous avez laissé pour retourner à Flooded Depths\n---------------\nIl y a un Trial dans cette zone que vous pouvez faire plus tard grâce au Waypoint\nEssayez d'abord pour la sortie\n> Aller à Upper Prison\n_______________\nG,TRIAL:  Spike traps"
         },
         {
           "name": "The Upper Prison",
-          "note": "Essayez d'abord � gauche.\n< Tuer Brutus et Logout\n+ Prennez les gemmes qui vous sont n�cessaires\n> TP vers the Prisoner's Gate"
+          "note": "Essayez d'abord à gauche.\n< Tuer Brutus et Logout\n+ Prennez les gemmes qui vous sont nécessaires\n> TP vers the Prisoner's Gate"
         },
         {
           "name": "Prisoner's Gate",
-          "note": "Recherchez le c�t� de la route qui a le rebord vers le bas, g�n�ralement sur le c�t� droit\n> Aller � Ship Graveyard."
+          "note": "Recherchez le côté de la route qui a le rebord vers le bas, généralement sur le côté droit\n> Aller à Ship Graveyard."
         },
         {
           "name": "The Ship Graveyard",
@@ -57,11 +57,11 @@
         },
         {
           "name": "The Cavern of Wrath",
-          "note": "Si vous n'avez pas encore trouv� les Allflame \n> Au Waypoint port retournez vers The Ship Graveyard pour trouver the Cave\n---------------\nApr�s Allflame mais avant d'aller sur Merveil\n> TP to town\n+ Prennez vos Gemmes\nC'est le bon moment pour prendre 2x Sapphire rings\n> Allez � Cavern of Wrath\n---------------\n> Allez � Cavern of Anger"
+          "note": "Si vous n'avez pas encore trouvé les Allflame \n> Au Waypoint port retournez vers The Ship Graveyard pour trouver the Cave\n---------------\nAprès Allflame mais avant d'aller sur Merveil\n> TP to town\n+ Prennez vos Gemmes\nC'est le bon moment pour prendre 2x Sapphire rings\n> Allez à Cavern of Wrath\n---------------\n> Allez à Cavern of Anger"
         },
         {
           "name": "The Cavern of Anger",
-          "note": "Souvent en bas � droite\nVous pouvez suivre les esprits\nSi vous voyez des tas d'or, vous �tes proche de Merveil\nTuer the boss\n> Allez vers le prochain Act"
+          "note": "Souvent en bas à droite\nVous pouvez suivre les esprits\nSi vous voyez des tas d'or, vous êtes proche de Merveil\nTuer the boss\n> Allez vers le prochain Act"
         }
       ]
     },
@@ -128,11 +128,11 @@
       "zones": [
         {
           "name": "The Southern Forest",
-          "note": "Suivez le mur de droite\n> Aller � the Forest Ench\n> Aller � Old Fields"
+          "note": "Suivez le mur de droite\n> Aller à the Forest Ench\n> Aller à Old Fields"
         },
         {
           "name": "The Old Fields",
-          "note": "Suivre la route\nY,Si vous n'avez pas de deuxi�me Flacon Quicksilver - trouvez la grotte et laissez le portail l�-bas\n> Aller � Crossroads"
+          "note": "Suivre la route\nY,Si vous n'avez pas de deuxième Flacon Quicksilver - trouvez la grotte et laissez le portail là-bas\n> Aller à Crossroads"
         },
         {
           "name": "The Den",
@@ -140,19 +140,19 @@
         },
         {
           "name": "The Crossroads",
-          "note": "Suivre la router et trouver le Waypoint\n> TP vers la ville et aller au portail vers The Den\n< Tuer bear, Logout\n---------------\n> Aller � Crossroads\nAller vers le NORD, touver la Chamber of Sins\n---------------\nAller vers l'EST\n> Aller � Broken Bridge\n---------------\nAller au SUD\n> Aller � Ruins"
+          "note": "Suivre la router et trouver le Waypoint\n> TP vers la ville et aller au portail vers The Den\n< Tuer bear, Logout\n---------------\n> Aller à Crossroads\nAller vers le NORD, touver la Chamber of Sins\n---------------\nAller vers l'EST\n> Aller à Broken Bridge\n---------------\nAller au SUD\n> Aller à Ruins"
         },
         {
           "name": "The Chamber of Sins Level 1",
-          "note": "Cercle au centre de la zone\nLe couloir � c�t� du Waypoint m�ne toujours � la zone suivante\n> Aller � Chamber level 2"
+          "note": "Cercle au centre de la zone\nLe couloir à côté du Waypoint mène toujours à la zone suivante\n> Aller à Chamber level 2"
         },
         {
           "name": "The Chamber of Sins Level 2",
-          "note": "Le Trial est � Droite puis en HAUT\nLe boss est en diagonale � droite, puis en bas et � gauche\n< Tuer Fidelitas et Logout\n+ Get Gems\n---------------\n> Aller � Crossroads\n_______________\nG,TRIAL - Sawblades"
+          "note": "Le Trial est à Droite puis en HAUT\nLe boss est en diagonale à droite, puis en bas et à gauche\n< Tuer Fidelitas et Logout\n+ Get Gems\n---------------\n> Aller à Crossroads\n_______________\nG,TRIAL - Sawblades"
         },
         {
           "name": "The Broken Bridge",
-          "note": "Suivre la route vers la Droite\n< Tuer Kraityn and Logout\n> Aller � Crossroads"
+          "note": "Suivre la route vers la Droite\n< Tuer Kraityn and Logout\n> Aller à Crossroads"
         },
         {
           "name": "The Fellshrine Ruins",
@@ -160,43 +160,43 @@
         },
         {
           "name": "The Crypt Level 1",
-          "note": "Trouver et finir le  Trial\nInutule d'aller au niveau 2\n< Logout\n> Aller � Riverways (left)\n_______________\nG,TRIAL - Spinning blades"
+          "note": "Trouver et finir le  Trial\nInutule d'aller au niveau 2\n< Logout\n> Aller à Riverways (left)\n_______________\nG,TRIAL - Spinning blades"
         },
         {
           "name": "The Riverways",
-          "note": "Suivez la route et utilisez vos comp�tences en mobilit� pour sauter par-dessus les ponts\nB,Activer le Waypoint\n---------------\nWestern Forest est la prochaine sur la route\n> Aller � Western Forest\n---------------\nWetlands sont toujours de l'autre cot� de la route par rapport au Waypoint\n> Aller � Wetlands"
+          "note": "Suivez la route et utilisez vos compétences en mobilité pour sauter par-dessus les ponts\nB,Activer le Waypoint\n---------------\nWestern Forest est la prochaine sur la route\n> Aller à Western Forest\n---------------\nWetlands sont toujours de l'autre coté de la route par rapport au Waypoint\n> Aller à Wetlands"
         },
         {
           "name": "The Western Forest",
-          "note": "Suivre la route\nB,Activer le Waypoint\nAlira est du c�t� du Waypoint o� la route a une section cass�e\nR,Tuer Alira\n---------------\nSuivez la route pour la qu�te The Way Forward\nTuez le boss, revenir sur le chemin du retour\n---------------\nLes Weaver's Chambers se trouvent de l'autre c�t� de la route d'Alira, avec des arbres palm�s\n> Aller � Weaver's Chambers"
+          "note": "Suivre la route\nB,Activer le Waypoint\nAlira est du côté du Waypoint où la route a une section cassée\nR,Tuer Alira\n---------------\nSuivez la route pour la quête The Way Forward\nTuez le boss, revenir sur le chemin du retour\n---------------\nLes Weaver's Chambers se trouvent de l'autre côté de la route d'Alira, avec des arbres palmés\n> Aller à Weaver's Chambers"
         },
         {
           "name": "The Weaver's Chambers",
-          "note": "Allez � gauche lorsque le chemin de gauche appara�t, sinon faites une boucle autour du c�t� droit\n< Tuer Weaver et Logout\n+ Prennez vos gemmes\n+ 16% Two-Stone Rings\n> Go to Act 1\n+ Prendre le Passive � Bestel\n> Aller � Riverways"
+          "note": "Allez à gauche lorsque le chemin de gauche apparaît, sinon faites une boucle autour du côté droit\n< Tuer Weaver et Logout\n+ Prennez vos gemmes\n+ 16% Two-Stone Rings\n> Go to Act 1\n+ Prendre le Passive à Bestel\n> Aller à Riverways"
         },
         {
           "name": "The Wetlands",
-          "note": "Allez � gauche et en haut jusqu'� ce que le Waypoint soit visible avec le passage � proximit�\n< Tuer Oak au centre et Logout\n+ 2 Passives and quest item from Eramir\n> Waypoint vers The Wetlands\n> Aller � Vaal Ruins"
+          "note": "Allez à gauche et en haut jusqu'à ce que le Waypoint soit visible avec le passage à proximité\n< Tuer Oak au centre et Logout\n+ 2 Passives and quest item from Eramir\n> Waypoint vers The Wetlands\n> Aller à Vaal Ruins"
         },
         {
           "name": "The Vaal Ruins",
-          "note": "Essayez de d�terminer la direction puis zig-zaguez en cons�quence � travers les ruines\n> Aller � Northern Forest"
+          "note": "Essayez de déterminer la direction puis zig-zaguez en conséquence à travers les ruines\n> Aller à Northern Forest"
         },
         {
           "name": "The Northern Forest",
-          "note": "Allez en haut � droite en suivant le rivage\n> Aller � The Caverns\nR,! N'allez pas dans the Dread Thinket"
+          "note": "Allez en haut à droite en suivant le rivage\n> Aller à The Caverns\nR,! N'allez pas dans the Dread Thinket"
         },
         {
           "name": "The Dread Thicket",
-          "note": "Cette zone doit �tre ignor�e pour gagner du temp"
+          "note": "Cette zone doit être ignorée pour gagner du temp"
         },
         {
           "name": "The Caverns",
-          "note": "Essayez de deviner ou la sortie est apparue\nB,Activer Waypoint\nSi vous n'avez toujours pas de MS boots\n> TP vers Hideout et crafter MS boots\nsinon\n> Aller � the Ancient Pyramid\n_______________\nG,CRAFT - Movement speed"
+          "note": "Essayez de deviner ou la sortie est apparue\nB,Activer Waypoint\nSi vous n'avez toujours pas de MS boots\n> TP vers Hideout et crafter MS boots\nsinon\n> Aller à the Ancient Pyramid\n_______________\nG,CRAFT - Movement speed"
         },
         {
           "name": "The Ancient Pyramid",
-          "note": "La 1�re sortie est � droite ou � gauche du point central\nLes autres sorties sont en diagonale de leur entr�e\nY,RECOMMEND lightning resist\nTuer the boss\n> Aller � Act 3\n_______________\nG,CRAFT - Spell damage"
+          "note": "La 1ère sortie est à droite ou à gauche du point central\nLes autres sorties sont en diagonale de leur entrée\nY,RECOMMEND lightning resist\nTuer the boss\n> Aller à Act 3\n_______________\nG,CRAFT - Spell damage"
         }
       ]
     },
@@ -205,23 +205,23 @@
       "zones": [
         {
           "name": "The City of Sarn",
-          "note": "N'oubliez pas de parler � Clarissa\n> Sarn un peu en haut et � gauche de Clarissa\n> Allez directement dans The Slums sans parler aux PNJ"
+          "note": "N'oubliez pas de parler à Clarissa\n> Sarn un peu en haut et à gauche de Clarissa\n> Allez directement dans The Slums sans parler aux PNJ"
         },
         {
           "name": "The Slums",
-          "note": "Trouvez les grilles des �gouts, puis descendez les escaliers, suivez les escaliers jusqu'� monter, puis ligne droite vers le cr�matorium\n> Go to Crematorium\n---------------\nApr�s avoir les cl�s\n> Go to The Sewers"
+          "note": "Trouvez les grilles des égouts, puis descendez les escaliers, suivez les escaliers jusqu'à monter, puis ligne droite vers le crématorium\n> Go to Crematorium\n---------------\nAprès avoir les clés\n> Go to The Sewers"
         },
         {
           "name": "The Crematorium",
-          "note": "Partir � gauche a g�n�ralement de grandes chances de succ�s\nY,la r�sistance � la foudre contre Piety est recommand�e\n< Kill Piety and Logout\n---------------\n+ Check Clarissa for 2x +16 res rings and make it rare with essences\nRamassez les cl�s des �gouts\n---------------\n> Retourer � Slums\n_______________\nG,TRIAL - Furnace Traps\nG,CRAFT - Fire damage"
+          "note": "Partir à gauche a généralement de grandes chances de succès\nY,la résistance à la foudre contre Piety est recommandée\n< Kill Piety and Logout\n---------------\n+ Check Clarissa for 2x +16 res rings and make it rare with essences\nRamassez les clés des égouts\n---------------\n> Retourer à Slums\n_______________\nG,TRIAL - Furnace Traps\nG,CRAFT - Fire damage"
         },
         {
           "name": "The Sewers",
-          "note": "Ramassez le premier buste avant le Waypoint\nB, n'oubliez pas le waypoint\nIl y a un autre buste en suite\n� droite et en bas, il y a un dernier buste\nEn haut et � gauche se trouve la sortie\n> Go to Marketplace\n---------------\nBruler le Immortal Shit\n> Aller � Ebony Barracks\n_______________\nG,CRAFT - Physical damage"
+          "note": "Ramassez le premier buste avant le Waypoint\nB, n'oubliez pas le waypoint\nIl y a un autre buste en suite\nÀ droite et en bas, il y a un dernier buste\nEn haut et à gauche se trouve la sortie\n> Go to Marketplace\n---------------\nBruler le Immortal Shit\n> Aller à Ebony Barracks\n_______________\nG,CRAFT - Physical damage"
         },
         {
           "name": "The Marketplace",
-          "note": "Habituellement en haut et � droite\nTraversez la salle des statues, r�cup�rez le Waypoint pr�s des Catacombes\nPasser l'�l�ment de qu�te c'est innutil\n> Go to The Catacombs\n---------------\nPuis suivre le mur de droite pour trouver la sortie\n> Go to The Battlefront\n_______________\nG,TRIAL in Catacombs - Blade Sentries"
+          "note": "Habituellement en haut et à droite\nTraversez la salle des statues, récupérez le Waypoint près des Catacombes\nPasser l'élément de quête c'est innutil\n> Go to The Catacombs\n---------------\nPuis suivre le mur de droite pour trouver la sortie\n> Go to The Battlefront\n_______________\nG,TRIAL in Catacombs - Blade Sentries"
         },
         {
           "name": "The Catacombs",
@@ -229,23 +229,23 @@
         },
         {
           "name": "The Battlefront",
-          "note": "Montez et un peu � gauche vers Waypoint.\nPrenez une bobine un peu � gauche de Waypoint.\n> Go to The Docs\n---------------\nD�placez-vous vers la droite et vers le haut � la recherche du temple Solaris\nY,Le niveau 26 est bon � ce stade\n> Go to Solaris Temple"
+          "note": "Montez et un peu à gauche vers Waypoint.\nPrenez une bobine un peu à gauche de Waypoint.\n> Go to The Docs\n---------------\nDéplacez-vous vers la droite et vers le haut à la recherche du temple Solaris\nY,Le niveau 26 est bon à ce stade\n> Go to Solaris Temple"
         },
         {
           "name": "The Docks",
-          "note": "Ignorez Fairgraves\nC�t� gauche en premier\nTrouvez le sulfite qui est en bas des escaliers\n< Logout\n> Go to Battlefronts again"
+          "note": "Ignorez Fairgraves\nCôté gauche en premier\nTrouvez le sulfite qui est en bas des escaliers\n< Logout\n> Go to Battlefronts again"
         },
         {
           "name": "The Solaris Temple Level 1",
-          "note": "Suivez le tapis jusqu'� la sortie\n> Proceed to Solaris level 2"
+          "note": "Suivez le tapis jusqu'à la sortie\n> Proceed to Solaris level 2"
         },
         {
           "name": "The Solaris Temple Level 2",
-          "note": "Suis le tapis mais �a peut avoir des impasses\nParlez � Dialla\nV�rifiez vos statistiques et d�terminez de quelle amulette vous avez le plus besoin\n> TP to Sewers Waypoint\n_______________\nG,CRAFT - Cold damage"
+          "note": "Suis le tapis mais ça peut avoir des impasses\nParlez à Dialla\nVérifiez vos statistiques et déterminez de quelle amulette vous avez le plus besoin\n> TP to Sewers Waypoint\n_______________\nG,CRAFT - Cold damage"
         },
         {
           "name": "The Ebony Barracks",
-          "note": "Montez au temple de Lunaris\nB, n'oubliez pas le waypoint\nTuer Gravicius\n> Proceed to Lunaris Temple\n---------------\nApr�s le temple de Lunaris\nAllez � droite et un peu plus haut\n> Go to Imperial Gardens"
+          "note": "Montez au temple de Lunaris\nB, n'oubliez pas le waypoint\nTuer Gravicius\n> Proceed to Lunaris Temple\n---------------\nAprès le temple de Lunaris\nAllez à droite et un peu plus haut\n> Go to Imperial Gardens"
         },
         {
           "name": "The Lunaris Temple Level 1",
@@ -253,27 +253,27 @@
         },
         {
           "name": "The Lunaris Temple Level 2",
-          "note": "La disposition diff�re beaucoup, si vous voyez des escaliers, montez-les\nTrouvez plus d'escaliers, jusqu'� une plus grande surface\nIl y aura des chariots des deux c�t�s, choisissez le c�t� o� il n'y en a qu'un\n< Kill boss and Logout\n+ Look for 4-link at vendor\n> Go to Ebony Barracks\n_______________\nY,RECOMMEND lightning resist\nG,CRAFT - Lightning damage"
+          "note": "La disposition diffère beaucoup, si vous voyez des escaliers, montez-les\nTrouvez plus d'escaliers, jusqu'à une plus grande surface\nIl y aura des chariots des deux côtés, choisissez le côté où il n'y en a qu'un\n< Kill boss and Logout\n+ Look for 4-link at vendor\n> Go to Ebony Barracks\n_______________\nY,RECOMMEND lightning resist\nG,CRAFT - Lightning damage"
         },
         {
           "name": "The Imperial Gardens",
-          "note": "Suivez la route\nB, activer Waypoint\nMontez � gauche pour Trial\n< Logout\n> TP vers Imperial Gardens (faster then walking back)\nNous sautons la biblioth�que car nous n'en avons pas besoin maintenant\nDepuis Waypoint, allez � droite puis en haut\n> Aller vers Sceptre of God\n_______________\nG,TRIAL - Dart Traps\nG,CRAFT - All attributes"
+          "note": "Suivez la route\nB, activer Waypoint\nMontez à gauche pour Trial\n< Logout\n> TP vers Imperial Gardens (faster then walking back)\nNous sautons la bibliothèque car nous n'en avons pas besoin maintenant\nDepuis Waypoint, allez à droite puis en haut\n> Aller vers Sceptre of God\n_______________\nG,TRIAL - Dart Traps\nG,CRAFT - All attributes"
         },
         {
           "name": "The Library",
-          "note": "Siosa vous donnera une qu�te ici pour toutes les gemmes actuelles\nIl est au milieu de la zone, pr�s du Waypoint"
+          "note": "Siosa vous donnera une quête ici pour toutes les gemmes actuelles\nIl est au milieu de la zone, près du Waypoint"
         },
         {
           "name": "The Archives",
-          "note": "Les pages dor�es sont r�parties au hasard sur toute la zone\n< Logout after you have all 4\n> TP vers la biblioth�que avec les currency dans votre inventaire"
+          "note": "Les pages dorées sont réparties au hasard sur toute la zone\n< Logout after you have all 4\n> TP vers la bibliothèque avec les currency dans votre inventaire"
         },
         {
           "name": "The Sceptre of God",
-          "note": "Les sorties apparaissent dans un coin al�atoire, peuvent souvent �tre trouv�es en voyageant en diagonale\n> Go to Upper Sceptre of God"
+          "note": "Les sorties apparaissent dans un coin aléatoire, peuvent souvent être trouvées en voyageant en diagonale\n> Go to Upper Sceptre of God"
         },
         {
           "name": "The Upper Sceptre of God",
-          "note": "Les sorties apparaissent dans un coin al�atoire\nMontez en diagonale jusqu'� ce que vous aperceviez des barricades � la sortie\nKill the boss\n> Proceed to Act 4\n_______________\nB,RECOMMEND cold resist\nY,and lightning resist"
+          "note": "Les sorties apparaissent dans un coin aléatoire\nMontez en diagonale jusqu'à ce que vous aperceviez des barricades à la sortie\nKill the boss\n> Proceed to Act 4\n_______________\nB,RECOMMEND cold resist\nY,and lightning resist"
         }
       ]
     },
@@ -282,27 +282,27 @@
       "zones": [
         {
           "name": "The Aqueduct",
-          "note": "Montez en amont et traversez les ponts lorsque le chemin se termine\nSi vous avez moins que le niveau 31 - faites cette zone plusieurs fois\n> Aller � Highgate\n> Aller � gauche vers the Dried Lake"
+          "note": "Montez en amont et traversez les ponts lorsque le chemin se termine\nSi vous avez moins que le niveau 31 - faites cette zone plusieurs fois\n> Aller à Highgate\n> Aller à gauche vers the Dried Lake"
         },
         {
           "name": "The Dried Lake",
-          "note": "Tuez Voll sur l'un des trois points d'apparition\n< Logout\n+ Gems\nY,Prendre la gemme Stone Golem\nBriser le sceau de la porte des Mines\n> Aller � Mines\n_______________\nG,CRAFT - Attack/Cast speed"
+          "note": "Tuez Voll sur l'un des trois points d'apparition\n< Logout\n+ Gems\nY,Prendre la gemme Stone Golem\nBriser le sceau de la porte des Mines\n> Aller à Mines\n_______________\nG,CRAFT - Attack/Cast speed"
         },
         {
           "name": "The Mines Level 1",
-          "note": "La sortie est g�n�ralement dans le coin sup�rieur gauche\n> Aller � Mines lvl 2"
+          "note": "La sortie est généralement dans le coin supérieur gauche\n> Aller à Mines lvl 2"
         },
         {
           "name": "The Mines Level 2",
-          "note": "Disposition vari�e et nombreuses impasses\n+ Tuer l'esprit\n> Go to Crystal Veins"
+          "note": "Disposition variée et nombreuses impasses\n+ Tuer l'esprit\n> Go to Crystal Veins"
         },
         {
           "name": "The Crystal Veins",
-          "note": "Boucle en bas � droite pour aller � la sortie en haut � gauche\nTrouver Dialla\n> Aller � Town\n+ Essayez de capper les resist feu et resist froid\nG,Faire le Labyrinthe pour la premiere ascendence\n> TP vers Crystal Veins\n---------------\n> Go To Kaom (fire)\n> Go to Daresso (cold)\n---------------\nR,IMPORTANT - Staunching Life flask\n> Aller � Einhar Area\nBeast craft \"of Staunching\" on flask\n> Aller � Belly of the Beast\n_______________\nG,CRAFT - Resistance"
+          "note": "Boucle en bas à droite pour aller à la sortie en haut à gauche\nTrouver Dialla\n> Aller à Town\n+ Essayez de capper les resist feu et resist froid\nG,Faire le Labyrinthe pour la premiere ascendence\n> TP vers Crystal Veins\n---------------\n> Go To Kaom (fire)\n> Go to Daresso (cold)\n---------------\nR,IMPORTANT - Staunching Life flask\n> Aller à Einhar Area\nBeast craft \"of Staunching\" on flask\n> Aller à Belly of the Beast\n_______________\nG,CRAFT - Resistance"
         },
         {
           "name": "Daresso's Dream",
-          "note": "Avancez vers le haut � droite, des impasses\n> Go to Grand Arena"
+          "note": "Avancez vers le haut à droite, des impasses\n> Go to Grand Arena"
         },
         {
           "name": "Kaom's Dream",
@@ -310,7 +310,7 @@
         },
         {
           "name": "The Grand Arena",
-          "note": "Si vous n'avez pas encore fait Kaom's Dream, prenez le waypoint vers Crystal Veins et faites-le en premier\nDescendre � gauche de Waypoint, puis suivre le chemin\n< Kill Daresso et Logout\n> TP To Crystal Veins\n_______________\nB,RECOMMEND cold resist"
+          "note": "Si vous n'avez pas encore fait Kaom's Dream, prenez le waypoint vers Crystal Veins et faites-le en premier\nDescendre à gauche de Waypoint, puis suivre le chemin\n< Kill Daresso et Logout\n> TP To Crystal Veins\n_______________\nB,RECOMMEND cold resist"
         },
         {
           "name": "Kaom's Stronghold",
@@ -318,19 +318,19 @@
         },
         {
           "name": "The Belly of the Beast Level 1",
-          "note": "Visez en haut � gauche, de nombreuses impasses\nR,Attention aux saignements\n> Go to level 2"
+          "note": "Visez en haut à gauche, de nombreuses impasses\nR,Attention aux saignements\n> Go to level 2"
         },
         {
           "name": "The Belly of the Beast Level 2",
-          "note": "Visez en haut � gauche, de nombreuses impasses\nTuer the boss\n> Aller � The Harvest\n_______________\nG,CRAFT - Chaos damage"
+          "note": "Visez en haut à gauche, de nombreuses impasses\nTuer the boss\n> Aller à The Harvest\n_______________\nG,CRAFT - Chaos damage"
         },
         {
           "name": "The Harvest",
-          "note": "Toujours un boss sur le c�t� droit, deux � gauche\n---------------\nParler avec Piety\n> Aller � the Black Core\n< Tuer boss et Logout\n+ Get Gems\nAller en haut � droite\n> Aller � the Ascent\n_______________\nMaligaro does physical so keep moving\nG,Restez dans l'aura verte contre Doedre\nY,Shavronne inflige des d�g�ts de foudre\nR,Malachie inflige des d�g�ts de feu"
+          "note": "Toujours un boss sur le côté droit, deux à gauche\n---------------\nParler avec Piety\n> Aller à the Black Core\n< Tuer boss et Logout\n+ Get Gems\nAller en haut à droite\n> Aller à the Ascent\n_______________\nMaligaro does physical so keep moving\nG,Restez dans l'aura verte contre Doedre\nY,Shavronne inflige des dégâts de foudre\nR,Malachie inflige des dégâts de feu"
         },
         {
           "name": "The Ascent",
-          "note": "G,TIP: les routes sales m�nent aux sorties\nMonter et gauche\n?ross the bridge\nMontez et � droite\npetit passage vers la sortie\n> Go to Act 5\n_______________\nG,CRAFT - Attributes"
+          "note": "G,TIP: les routes sales mènent aux sorties\nMonter et gauche\n?ross the bridge\nMontez et à droite\npetit passage vers la sortie\n> Go to Act 5\n_______________\nG,CRAFT - Attributes"
         }
       ]
     },
@@ -339,31 +339,31 @@
       "zones": [
         {
           "name": "The Slave Pens",
-          "note": "Allez tout en bas et � droite\nPuis � gauche pour tuer le boss\n> Aller � to Town\n> Aller � Control Blocks"
+          "note": "Allez tout en bas et à droite\nPuis à gauche pour tuer le boss\n> Aller à to Town\n> Aller à Control Blocks"
         },
         {
           "name": "The Control Blocks",
-          "note": "Allez en haut � gauche pour le miasm�tre, puis en haut et � droite\nTuer le patron pour ses \"yeux\"\n> Aller � Oriath's Square\n+ Get Silver Flask as reward\nUse it for speed boost often"
+          "note": "Allez en haut à gauche pour le miasmètre, puis en haut et à droite\nTuer le patron pour ses \"yeux\"\n> Aller à Oriath's Square\n+ Get Silver Flask as reward\nUse it for speed boost often"
         },
         {
           "name": "Oriath Square",
-          "note": "Allez en haut � droite jusqu'� ce que vous traversiez le pont, puis descendez\n> Aller � Templar Courts"
+          "note": "Allez en haut à droite jusqu'à ce que vous traversiez le pont, puis descendez\n> Aller à Templar Courts"
         },
         {
           "name": "The Templar Courts",
-          "note": "Boucle dans le sens des aiguilles d'une montre\n> Aller � the Chamber of Innocence"
+          "note": "Boucle dans le sens des aiguilles d'une montre\n> Aller à the Chamber of Innocence"
         },
         {
           "name": "The Chamber of Innocence",
-          "note": "Y,Zone parfaite pour monter de niveau si n�cessaire\nMontez et gauche et tournez dans le sens inverse des aiguilles d'une montre\n> Aller � Sanctum of Innocence\n---------------\nActiver Waypoint\nTalk to Bannon\n> Aller � Torched Courts\n_______________\nG,CRAFT - Movement speed\nY,RECOMMEND lightning resist\nR,and fire resist"
+          "note": "Y,Zone parfaite pour monter de niveau si nécessaire\nMontez et gauche et tournez dans le sens inverse des aiguilles d'une montre\n> Aller à Sanctum of Innocence\n---------------\nActiver Waypoint\nTalk to Bannon\n> Aller à Torched Courts\n_______________\nG,CRAFT - Movement speed\nY,RECOMMEND lightning resist\nR,and fire resist"
         },
         {
           "name": "The Torched Courts",
-          "note": "Boucle dans le sens antihoraire\n> Aller � Ruinned Square"
+          "note": "Boucle dans le sens antihoraire\n> Aller à Ruinned Square"
         },
         {
           "name": "The Ruined Square",
-          "note": "Aller � Waypoint\n> Go into Ossuary\n---------------\nPassez au milieu de la carte\nB, Laisser un portail pr�s de la grande fontaine.\n> Aller en bas vers le Reliquary\n---------------\nAller en haut depuis le portail\n> Aller � Cathedral Rooftop"
+          "note": "Aller à Waypoint\n> Go into Ossuary\n---------------\nPassez au milieu de la carte\nB, Laisser un portail près de la grande fontaine.\n> Aller en bas vers le Reliquary\n---------------\nAller en haut depuis le portail\n> Aller à Cathedral Rooftop"
         },
         {
           "name": "The Ossuary",
@@ -371,11 +371,11 @@
         },
         {
           "name": "The Reliquary",
-          "note": "Commencer par le bas � gauche\nTrouvez plusieurs objets de qu�te dans les coins de la zone\nRevenir � Waypoint\n> Waypoint vers Town\n> Aller � votre portal\n_______________\nG,CRAFT - Accuracy"
+          "note": "Commencer par le bas à gauche\nTrouvez plusieurs objets de quête dans les coins de la zone\nRevenir à Waypoint\n> Waypoint vers Town\n> Aller à votre portal\n_______________\nG,CRAFT - Accuracy"
         },
         {
           "name": "The Cathedral Rooftop",
-          "note": "Courez en haut � gauche et tuez Kitava!\n_______________\nR,RECOMMEND fire resist\nwith 1,500+ EHP"
+          "note": "Courez en haut à gauche et tuez Kitava!\n_______________\nR,RECOMMEND fire resist\nwith 1,500+ EHP"
         }
       ]
     },
@@ -384,67 +384,67 @@
       "zones": [
         {
           "name": "The Twilight Strand",
-          "note": "Allez � gauche et effacez la zone\nIl ouvre la boutique GEM de Lilly\n> Logout\n+ Get Gems"
+          "note": "Allez à gauche et effacez la zone\nIl ouvre la boutique GEM de Lilly\n> Logout\n+ Get Gems"
         },
         {
           "name": "The Coast",
-          "note": "Aller au c�t� droit de la zone et Aller au coin sup�rieur droit\nActivate Waypoint\n> Aller � Mud Flats"
+          "note": "Aller au côté droit de la zone et Aller au coin supérieur droit\nActivate Waypoint\n> Aller à Mud Flats"
         },
         {
           "name": "The Tidal Island",
-          "note": "Cette zone doit �tre ignor�e pour gagner du temps"
+          "note": "Cette zone doit être ignorée pour gagner du temps"
         },
         {
           "name": "The Mud Flats",
-          "note": "Tuer the Dishonoured Queen (1) sur le c�t� droit\nR�cup�rez la cl� de la reine\nOuvrez le portail vers la zone suivante (2) sur le c�t� gauche\n> Aller � Karui Fortress"
+          "note": "Tuer the Dishonoured Queen (1) sur le côté droit\nRécupérez la clé de la reine\nOuvrez le portail vers la zone suivante (2) sur le côté gauche\n> Aller à Karui Fortress"
         },
         {
           "name": "The Karui Fortress",
-          "note": "Suivez le c�t� droit\nTuer Tukohama\nSortez sur le c�t� gauche et montez\n> Aller � to the Ridge\n_______________\nG,CRAFT - Defences\nR,RECOMMEND fire resist\nwith 1,500+ EHP"
+          "note": "Suivez le côté droit\nTuer Tukohama\nSortez sur le côté gauche et montez\n> Aller à to the Ridge\n_______________\nG,CRAFT - Defences\nR,RECOMMEND fire resist\nwith 1,500+ EHP"
         },
         {
           "name": "The Ridge",
-          "note": "Suivez le chemin jusqu'� ce que vous puissiez aller � droite,\npuis suivez cela jusqu'� ce que vous ayez un chemin � gauche\n> Aller � the Lower Prison"
+          "note": "Suivez le chemin jusqu'à ce que vous puissiez aller à droite,\npuis suivez cela jusqu'à ce que vous ayez un chemin à gauche\n> Aller à the Lower Prison"
         },
         {
           "name": "The Lower Prison",
-          "note": "Vous voulez g�n�ralement descendre ou gauche vers la sortie\nPrendre le Waypoint\n> Aller � Shavronne's Tower\n_______________\nG,TRIAL - Spike traps\nG,CRAFT - Double resistance"
+          "note": "Vous voulez généralement descendre ou gauche vers la sortie\nPrendre le Waypoint\n> Aller à Shavronne's Tower\n_______________\nG,TRIAL - Spike traps\nG,CRAFT - Double resistance"
         },
         {
           "name": "Shavronne's Tower",
-          "note": "Suivez les halls, en passant par les ponts, pendant 4 minizones\n> Monter � Prison Rooftop\nTuer boss\n> Aller � the Warden's Chamber\nPrendre la recette\n< Logout.\n+ Take rewards (4-link)\n> TP vers Prisoner's Gate\n_______________\nG,CRAFT - Spell damage\nY,RECOMMEND lightning resist\nwith physical mitigation"
+          "note": "Suivez les halls, en passant par les ponts, pendant 4 minizones\n> Monter à Prison Rooftop\nTuer boss\n> Aller à the Warden's Chamber\nPrendre la recette\n< Logout.\n+ Take rewards (4-link)\n> TP vers Prisoner's Gate\n_______________\nG,CRAFT - Spell damage\nY,RECOMMEND lightning resist\nwith physical mitigation"
         },
         {
           "name": "Prisoner's Gate",
-          "note": "Descendez le c�t� de la route qui a la falaise\nCombattez The Abberath\nSuivez la route dans la zone suivante\n> Aller � the Western Forest\n_______________\nR,RECOMMEND fire resist"
+          "note": "Descendez le côté de la route qui a la falaise\nCombattez The Abberath\nSuivez la route dans la zone suivante\n> Aller à the Western Forest\n_______________\nR,RECOMMEND fire resist"
         },
         {
           "name": "The Riverways",
-          "note": "Ramasser Waypoint\nSuivez le chemin au Waypoint\n> Aller � Wetlands\n---------------\nSuivez la route et lorsque vous atteignez le campement, descendez � droite\n> Aller � Southern Forest"
+          "note": "Ramasser Waypoint\nSuivez le chemin au Waypoint\n> Aller à Wetlands\n---------------\nSuivez la route et lorsque vous atteignez le campement, descendez à droite\n> Aller à Southern Forest"
         },
         {
           "name": "The Wetlands",
-          "note": "Restez sur le c�t� gauche pour trouver l'entr�e de la fray�re\nKill the boss\n< Logout\nB,Bon moment pour cap cold resist\n> TP to Riverways\n_______________\nG,RECOMMEND current life flasks, avoid chaos degens"
+          "note": "Restez sur le côté gauche pour trouver l'entrée de la frayère\nKill the boss\n< Logout\nB,Bon moment pour cap cold resist\n> TP to Riverways\n_______________\nG,RECOMMEND current life flasks, avoid chaos degens"
         },
         {
           "name": "The Western Forest",
-          "note": "Suivez la route vers les Riverways\n> Aller � Riverways\n_______________\nG,CRAFT - Attributes (in Alira's camp)"
+          "note": "Suivez la route vers les Riverways\n> Aller à Riverways\n_______________\nG,CRAFT - Attributes (in Alira's camp)"
         },
         {
           "name": "The Southern Forest",
-          "note": "Suivez la droite et un peu jusqu'� la caverne de la col�re\n> Aller � Cavern of Anger"
+          "note": "Suivez la droite et un peu jusqu'à la caverne de la colère\n> Aller à Cavern of Anger"
         },
         {
           "name": "The Cavern of Anger",
-          "note": "B, n'oubliez pas le drapeau noir en entrant dans cette zone\nDescendez puis montez, puis allez � droite, la sortie peut �tre vers le haut ou vers le bas\n> Aller � the Beacon"
+          "note": "B, n'oubliez pas le drapeau noir en entrant dans cette zone\nDescendez puis montez, puis allez à droite, la sortie peut être vers le haut ou vers le bas\n> Aller à the Beacon"
         },
         {
           "name": "The Beacon",
-          "note": "Suivez le rivage jusqu'� ce que vous atteigniez les balises\nD�placez les deux colonnes\nBr�le le drapeau\n> Aller � the Brine King's Reef\n_______________\nG,CRAFT - Life/Mana"
+          "note": "Suivez le rivage jusqu'à ce que vous atteigniez les balises\nDéplacez les deux colonnes\nBrûle le drapeau\n> Aller à the Brine King's Reef\n_______________\nG,CRAFT - Life/Mana"
         },
         {
           "name": "The Brine King's Reef",
-          "note": "Suivez le rivage de gauche jusqu'� l'ar�ne de Brine King\n< Tuer the boss et Logout\nTalk with vendors\n> Aller � Act 7 from Waypoint\n_______________\nY,RECOMMEND lightning resist\nB,and cold resist"
+          "note": "Suivez le rivage de gauche jusqu'à l'arène de Brine King\n< Tuer the boss et Logout\nTalk with vendors\n> Aller à Act 7 from Waypoint\n_______________\nY,RECOMMEND lightning resist\nB,and cold resist"
         }
       ]
     },
@@ -629,9 +629,8 @@
     }
   ],
   "identity": {
-    "game_version": 3.14,
-    "class": "Tempalar",
-    "name": "Mathieu",
-    "lang": "en"
+    "game_version": 3.16,
+    "name": "default",
+    "lang": "fr"
   }
 }

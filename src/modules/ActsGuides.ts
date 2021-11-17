@@ -7,6 +7,7 @@ import { JsonFile } from "./JsonFile"
 
 export class ActsGuides extends Guides<IActsGuide> {
   protected CurGuide: IActsGuide
+  protected CurMergedGuide: IActsGuide
   Icon: NativeImage
   private DefaultZones: JsonFile<IActsGuide>
 
@@ -17,24 +18,33 @@ export class ActsGuides extends Guides<IActsGuide> {
     this.DefaultZones.load()
   }
 
+  async Init(defaultGuideFilename?: string): Promise<void> {
+    super.Init(defaultGuideFilename).then(() => this.MergeGuide())
+  }
+
   parseCurGuide(): void {
     if (this.CurGuide.acts) for (const act of this.CurGuide.acts) {
       if (act.zones) for (const zone of act.zones) {
-        if (zone.image) for (let image in zone.image) {
-          if (fs.existsSync(path.join(this.CurGuide.identity.sysAssetPath, act.actid.toString(), image, '.png')))
-            image = `${image}.png`
-          else if (fs.existsSync(path.join(this.CurGuide.identity.sysAssetPath, act.actid.toString(), image, '.jpg')))
-            image = `${image}.jpg`
-          else MyLogger.log('info', 'image ${image} not found')
+        if (zone.image) for (const index in zone.image) {
+          if (fs.existsSync(path.join(this.CurGuide.identity.sysAssetPath, act.actid.toString(), zone.image[index], '.png')))
+            zone.image[index] = `${zone.image[index]}.png`
+          else if (fs.existsSync(path.join(this.CurGuide.identity.sysAssetPath, act.actid.toString(), zone.image[index], '.jpg')))
+            zone.image[index] = `${zone.image[index]}.jpg`
+          else MyLogger.log('info', `image ${path.join(this.CurGuide.identity.sysAssetPath, act.actid.toString(), zone.image[index])}.[jpg|png] not found`)
         }
       }
       else MyLogger.log('info', `no zone found in act: ${act.actid}`)
     }
     else MyLogger.log('info', "no acts found in guide")
+  }
+
+  MergeGuide(): void {
+    //duplicate guide
+    this.CurMergedGuide = JSON.parse(JSON.stringify(this.CurGuide))
 
     if (this.DefaultZones.getObject()) for (const defaultAct of this.DefaultZones.getObject().acts) {
-      const act = this.CurGuide.acts.find(a => a.actid === defaultAct.actid)
-      if (!act.act) act.act = defaultAct.act
+      const act = this.CurMergedGuide.acts.find(a => a.actid === defaultAct.actid)
+      // if (!act.act) act.act = defaultAct.act
 
       if (defaultAct.zones) for (const defaultZone of defaultAct.zones) {
         const zone = act.zones.find(z => z.name === defaultZone.name)
@@ -44,9 +54,10 @@ export class ActsGuides extends Guides<IActsGuide> {
           zone.haspassive = defaultZone.haspassive
           zone.hastrial = defaultZone.hastrial
           zone.level = defaultZone.level
+
           if (!zone.image) zone.image = []
           else for (const img in zone.image) {
-            zone.image[img] = `${this.getCustomWebBaseName()}/${act.actid}/${img}`
+            zone.image[img] = `${this.getCustomWebBaseName()}/${act.actid}/${zone.image[img]}`
           }
           if (defaultZone.image.length > 0) {
             for (const img of defaultZone.image) {
@@ -275,8 +286,5 @@ export class ActsGuides extends Guides<IActsGuide> {
       MyLogger.log('importGuide', `Error when saving custom guide in ${ActGuide.identity.filename}`)
     }
     this.Init(this.CurGuide.identity.filename)
-
   }
-
-
 }

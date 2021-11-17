@@ -30,9 +30,10 @@ const myCustomLevels = {
 export const MyLogger = winston.createLogger({
   levels: myCustomLevels.levels,
   transports: [
-    new winston.transports.File({ filename: path.join(getLocalCustomPath(), "log.log") }),
+    // new winston.transports.File({ filename: path.join(getLocalCustomPath(), "log.log") }),
     new winston.transports.File({ filename: path.join(getLocalCustomPath(), 'error.log'), level: 'error' }),
     new winston.transports.File({ filename: path.join(getLocalCustomPath(), 'info.log'), level: 'info' }),
+    new winston.transports.File({ filename: path.join(getLocalCustomPath(), 'debug.log'), level: 'debug' }),
     new winston.transports.File({ filename: path.join(getLocalCustomPath(), 'import.log'), level: 'importGuide' }),
     new winston.transports.File({ filename: path.join(getLocalCustomPath(), 'guides.log'), level: 'parseGuide' }),
     // new winston.transports.Console(),
