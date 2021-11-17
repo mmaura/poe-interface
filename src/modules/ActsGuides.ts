@@ -24,7 +24,7 @@ export class ActsGuides extends Guides<IActsGuide> {
           if (fs.existsSync(path.join(this.CurGuide.identity.sysAssetPath, act.actid.toString(), image, '.png')))
             image = `${image}.png`
           else if (fs.existsSync(path.join(this.CurGuide.identity.sysAssetPath, act.actid.toString(), image, '.jpg')))
-          image = `${image}.jpg`
+            image = `${image}.jpg`
           else MyLogger.log('info', 'image ${image} not found')
         }
       }
@@ -34,24 +34,27 @@ export class ActsGuides extends Guides<IActsGuide> {
 
     if (this.DefaultZones.getObject()) for (const defaultAct of this.DefaultZones.getObject().acts) {
       const act = this.CurGuide.acts.find(a => a.actid === defaultAct.actid)
-      if(!act.act) act.act = defaultAct.act
+      if (!act.act) act.act = defaultAct.act
 
       if (defaultAct.zones) for (const defaultZone of defaultAct.zones) {
         const zone = act.zones.find(z => z.name === defaultZone.name)
-        zone.hasRecipe = defaultZone.hasRecipe
-        zone.hasWaypoint = defaultZone.hasWaypoint
-        zone.haspassive = defaultZone.haspassive
-        zone.hastrial = defaultZone.hastrial
-        zone.level = defaultZone.level
-        if (!zone.image) zone.image = []
-        else for (const img in zone.image) {
-          zone.image[img] = `${this.getCustomWebBaseName()}/${act.actid}/${img}`
-        }
-        if (defaultZone.image.length > 0) {
-          for (const img of defaultZone.image) {
-            zone.image.push(`images/zones/${act.actid}/${img}.png`)
+        if (zone) {
+          zone.hasRecipe = defaultZone.hasRecipe
+          zone.hasWaypoint = defaultZone.hasWaypoint
+          zone.haspassive = defaultZone.haspassive
+          zone.hastrial = defaultZone.hastrial
+          zone.level = defaultZone.level
+          if (!zone.image) zone.image = []
+          else for (const img in zone.image) {
+            zone.image[img] = `${this.getCustomWebBaseName()}/${act.actid}/${img}`
+          }
+          if (defaultZone.image.length > 0) {
+            for (const img of defaultZone.image) {
+              zone.image.push(`assets/images/zones/${act.actid}/${img}.png`)
+            }
           }
         }
+        else MyLogger.log("info", `${defaultZone.name} not found in actsGuide.`)
       }
     }
     else MyLogger.log('error', 'No default zone loader')
