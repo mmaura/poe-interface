@@ -90,15 +90,15 @@ export class LevelingWindow {
       switch (arg[0]) {
         case "Init":
           MyLogger.log('debug', `Message: Init`)
-          merge(MergedActGuide, this.Zones.getObject(), this.ActsGuides.getCurGuide())
+          // merge(MergedActGuide, this.Zones.getObject(), this.ActsGuides.getCurGuide())
           return [
             "Init",
-            MergedActGuide,
+            this.ActsGuides.getCurGuide(),
             this.RichTextJson.getObject(),
             this.ClassGuides.getCurGuide(),
             this._MyPlayer,
-            MergedActGuide.acts[0].actid,
-            MergedActGuide.acts[0].zones[0].name,
+            this.ActsGuides.getCurGuide().acts[0].actid,
+            this.ActsGuides.getCurGuide().acts[0].zones[0].name,
             this.PlayersClasses.getObject()
           ]
 
@@ -172,10 +172,10 @@ export class LevelingWindow {
     }))
 
     this.ActsGuides.on("GuideChange", (guide => {
-      const MergedActGuide = {} as IActsGuide
-      merge(MergedActGuide, this.Zones.getObject(), guide)
+      // const MergedActGuide = {} as IActsGuide
+      // merge(MergedActGuide, this.Zones.getObject(), guide)
 
-      this._Window.webContents.send("levelingRenderer", ["actsGuide", MergedActGuide])
+      this._Window.webContents.send("levelingRenderer", ["actsGuide", this.ActsGuides.getCurGuide()])
       this._AppStore.set("curActsGuide", guide.identity.filename)
       this.makeMenus()
     }))
@@ -296,11 +296,11 @@ export class LevelingWindow {
           {
             label: "Reload all data",
             click: () => {
-              const MergedActGuide = {} as IActsGuide
-              merge(MergedActGuide, this.Zones.getObject(), this.ActsGuides.getCurGuide())
+              // const MergedActGuide = {} as IActsGuide
+              // merge(MergedActGuide, this.Zones.getObject(), this.ActsGuides.getCurGuide())
 
               this.LoadData().then(() => this._Window.webContents.send("levelingRenderer", ["All",
-                MergedActGuide,
+              this.ActsGuides.getCurGuide(),
                 this.RichTextJson.getObject(),
                 this.ClassGuides.getCurGuide(),
                 this.PlayersClasses.getObject()

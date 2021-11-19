@@ -586,8 +586,7 @@
   ],
   "identity": {
     "game_version": 3.16,
-    "class": "Templar",
-    "name": "Turkish",
+    "name": "default",
     "lang": "tr"
   }
 }

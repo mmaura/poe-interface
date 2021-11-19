@@ -149,7 +149,7 @@ function App(props: { Init: any }) {
                 <h1>{curAct && curZone ? `${curAct.act} : ${curZone.name}` : null}</h1>
               </div>
               <div className="flex-grow h-full">
-                <Navigation curZone={curZone} curAct={curAct} actsGuideIdent={actsGuide.identity} onSave={onNavigationNoteSave} />
+                <Navigation curZone={curZone} onSave={onNavigationNoteSave} readOnly={actsGuide.identity.readonly}/>
               </div>
               <div className="flex-grow-0 h-full guide-container px-1">
                 <ActGuideIdentity identity={actsGuide.identity} onSave={onActGuideIdentitySave}>Acts</ActGuideIdentity>
@@ -161,10 +161,10 @@ function App(props: { Init: any }) {
               <div className="flex flex-grow flex-shrink flex-col gap-2 w-notes-container">
                 <div className="flex-grow-0 flex-shrink-0 ">
                   {/* <ZoneNotes curZone={curZone} curRichText={curRichText} /> */}
-                  <ZoneNotes curZone={curZone} onSave={onZoneNoteSave} />
+                  <ZoneNotes curZone={curZone} onSave={onZoneNoteSave}  readOnly={actsGuide.identity.readonly}/>
                 </div>
                 <div className="flex-grow flex-shrink items-end">
-                  <SkillTree curGuide={classGuide} onClassGuideSkilltreeChange={onClassGuideSkilltreeChange} />
+                  <SkillTree curGuide={classGuide} onClassGuideSkilltreeChange={onClassGuideSkilltreeChange}/>
                 </div>
               </div>
               <div className="container flex-shrink-0 flex-grow-0 w-gear-container">

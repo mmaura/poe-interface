@@ -1,5 +1,5 @@
 import React, { ChangeEvent, ChangeEventHandler, useContext, useState, useMemo, useCallback, useEffect } from "react"
-import {  mdiEye,  mdiMinus,  mdiPlus } from "@mdi/js"
+import { mdiEye, mdiMinus, mdiPlus } from "@mdi/js"
 import Icon from "@mdi/react"
 
 import { CurActContext, PlayerContext } from "./LevelingRenderer"
@@ -86,8 +86,8 @@ export function LevelingGuide(props: {
   )
 }
 
-export function ZoneNotes(props: { curZone: IZone; onSave: (text: string) => void }): JSX.Element {
-  const { onSave, curZone } = props
+export function ZoneNotes(props: { curZone: IZone; onSave: (text: string) => void; readOnly: boolean }): JSX.Element {
+  const { onSave, curZone, readOnly } = props
 
   const [text, settext] = useState(curZone.note)
   const [isOnEdit, setisOnEdit] = useState(false)
@@ -114,9 +114,10 @@ export function ZoneNotes(props: { curZone: IZone; onSave: (text: string) => voi
 
   return (
     <div className="container flex flex-col min-h-note-container relative">
-      <div className="absolute top-0 left-0 flex flex-row gap-1">
-        <EditSaveNoteButton isOnEdit={isOnEdit} onSave={onSaveText} onEdit={editNote} />
-      </div>
+      {(readOnly) ? null :
+        <div className="absolute top-0 left-0 flex flex-row gap-1">
+          <EditSaveNoteButton isOnEdit={isOnEdit} onSave={onSaveText} onEdit={editNote} />
+        </div>}
       <h2>Notes</h2>
       <div className="absolute top-0 right-0 flex flex-row gap-1">
         {curZone.hasRecipe ? (
@@ -140,12 +141,11 @@ export function ZoneNotes(props: { curZone: IZone; onSave: (text: string) => voi
 }
 
 export function Navigation(props: {
-  curAct: IAct
   curZone: IZone
-  actsGuideIdent: GuideIdentity
+  readOnly: boolean
   onSave: (text: string) => void
 }): JSX.Element {
-  const { curZone, curAct, actsGuideIdent, onSave } = props
+  const { curZone, readOnly, onSave } = props
   console.log("ZoneMap", curZone)
 
   const [text, settext] = useState(curZone.note)
@@ -188,9 +188,10 @@ export function Navigation(props: {
 
         ) : null}
       </div>
-      <div className="absolute top-0 left-0 flex flex-row gap-1">
-        <EditSaveNoteButton isOnEdit={isOnEdit} onSave={onSaveText} onEdit={editNote} />
-      </div>
+      {(readOnly) ? null :
+        <div className="absolute top-0 left-0 flex flex-row gap-1">
+          <EditSaveNoteButton isOnEdit={isOnEdit} onSave={onSaveText} onEdit={editNote} />
+        </div>}
     </div>
   )
 }
@@ -203,9 +204,10 @@ export function SkillTree(props: { curGuide: IClassesGuide, onClassGuideSkilltre
   return (
     <div className="relative">
       {(curGuide.acts && curGuide.acts.find(a => a.act === curAct.actid)) ? <img src={curGuide.acts.find(a => a.act === curAct.actid).treeimage} /> : null}
-      <div className="absolute p-0 top-0 left-0">
-        <EditSaveImageButton onClick={onClassGuideSkilltreeChange} />
-      </div>
+      {(curGuide.identity.readonly) ? null :
+        <div className="absolute p-0 top-0 left-0">
+          <EditSaveImageButton onClick={onClassGuideSkilltreeChange} />
+        </div>}
     </div>
   )
 
@@ -526,9 +528,10 @@ export function ActGuideIdentity(props: {
       <div className="w-6">
         <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="lang" value={idLang} />
       </div>
-      <div className="w-6">
-        <EditSaveNoteButton isOnEdit={isOnEdit} onSave={onSaveIdentity} onEdit={editNote} />
-      </div>
+      {(identity.readonly) ? null :
+        <div className="w-6">
+          <EditSaveNoteButton isOnEdit={isOnEdit} onSave={onSaveIdentity} onEdit={editNote} />
+        </div>}
     </div>
   )
 }
@@ -607,9 +610,10 @@ export function ClassGuideIdentity(props: {
         <div className="w-6">
           <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="lang" value={idLang} />
         </div>
-        <div className="w-6">
-          <EditSaveNoteButton isOnEdit={isOnEdit} onSave={onSaveIdentity} onEdit={editNote} />
-        </div>
+        {(identity.readonly) ? null :
+          <div className="w-6">
+            <EditSaveNoteButton isOnEdit={isOnEdit} onSave={onSaveIdentity} onEdit={editNote} />
+          </div>}
       </div>
       <div className="flex-auto w-full overflow-hidden">
         <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="url" value={idUrl} />
