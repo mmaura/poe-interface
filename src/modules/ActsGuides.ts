@@ -1,5 +1,5 @@
 import { MenuItem, nativeImage, NativeImage, dialog } from "electron"
-import { getAssetPath, getPackagedWebBaseName, MyLogger } from "./functions"
+import { getAssetPath, MyLogger } from "./functions"
 import { Guides } from "./Guides"
 import path from 'path'
 import fs from 'fs'
