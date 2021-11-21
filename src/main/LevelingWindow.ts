@@ -1,14 +1,12 @@
 import { BrowserWindow, ipcMain, NativeImage, IpcMainInvokeEvent, app, Menu, shell, MenuItem, dialog, Rectangle, OpenDialogReturnValue } from "electron"
-// import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from 'electron-devtools-installer'
 
 import path from "path"
 import fs from "fs"
 
 import Store from "electron-store"
 import PathOfExileLog from "poe-log-monitor"
-import merge from 'lodash.merge'
 
-import { getAssetPath, extractActsBaseGuide, extractActsCustomGuide, getAbsCustomPath, MyLogger } from "../modules/functions"
+import { getAbsPackagedPath, extractActsBaseGuide, extractActsCustomGuide, getAbsCustomPath, MyLogger } from "../modules/functions"
 
 import { ClassesGuides } from "../modules/ClassesGuides"
 import { JsonFile } from "../modules/JsonFile"
@@ -32,7 +30,7 @@ export class LevelingWindow {
   private ClassGuides: ClassesGuides
   private ActsGuides: ActsGuides
   private RichTextJson: JsonFile<IRichText[]>
-  private PlayersClasses: JsonFile<IPlayerClasses[]>
+  private PlayersClasses: JsonFile<IClassesAscendancies[]>
   private Zones: JsonFile<IActsGuide>
   private GameHelpers: GameHelpers
 
@@ -49,9 +47,9 @@ export class LevelingWindow {
     this.ClassGuides = new ClassesGuides()
     this.ActsGuides = new ActsGuides()
 
-    this.RichTextJson = new JsonFile(path.join(getAssetPath(), "data", "richtext.json"))
-    this.PlayersClasses = new JsonFile(path.join(getAssetPath(), "data", "classes.json"))
-    this.Zones = new JsonFile(path.join(getAssetPath(), "data", "zones.json"))
+    this.RichTextJson = new JsonFile(path.join(getAbsPackagedPath(), "data", "richtext.json"))
+    this.PlayersClasses = new JsonFile(path.join(getAbsPackagedPath(), "data", "classes.json"))
+    this.Zones = new JsonFile(path.join(getAbsPackagedPath(), "data", "zones.json"))
     this.GameHelpers = new GameHelpers()
 
     this._Window = new BrowserWindow({
@@ -84,57 +82,55 @@ export class LevelingWindow {
      * IPC
      */
     ipcMain.handle("levelingRenderer", (event: IpcMainInvokeEvent, ...arg) => {
-      const MergedActGuide = {} as IActsGuide
-      MyLogger.log('debug', `ipcMain handle 'levelingRenderer': ${arg}`)
+      MyLogger.log('info', `ipcMain handle 'levelingRenderer': ${arg}`)
 
       switch (arg[0]) {
         case "Init":
-          MyLogger.log('debug', `Message: Init`)
-          // merge(MergedActGuide, this.Zones.getObject(), this.ActsGuides.getCurGuide())
+          MyLogger.log('info', `Message: Init`)
           return [
             "Init",
-            this.ActsGuides.getCurGuide(),
+            this.ActsGuides.getCurMergedGuide(),
             this.RichTextJson.getObject(),
             this.ClassGuides.getCurGuide(),
             this._MyPlayer,
-            this.ActsGuides.getCurGuide().acts[0].actid,
-            this.ActsGuides.getCurGuide().acts[0].zones[0].name,
+            this.ActsGuides.getCurMergedGuide().acts[0].actid,
+            this.ActsGuides.getCurMergedGuide().acts[0].zones[0].name,
             this.PlayersClasses.getObject()
           ]
 
         case "saveActGuide": switch (arg[1]) {
           case "zoneNote":
-            MyLogger.log('debug', `saveActGuide: zoneNote`)
+            MyLogger.log('info', `saveActGuide: zoneNote`)
             this.ActsGuides.SaveZoneNote(arg[2], arg[3], arg[4])
             break
           case "navigationNote":
-            MyLogger.log('debug', `saveActGuide: NavigationNote`)
+            MyLogger.log('info', `saveActGuide: NavigationNote`)
             this.ActsGuides.SaveNavigationNote(arg[2], arg[3], arg[4])
             break
           case "identity":
-            MyLogger.log('debug', `saveActGuide: identity`)
-            this.ActsGuides.SaveIdentity(arg[2])
+            MyLogger.log('info', `saveActGuide: identity`)
+            this.ActsGuides.SaveCurGuideNewIdentity(arg[2])
             this.makeMenus()
             break
         }
           break
         case "saveClassGuide": switch (arg[1]) {
           case "skilltree":
-            MyLogger.log('debug', `saveClassGuide: skilltree`)
+            MyLogger.log('info', `saveClassGuide: skilltree`)
 
-            console.log(`Choose skilltree ${arg[2]}`)
-            console.log(this.ClassGuides.getTreeImagePath(arg[2]))
+            MyLogger.log('info', `Choose skilltree ${arg[2]}`)
+            MyLogger.log('info', this.ClassGuides.getTreeImagePath(arg[2]))
             this.loadImage(`Choose skilltree for act ${arg[2]}`, this.ClassGuides.getTreeImagePath(arg[2])).then((result) => {
               if (!result.canceled) {
                 this.ClassGuides.setTreeImagePath(result.filePaths[0], arg[2])
                 this._Window.webContents.send("levelingRenderer", ["classGuide", this.ClassGuides.getCurGuide()])
               }
-              console.log(result)
+              MyLogger.log('info', result)
             })
             break
           case "identity":
-            MyLogger.log('debug', `saveClassGuide: identity`)
-            this.ClassGuides.SaveIdentity(arg[2])
+            MyLogger.log('info', `saveClassGuide: identity(${arg[2]})`)
+            this.ClassGuides.SaveCurGuideNewIdentity(arg[2])
             this.makeMenus()
             break
         }
@@ -161,21 +157,26 @@ export class LevelingWindow {
     /************************
      * Guides Events
      */
+    this.ClassGuides.on('GuideContentChange', (guide => {
+      this._Window.webContents.send("levelingRenderer", ["classGuide", guide])
+    }))
+
     this.ClassGuides.on("GuideChange", (guide => {
       this._Window.webContents.send("levelingRenderer", ["classGuide", guide])
       this._AppStore.set("curClassGuide", guide.identity.filename)
       this.makeMenus()
     }))
 
-    this.ClassGuides.on("Log", ((msg, level) => {
-      // LogMessage(msg, level)
+    // this.ClassGuides.on("Log", ((msg, level) => {
+    //   // LogMessage(msg, level)
+    // }))
+
+    this.ActsGuides.on("GuideContentChange", (() => {
+      this._Window.webContents.send("levelingRenderer", ["actsGuide", this.ActsGuides.getCurMergedGuide()])
     }))
 
-    this.ActsGuides.on("GuideChange", (guide => {
-      // const MergedActGuide = {} as IActsGuide
-      // merge(MergedActGuide, this.Zones.getObject(), guide)
-
-      this._Window.webContents.send("levelingRenderer", ["actsGuide", this.ActsGuides.getCurGuide()])
+    this.ActsGuides.on("GuideMerged", (guide => {
+      this._Window.webContents.send("levelingRenderer", ["actsGuide", this.ActsGuides.getCurMergedGuide()])
       this._AppStore.set("curActsGuide", guide.identity.filename)
       this.makeMenus()
     }))
@@ -199,9 +200,6 @@ export class LevelingWindow {
 
       this._PoeLog.on("parsingComplete", () => {
         this._LogLoaded = true
-
-        console.log("send parsing complete")
-
         this._Window.webContents.send("levelingRenderer", ["player", this._MyPlayer])
         this._Window.webContents.send("conn", this._MyConn)
       })
@@ -218,25 +216,33 @@ export class LevelingWindow {
         this._MyPlayer.level = data.level
 
         if (this._LogLoaded === true) {
-          console.log("level up : send player")
           this._Window.webContents.send("levelingRenderer", ["player", this._MyPlayer])
         }
       })
 
       this._PoeLog.on("area", area => {
-        if (area.type === "area") {
-          this._MyPlayer.currentZoneName = area.name
 
-          let _area = area.info.find(info => Math.abs(info.level - this._MyPlayer.level) < 20)
-          if (!_area) _area = area.info[0]
+        // console.log(area.name)
+        let _area
+        switch (area.type) {
 
-          this._MyPlayer.currentZoneAct = _area.act
+          case "labyrinth":
+            if (area.name === "Aspirants' Plaza") {
+              this._MyPlayer.currentZoneName = area.name
+              this._MyPlayer.currentZoneAct = 12
+            }
+            break
 
-          if (this._LogLoaded === true) {
-            console.log("area change : ", area)
-            this._Window.webContents.send("levelingRenderer", ["playerArea", this._MyPlayer])
-            this._Window.show()
-          }
+          case "area":
+            this._MyPlayer.currentZoneName = area.name
+            _area = area.info.find(info => Math.abs(info.level - this._MyPlayer.level) < 20)
+            if (!_area) _area = area.info[0]
+            this._MyPlayer.currentZoneAct = _area.act
+            break
+        }
+
+        if (this._LogLoaded === true) {
+          this._Window.webContents.send("levelingRenderer", ["playerArea", this._MyPlayer])
         }
       })
     }
@@ -260,7 +266,7 @@ export class LevelingWindow {
   }
 
   getCharacterClass(characterClass: string): string {
-    const _character = this.PlayersClasses.getObject().find((e: IPlayerClasses) => {
+    const _character = this.PlayersClasses.getObject().find((e: IClassesAscendancies) => {
       if (e.classe === characterClass || e.ascendancy.includes(characterClass)) return true
     })
     return _character.classe
@@ -282,7 +288,7 @@ export class LevelingWindow {
     ])
   }
 
-  makeMenus(): void {
+  async makeMenus(): Promise<void> {
     this._Menu = Menu.buildFromTemplate([
       {
         label: "File",
@@ -300,7 +306,7 @@ export class LevelingWindow {
               // merge(MergedActGuide, this.Zones.getObject(), this.ActsGuides.getCurGuide())
 
               this.LoadData().then(() => this._Window.webContents.send("levelingRenderer", ["All",
-              this.ActsGuides.getCurGuide(),
+                this.ActsGuides.getCurMergedGuide(),
                 this.RichTextJson.getObject(),
                 this.ClassGuides.getCurGuide(),
                 this.PlayersClasses.getObject()
@@ -385,18 +391,16 @@ export class LevelingWindow {
           submenu: [{
             label: `extract actBaseGuide`,
             click: () => {
-              console.log("extract guide")
               extractActsBaseGuide()
             }
           },
           {
             label: `extract actCustomGuide`,
             click: () => {
-              console.log("extract guide")
               extractActsCustomGuide()
             }
           },
-]
+          ]
         })
       this._Menu.append(_menu)
     }

@@ -5,14 +5,15 @@ import { JsonFile } from './JsonFile'
 import { DataLoader } from './DataLoader'
 
 interface GuideType {
-  identity: GuideIdentity;
+  identity: GuidesIdentity;
 }
 
 export abstract class Guides<T extends GuideType> extends DataLoader {
-  protected Identities = [] as GuideIdentity[]
+  protected Identities = [] as GuidesIdentity[]
   protected CurGuide: T
 
   abstract parseCurGuide(): void
+  abstract saveCurGuide(): Promise<void>
 
   constructor(subdir: string) {
     super(subdir)
@@ -23,7 +24,8 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
    * @param defaultGuideName the guide name to load
    */
   async Init(defaultGuideFilename?: string): Promise<void> {
-    this.Identities = [] as GuideIdentity[]
+    delete this.Identities
+    this.Identities = [] as GuidesIdentity[]
 
     Promise.all([
       this.populateIdentities(this.getAbsPackagedPath(), this.getPackagedWebBaseName(), true),
@@ -37,10 +39,15 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
     })
   }
 
-  getIdentities(): GuideIdentity[] {
+  getIdentities(): GuidesIdentity[] {
     return this.Identities
   }
 
+  /**
+   * 
+   * @param filename the guid id (filename) to get the label
+   * @returns 
+   */
   public getGuideLabel(filename: string): string {
     const ident = this.getIdentityByFilename(filename)
     return `${ident.game_version} - ${ident.lang} - ${ident.name}`
@@ -52,8 +59,8 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
    * @returns if filename empty return 'default' identity in 'OsLocaleLang' if not found, return 'default' identity in 'en', 
    * if not found return the first identity
    */
-  getIdentityByFilename(filename?: string): GuideIdentity {
-    let curIdent = {} as GuideIdentity
+  getIdentityByFilename(filename?: string): GuidesIdentity {
+    let curIdent = {} as GuidesIdentity
 
     if (filename) curIdent = this.Identities.find(ident => ident.filename === filename)
     if (curIdent === undefined) curIdent = this.Identities.find(ident => ident.name === "default" && ident.lang === Lang)
@@ -72,28 +79,50 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
     else return undefined
   }
 
+  /**
+   * 
+   * @returns Human guide label
+   */
   public getCurGuideLabel(): string {
     return `${this.CurGuide.identity.game_version} - ${this.CurGuide.identity.lang} - ${this.CurGuide.identity.name}`
   }
 
+  /**
+   * 
+   * @returns return unique guide id (the guide path and filename)
+   */
   public getCurGuideID(): string {
     if (this.CurGuide) return `${this.CurGuide.identity.filename}`
     else return undefined
   }
 
-  async setCurGuide(guideName?: string): Promise<void> {
-    const curIdent = this.getIdentityByFilename(guideName)
-    const json = new JsonFile<T>(curIdent.filename)
-    json.load()
-    this.CurGuide = json.getObject()
-    this.CurGuide.identity = curIdent
+  /**
+   * 
+   * @param GuideFilename the guide id (filename) to use
+   */
+  async setCurGuide(GuideFilename?: string): Promise<void> {
+    const curIdent = this.getIdentityByFilename(GuideFilename)
+    try {
+      const json = new JsonFile<T>(curIdent.filename)
+      json.load()
+      this.CurGuide = json.getObject()
+      this.CurGuide.identity = curIdent
 
-    this.parseCurGuide()
-    this.emit("GuideChange", this.CurGuide)
-    MyLogger.log('info', `set cur guide ${this.CurGuide.identity.filename}`)
+      this.parseCurGuide()
+      this.emit("GuideChange", this.CurGuide)
+      MyLogger.log('info', `set cur guide ${this.CurGuide.identity.filename}`)
+    }
+    catch (e) {
+      MyLogger.log('error', `Error When setting curGuide : \n\tfilename:(${GuideFilename})\n\tcurIdent:(${curIdent})\n\tthis.CurGuide:(${this.CurGuide}) `)
+    }
   }
 
-  SaveIdentity(identity: GuideIdentity): void {
+  /**
+   * 
+   * @param identity the new identity of the cur guide to save on file (filename was calculated here)
+   */
+  async SaveCurGuideNewIdentity(identity: GuidesIdentity): Promise<void> {
+    console.log(identity)
     if (identity.class) {
       this.CurGuide.identity.class = identity.class
     }
@@ -102,33 +131,41 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
     }
     if (this.CurGuide.identity.name !== identity.name) {
       this.CurGuide.identity.name = identity.name
-      this.CurGuide.identity.filename = this.RenameGuideFolder(identity.name, this.CurGuide.identity.filename)
+      this.CurGuide.identity.filename = this.RenameGuide(identity.name, this.CurGuide.identity.filename)
     }
     this.CurGuide.identity.lang = identity.lang
     this.CurGuide.identity.game_version = identity.game_version
-    this.saveCurGuide()
-    this.Init(this.CurGuide.identity.filename)
+    this.saveCurGuide().then(() => {
+      this.Init(this.CurGuide.identity.filename)
+    })
 
   }
 
-  RenameGuideFolder(newName: string, filename: string): string {
+  /**
+   * Rename the guide and the folder guide path
+   * 
+   * @param newGuideName 
+   * @param filename the guide id (filename) to rename
+   * @returns the new id
+   */
+  RenameGuide(newGuideName: string, filename: string): string {
     const oldName = filename.split(path.sep)[filename.split(path.sep).length - 2]
     const guideName = filename.split(path.sep)[filename.split(path.sep).length - 1]
-    const newPath = path.normalize(path.join(this.getAbsCustomPath(), newName))
+    const newPath = path.normalize(path.join(this.getAbsCustomPath(), newGuideName))
     fs.renameSync(path.join(this.getAbsCustomPath(), oldName), newPath)
     return path.join(newPath, guideName)
   }
 
   /**
    * Record guide.json file after deleting unwanted keys.
-   * And make a reload of guides
+   * @param guide the entire guide
    */
-  async saveCurGuide(): Promise<void> {
+  protected async saveGuide(guide: T): Promise<void> {
     try {
-      MyLogger.log('info', `save ${this.CurGuide.identity.filename}`)
+      MyLogger.log('info', `save ${guide.identity.filename}`)
 
-      const json = new JsonFile<T>(this.CurGuide.identity.filename)
-      const tmp = JSON.parse(JSON.stringify(this.CurGuide)) as T
+      const json = new JsonFile<T>(guide.identity.filename)
+      const tmp = JSON.parse(JSON.stringify(guide)) as T
       delete tmp.identity.filename
       delete tmp.identity.readonly
       delete tmp.identity.sysAssetPath
@@ -140,30 +177,35 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
     catch (e) {
       MyLogger.log('error', `Error when saving custom guide in ${this.CurGuide.identity.filename}`)
     }
-    // this.Init(this.CurGuide.identity.filename)
   }
 
   /**
    * populate Identities with the Guides.
+   * 
+   * @param dirPath the path where to scan for guides file
+   * @param webPath the web way to files
+   * @param readOnly true if guide must not be editable by user
    */
   private async populateIdentities(dirPath: string, webPath: string, readOnly?: boolean) {
     const files = this.GuideFromSubPath(dirPath)
     if (files) {
       files.forEach(f => {
-        const json = new JsonFile<T>(f)
-        try {
-          json.load()
-          const object = json.getObject()
-          if ((readOnly) && (readOnly === true)) object.identity.readonly = true
-          else object.identity.readonly = false
-          object.identity.filename = f
-          object.identity.webAssetPath = this.getWebPath(webPath, f)
-          object.identity.sysAssetPath = path.dirname(f)
-          this.Identities.push(object.identity)
-        }
-        catch (e) {
-          MyLogger.log('error', `Error when loading custom guide in ${f}`)
-          MyLogger.log('error', `${e}`)
+        if (f.search(/guide(-(.*))?\.json$/) !== -1) {
+          const json = new JsonFile<T>(f)
+          try {
+            json.load()
+            const object = json.getObject()
+            if ((readOnly) && (readOnly === true)) object.identity.readonly = true
+            else object.identity.readonly = false
+            object.identity.filename = f
+            object.identity.webAssetPath = this.getWebPath(webPath, f)
+            object.identity.sysAssetPath = path.dirname(f)
+            this.Identities.push(object.identity)
+          }
+          catch (e) {
+            MyLogger.log('error', `Error when loading custom guide in ${f}`)
+            MyLogger.log('error', `${e}`)
+          }
         }
       })
     }
@@ -204,7 +246,7 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
       return newFilename
     }
     catch (e) {
-      MyLogger.log('error', `Error when duplicate custom guide in ${filename}`)
+      MyLogger.log('error', `Error when duplicate custom guide in (${filename})`)
       MyLogger.log('error', `${e}`)
     }
   }
@@ -220,17 +262,9 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
     fs.mkdirSync(dst, { recursive: true })
 
     fs.readdirSync(src, { withFileTypes: true }).forEach(item => {
-      if (item.isDirectory()) this._recursiveCopyFileSync(path.join(src, item.name), path.join(dst, item.name))
-
       if (item.isFile()) {
-        if (!guideName) {
-          fs.copyFileSync(path.join(src, item.name), path.join(dst, item.name), constants.COPYFILE_EXCL)
-          MyLogger.log('info', `cp ${path.join(src, item.name)} ${path.join(dst, item.name)} `)
-        }
-        if ((guideName) && (item.name === guideName)) {
-          fs.copyFileSync(path.join(src, item.name), path.join(dst, "guide.json"), constants.COPYFILE_EXCL)
-          MyLogger.log('info', `cp ${path.join(src, item.name)} ${path.join(dst, item.name)} `)
-        }
+        fs.copyFileSync(path.join(src, item.name), path.join(dst, item.name), constants.COPYFILE_EXCL)
+        MyLogger.log('info', `cp ${path.join(src, item.name)} ${path.join(dst, item.name)} `)
       }
     })
   }

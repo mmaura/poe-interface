@@ -15,11 +15,13 @@ export class GameHelpers extends DataLoader {
 
     constructor() {
         super("helpers")
-        this.Files = [] as HelperFile[]
     }
 
     async Init(): Promise<void> {
-        await Promise.all([
+      delete this.Files
+      this.Files = [] as HelperFile[]
+
+      await Promise.all([
             this.Populate(this.getAbsPackagedPath(), this.getPackagedWebBaseName()),
             this.Populate(this.getAbsCustomPath(), this.getCustomWebBaseName())
                 .catch(e => {

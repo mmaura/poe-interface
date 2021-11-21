@@ -1,5 +1,5 @@
 import React, { ChangeEvent, ChangeEventHandler, useContext, useState, useMemo, useCallback, useEffect } from "react"
-import { mdiEye, mdiMinus, mdiPlus } from "@mdi/js"
+import { mdiEye, mdiLinkVariant, mdiMinus, mdiPlus } from "@mdi/js"
 import Icon from "@mdi/react"
 
 import { CurActContext, PlayerContext } from "./LevelingRenderer"
@@ -44,7 +44,7 @@ export function Player(): JSX.Element {
 }
 
 export function LevelingGuide(props: {
-  curZone: IZone
+  curZone: IActsGuideZone
   Acts: IActsGuide
   onActChange: ChangeEventHandler<any>
   onZoneChange: ChangeEventHandler<any>
@@ -57,7 +57,7 @@ export function LevelingGuide(props: {
   return (
     <div className="flex flex-row flex-nowrap space-x-2">
       <select className="lvlg-map-feature min-w-min input" value={curAct.actid} onChange={onActChange}>
-        {Acts.acts.map((act: IAct) => {
+        {Acts.acts.map((act: IActsGuideAct) => {
           return (
             <option key={act.actid} value={act.actid}>
               {act.act}
@@ -67,7 +67,7 @@ export function LevelingGuide(props: {
       </select>
 
       <select className=" lvlg-map-feature flex-grow input" value={curZone.name} onChange={onZoneChange}>
-        {curAct.zones.map((zone: IZone) => {
+        {curAct.zones.map((zone: IActsGuideZone) => {
           return (
             <option key={zone.level + "-" + zone.name} value={zone.name}>
               {zone.name}
@@ -86,7 +86,7 @@ export function LevelingGuide(props: {
   )
 }
 
-export function ZoneNotes(props: { curZone: IZone; onSave: (text: string) => void; readOnly: boolean }): JSX.Element {
+export function ZoneNotes(props: { curZone: IActsGuideZone; onSave: (text: string) => void; readOnly: boolean }): JSX.Element {
   const { onSave, curZone, readOnly } = props
 
   const [text, settext] = useState(curZone.note)
@@ -141,7 +141,7 @@ export function ZoneNotes(props: { curZone: IZone; onSave: (text: string) => voi
 }
 
 export function Navigation(props: {
-  curZone: IZone
+  curZone: IActsGuideZone
   readOnly: boolean
   onSave: (text: string) => void
 }): JSX.Element {
@@ -202,28 +202,37 @@ export function SkillTree(props: { curGuide: IClassesGuide, onClassGuideSkilltre
 
 
   return (
-    <div className="relative">
-      {(curGuide.acts && curGuide.acts.find(a => a.act === curAct.actid)) ? <img src={curGuide.acts.find(a => a.act === curAct.actid).treeimage} /> : null}
-      {(curGuide.identity.readonly) ? null :
+    <div>
+      <ReactTooltip id="skilltree" effect='solid' delayHide={1000} key="skilltree" className="bg-poe-98 bg-opacity-75 opacity-100 ">
+        <div data-tip='skilltree' >
+          {(curGuide.acts && curGuide.acts.find(a => a.act === curAct.actid)) ? <img src={curGuide.acts.find(a => a.act === curAct.actid).treeimage} /> : null}
+        </div>
+      </ReactTooltip>
+      <div className="relative">
+        {(curGuide.acts && curGuide.acts.find(a => a.act === curAct.actid)) ? <img src={curGuide.acts.find(a => a.act === curAct.actid).treeimage} /> : null}
         <div className="absolute p-0 top-0 left-0">
-          <EditSaveImageButton onClick={onClassGuideSkilltreeChange} />
-        </div>}
+          {(curGuide.identity.readonly) ? null :
+            <EditSaveImageButton onClick={onClassGuideSkilltreeChange} />}
+          <div className="w-6 cursor-pointer iconInput" >
+            <Icon path={mdiEye} size={1} title="voir" data-tip data-for="skilltree" />
+          </div>
+        </div>
+      </div>
     </div>
   )
-
 }
 
 export function ZoneGem(props: { curGuide: IClassesGuide }): JSX.Element {
   const curGuide = props.curGuide
 
   const curPlayer = useContext(PlayerContext) as IAppPlayer
-  const curAct = useContext(CurActContext) as IAct
+  const curAct = useContext(CurActContext) as IActsGuideAct
 
   const [lvlRange, setlvlRange] = useState(6)
   const [showAll, setshowAll] = useState(false)
 
   const gems = useMemo(() => {
-    const _gems = [] as IAppGems[]
+    const _gems = [] as IGems[]
 
     if (curGuide && curGuide.acts) {
       curGuide.acts
@@ -290,7 +299,7 @@ export function LongGem(props: { gem: IGems }): JSX.Element {
   const curGem = props.gem
 
   const curPlayer = useContext(PlayerContext) as IAppPlayer
-  const curAct = useContext(CurActContext) as IAct
+  const curAct = useContext(CurActContext) as IActsGuideAct
 
   const curBuy = useMemo(() => {
     let _buy = [] as IBuy[]
@@ -343,7 +352,6 @@ export function LongGem(props: { gem: IGems }): JSX.Element {
           )}
         </div>
       </div>
-      // <div className="flex flex-grow-0 order-b-2 border-poe-96 w-6/12" />
     )
   }
 
@@ -351,12 +359,14 @@ export function LongGem(props: { gem: IGems }): JSX.Element {
 }
 
 export function Gem(props: { curGem: IGems }): JSX.Element {
-  const curGem = props.curGem
+  const { curGem } = props
+  const tipText = (!curGem.note) ? `${curGem.name}` : `${curGem.name} - ${curGem.note}`
 
   const gemClick = useCallback((e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     e.preventDefault()
     window.poe_interfaceAPI.openExternal("https://www.poewiki.net/wiki/" + curGem.name)
   }, [])
+
 
   return (
     <div
@@ -366,12 +376,11 @@ export function Gem(props: { curGem: IGems }): JSX.Element {
       data-place="left"
       data-delay-hide="1000"
     >
-      {" "}
       <ReactTooltip key={curGem.name} />
       <img
-        data-tip={curGem.name}
+        data-tip={tipText}
         onClick={gemClick}
-        className="w-socket h-socket cursor-pointer"
+        className={`w-socket h-socket cursor-pointer ${(curGem.note) ? 'animate-pulse' : null}`}
         src={"../assets/images/gems/" + curGem.name.replace(" ", "_") + ".png"}
       />
     </div>
@@ -393,20 +402,12 @@ function GemSpan(props: { text: string; classColor: string }): JSX.Element {
 
 export function ZoneGears(props: { curGuide: IClassesGuide }): JSX.Element {
   const curAct = useContext(CurActContext)
-
   const curGuide = props.curGuide
-
   console.log("zonegear: ", curGuide)
-
-  // const SendReload = useCallback(() => {
-  //   window.poe_interfaceAPI.sendSync("guide", "reload").then(e => {
-  //     setcurGuide(e)
-  //   })
-  // }, [])
 
   const curGearsAct = useMemo(() => {
     if (curGuide && curGuide.acts) return curGuide.acts.find(act => act.act === curAct.actid)
-    else return {} as IGuideAct
+    else return {} as IClassesGuideAct
   }, [curAct, curGuide])
 
   console.log("curGearsAct: ", curGearsAct)
@@ -414,9 +415,6 @@ export function ZoneGears(props: { curGuide: IClassesGuide }): JSX.Element {
   return (
     <div className="relative flex flex-col mb-2">
       <h2>Gears</h2>
-      {/* <span className="absolute top-1 right-1 cursor-pointer" onClick={SendReload}>
-        <Icon path={mdiReload} size={1} title="Recharger tous les jsons" />
-      </span> */}
       {curGearsAct && curGearsAct.gears ? (
         <div>
           {curGearsAct.notes ? <RichNoteText>{curGearsAct.notes}</RichNoteText> : null}
@@ -436,7 +434,7 @@ export function ZoneGears(props: { curGuide: IClassesGuide }): JSX.Element {
   )
 }
 
-function Gear(props: { gear: Gear }): JSX.Element {
+function Gear(props: { gear: IClassesGuideGear }): JSX.Element {
   const gear = props.gear
 
   //console.log(gear)
@@ -537,7 +535,7 @@ export function ActGuideIdentity(props: {
 }
 
 export function ClassGuideIdentity(props: {
-  identity: ClassGuideIdentity, onSave: (identity: ClassGuideIdentity) => void, children: string, playerClasses: IPlayerClasses[]
+  identity: ClassGuideIdentity, onSave: (identity: ClassGuideIdentity) => void, children: string, playerClasses: IClassesAscendancies[]
 }): JSX.Element {
   const { onSave, identity, children, playerClasses } = props
 
@@ -565,11 +563,15 @@ export function ClassGuideIdentity(props: {
     identity.class = idClass
     identity.url = idUrl
     onSave(identity)
-  }, [isOnEdit, idName, idLang, idGameVersion, idClass])
+  }, [isOnEdit, idName, idLang, idGameVersion, idClass, idUrl])
 
   const editNote = useCallback(() => {
     setisOnEdit(!isOnEdit)
   }, [isOnEdit])
+
+  const OpenUrl = useCallback(() => {
+    window.poe_interfaceAPI.openExternal(idUrl)
+  }, [idUrl])
 
   const onChange = useCallback((e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     switch (e.target.name) {
@@ -589,8 +591,12 @@ export function ClassGuideIdentity(props: {
         console.log(e)
         setidclass(e.target.value)
         break
+      case "url":
+        console.log(e)
+        setidurl(e.target.value)
+        break
     }
-  }, [idGameVersion, idLang, idName])
+  }, [idGameVersion, idLang, idName, idClass, idUrl])
 
   return (
     <div className="flex flex-col gap-1 w-full overflow-hidden">
@@ -615,8 +621,13 @@ export function ClassGuideIdentity(props: {
             <EditSaveNoteButton isOnEdit={isOnEdit} onSave={onSaveIdentity} onEdit={editNote} />
           </div>}
       </div>
-      <div className="flex-auto w-full overflow-hidden">
-        <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="url" value={idUrl} />
+      <div className="flex-auto w-full overflow-hidden flex flex-row">
+        <div className="flex-auto">
+          <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="url" value={idUrl} />
+        </div>
+        <div className="w-6 cursor-pointer iconInput" onClick={OpenUrl}>
+          <Icon path={mdiLinkVariant} size={1} title="voir" />
+        </div>
       </div>
     </div>
   )

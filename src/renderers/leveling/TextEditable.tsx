@@ -2,7 +2,7 @@ import React, { ChangeEventHandler } from "react"
 
 
 export function TextEditable(props: {
-  children?: IPlayerClasses[]
+  children?: IClassesAscendancies[]
   isOnEdit: boolean
   onChange: ChangeEventHandler<HTMLInputElement | HTMLSelectElement>
   name: string,
@@ -26,7 +26,7 @@ export function TextInput(props: { onChange: ChangeEventHandler<HTMLInputElement
   return (<input className="h-6 w-full input p-0 m-0" name={name} value={value} onChange={onChange} />)
 }
 
-export function ListInput(props: { onChange: ChangeEventHandler<HTMLSelectElement>, children: IPlayerClasses[], value: string, name: string }): JSX.Element {
+export function ListInput(props: { onChange: ChangeEventHandler<HTMLSelectElement>, children: IClassesAscendancies[], value: string, name: string }): JSX.Element {
   const { onChange, children, name, value } = props
   return (
     <select className="h-6 w-full input p-0 m-0" value={value} name={name} onChange={onChange} >
@@ -41,7 +41,7 @@ export function ListInput(props: { onChange: ChangeEventHandler<HTMLSelectElemen
   )
 }
 
-function SubListInput(props: { parent: IPlayerClasses }): JSX.Element {
+function SubListInput(props: { parent: IClassesAscendancies }): JSX.Element {
   const { parent } = props
   return (<>
     {parent.ascendancy.map(a => {

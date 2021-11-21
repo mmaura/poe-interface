@@ -6,7 +6,7 @@ import "./index.css"
 import { Player, LevelingGuide, ZoneNotes, Navigation, SkillTree, ZoneGem, ZoneGears, ActGuideIdentity, ClassGuideIdentity } from "./Components"
 
 export const PlayerContext = React.createContext({} as IAppPlayer)
-export const CurActContext = React.createContext({} as IAct)
+export const CurActContext = React.createContext({} as IActsGuideAct)
 export const RichTextContext = React.createContext({} as IRichText[])
 
 function App(props: { Init: any }) {
@@ -16,7 +16,7 @@ function App(props: { Init: any }) {
   const [curPlayer, setcurPlayer] = useState(props.Init[4] as IAppPlayer)
   const [curActID, setcurActID] = useState(props.Init[5] as number)
   const [curZoneName, setcurZoneName] = useState(props.Init[6] as string)
-  const [playerClasses, setplayerClasses] = useState(props.Init[7] as IPlayerClasses[])
+  const [playerClasses, setplayerClasses] = useState(props.Init[7] as IClassesAscendancies[])
 
 
   const curAct = useMemo(() => {
@@ -31,40 +31,41 @@ function App(props: { Init: any }) {
     console.log("**useMemo curZone", curZoneName)
     if (curAct && curAct.zones) {
       const _zone = curAct.zones.find(e => e.name === curZoneName)
-      if (!_zone) return curAct.zones[0]
+      if (!_zone) {
+        setcurZoneName(curAct.zones[0].name)
+        return curAct.zones[0]
+      }
       console.log("return : ", _zone)
       return _zone
-    } else {
-      console.log("return: null")
-      return null
+    }
+    else {
+      console.log(`return: null (defaulting) ${curAct} `)
+      return curAct.zones[0]
     }
   }, [curZoneName, curAct, actsGuide])
 
-  /*********************************
+  /**********************************
    * Events
    */
   const onActChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
     setcurActID(Number(e.target.value))
   }, [])
 
-  const onZoneChange = useCallback(
-    (e: React.ChangeEvent<HTMLSelectElement>) => {
-      setcurZoneName(e.target.value)
-    },
+  const onZoneChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+    setcurZoneName(e.target.value)
+  },
     [curAct]
   )
 
   const onZoneNoteSave = useCallback((text: string) => {
     window.poe_interfaceAPI.sendSync("levelingRenderer", "saveActGuide", "zoneNote", curActID, curZoneName, text)
-
   }, [curZoneName, curActID])
 
   const onNavigationNoteSave = useCallback((text: string) => {
     window.poe_interfaceAPI.sendSync("levelingRenderer", "saveActGuide", "navigationNote", curActID, curZoneName, text)
-
   }, [curZoneName, curActID])
 
-  const onActGuideIdentitySave = useCallback((identity: GuideIdentity) => {
+  const onActGuideIdentitySave = useCallback((identity: GuidesIdentity) => {
     window.poe_interfaceAPI.sendSync("levelingRenderer", "saveActGuide", "identity", identity)
   }, [])
 
@@ -72,7 +73,7 @@ function App(props: { Init: any }) {
     window.poe_interfaceAPI.sendSync("levelingRenderer", "saveClassGuide", "skilltree", curActID)
   }, [curActID])
 
-  const onClassGuideIdentitySave = useCallback((identity: GuideIdentity) => {
+  const onClassGuideIdentitySave = useCallback((identity: GuidesIdentity) => {
     window.poe_interfaceAPI.sendSync("levelingRenderer", "saveClassGuide", "identity", identity)
   }, [])
 
@@ -83,7 +84,7 @@ function App(props: { Init: any }) {
     console.log("**UseEffect [CurPlayer]")
     if (curActID !== curPlayer.currentZoneAct) {
       setcurActID(curPlayer.currentZoneAct)
-      console.log("setcurActID: ", curAct)
+      console.log(`setcurActID: ${curAct} ${curPlayer.currentZoneAct}`)
 
       const _act = actsGuide.acts.find(act => act.actid === curPlayer.currentZoneAct)
       if (_act) {
@@ -122,7 +123,7 @@ function App(props: { Init: any }) {
           setclassGuide(arg[1])
           break
         case "actsGuide":
-          console.log("setactsGuide :", arg[1])
+          console.log("IPC: setactsGuide :", arg[1])
           setactsGuide(arg[1])
           break
         case "All":
@@ -149,7 +150,7 @@ function App(props: { Init: any }) {
                 <h1>{curAct && curZone ? `${curAct.act} : ${curZone.name}` : null}</h1>
               </div>
               <div className="flex-grow h-full">
-                <Navigation curZone={curZone} onSave={onNavigationNoteSave} readOnly={actsGuide.identity.readonly}/>
+                <Navigation curZone={curZone} onSave={onNavigationNoteSave} readOnly={actsGuide.identity.readonly} />
               </div>
               <div className="flex-grow-0 h-full guide-container px-1">
                 <ActGuideIdentity identity={actsGuide.identity} onSave={onActGuideIdentitySave}>Acts</ActGuideIdentity>
@@ -161,10 +162,10 @@ function App(props: { Init: any }) {
               <div className="flex flex-grow flex-shrink flex-col gap-2 w-notes-container">
                 <div className="flex-grow-0 flex-shrink-0 ">
                   {/* <ZoneNotes curZone={curZone} curRichText={curRichText} /> */}
-                  <ZoneNotes curZone={curZone} onSave={onZoneNoteSave}  readOnly={actsGuide.identity.readonly}/>
+                  <ZoneNotes curZone={curZone} onSave={onZoneNoteSave} readOnly={actsGuide.identity.readonly} />
                 </div>
                 <div className="flex-grow flex-shrink items-end">
-                  <SkillTree curGuide={classGuide} onClassGuideSkilltreeChange={onClassGuideSkilltreeChange}/>
+                  <SkillTree curGuide={classGuide} onClassGuideSkilltreeChange={onClassGuideSkilltreeChange} />
                 </div>
               </div>
               <div className="container flex-shrink-0 flex-grow-0 w-gear-container">

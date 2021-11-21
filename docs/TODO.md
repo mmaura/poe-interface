@@ -1,19 +1,24 @@
 
-[] les gemmes doivent disparaître de la liste des courses 
+[] les gemmes doivent etre en sépia de la liste des courses 
 lorsqu'elles sont achetées (stashAPI avec le cookie sessionID)
 
-[] faire en sorte de rester dans la zone précédente lorsque le joueur va en ville
+[]Richtext 
+* The Ship Graveyard Cave coloration partiel si un resultat plus court
+* PNJ ?
+* gemmes ?
+* area ajouter les villes
+* double coloration quand le boss porte le nom de la zone ex: The Weaver's Chambers (Act II) ou The Upper Sceptre of God. Les noms de zone doivent etre en dernier.
 
-[] Gears a un problème de mise a jours lorsque l'on recharge les jsons
 
-# Creation de sets
-Un bouton "créer un set" => nom, classe, langue
-Clone le set actuel dans userdata et le sélectionne
 
-edition en ligne sur la meme fenètre et enregistrement en temps reel.
+
+* mettre a jour les waypoint dans le squelette des actes
+* mettre a jour les trials dans le squelette des actes
+
+[]actsGuide
+
 
 # avant de pousser
-
 * tester
 * packager en local
 * mettre a jour le numéro de version dans package.json

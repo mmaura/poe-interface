@@ -1,6 +1,6 @@
 {
   "identity": {
-    "name": "default",
+    "name": "Vatinas' Spiders + HoP Guardian",
     "lang": "fr",
     "class": "Guardian",
     "url": "https://www.pathofexile.com/forum/view-thread/2554248",
@@ -8,6 +8,11 @@
 
   },
   "acts": [
+    {
+      "act" :12,
+      "notes":"1) Radiant Crusade (after Stone Golem)\n2) Radiant Faith (Before Kitava and the resitance penality)\n3) Unwavering Crusade\n4) Time of need",
+      "gears":[]
+    },
     {
       "act": 1,
       "notes": "N'oubliez pas de faire The Tidal Island pour la avoir la <b>Quicksilver Flask</b>.<br>Essayez d'avoir des bases ES avec de la vie dessus, ainsi que quelques résistances. Les boucliers armor-ES sont également une bonne option en raison de leur résistance élémentaire implicite.",

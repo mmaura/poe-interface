@@ -9,7 +9,7 @@ import fs from "fs"
 import { ConfigWindow } from "./main/ConfigWindow"
 import { LevelingWindow } from "./main/LevelingWindow"
 
-import { getAssetPath, getLocalCustomPath, MyLogger } from "./modules/functions"
+import {  getAbsPackagedPath, getLocalCustomPath, MyLogger } from "./modules/functions"
 
 const reactDevToolsPath = path.join(
   os.homedir(),
@@ -23,7 +23,7 @@ let AppTray: Tray
 let PoeLog: PathOfExileLog
 
 const AppStore = new Store()
-const AppIcon = nativeImage.createFromPath(path.join(getAssetPath(), "AppIcon.png"))
+const AppIcon = nativeImage.createFromPath(path.join(getAbsPackagedPath(), "AppIcon.png"))
 
 protocol.registerSchemesAsPrivileged([
   { scheme: "userdata", privileges: { bypassCSP: true, standard: true, secure: true } },
@@ -41,7 +41,7 @@ app.whenReady().then(async () => {
 
   protocol.registerFileProtocol("userdata", (request, callback) => {
     const url = request.url.substr(9)
-    console.log(decodeURI(path.normalize(`${getLocalCustomPath()}/${url}`)))
+    // console.log(decodeURI(path.normalize(`${getLocalCustomPath()}/${url}`)))
     callback({ path: decodeURI(path.normalize(`${getLocalCustomPath()}/${url}`)) })
   })
 

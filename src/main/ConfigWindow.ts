@@ -1,6 +1,6 @@
 import { BrowserWindow, dialog, ipcMain, NativeImage, app } from "electron"
 
-import { DlAllGemImg } from "../modules/functions"
+import { DlAllGemImg, MyLogger } from "../modules/functions"
 
 import Store from "electron-store"
 import fs from "fs"
@@ -128,7 +128,8 @@ export class ConfigWindow {
         }
       })
       .catch(err => {
-        console.log(err)
+
+        MyLogger.log(err)
       })
   }
 }
