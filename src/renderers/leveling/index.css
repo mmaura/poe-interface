@@ -29,7 +29,7 @@
   }
 
   .iconInput {
-    @apply text-opacity-50 text-poe-1 hover:text-poe-4 cursor-pointer;
+    @apply text-opacity-50 text-poe-60 hover:text-poe-50 cursor-pointer;
   }
 
   .poe-item-3slots {

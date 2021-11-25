@@ -29,11 +29,11 @@ export function TextInput(props: { onChange: ChangeEventHandler<HTMLInputElement
 export function ListInput(props: { onChange: ChangeEventHandler<HTMLSelectElement>, children: IClassesAscendancies[], value: string, name: string }): JSX.Element {
   const { onChange, children, name, value } = props
   return (
-    <select className="h-6 w-full input p-0 m-0" value={value} name={name} onChange={onChange} >
+    <select className="h-6 w-full input p-0 m-0" key={name} value={value} name={name} onChange={onChange} >
       {children.map(c => {
         return (<>
           <option disabled={true} value={c.classe} key={c.classe} >{c.classe}</option>
-          <SubListInput parent={c} />
+          <SubListInput key={`sub_${c.classe}`} parent={c} />
         </>
         )
       })}

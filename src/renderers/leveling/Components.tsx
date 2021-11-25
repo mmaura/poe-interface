@@ -1,5 +1,5 @@
 import React, { ChangeEvent, ChangeEventHandler, useContext, useState, useMemo, useCallback, useEffect } from "react"
-import { mdiEye, mdiLinkVariant, mdiMinus, mdiPlus } from "@mdi/js"
+import { mdiContentDuplicate, mdiEye, mdiLinkVariant, mdiMinus, mdiPlus } from "@mdi/js"
 import Icon from "@mdi/react"
 
 import { CurActContext, PlayerContext } from "./LevelingRenderer"
@@ -86,8 +86,8 @@ export function LevelingGuide(props: {
   )
 }
 
-export function ZoneNotes(props: { curZone: IActsGuideZone; onSave: (text: string) => void; readOnly: boolean }): JSX.Element {
-  const { onSave, curZone, readOnly } = props
+export function ZoneNotes(props: { curZone: IActsGuideZone; onSave: (text: string) => void; isActsGuideEditable: boolean }): JSX.Element {
+  const { onSave, curZone, isActsGuideEditable } = props
 
   const [text, settext] = useState(curZone.note)
   const [isOnEdit, setisOnEdit] = useState(false)
@@ -114,7 +114,7 @@ export function ZoneNotes(props: { curZone: IActsGuideZone; onSave: (text: strin
 
   return (
     <div className="container flex flex-col min-h-note-container relative">
-      {(readOnly) ? null :
+      {(!isActsGuideEditable) ? null :
         <div className="absolute top-0 left-0 flex flex-row gap-1">
           <EditSaveNoteButton isOnEdit={isOnEdit} onSave={onSaveText} onEdit={editNote} />
         </div>}
@@ -142,10 +142,10 @@ export function ZoneNotes(props: { curZone: IActsGuideZone; onSave: (text: strin
 
 export function Navigation(props: {
   curZone: IActsGuideZone
-  readOnly: boolean
+  isActsGuideEditable: boolean
   onSave: (text: string) => void
 }): JSX.Element {
-  const { curZone, readOnly, onSave } = props
+  const { curZone, isActsGuideEditable, onSave } = props
   console.log("ZoneMap", curZone)
 
   const [text, settext] = useState(curZone.note)
@@ -188,7 +188,7 @@ export function Navigation(props: {
 
         ) : null}
       </div>
-      {(readOnly) ? null :
+      {(!isActsGuideEditable) ? null :
         <div className="absolute top-0 left-0 flex flex-row gap-1">
           <EditSaveNoteButton isOnEdit={isOnEdit} onSave={onSaveText} onEdit={editNote} />
         </div>}
@@ -196,10 +196,15 @@ export function Navigation(props: {
   )
 }
 
-export function SkillTree(props: { curGuide: IClassesGuide, onClassGuideSkilltreeChange: () => void }): JSX.Element {
-  const { curGuide, onClassGuideSkilltreeChange } = props
-  const curAct = useContext(CurActContext)
+export function SkillTree(props: {
+  curGuide: IClassesGuide,
+  onClassGuideSkilltreeChange: () => void,
+  isClassGuideEditable: boolean
+}): JSX.Element {
 
+  const { curGuide, onClassGuideSkilltreeChange, isClassGuideEditable } = props
+  const curAct = useContext(CurActContext)
+  console.log("skill")
 
   return (
     <div>
@@ -210,13 +215,13 @@ export function SkillTree(props: { curGuide: IClassesGuide, onClassGuideSkilltre
       </ReactTooltip>
       <div className="relative">
         {(curGuide.acts && curGuide.acts.find(a => a.act === curAct.actid)) ? <img src={curGuide.acts.find(a => a.act === curAct.actid).treeimage} /> : null}
-        <div className="absolute p-0 top-0 left-0">
-          {(curGuide.identity.readonly) ? null :
-            <EditSaveImageButton onClick={onClassGuideSkilltreeChange} />}
+
+        <div className="absolute p-0 top-0 left-0 flex flex-row gap-1">
           <div className="w-6 cursor-pointer iconInput" >
             <Icon path={mdiEye} size={1} title="voir" data-tip data-for="skilltree" />
           </div>
-        </div>
+          {(isClassGuideEditable === false) ? null :
+            <EditSaveImageButton onClick={onClassGuideSkilltreeChange} />}        </div>
       </div>
     </div>
   )
@@ -269,7 +274,7 @@ export function ZoneGem(props: { curGuide: IClassesGuide }): JSX.Element {
 
   if (curGuide && curGuide.acts) {
     return (
-      <div className="relative">
+      <div className="container relative">
         <h2>Liste des courses</h2>
         <div className="flex flex-row gap-1 absolute top-1 right-1 ">
           <span className="iconInput" onClick={LvlRangePlus}>
@@ -326,7 +331,7 @@ export function LongGem(props: { gem: IGems }): JSX.Element {
     return (
       <div className="grid grid-cols-12 gap-1 items-center justify-center flex-grow">
         <span>lvl: {curGem.required_lvl}&nbsp;</span>
-        <Gem curGem={curGem} />
+        <Gem curGem={curGem} isOnEdit={false}/>
         <span className="col-span-3">{curGem.name}</span>
         <div className="col-span-7 flex flex-col">
           {curBuy.length > 0 ? (
@@ -358,8 +363,8 @@ export function LongGem(props: { gem: IGems }): JSX.Element {
   return <div>Pas de gemme.</div>
 }
 
-export function Gem(props: { curGem: IGems }): JSX.Element {
-  const { curGem } = props
+export function Gem(props: { curGem: IGems, isOnEdit: boolean }): JSX.Element {
+  const { curGem, isOnEdit } = props
   const tipText = (!curGem.note) ? `${curGem.name}` : `${curGem.name} - ${curGem.note}`
 
   const gemClick = useCallback((e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
@@ -400,76 +405,14 @@ function GemSpan(props: { text: string; classColor: string }): JSX.Element {
   )
 }
 
-export function ZoneGears(props: { curGuide: IClassesGuide }): JSX.Element {
-  const curAct = useContext(CurActContext)
-  const curGuide = props.curGuide
-  console.log("zonegear: ", curGuide)
 
-  const curGearsAct = useMemo(() => {
-    if (curGuide && curGuide.acts) return curGuide.acts.find(act => act.act === curAct.actid)
-    else return {} as IClassesGuideAct
-  }, [curAct, curGuide])
-
-  console.log("curGearsAct: ", curGearsAct)
-
-  return (
-    <div className="relative flex flex-col mb-2">
-      <h2>Gears</h2>
-      {curGearsAct && curGearsAct.gears ? (
-        <div>
-          {curGearsAct.notes ? <RichNoteText>{curGearsAct.notes}</RichNoteText> : null}
-
-          <div className="flex flex-row flex-wrap gap-2 items-start">
-            {curGearsAct.gears.map((gear, index) => {
-              return (
-                <div key={gear.name + index} className="max-w-xs">
-                  <Gear gear={gear} />
-                </div>
-              )
-            })}
-          </div>
-        </div>
-      ) : null}
-    </div>
-  )
-}
-
-function Gear(props: { gear: IClassesGuideGear }): JSX.Element {
-  const gear = props.gear
-
-  //console.log(gear)
-
-  return (
-    <div className="border-2 border-poe-99 rounded-lg p-2">
-      <p>{gear.name}</p>
-      <div className="flex flex-row gap-2 ">
-        <div
-          className={`${(gear.gems ? gear.gems.length : 0) + (gear.chasses ? gear.chasses.length : 0) <= 3
-            ? "poe-item-3slots"
-            : "poe-item-xslots"
-            } flex-none`}
-        >
-          {gear.gems ? gear.gems.map((gem, index) => <Gem key={gem.name + index} curGem={gem} />) : null}
-          {gear.chasses
-            ? gear.chasses.map((color, index) => (
-              <div className={`poe-${color}-socket`} key={color + index}></div>
-            ))
-            : null}
-        </div>
-        {gear.notes ? (
-          <div className="flex-grow">
-            <RichNoteText>{gear.notes}</RichNoteText>
-          </div>
-        ) : null}
-      </div>
-    </div>
-  )
-}
 
 export function ActGuideIdentity(props: {
-  identity: ActGuideIdentity, onSave: (identity: ActGuideIdentity) => void, children: string
+  identity: ActGuideIdentity, onSave: (identity: ActGuideIdentity) => void, children: string,
+  onActsGuideEditChange: (isEditable: boolean) => void,
+
 }): JSX.Element {
-  const { onSave, identity, children } = props
+  const { onSave, identity, children, onActsGuideEditChange } = props
 
   const [idName, setidName] = useState(identity.name)
   const [idLang, setidlang] = useState(identity.lang)
@@ -484,6 +427,7 @@ export function ActGuideIdentity(props: {
   }, [identity])
 
   const onSaveIdentity = useCallback(() => {
+    onActsGuideEditChange(!isOnEdit)
     setisOnEdit(!isOnEdit)
     identity.name = idName
     identity.lang = idLang
@@ -492,6 +436,7 @@ export function ActGuideIdentity(props: {
   }, [isOnEdit, idName, idLang, idGameVersion])
 
   const editNote = useCallback(() => {
+    onActsGuideEditChange(!isOnEdit)
     setisOnEdit(!isOnEdit)
   }, [isOnEdit])
 
@@ -535,9 +480,13 @@ export function ActGuideIdentity(props: {
 }
 
 export function ClassGuideIdentity(props: {
-  identity: ClassGuideIdentity, onSave: (identity: ClassGuideIdentity) => void, children: string, playerClasses: IClassesAscendancies[]
+  identity: ClassGuideIdentity,
+  children: string,
+  playerClasses: IClassesAscendancies[],
+  onSave: (identity: ClassGuideIdentity) => void,
+  onClassGuideEditChange: (isEditable: boolean) => void,
 }): JSX.Element {
-  const { onSave, identity, children, playerClasses } = props
+  const { onSave, onClassGuideEditChange, identity, children, playerClasses } = props
 
   const [idName, setidName] = useState(identity.name)
   const [idLang, setidlang] = useState(identity.lang)
@@ -556,6 +505,7 @@ export function ClassGuideIdentity(props: {
   }, [identity])
 
   const onSaveIdentity = useCallback(() => {
+    onClassGuideEditChange(!isOnEdit)
     setisOnEdit(!isOnEdit)
     identity.name = idName
     identity.lang = idLang
@@ -566,6 +516,7 @@ export function ClassGuideIdentity(props: {
   }, [isOnEdit, idName, idLang, idGameVersion, idClass, idUrl])
 
   const editNote = useCallback(() => {
+    onClassGuideEditChange(!isOnEdit)
     setisOnEdit(!isOnEdit)
   }, [isOnEdit])
 
@@ -576,7 +527,7 @@ export function ClassGuideIdentity(props: {
   const onChange = useCallback((e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     switch (e.target.name) {
       case "name":
-        if (e.target.value.search(/^[a-z|A-Z|0-9|_]*$/gm) !== -1)
+        if (e.target.value.search(/^[a-z|A-Z|0-9|_|+|'|-|\s]*$/gm) !== -1)
           setidName(e.target.value)
         break
       case "game_version":

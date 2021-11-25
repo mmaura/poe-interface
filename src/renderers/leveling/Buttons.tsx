@@ -34,7 +34,7 @@ export function EditSaveNoteButton(props: {
   
     return (
       <div>
-        <div className=" iconInput" onClick={onClick}>
+        <div className="iconInput" onClick={onClick}>
           <Icon path={mdiImageSearch} size={1} title="Éditer" />
         </div>
   

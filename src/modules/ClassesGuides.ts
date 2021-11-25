@@ -40,7 +40,8 @@ export class ClassesGuides extends Guides<IClassesGuide>{
 
       this.CurGuide.acts.forEach(act => {
         if (act.gears) {
-          act.gears.forEach(gear => {
+          act.gears.forEach((gear, index) => {
+            if(!gear.id) gear.id = index
             gear.gems = [] as IGems[]
             if (gear.gem_info)
               gear.gem_info.forEach(g => {

@@ -89,6 +89,7 @@ declare global {
   }
 
   export interface IClassesGuideGear {
+    id: number
     name: string
     notes?: string
     gem_info: IClassesGuideGemInfo[]

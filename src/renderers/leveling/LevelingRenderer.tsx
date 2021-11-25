@@ -3,7 +3,8 @@ import * as ReactDOM from "react-dom"
 
 import "../index.css"
 import "./index.css"
-import { Player, LevelingGuide, ZoneNotes, Navigation, SkillTree, ZoneGem, ZoneGears, ActGuideIdentity, ClassGuideIdentity } from "./Components"
+import { Player, LevelingGuide, ZoneNotes, Navigation, SkillTree, ZoneGem,  ActGuideIdentity, ClassGuideIdentity } from "./Components"
+import { ZoneGears } from "./Gears"
 
 export const PlayerContext = React.createContext({} as IAppPlayer)
 export const CurActContext = React.createContext({} as IActsGuideAct)
@@ -17,7 +18,8 @@ function App(props: { Init: any }) {
   const [curActID, setcurActID] = useState(props.Init[5] as number)
   const [curZoneName, setcurZoneName] = useState(props.Init[6] as string)
   const [playerClasses, setplayerClasses] = useState(props.Init[7] as IClassesAscendancies[])
-
+  const [isClassGuideEditable, setisClassGuideEditable] = useState(false)
+  const [isActsGuideEditable, setisActsGuideEditable] = useState(false)
 
   const curAct = useMemo(() => {
     console.log("**useMemo curAct", curActID)
@@ -76,6 +78,9 @@ function App(props: { Init: any }) {
   const onClassGuideIdentitySave = useCallback((identity: GuidesIdentity) => {
     window.poe_interfaceAPI.sendSync("levelingRenderer", "saveClassGuide", "identity", identity)
   }, [])
+
+  const onClassGuideEditChange = useCallback((isEditable: boolean) => { setisClassGuideEditable(isEditable) }, [])
+  const onActsGuideEditChange = useCallback((isEditable: boolean) => { setisActsGuideEditable(isEditable) }, [])
 
   /**********************************
    * Effects
@@ -150,26 +155,25 @@ function App(props: { Init: any }) {
                 <h1>{curAct && curZone ? `${curAct.act} : ${curZone.name}` : null}</h1>
               </div>
               <div className="flex-grow h-full">
-                <Navigation curZone={curZone} onSave={onNavigationNoteSave} readOnly={actsGuide.identity.readonly} />
+                <Navigation curZone={curZone} onSave={onNavigationNoteSave} isActsGuideEditable={isActsGuideEditable} />
               </div>
               <div className="flex-grow-0 h-full guide-container px-1">
-                <ActGuideIdentity identity={actsGuide.identity} onSave={onActGuideIdentitySave}>Acts</ActGuideIdentity>
-                <ClassGuideIdentity identity={classGuide.identity} onSave={onClassGuideIdentitySave} playerClasses={playerClasses}>Ascendancy</ClassGuideIdentity>
+                <ActGuideIdentity identity={actsGuide.identity} onSave={onActGuideIdentitySave} onActsGuideEditChange={onActsGuideEditChange}>Acts</ActGuideIdentity>
+                <ClassGuideIdentity identity={classGuide.identity} onSave={onClassGuideIdentitySave} onClassGuideEditChange={onClassGuideEditChange} playerClasses={playerClasses}>Ascendancy</ClassGuideIdentity>
                 <LevelingGuide onActChange={onActChange} onZoneChange={onZoneChange} Acts={actsGuide} curZone={curZone} />
               </div>
             </div>
             <div className="flex flex-row gap-2">
               <div className="flex flex-grow flex-shrink flex-col gap-2 w-notes-container">
                 <div className="flex-grow-0 flex-shrink-0 ">
-                  {/* <ZoneNotes curZone={curZone} curRichText={curRichText} /> */}
-                  <ZoneNotes curZone={curZone} onSave={onZoneNoteSave} readOnly={actsGuide.identity.readonly} />
+                  <ZoneNotes curZone={curZone} onSave={onZoneNoteSave} isActsGuideEditable={isActsGuideEditable} />
                 </div>
                 <div className="flex-grow flex-shrink items-end">
-                  <SkillTree curGuide={classGuide} onClassGuideSkilltreeChange={onClassGuideSkilltreeChange} />
+                  <SkillTree curGuide={classGuide} onClassGuideSkilltreeChange={onClassGuideSkilltreeChange} isClassGuideEditable={isClassGuideEditable} />
                 </div>
               </div>
-              <div className="container flex-shrink-0 flex-grow-0 w-gear-container">
-                <ZoneGears curGuide={classGuide} />
+              <div className="p-0 m-0 flex-shrink-0 flex-grow-0 w-gear-container">
+                <ZoneGears curGuide={classGuide} isClassGuideEditable={isClassGuideEditable} />
                 <ZoneGem curGuide={classGuide} />
               </div>
             </div>
