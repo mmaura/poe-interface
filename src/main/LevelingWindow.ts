@@ -114,26 +114,56 @@ export class LevelingWindow {
             break
         }
           break
-        case "saveClassGuide": switch (arg[1]) {
-          case "skilltree":
-            MyLogger.log('info', `saveClassGuide: skilltree`)
+        case "saveClassGuide":
+          MyLogger.log('info', `saveClassGuide`)
 
-            MyLogger.log('info', `Choose skilltree ${arg[2]}`)
-            MyLogger.log('info', this.ClassGuides.getTreeImagePath(arg[2]))
-            this.loadImage(`Choose skilltree for act ${arg[2]}`, this.ClassGuides.getTreeImagePath(arg[2])).then((result) => {
-              if (!result.canceled) {
-                this.ClassGuides.setTreeImagePath(result.filePaths[0], arg[2])
-                this._Window.webContents.send("levelingRenderer", ["classGuide", this.ClassGuides.getCurGuide()])
-              }
-              MyLogger.log('info', result)
-            })
-            break
-          case "identity":
-            MyLogger.log('info', `saveClassGuide: identity(${arg[2]})`)
-            this.ClassGuides.SaveCurGuideNewIdentity(arg[2])
-            this.makeMenus()
-            break
-        }
+          switch (arg[1]) {
+            case "skilltree":
+
+              MyLogger.log('info', `Choose skilltree ${arg[2]}`)
+              MyLogger.log('info', this.ClassGuides.getTreeImagePath(arg[2]))
+              this.loadImage(`Choose skilltree for act ${arg[2]}`, this.ClassGuides.getTreeImagePath(arg[2])).then((result) => {
+                if (!result.canceled) {
+                  this.ClassGuides.setTreeImagePath(result.filePaths[0], arg[2])
+                  this._Window.webContents.send("levelingRenderer", ["classGuide", this.ClassGuides.getCurGuide()])
+                }
+                MyLogger.log('info', result)
+              })
+              break
+            case "identity":
+              MyLogger.log('info', `saveClassGuide: identity(${arg[2]})`)
+              this.ClassGuides.SaveCurGuideNewIdentity(arg[2])
+              this.makeMenus()
+              break
+            case "GearName":
+              MyLogger.log('info', `saveClassGuide: GearName (id: ${arg[2]}, name: ${arg[3]})`)
+              this.ClassGuides.setGearName(arg[2], arg[3])
+              break
+            case "GearNotes":
+              MyLogger.log('info', `saveClassGuide: GearNotes (id: ${arg[2]}, notes: ${arg[3]}, actid: ${arg[4]})`)
+              this.ClassGuides.setGearNotes(arg[2], arg[3], arg[4])
+              break
+            case "ActNotes":
+              MyLogger.log('info', `saveClassGuide: ActNotes ( notes: ${arg[2]}, actid: ${arg[3]})`)
+              this.ClassGuides.setActNotes(arg[3], arg[2])
+              break
+            case "addGearSlot":
+              MyLogger.log('info', `saveClassGuide: addGearSlot ( gearId: ${arg[2]}, actid: ${arg[3]})`)
+              this.ClassGuides.addGearSlot(arg[2], arg[3])
+              break
+            case "addGear":
+              MyLogger.log('info', `saveClassGuide: addGear ( actid: ${arg[2]})`)
+              this.ClassGuides.addGear(arg[2])
+              break
+            case "delGear":
+              MyLogger.log('info', `saveClassGuide: delGear (gearName: ${arg[2]}, actid: ${arg[3]})`)
+              this.ClassGuides.delGear(arg[2], arg[3])
+              break
+            case "delGearInAllActs":
+              MyLogger.log('info', `saveClassGuide: delGearInAllActs ( gearName: ${arg[2]})`)
+              this.ClassGuides.delGearInAllActs(arg[2])
+              break
+          }
           break
       }
     })
@@ -166,10 +196,6 @@ export class LevelingWindow {
       this._AppStore.set("curClassGuide", guide.identity.filename)
       this.makeMenus()
     }))
-
-    // this.ClassGuides.on("Log", ((msg, level) => {
-    //   // LogMessage(msg, level)
-    // }))
 
     this.ActsGuides.on("GuideContentChange", (() => {
       this._Window.webContents.send("levelingRenderer", ["actsGuide", this.ActsGuides.getCurMergedGuide()])

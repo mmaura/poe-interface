@@ -125,6 +125,7 @@ function App(props: { Init: any }) {
           setcurPlayer(arg[1])
           break
         case "classGuide":
+          console.log("IPC: setclassGuide :", arg[1])
           setclassGuide(arg[1])
           break
         case "actsGuide":

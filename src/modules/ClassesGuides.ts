@@ -30,7 +30,7 @@ export class ClassesGuides extends Guides<IClassesGuide>{
           MyLogger.info(`no act ${actSkel.actid} in ClasseGuide, defaulting`)
           this.CurGuide.acts.push(act = { act: actSkel.actid, gears: [] as IClassesGuideGear[] } as IClassesGuideAct)
         }
-        if(i !== 0) MyLogger.info(`no skilltree image found for ${actSkel.actid} in ClasseGuide, defaulting with act ${actSkel.actid - i}`)
+        if (i !== 0) MyLogger.info(`no skilltree image found for ${actSkel.actid} in ClasseGuide, defaulting with act ${actSkel.actid - i}`)
         if (actSkel.actid - i === 0) {
           MyLogger.info(`no skilltree image found for ${actSkel.actid} and acts before in ClasseGuide, defaulting with "?"`)
           act.treeimage = `assets/tree-0.png`
@@ -41,7 +41,7 @@ export class ClassesGuides extends Guides<IClassesGuide>{
       this.CurGuide.acts.forEach(act => {
         if (act.gears) {
           act.gears.forEach((gear, index) => {
-            if(!gear.id) gear.id = index
+            // if (!gear.id) gear.id = index
             gear.gems = [] as IGems[]
             if (gear.gem_info)
               gear.gem_info.forEach(g => {
@@ -204,16 +204,106 @@ export class ClassesGuides extends Guides<IClassesGuide>{
   }
 
   async saveCurGuide(): Promise<void> {
-    console.log("toto")
     const guide = JSON.parse(JSON.stringify(this.CurGuide)) as IClassesGuide
 
     for (const act of guide.acts) {
-      for (const gear of act.gears) {
-        if (gear.gems) delete gear.gems
+      if (act.treeimage) delete act.treeimage
+      if (act.gears) for (const gear of act.gears) {
+        if (gear) {
+          // delete gear.id
+          if (gear.gems) delete gear.gems
+        }
       }
     }
-
     super.saveGuide(guide)
+  }
+
+  async setGearName(gearName: string, name: string): Promise<void> {
+
+    this.CurGuide.acts.forEach(a => {
+      const act = a.gears.find(g => g.name === gearName)
+      if (act) act.name = this.uniqGearName(name)
+    })
+    this.saveCurGuide().then(() => {
+      this.emit("GuideContentChange", this.CurGuide)
+    })
+  }
+
+  async setGearNotes(gearId: string, notes: string, actId: number): Promise<void> {
+    this.CurGuide.acts.find(a => a.act === actId).gears.find(g => g.name === gearId).notes = notes
+    this.saveCurGuide().then(() => {
+      this.emit("GuideContentChange", this.CurGuide)
+    })
+  }
+
+  async setActNotes(notes: string, actId: number): Promise<void> {
+    this.CurGuide.acts.find(a => a.act === actId).notes = notes
+    this.saveCurGuide().then(() => {
+      this.emit("GuideContentChange", this.CurGuide)
+    })
+  }
+
+  async addGearSlot(gearName: string, actId: number): Promise<void> {
+    const gear = this.CurGuide.acts.find(a => a.act === actId).gears.find(g => g.name === gearName)
+
+    const slots = (gear.chasses ? gear.chasses.length : 0) + (gear.gem_info ? gear.gem_info.length : 0)
+
+    if (slots < 8) {
+      if (!gear.chasses) gear.chasses = []
+      gear.chasses.push("white")
+      this.saveCurGuide().then(() => {
+        this.emit("GuideContentChange", this.CurGuide)
+      })
+    }
+  }
+
+  async addGear(actId: number): Promise<void> {
+    // let id = 0
+
+    let gears = this.CurGuide.acts.find(a => a.act === actId).gears
+    if (!gears) {
+      gears = [] as IClassesGuideGear[]
+    }
+    // else
+    //   while (this.CurGuide.acts.find(a => a.act === actId).gears.find(g => g.id === id)) id++
+
+    const gear = {} as IClassesGuideGear
+    gear.name = this.uniqGearName("new group")
+    // gear.id = id
+    gear.gem_info = []
+    gear.gems = [] as IGems[]
+
+    gears.push(gear)
+    this.saveCurGuide().then(() => {
+      this.emit("GuideContentChange", this.CurGuide)
+    })
+  }
+
+  async delGear(gearName: string, actId: number): Promise<void> {
+    const index = this.CurGuide.acts.find(a => a.act === actId).gears.findIndex(g => g.name === gearName)
+    // delete this.CurGuide.acts.find(a => a.act === actId).gears[index]
+    this.CurGuide.acts.find(a => a.act === actId).gears.splice(index)
+    this.saveCurGuide().then(() => {
+      this.emit("GuideContentChange", this.CurGuide)
+    })
+  }
+
+  async delGearInAllActs(gearName: string): Promise<void> {
+    for (const act of this.CurGuide.acts) {
+      const index = act.gears.findIndex(g => g.name === gearName)
+      act.gears.splice(index)
+    }
+    this.saveCurGuide().then(() => {
+      this.emit("GuideContentChange", this.CurGuide)
+    })
+  }
+
+  uniqGearName(wantedName: string): string {
+    let name = wantedName
+    if (this.CurGuide.acts) for (const act of this.CurGuide.acts)
+      if (act.gears) for (const gear of act.gears)
+        if (gear.name === wantedName) name = `_${name}`
+    return name
   }
 
   ImportPOELevelingGuide(buildPath: string): void {
