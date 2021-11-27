@@ -9,9 +9,6 @@ lorsqu'elles sont achetées (stashAPI avec le cookie sessionID)
 * area ajouter les villes
 * double coloration quand le boss porte le nom de la zone ex: The Weaver's Chambers (Act II) ou The Upper Sceptre of God. Les noms de zone doivent etre en dernier.
 
-
-
-
 * mettre a jour les waypoint dans le squelette des actes
 * mettre a jour les trials dans le squelette des actes
 

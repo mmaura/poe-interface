@@ -45,7 +45,6 @@ https://github.com/JusKillmeQik/PoE-Leveling-Guide
 
 https://github.com/karakasis/Path-of-Leveling/tree/master/json
 
-https://github.com/brather1ng/RePoE
+https://github.com/Project-Path-of-Exile-Wiki/PyPoE
 
-https://github.com/brather1ng/PyPoE
 

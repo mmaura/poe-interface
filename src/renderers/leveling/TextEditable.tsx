@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler } from "react"
+import React, { ChangeEventHandler, useEffect, useRef } from "react"
 
 
 export function TextEditable(props: {
@@ -22,8 +22,15 @@ export function TextEditable(props: {
 
 
 export function TextInput(props: { onChange: ChangeEventHandler<HTMLInputElement>, value: string, name: string }): JSX.Element {
+  const text = useRef(null as HTMLInputElement)
+
+  useEffect(() => {
+    text.current.focus()
+    text.current.setSelectionRange(text.current.value.length, text.current.value.length)
+  }, [])
+
   const { onChange, value, name } = props
-  return (<input className="h-6 w-full input p-0 m-0" name={name} value={value} onChange={onChange} />)
+  return (<input ref={text} className="h-6 w-full input p-0 m-0" name={name} value={value} onChange={onChange} />)
 }
 
 export function ListInput(props: { onChange: ChangeEventHandler<HTMLSelectElement>, children: IClassesAscendancies[], value: string, name: string }): JSX.Element {

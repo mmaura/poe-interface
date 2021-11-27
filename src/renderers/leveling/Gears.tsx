@@ -1,21 +1,27 @@
-import React, { ChangeEvent, ChangeEventHandler, useContext, useState, useMemo, useCallback, useEffect } from "react"
+import React, { ChangeEvent, ChangeEventHandler, useContext, useState, useMemo, useCallback, useEffect, useRef } from "react"
 import { mdiBookEdit, mdiBookEditOutline, mdiContentDuplicate, mdiDelete, mdiDeleteSweep, mdiEye, mdiLinkVariant, mdiMinus, mdiPlus } from "@mdi/js"
 import Icon from "@mdi/react"
 
 import { CurActContext, PlayerContext } from "./LevelingRenderer"
 
 import { RichNoteEditable, RichNoteText } from "./RichNoteEditable"
-import { TextEditable } from "./TextEditable"
+import { TextEditable, TextInput } from "./TextEditable"
 import { EditSaveImageButton, EditSaveNoteButton } from "./Buttons"
 import { Gem } from "./Components"
 
 
-export function ZoneGears(props: { curGuide: IClassesGuide, isClassGuideEditable: boolean }): JSX.Element {
+export function ZoneGears(props: { curGuide: IClassesGuide, isClassGuideEditable: boolean, gemsSkel: IGems[] }): JSX.Element {
   const curAct = useContext(CurActContext)
-  const { curGuide, isClassGuideEditable } = props
+  const { curGuide, isClassGuideEditable, gemsSkel } = props
 
   const [actNotes, setactNotes] = useState("")
   const [isOnEdit, setisOnEdit] = useState(false)
+
+  const setGemUtilityGem = useCallback((e: React.SyntheticEvent<HTMLImageElement>) => {
+    e.preventDefault()
+    console.log(e)
+    console.log((e.target as HTMLImageElement).dataset.gemindex)
+  }, [])
 
   const editNote = useCallback(() => {
     if (isOnEdit)
@@ -60,49 +66,48 @@ export function ZoneGears(props: { curGuide: IClassesGuide, isClassGuideEditable
         </div>}
 
       <h2>Gears</h2>
-      {curGearsAct && curGearsAct.gears ? (
-        <div className="flex flex-col">
-          {(curGearsAct.notes || isOnEdit) ?
-            <div className="flex-shrink-0 h-32 max-h-36 overflow-y-auto relative">
-              <RichNoteEditable isOnEdit={isOnEdit} onChange={onActNoteChange}>{actNotes}</RichNoteEditable>
-            </div>
-            : null}
-
-          <div className="pt-1 flex-grow flex flex-row flex-wrap gap-2 items-start">
-            {curGearsAct.gears.map(gear => {
-              return (
-                <div key={`${gear.name}_${curAct.actid}`} className="max-w-xs">
-                  <Gear isOnEdit={isClassGuideEditable} gear={gear} curActId={curAct.actid} />
-                </div>
-              )
-            })}
+      {/* {curGearsAct && curGearsAct.gears ? ( */}
+      <div className="flex flex-col">
+        {(curGearsAct.notes || isOnEdit) ?
+          <div className={`flex-shrink-0 ${isOnEdit ? "h-32" : ""} max-h-36 overflow-y-auto relative`}>
+            <RichNoteEditable isOnEdit={isOnEdit} onChange={onActNoteChange}>{actNotes}</RichNoteEditable>
           </div>
+          : null}
+
+        <div className="pt-1 flex-grow flex flex-row flex-wrap gap-2 items-start">
+          {curGearsAct.gears.map(gear => {
+            return (
+              <div key={`${gear.name}_${curAct.actid}`} className="max-w-xs">
+                <Gear isOnEdit={isClassGuideEditable} gear={gear} curActId={curAct.actid} onGemClick={setGemUtilityGem} />
+              </div>
+            )
+          })}
         </div>
-      ) : null}
+      </div>
+      {isClassGuideEditable ? <GemUTility gemsSkel={gemsSkel} /> : null}
+      {/* ) : null} */}
     </div>
   )
 }
 
-function Gear(props: { gear: IClassesGuideGear, isOnEdit: boolean, curActId: number }): JSX.Element {
-  const { gear, isOnEdit, curActId } = props
+function Gear(props: { gear: IClassesGuideGear, isOnEdit: boolean, curActId: number, onGemClick: (e: React.SyntheticEvent<HTMLImageElement>) => void }): JSX.Element {
+  const { gear, isOnEdit, curActId, onGemClick } = props
 
   const [groupName, setgroupName] = useState(gear.name)
   const [groupNotes, setgroupNotes] = useState(gear.notes)
   const [isGroupNameOnEdit, setisGroupNameOnEdit] = useState(false)
   const [isGroupNoteEdit, setisGroupNoteEdit] = useState(false)
 
-
-
   const editGroupName = useCallback(() => {
-    if (isGroupNameOnEdit)
-      window.poe_interfaceAPI.sendSync("levelingRenderer", "saveClassGuide", "GearName", prevGroupName, groupName)
+    if (isGroupNameOnEdit && (prevGroupName.current !== groupName)) {
+      window.poe_interfaceAPI.sendSync("levelingRenderer", "saveClassGuide", "GearName", prevGroupName.current, groupName)
+      prevGroupName.current = groupName
+    }
     setisGroupNameOnEdit(!isGroupNameOnEdit)
   }, [isGroupNameOnEdit, groupName])
-  
-  const prevGroupName = useMemo(() => {
-    return groupName
-  }, [editGroupName])
-  
+
+  const prevGroupName = useRef(groupName)
+
   const editGroupNote = useCallback(() => {
     if (isGroupNoteEdit)
       window.poe_interfaceAPI.sendSync("levelingRenderer", "saveClassGuide", "GearNotes", gear.name, groupNotes, curActId)
@@ -132,6 +137,12 @@ function Gear(props: { gear: IClassesGuideGear, isOnEdit: boolean, curActId: num
   },
     [gear.name])
 
+  // const gemClick = useCallback((e: React.SyntheticEvent<HTMLImageElement>) => {
+  //   e.preventDefault()
+  //   console.log(e)
+  //   console.log((e.target as HTMLImageElement).dataset.gemindex)
+  // }, [])
+
 
   return (
     <div className="border-2 border-poe-99 rounded-lg p-2 ">
@@ -155,14 +166,14 @@ function Gear(props: { gear: IClassesGuideGear, isOnEdit: boolean, curActId: num
         </div>}
 
       <TextEditable isOnEdit={isGroupNameOnEdit} onChange={onGroupNameChange} name="groupName" value={groupName} />
-      <div className={`flex flex-row gap-2 ${(gear.notes || isGroupNoteEdit) ? "w-inventory" : ""}`} >
+      <div className={`flex flex-row gap-2 ${(isGroupNoteEdit) ? "w-inventory" : ""}`} >
         <div
           className={`${(gear.gems ? gear.gems.length : 0) + (gear.chasses ? gear.chasses.length : 0) <= 3
             ? "poe-item-3slots"
             : "poe-item-xslots"
             } flex-none`}
         >
-          {gear.gems ? gear.gems.map((gem, index) => <Gem key={gem.name + index} curGem={gem} isOnEdit={isOnEdit} />) : null}
+          {gear.gems ? gear.gems.map((gem, index) => <Gem key={gem.name + index} index={index} curGem={gem} onClick={onGemClick} />) : null}
           {gear.chasses
             ? gear.chasses.map((color, index) => (
               <div className={`poe-${color}-socket`} key={color + index}></div>
@@ -172,6 +183,36 @@ function Gear(props: { gear: IClassesGuideGear, isOnEdit: boolean, curActId: num
         <div className="flex-grow relative">
           <RichNoteEditable isOnEdit={isGroupNoteEdit} onChange={onGroupNotesChange}>{groupNotes}</RichNoteEditable>
         </div>
+      </div>
+    </div>
+  )
+}
+
+export function GemUTility(props: { gemsSkel: IGems[] }): JSX.Element {
+  const { gemsSkel } = props
+
+  const searchGem = useCallback(() => {
+    return
+  }, [])
+
+  const GemsList = useMemo(() => {
+    const gemsList = [] as IGems[]
+
+    for (const gem of gemsSkel.sort()){
+      gemsList.push(gem)
+      for (gem)
+    }
+  }, [gemsSkel])
+
+  return (
+    <div className="container relative">
+      <h2>Gem Utility</h2>
+      <div className="flex flex-row gap-2">
+        <div className="poe-white-socket"></div>
+        <div className="poe-red-socket"></div>
+        <div className="poe-green-socket"></div>
+        <div className="poe-blue-socket"></div>
+        <TextInput name="gemsearch" value="gemName" onChange={searchGem} />
       </div>
     </div>
   )

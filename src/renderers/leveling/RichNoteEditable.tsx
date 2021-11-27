@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, useContext, useMemo } from "react"
+import React, { ChangeEventHandler, useContext, useMemo, useRef, useEffect } from "react"
 import { RichTextContext } from "./LevelingRenderer"
 
 
@@ -15,7 +15,14 @@ export function RichNoteEditable(props: {
 
 export function RichNoteTextarea(props: { onChange: ChangeEventHandler<HTMLTextAreaElement>; children: string }): JSX.Element {
   const { onChange, children } = props
-  return (<textarea className="container content-end w-full h-full min-h-full min-w-full absolute input p-0 m-0" placeholder="Input" value={children} onChange={onChange} />)
+  const area = useRef(null as HTMLTextAreaElement)
+
+  useEffect(() => {
+    area.current.focus()
+    area.current.setSelectionRange(area.current.value.length, area.current.value.length)
+  }, [])
+
+  return (<textarea ref={area} className="container content-end w-full h-full min-h-full min-w-full absolute input p-0 m-0" placeholder="Input" value={children} onChange={onChange} />)
 }
 
 export function RichNoteText(props: { children: string }): JSX.Element {

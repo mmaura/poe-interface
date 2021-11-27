@@ -306,6 +306,11 @@ export function LongGem(props: { gem: IGems }): JSX.Element {
   const curPlayer = useContext(PlayerContext) as IAppPlayer
   const curAct = useContext(CurActContext) as IActsGuideAct
 
+  const gemClick = useCallback((e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
+    e.preventDefault()
+    window.poe_interfaceAPI.openExternal("https://www.poewiki.net/wiki/" + curGem.name)
+  }, [])
+
   const curBuy = useMemo(() => {
     let _buy = [] as IBuy[]
 
@@ -331,7 +336,7 @@ export function LongGem(props: { gem: IGems }): JSX.Element {
     return (
       <div className="grid grid-cols-12 gap-1 items-center justify-center flex-grow">
         <span>lvl: {curGem.required_lvl}&nbsp;</span>
-        <Gem curGem={curGem} isOnEdit={false}/>
+        <Gem curGem={curGem} onClick={gemClick} />
         <span className="col-span-3">{curGem.name}</span>
         <div className="col-span-7 flex flex-col">
           {curBuy.length > 0 ? (
@@ -363,15 +368,9 @@ export function LongGem(props: { gem: IGems }): JSX.Element {
   return <div>Pas de gemme.</div>
 }
 
-export function Gem(props: { curGem: IGems, isOnEdit: boolean }): JSX.Element {
-  const { curGem, isOnEdit } = props
+export function Gem(props: { curGem: IGems, onClick: (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => void , index?: number}): JSX.Element {
+  const { curGem, onClick, index } = props
   const tipText = (!curGem.note) ? `${curGem.name}` : `${curGem.name} - ${curGem.note}`
-
-  const gemClick = useCallback((e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
-    e.preventDefault()
-    window.poe_interfaceAPI.openExternal("https://www.poewiki.net/wiki/" + curGem.name)
-  }, [])
-
 
   return (
     <div
@@ -384,7 +383,8 @@ export function Gem(props: { curGem: IGems, isOnEdit: boolean }): JSX.Element {
       <ReactTooltip key={curGem.name} />
       <img
         data-tip={tipText}
-        onClick={gemClick}
+        data-gemindex={index}
+        onClick={onClick}
         className={`w-socket h-socket cursor-pointer ${(curGem.note) ? 'animate-pulse' : null}`}
         src={"../assets/images/gems/" + curGem.name.replace(" ", "_") + ".png"}
       />

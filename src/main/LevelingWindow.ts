@@ -32,6 +32,7 @@ export class LevelingWindow {
   private RichTextJson: JsonFile<IRichText[]>
   private PlayersClasses: JsonFile<IClassesAscendancies[]>
   private Zones: JsonFile<IActsGuide>
+  private GemsSkel: JsonFile<IGems[]>
   private GameHelpers: GameHelpers
 
   private _MyPlayer: IAppPlayer
@@ -50,6 +51,7 @@ export class LevelingWindow {
     this.RichTextJson = new JsonFile(path.join(getAbsPackagedPath(), "data", "richtext.json"))
     this.PlayersClasses = new JsonFile(path.join(getAbsPackagedPath(), "data", "classes.json"))
     this.Zones = new JsonFile(path.join(getAbsPackagedPath(), "data", "zones.json"))
+    this.GemsSkel = new JsonFile(path.join(getAbsPackagedPath(), "data", "gems.json"))
     this.GameHelpers = new GameHelpers()
 
     this._Window = new BrowserWindow({
@@ -95,7 +97,8 @@ export class LevelingWindow {
             this._MyPlayer,
             this.ActsGuides.getCurMergedGuide().acts[0].actid,
             this.ActsGuides.getCurMergedGuide().acts[0].zones[0].name,
-            this.PlayersClasses.getObject()
+            this.PlayersClasses.getObject(),
+            this.GemsSkel.getObject()
           ]
 
         case "saveActGuide": switch (arg[1]) {
@@ -310,6 +313,7 @@ export class LevelingWindow {
       this.RichTextJson.load(),
       this.PlayersClasses.load(),
       this.Zones.load(),
+      this.GemsSkel.load(),
       this.GameHelpers.Init(),
     ])
   }

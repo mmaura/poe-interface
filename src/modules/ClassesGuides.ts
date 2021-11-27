@@ -210,7 +210,6 @@ export class ClassesGuides extends Guides<IClassesGuide>{
       if (act.treeimage) delete act.treeimage
       if (act.gears) for (const gear of act.gears) {
         if (gear) {
-          // delete gear.id
           if (gear.gems) delete gear.gems
         }
       }
@@ -258,18 +257,14 @@ export class ClassesGuides extends Guides<IClassesGuide>{
   }
 
   async addGear(actId: number): Promise<void> {
-    // let id = 0
 
     let gears = this.CurGuide.acts.find(a => a.act === actId).gears
     if (!gears) {
       gears = [] as IClassesGuideGear[]
     }
-    // else
-    //   while (this.CurGuide.acts.find(a => a.act === actId).gears.find(g => g.id === id)) id++
 
     const gear = {} as IClassesGuideGear
     gear.name = this.uniqGearName("new group")
-    // gear.id = id
     gear.gem_info = []
     gear.gems = [] as IGems[]
 
@@ -281,8 +276,7 @@ export class ClassesGuides extends Guides<IClassesGuide>{
 
   async delGear(gearName: string, actId: number): Promise<void> {
     const index = this.CurGuide.acts.find(a => a.act === actId).gears.findIndex(g => g.name === gearName)
-    // delete this.CurGuide.acts.find(a => a.act === actId).gears[index]
-    this.CurGuide.acts.find(a => a.act === actId).gears.splice(index)
+    if (index !== -1) this.CurGuide.acts.find(a => a.act === actId).gears.splice(index, 1)
     this.saveCurGuide().then(() => {
       this.emit("GuideContentChange", this.CurGuide)
     })
@@ -291,7 +285,7 @@ export class ClassesGuides extends Guides<IClassesGuide>{
   async delGearInAllActs(gearName: string): Promise<void> {
     for (const act of this.CurGuide.acts) {
       const index = act.gears.findIndex(g => g.name === gearName)
-      act.gears.splice(index)
+      if (index !== -1) act.gears.splice(index, 1)
     }
     this.saveCurGuide().then(() => {
       this.emit("GuideContentChange", this.CurGuide)
@@ -300,9 +294,18 @@ export class ClassesGuides extends Guides<IClassesGuide>{
 
   uniqGearName(wantedName: string): string {
     let name = wantedName
-    if (this.CurGuide.acts) for (const act of this.CurGuide.acts)
-      if (act.gears) for (const gear of act.gears)
-        if (gear.name === wantedName) name = `_${name}`
+    let notSure: boolean
+
+    do {
+      notSure = false
+      if (this.CurGuide.acts) for (const act of this.CurGuide.acts)
+        if (act.gears) for (const gear of act.gears)
+          if (gear.name === name) {
+            name = `_${name}`
+            notSure = true
+          }
+    }
+    while (notSure)
     return name
   }
 

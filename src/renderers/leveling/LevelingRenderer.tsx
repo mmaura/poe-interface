@@ -4,7 +4,7 @@ import * as ReactDOM from "react-dom"
 import "../index.css"
 import "./index.css"
 import { Player, LevelingGuide, ZoneNotes, Navigation, SkillTree, ZoneGem,  ActGuideIdentity, ClassGuideIdentity } from "./Components"
-import { ZoneGears } from "./Gears"
+import { GemUTility, ZoneGears } from "./Gears"
 
 export const PlayerContext = React.createContext({} as IAppPlayer)
 export const CurActContext = React.createContext({} as IActsGuideAct)
@@ -18,6 +18,8 @@ function App(props: { Init: any }) {
   const [curActID, setcurActID] = useState(props.Init[5] as number)
   const [curZoneName, setcurZoneName] = useState(props.Init[6] as string)
   const [playerClasses, setplayerClasses] = useState(props.Init[7] as IClassesAscendancies[])
+  const [GemsSkel, setGemsSkel] = useState(props.Init[8] as IGems[])
+
   const [isClassGuideEditable, setisClassGuideEditable] = useState(false)
   const [isActsGuideEditable, setisActsGuideEditable] = useState(false)
 
@@ -174,8 +176,8 @@ function App(props: { Init: any }) {
                 </div>
               </div>
               <div className="p-0 m-0 flex-shrink-0 flex-grow-0 w-gear-container">
-                <ZoneGears curGuide={classGuide} isClassGuideEditable={isClassGuideEditable} />
-                <ZoneGem curGuide={classGuide} />
+                <ZoneGears curGuide={classGuide} isClassGuideEditable={isClassGuideEditable} gemsSkel={GemsSkel} />
+                {isClassGuideEditable?null:<ZoneGem curGuide={classGuide} />}
               </div>
             </div>
           </div>
