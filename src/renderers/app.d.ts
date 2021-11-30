@@ -132,12 +132,13 @@ declare global {
 
   export interface IGemList {
     name: string
+    label: string
     required_level: number
     currency_amount: number
     currency: string
     image: string
     isAlternateQuality: boolean
-    value: string
+    key: string
     is_socket: boolean
     notes?: string
   }

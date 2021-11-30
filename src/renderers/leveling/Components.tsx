@@ -369,22 +369,24 @@ export function LongGem(props: { gem: IGemList }): JSX.Element {
   return <div>Pas de gemme.</div>
 }
 
-export function Gem(props: { curGem: IGemList, onClick: (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => void, index?: number }): JSX.Element {
-  const { curGem, onClick, index } = props
+export function Gem(props: { curGem: IGemList, onClick: (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => void}): JSX.Element {
+  const { curGem, onClick } = props
   const tipText = (!curGem.notes) ? `${curGem.name}` : `${curGem.name} - ${curGem.notes}`
+
+  console.log("Gem: %o",curGem)
 
   return (
     <div
-      data-for={`gem` + curGem.name}
-      data-tip={`gem` + curGem.name}
+      data-for={`gem` + curGem.key}
+      data-tip={`gem` + curGem.key}
       data-effect="solid"
       data-place="left"
       data-delay-hide="1000"
     >
-      <ReactTooltip key={curGem.name} />
+      <ReactTooltip key={curGem.key} />
       <img
         data-tip={tipText}
-        data-gemindex={index}
+        // data-gemindex={index}
         onClick={onClick}
         className={`w-socket h-socket cursor-pointer ${(curGem.notes) ? 'animate-pulse' : null}`}
         src={curGem.image}
@@ -393,18 +395,18 @@ export function Gem(props: { curGem: IGemList, onClick: (e: React.MouseEvent<HTM
   )
 }
 
-function GemSpan(props: { text: string; classColor: string }): JSX.Element {
-  const text = props.text
-  const classColor = props.classColor
+// function GemSpan(props: { text: string; classColor: string }): JSX.Element {
+//   const text = props.text
+//   const classColor = props.classColor
 
-  const onClick = useCallback(() => window.poe_interfaceAPI.openWiki(text), [])
+//   const onClick = useCallback(() => window.poe_interfaceAPI.openWiki(text), [])
 
-  return (
-    <span className={`${classColor} cursor-pointer`} onClick={onClick}>
-      {text}
-    </span>
-  )
-}
+//   return (
+//     <span className={`${classColor} cursor-pointer`} onClick={onClick}>
+//       {text}
+//     </span>
+//   )
+// }
 
 
 

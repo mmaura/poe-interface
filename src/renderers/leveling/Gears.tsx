@@ -19,17 +19,14 @@ export function ZoneGears(props: { curGuide: IClassesGuide, isClassGuideEditable
   const [selectedGemName, setselectedGemName] = useState("")
   const [curGemEdit, setcurGemEdit] = useState({ actId: 0, gearName: "", gemIndex: 0 })
 
-  const onGemCick = useCallback((
-    actId: number,
-    gearName: string,
-    gemName: string,
-    index: number,
-    e: React.SyntheticEvent<HTMLImageElement>
-  ) => {
+  const onGemClick = useCallback((actId: number, gearName: string, gemName: string, index: number, e: React.SyntheticEvent<HTMLImageElement>) => {
     e.preventDefault()
-    setselectedGemName(gemName)
-    setcurGemEdit({ actId: actId, gearName: gearName, gemIndex: index })
-  }, [])
+    if (isClassGuideEditable) {
+      setselectedGemName(gemName)
+      setcurGemEdit({ actId: actId, gearName: gearName, gemIndex: index })
+    }
+    else window.poe_interfaceAPI.openExternal("https://www.poewiki.net/wiki/" + gemName)
+  }, [isClassGuideEditable])
 
   const selectNewGem = useCallback((e: React.SyntheticEvent<HTMLDivElement>, newGearName: string) => {
     e.preventDefault()
@@ -50,6 +47,7 @@ export function ZoneGears(props: { curGuide: IClassesGuide, isClassGuideEditable
     if (curGuide && curGuide.acts) {
       const _cga = curGuide.acts.find(act => act.act === curAct.actid)
       setactNotes(_cga.notes)
+      // console.log("cga %o", _cga)
       return _cga
     }
     else return {} as IClassesGuideAct
@@ -80,7 +78,7 @@ export function ZoneGears(props: { curGuide: IClassesGuide, isClassGuideEditable
 
       <h2>Gears</h2>
       <div className="flex flex-col">
-        {(curGearsAct.notes || isOnEdit) ?
+        {(curGearsAct.notes || isOnEdit) && isClassGuideEditable ?
           <div className={`flex-shrink-0 ${isOnEdit ? "h-32" : ""} max-h-36 overflow-y-auto relative`}>
             <RichNoteEditable isOnEdit={isOnEdit} onChange={onActNoteChange}>{actNotes}</RichNoteEditable>
           </div>
@@ -90,7 +88,7 @@ export function ZoneGears(props: { curGuide: IClassesGuide, isClassGuideEditable
           {curGearsAct.gears.map(gear => {
             return (
               <div key={`${gear.name}_${curAct.actid}`} className="max-w-xs">
-                <Gear isOnEdit={isClassGuideEditable} gear={gear} curActId={curAct.actid} onGemClick={onGemCick} />
+                <Gear isOnEdit={isClassGuideEditable} gear={gear} curActId={curAct.actid} onGemClick={onGemClick} />
               </div>
             )
           })}
@@ -190,9 +188,7 @@ function Gear(
             : "poe-item-xslots"
             } flex-none`}
         >
-          {gear.gems ? gear.gems.map((gem, index) => {
-             <Gem key={gem.name + index} index={index} curGem={gem} onClick={(e) => { onGemClick(curActId, gear.name, gem.name, index, e) }} />
-          }) : null}
+          {gear.gems ? gear.gems.map((gem, index) => <Gem key={gem.key + index} curGem={gem} onClick={(e) => { onGemClick(curActId, gear.name, gem.name, index, e) }} />) : null}
 
         </div>
         <div className="flex-grow relative">
@@ -275,16 +271,16 @@ export function GemUTility(props: {
           gems.map((gem, i) => {
             if (i === 4)
               return (<>
-                <div className="border-0" ref={prev} id="prev" key={`prev_${gem.value}`} />
-                <GemListElement selectGem={selectNewGem} key={`gem_${gem.value}`} gem={gem} selected={gem.name === selectedGemName} />
+                <div className="border-0" ref={prev} id="prev" key={`prev_${gem.key}`} />
+                <GemListElement selectGem={selectNewGem} key={`gem_${gem.key}`} gem={gem} selected={gem.name === selectedGemName} />
               </>)
             else if (i === gems.length - 3)
               return (<>
-                <GemListElement selectGem={selectNewGem} key={`gem_${gem.value}`} gem={gem} selected={gem.name === selectedGemName} />
-                <div className="border-0" ref={next} id="next" key={`next_${gem.value}`} />
+                <GemListElement selectGem={selectNewGem} key={`gem_${gem.key}`} gem={gem} selected={gem.name === selectedGemName} />
+                <div className="border-0" ref={next} id="next" key={`next_${gem.key}`} />
               </>)
             else
-              return <GemListElement selectGem={selectNewGem} key={`gem_${gem.value}`} gem={gem} selected={gem.name === selectedGemName} />
+              return <GemListElement selectGem={selectNewGem} key={`gem_${gem.key}`} gem={gem} selected={gem.name === selectedGemName} />
           })
         }
       </div>
@@ -299,7 +295,7 @@ export function GemListElement(props: { gem: IGemList, selected: boolean, select
     <div onClick={(e) => { selectGem(e, gem.name) }} className={`h-20 p-1 w-5/12 flex-grow-0 flex-shrink-0 flex flex-row bg-poe-96 border-poe-1 border-2 hover:border-poe-60 hover:border-2 rounded-md${selected ? 'border-2 border-poe-50 rounded-md' : ''}`}>
       <div className="flex-grow-0 flex-shrink-0 w-16 h-16"><img className={` ${gem.isAlternateQuality === true ? 'filter sepia' : ''}`} src={gem.image} /></div>
       <div className="flex-grow flex flex-col items-end">
-        <div className="text-poe-4 text-right font-semibold">{gem.name}</div>
+        <div className="text-poe-4 text-right font-semibold">{gem.label}</div>
         <div className="flex-row flex h-full w-full items-end">
           {(!gem.is_socket) ? <div className="w-1/3 flex-grow-0" >Lvl: <span className="text-poe-4">{gem.required_level}</span></div> : null}
           <div className="flex-grow text-right">

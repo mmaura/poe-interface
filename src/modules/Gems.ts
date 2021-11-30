@@ -24,23 +24,25 @@ export class Gems extends JsonFile<IGem[]>{
     for (const g of this.getObject()) {
       this.GemList.push({
         name: g.name,
+        label: g.name,
         image: `${getPackagedWebBaseName()}/images/gems/${g.name}.png`,
         required_level: g.required_level,
         currency: (g.currency)?`${getPackagedWebBaseName()}/images/currency/${g.currency}.png`:"",
         currency_amount: g.currency_amount,
         isAlternateQuality: false,
-        value: g.name,
+        key: g.name,
         is_socket: g.is_socket
       })
       for (const q of g.alternative_quality) {
         this.GemList.push({
-          name: `${g.name} (${q})`,
+          name: g.name,
+          label: `${g.name} (${q})`,
           image: `${getPackagedWebBaseName()}/images/gems/${g.name}.png`,
           required_level: g.required_level,
           currency: ``,
           currency_amount: 0,
           isAlternateQuality: true,
-          value: `${g.name} (${q})`,
+          key: `${g.name}_${q}`,
           is_socket: g.is_socket
         })
       }
