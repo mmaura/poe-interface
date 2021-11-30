@@ -1,9 +1,9 @@
-import { app, Tray, shell, Menu, Notification, nativeImage, session, protocol } from "electron"
+import { app, Tray, shell, Menu, Notification, nativeImage, protocol } from "electron"
 
+import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer'
 import PathOfExileLog from "poe-log-monitor"
 import Store from "electron-store"
 import path from "path"
-import os from "os"
 import fs from "fs"
 
 import { ConfigWindow } from "./main/ConfigWindow"
@@ -11,10 +11,6 @@ import { LevelingWindow } from "./main/LevelingWindow"
 
 import {  getAbsPackagedPath, getLocalCustomPath, MyLogger } from "./modules/functions"
 
-const reactDevToolsPath = path.join(
-  os.homedir(),
-  ".config/google-chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/4.20.1_0"
-)
 
 let levelingGuideWindow: LevelingWindow
 let configWindow: ConfigWindow
@@ -32,7 +28,9 @@ protocol.registerSchemesAsPrivileged([
 app.whenReady().then(async () => {
   if (!app.isPackaged) {
     try {
-      session.defaultSession.loadExtension(reactDevToolsPath)
+      installExtension(REACT_DEVELOPER_TOOLS)
+        .then((name) => console.log(`Added Extension:  ${name}`))
+        .catch((err) => console.log('An error occurred: ', err));
     }
     catch(e){
       MyLogger.log('info', 'Unable to load React chrome extension')

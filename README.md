@@ -43,8 +43,6 @@ https://github.com/klayveR/poe-api-wrappers
 
 https://github.com/JusKillmeQik/PoE-Leveling-Guide
 
-https://github.com/karakasis/Path-of-Leveling/tree/master/json
-
 https://github.com/Project-Path-of-Exile-Wiki/PyPoE
 
 

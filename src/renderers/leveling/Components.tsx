@@ -237,7 +237,7 @@ export function ZoneGem(props: { curGuide: IClassesGuide }): JSX.Element {
   const [showAll, setshowAll] = useState(false)
 
   const gems = useMemo(() => {
-    const _gems = [] as IGems[]
+    const _gems = [] as IGemList[]
 
     if (curGuide && curGuide.acts) {
       curGuide.acts
@@ -254,7 +254,7 @@ export function ZoneGem(props: { curGuide: IClassesGuide }): JSX.Element {
             })
           )
         )
-      _gems.sort((a, b) => a.required_lvl - b.required_lvl)
+      _gems.sort((a, b) => a.required_level - b.required_level)
     }
 
     return _gems
@@ -300,7 +300,7 @@ export function ZoneGem(props: { curGuide: IClassesGuide }): JSX.Element {
   return <h2>Liste des courses vide</h2>
 }
 
-export function LongGem(props: { gem: IGems }): JSX.Element {
+export function LongGem(props: { gem: IGemList }): JSX.Element {
   const curGem = props.gem
 
   const curPlayer = useContext(PlayerContext) as IAppPlayer
@@ -312,34 +312,35 @@ export function LongGem(props: { gem: IGems }): JSX.Element {
   }, [])
 
   const curBuy = useMemo(() => {
-    let _buy = [] as IBuy[]
+    // let _buy = [] as IBuy[]
 
-    _buy = curGem.buy.filter(buy => {
-      return buy.available_to.includes(curPlayer.characterClass) && buy.act === curAct.actid
-    })
-    if (_buy.length === 0)
-      _buy = curGem.buy.filter(buy => {
-        return buy.available_to.includes(curPlayer.characterClass)
-      })
+    // _buy = curGem.buy.filter(buy => {
+    //   return buy.available_to.includes(curPlayer.characterClass) && buy.act === curAct.actid
+    // })
+    // if (_buy.length === 0)
+    //   _buy = curGem.buy.filter(buy => {
+    //     return buy.available_to.includes(curPlayer.characterClass)
+    //   })
 
-    //make sure "A Fixture of Fate" never be first if a quest alternative
-    _buy = _buy.sort((a, b) => {
-      if (a.quest_name === "A Fixture of Fate") return -1
-      if (a.act === b.act) return -1
-      return 0
-    })
+    // //make sure "A Fixture of Fate" never be first if a quest alternative
+    // _buy = _buy.sort((a, b) => {
+    //   if (a.quest_name === "A Fixture of Fate") return -1
+    //   if (a.act === b.act) return -1
+    //   return 0
+    // })
 
-    return _buy
+    // return _buy
+    return null
   }, [curAct, curPlayer])
 
   if (curGem) {
     return (
       <div className="grid grid-cols-12 gap-1 items-center justify-center flex-grow">
-        <span>lvl: {curGem.required_lvl}&nbsp;</span>
+        <span>lvl: {curGem.required_level}&nbsp;</span>
         <Gem curGem={curGem} onClick={gemClick} />
         <span className="col-span-3">{curGem.name}</span>
         <div className="col-span-7 flex flex-col">
-          {curBuy.length > 0 ? (
+          {/* {curBuy.length > 0 ? (
             curBuy.map((_buy, index) => {
               return (
                 <p key={curGem.name + index}>
@@ -359,7 +360,7 @@ export function LongGem(props: { gem: IGems }): JSX.Element {
             <p>
               <span className="text-poe-60">Ask a friend.</span>
             </p>
-          )}
+          )} */}
         </div>
       </div>
     )
@@ -368,9 +369,9 @@ export function LongGem(props: { gem: IGems }): JSX.Element {
   return <div>Pas de gemme.</div>
 }
 
-export function Gem(props: { curGem: IGems, onClick: (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => void , index?: number}): JSX.Element {
+export function Gem(props: { curGem: IGemList, onClick: (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => void, index?: number }): JSX.Element {
   const { curGem, onClick, index } = props
-  const tipText = (!curGem.note) ? `${curGem.name}` : `${curGem.name} - ${curGem.note}`
+  const tipText = (!curGem.notes) ? `${curGem.name}` : `${curGem.name} - ${curGem.notes}`
 
   return (
     <div
@@ -385,8 +386,8 @@ export function Gem(props: { curGem: IGems, onClick: (e: React.MouseEvent<HTMLIm
         data-tip={tipText}
         data-gemindex={index}
         onClick={onClick}
-        className={`w-socket h-socket cursor-pointer ${(curGem.note) ? 'animate-pulse' : null}`}
-        src={"../assets/images/gems/" + curGem.name.replace(" ", "_") + ".png"}
+        className={`w-socket h-socket cursor-pointer ${(curGem.notes) ? 'animate-pulse' : null}`}
+        src={curGem.image}
       />
     </div>
   )

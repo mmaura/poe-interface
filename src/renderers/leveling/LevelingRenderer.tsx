@@ -18,7 +18,7 @@ function App(props: { Init: any }) {
   const [curActID, setcurActID] = useState(props.Init[5] as number)
   const [curZoneName, setcurZoneName] = useState(props.Init[6] as string)
   const [playerClasses, setplayerClasses] = useState(props.Init[7] as IClassesAscendancies[])
-  const [GemsSkel, setGemsSkel] = useState(props.Init[8] as IGems[])
+  const [GemsSkel, setGemsSkel] = useState(props.Init[8] as IGemList[])
 
   const [isClassGuideEditable, setisClassGuideEditable] = useState(false)
   const [isActsGuideEditable, setisActsGuideEditable] = useState(false)

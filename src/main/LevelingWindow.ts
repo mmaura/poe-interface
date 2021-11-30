@@ -32,7 +32,6 @@ export class LevelingWindow {
   private RichTextJson: JsonFile<IRichText[]>
   private PlayersClasses: JsonFile<IClassesAscendancies[]>
   private Zones: JsonFile<IActsGuide>
-  private GemsSkel: JsonFile<IGems[]>
   private GameHelpers: GameHelpers
 
   private _MyPlayer: IAppPlayer
@@ -51,7 +50,6 @@ export class LevelingWindow {
     this.RichTextJson = new JsonFile(path.join(getAbsPackagedPath(), "data", "richtext.json"))
     this.PlayersClasses = new JsonFile(path.join(getAbsPackagedPath(), "data", "classes.json"))
     this.Zones = new JsonFile(path.join(getAbsPackagedPath(), "data", "zones.json"))
-    this.GemsSkel = new JsonFile(path.join(getAbsPackagedPath(), "data", "gems.json"))
     this.GameHelpers = new GameHelpers()
 
     this._Window = new BrowserWindow({
@@ -98,7 +96,7 @@ export class LevelingWindow {
             this.ActsGuides.getCurMergedGuide().acts[0].actid,
             this.ActsGuides.getCurMergedGuide().acts[0].zones[0].name,
             this.PlayersClasses.getObject(),
-            this.GemsSkel.getObject()
+            this.ClassGuides.getGemsList(),
           ]
 
         case "saveActGuide": switch (arg[1]) {
@@ -145,6 +143,10 @@ export class LevelingWindow {
             case "GearNotes":
               MyLogger.log('info', `saveClassGuide: GearNotes (id: ${arg[2]}, notes: ${arg[3]}, actid: ${arg[4]})`)
               this.ClassGuides.setGearNotes(arg[2], arg[3], arg[4])
+              break
+            case "setGearGem": //curGemEdit:{ actId: 0, gearName: "", gemIndex: 0 }, newName
+              MyLogger.log('info', `saveClassGuide: setGearGem ( curGemEdit: ${arg[2]}, actid: ${arg[3]})`)
+              this.ClassGuides.setGearGem(arg[2], arg[3])
               break
             case "ActNotes":
               MyLogger.log('info', `saveClassGuide: ActNotes ( notes: ${arg[2]}, actid: ${arg[3]})`)
@@ -306,15 +308,26 @@ export class LevelingWindow {
     shell.openPath(getAbsCustomPath())
   }
 
-  private async LoadData() {
+  private async LoadData(): Promise<void> {
     await Promise.all([
-      this.ClassGuides.Init(this._AppStore.get("curClassGuide", "default") as string),
-      this.ActsGuides.Init(this._AppStore.get("curActsGuide", "default") as string),
-      this.RichTextJson.load(),
-      this.PlayersClasses.load(),
-      this.Zones.load(),
-      this.GemsSkel.load(),
-      this.GameHelpers.Init(),
+      this.ClassGuides.Init(this._AppStore.get("curClassGuide", "default") as string).catch((e) => {
+        MyLogger.error("Error when loading Classes Guides")
+      }),
+      this.ActsGuides.Init(this._AppStore.get("curActsGuide", "default") as string).catch((e) => {
+        MyLogger.error("Error when loading Acts Guides")
+      }),
+      this.RichTextJson.Init().catch((e) => {
+        MyLogger.error("Error when loading Richtext Guides")
+      }),
+      this.PlayersClasses.Init().catch((e) => {
+        MyLogger.error("Error when loading PlayerClasses Guides")
+      }),
+      this.Zones.Init().catch((e) => {
+        MyLogger.error("Error when loading Zones Guides")
+      }),
+      this.GameHelpers.Init().catch((e) => {
+        MyLogger.error("Error when loading GameHelpers Guides")
+      }),
     ])
   }
 

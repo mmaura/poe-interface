@@ -32,11 +32,8 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
       this.populateIdentities(this.getAbsCustomPath(), this.getCustomWebBaseName())
         .catch((e) => {
           MyLogger.log('info', `No custom guide in ${this.getAbsCustomPath()}`)
-          MyLogger.log('info', `${e}`)
         }),
-    ]).finally(() => {
-      this.setCurGuide(defaultGuideFilename)
-    })
+    ]).finally(() => { this.setCurGuide(defaultGuideFilename) })
   }
 
   getIdentities(): GuidesIdentity[] {
@@ -104,7 +101,7 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
     const curIdent = this.getIdentityByFilename(GuideFilename)
     try {
       const json = new JsonFile<T>(curIdent.filename)
-      json.load()
+      await json.Init()
       this.CurGuide = json.getObject()
       this.CurGuide.identity = curIdent
 
@@ -114,6 +111,7 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
     }
     catch (e) {
       MyLogger.log('error', `Error When setting curGuide : \n\tfilename:(${GuideFilename})\n\tcurIdent:(${curIdent})\n\tthis.CurGuide:(${this.CurGuide}) `)
+      MyLogger.error(e)
     }
   }
 
@@ -189,25 +187,28 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
   private async populateIdentities(dirPath: string, webPath: string, readOnly?: boolean) {
     const files = this.GuideFromSubPath(dirPath)
     if (files) {
-      files.forEach(f => {
+      // files.forEach(f => {
+        for (const f of files){
         if (f.search(/guide(-(.*))?\.json$/) !== -1) {
           const json = new JsonFile<T>(f)
-          try {
-            json.load()
-            const object = json.getObject()
-            if ((readOnly) && (readOnly === true)) object.identity.readonly = true
-            else object.identity.readonly = false
-            object.identity.filename = f
-            object.identity.webAssetPath = this.getWebPath(webPath, f)
-            object.identity.sysAssetPath = path.dirname(f)
-            this.Identities.push(object.identity)
-          }
-          catch (e) {
-            MyLogger.log('error', `Error when loading custom guide in ${f}`)
-            MyLogger.log('error', `${e}`)
-          }
+          await json.Init()
+            .then(() => {
+              const object = json.getObject()
+              if ((readOnly) && (readOnly === true)) object.identity.readonly = true
+              else object.identity.readonly = false
+              object.identity.filename = f
+              object.identity.webAssetPath = this.getWebPath(webPath, f)
+              object.identity.sysAssetPath = path.dirname(f)
+              this.Identities.push(object.identity)
+
+            })
+            .catch((e) => {
+              MyLogger.log('error', `Error when populate guide in ${f}`)
+              MyLogger.log('error', `${e}`)
+            })
         }
-      })
+      }
+      // )
     }
     else {
       MyLogger.log('info', `No guide file found in ${dirPath}`)
@@ -237,7 +238,7 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
       this._recursiveCopyFileSync(srcIdent.sysAssetPath, dstPath, path.basename(srcIdent.filename))
 
       const json = new JsonFile<T>(newFilename)
-      json.load()
+      await json.Init()
       const guide = json.getObject()
       guide.identity.name = `${suffix}`
       json.setObject(guide)

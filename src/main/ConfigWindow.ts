@@ -1,6 +1,6 @@
 import { BrowserWindow, dialog, ipcMain, NativeImage, app } from "electron"
 
-import { DlAllGemImg, MyLogger } from "../modules/functions"
+import { MyLogger } from "../modules/functions"
 
 import Store from "electron-store"
 import fs from "fs"
@@ -36,8 +36,6 @@ export class ConfigWindow {
     this._Window.loadURL(CONFIG_WINDOW_WEBPACK_ENTRY)
     if (!app.isPackaged) this._Window.webContents.openDevTools()
     this._Window.setMenu(null)
-
-    DlAllGemImg(this._Window)
 
     /**********************************
      * Window Events

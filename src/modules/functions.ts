@@ -1,15 +1,13 @@
-import { app, BrowserWindow } from "electron"
-import { download } from "electron-dl"
+import { app } from "electron"
 import fs from "fs"
 import path from "path"
 
-import InitialGems from "../assets/data/gems.json"
 import { JsonFile } from "./JsonFile"
 import winston from "winston"
 
 
 export const ActsZonesSkeleton = new JsonFile<IActsZonesSkel>(path.join(getAbsPackagedPath(), "data", "zones.json"))
-ActsZonesSkeleton.load()
+ActsZonesSkeleton.Init()
 
 export const Lang = app.getLocaleCountryCode().toLowerCase()
 
@@ -31,13 +29,6 @@ export const MyLogger = winston.createLogger({
 MyLogger.log('info', 'starting')
 MyLogger.log('error', 'starting')
 MyLogger.log('error', `detected OS lang : ${Lang}`)
-
-export function findGem(name: string): IGems {
-  name.trim()
-  return InitialGems.find(e => {
-    return e.name === name
-  })
-}
 
 /**
  * 
@@ -107,31 +98,30 @@ export function getCustomWebBaseName(): string {
 /**
  * Dev utils
  */
-export async function DlAllGemImg(win: BrowserWindow): Promise<void> {
-  let dldFiles = 0
+// export async function DlAllGemImg(win: BrowserWindow): Promise<void> {
+//   let dldFiles = 0
 
-  for (const gem of InitialGems) {
-    const directory = path.join(getAbsPackagedPath(), "images", "gems")
-    const filename = gem.name.replace(" ", "_") + ".png"
+//   for (const gem of InitialGems) {
+//     const directory = path.join(getAbsPackagedPath(), "images", "gems")
+//     const filename = gem.name.replace(" ", "_") + ".png"
 
-    if (!fs.existsSync(path.join(directory, filename))) {
-      dldFiles++
-      const fileUrl = gem.iconPath
+//     if (!fs.existsSync(path.join(directory, filename))) {
+//       dldFiles++
+//       const fileUrl = gem.iconPath
 
-      await download(win, fileUrl, {
-        filename: filename,
-        directory: directory,
-        showBadge: true,
-      })
-    }
-  }
-  console.log("downloaded: %d , total: %d", dldFiles, InitialGems.length)
-}
-
+//       await download(win, fileUrl, {
+//         filename: filename,
+//         directory: directory,
+//         showBadge: true,
+//       })
+//     }
+//   }
+//   console.log("downloaded: %d , total: %d", dldFiles, InitialGems.length)
+// }
 
 export function extractActsBaseGuide(): void {
   const _defaultActGuide = new JsonFile<IActsGuide>(path.join(getAbsPackagedPath(), "data", "full_guide.json"))
-  _defaultActGuide.load()
+  _defaultActGuide.Init()
   const dstActGuide = {} as IActsGuide
   dstActGuide.identity = {} as GuidesIdentity
   dstActGuide.acts = [] as IActsGuideAct[]
@@ -165,7 +155,7 @@ export function extractActsBaseGuide(): void {
 
 export function extractActsCustomGuide(): void {
   const _defaultActGuide = new JsonFile<IActsGuide>(path.join(getAbsPackagedPath(), "data", "full_guide.json"))
-  _defaultActGuide.load()
+  _defaultActGuide.Init()
 
   const dstActGuide = {} as IActsGuide
   dstActGuide.identity = {} as GuidesIdentity

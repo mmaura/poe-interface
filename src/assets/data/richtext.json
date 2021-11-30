@@ -153,9 +153,9 @@
 			"The Haunted Reliquary"
 		]
 	},
-  {
+	{
 		"data": [
-      "Kaom's Chosen",
+			"Kaom's Chosen",
 			"Vaal Oversoul",
 			"Hillock",
 			"Rhys of Abram",
@@ -582,7 +582,7 @@
 	{
 		"classe": "quest",
 		"data": [
-      "Flag Chest",
+			"Flag Chest",
 			"Enemy at the Gate",
 			"Mercy Mission",
 			"Breaking Some Eggs",
@@ -674,7 +674,7 @@
 			"Death and Rebirth",
 			"Vilenta's Vengeance",
 			"No Love for Old Ghosts",
-      "Maligaro's Map",
+			"Maligaro's Map",
 			"Map to Tsoatha",
 			"An End to Hunger",
 			"From Nightmare into Dream",
@@ -686,7 +686,7 @@
 			"logout",
 			"déconnexion",
 			"deco",
-      "déco",
+			"déco",
 			"portal",
 			"tp",
 			"portail",
@@ -695,7 +695,7 @@
 	},
 	{
 		"data": [
-      "Kaom's Chosen",
+			"Kaom's Chosen",
 			"Vaal Oversoul",
 			"Hillock",
 			"Rhys of Abram",
@@ -1125,5 +1125,5 @@
 	{
 		"classe": "waypoint",
 		"data": ["waypoint"]
-	}
+	}	
 ]

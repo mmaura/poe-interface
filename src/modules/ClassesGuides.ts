@@ -1,18 +1,30 @@
 import { Guides } from "./Guides"
 import path from 'path'
 import fs from 'fs'
-import { ActsZonesSkeleton, FindFileExt, findGem, getAbsPackagedPath, MyLogger } from './functions'
+import { ActsZonesSkeleton, FindFileExt, getAbsPackagedPath, MyLogger } from './functions'
 import { MenuItem, NativeImage, nativeImage, shell, dialog } from "electron"
 import ini from 'ini'
 import { JsonFile } from "./JsonFile"
+import { Gems } from "./Gems"
 
 export class ClassesGuides extends Guides<IClassesGuide>{
   protected CurGuide: IClassesGuide
+  protected Gems: Gems
   Icon: NativeImage
 
   constructor() {
     super("classguides")
     this.Icon = nativeImage.createFromPath(path.join(getAbsPackagedPath(), "/images/arrow-right-bold.png"))
+    this.Gems = new Gems()
+  }
+
+  async Init(defaultGuideFilename?: string): Promise<void> {
+    super.Init(defaultGuideFilename)
+    this.Gems.Init()
+  }
+
+  getGemsList(): IGemList[] {
+    return this.Gems.getGemsList()
   }
 
   parseCurGuide(): void {
@@ -42,10 +54,10 @@ export class ClassesGuides extends Guides<IClassesGuide>{
         if (act.gears) {
           act.gears.forEach((gear, index) => {
             // if (!gear.id) gear.id = index
-            gear.gems = [] as IGems[]
+            gear.gems = [] as IGem[]
             if (gear.gem_info)
               gear.gem_info.forEach(g => {
-                const _gem = findGem(g.name)
+                const _gem = this.Gems.getByName(g.name)
                 if (_gem !== undefined) {
                   if ((g.note) && (g.note !== '')) gear.gems.push({ ..._gem, note: g.note })
                   else gear.gems.push(_gem)
@@ -245,15 +257,27 @@ export class ClassesGuides extends Guides<IClassesGuide>{
   async addGearSlot(gearName: string, actId: number): Promise<void> {
     const gear = this.CurGuide.acts.find(a => a.act === actId).gears.find(g => g.name === gearName)
 
-    const slots = (gear.chasses ? gear.chasses.length : 0) + (gear.gem_info ? gear.gem_info.length : 0)
+    const slots = (gear.gem_info ? gear.gem_info.length : 0)
 
-    if (slots < 8) {
-      if (!gear.chasses) gear.chasses = []
-      gear.chasses.push("white")
+    if (slots < 6) {
+      if (!gear.gem_info) gear.gem_info = []
+      gear.gem_info.push({ name: "White Socket" })
+      gear.gems.push(this.Gems.getByName("White Socket"))
       this.saveCurGuide().then(() => {
         this.emit("GuideContentChange", this.CurGuide)
       })
     }
+  }
+
+  async setGearGem(curGemEdit: { actId: number, gearName: string, gemIndex: number }, newName: string): Promise<void> {
+    const { actId, gearName, gemIndex } = curGemEdit
+    const curGear = this.CurGuide.acts.find(a => a.act === actId).gears.find(g => g.name === gearName)
+
+    curGear.gem_info[gemIndex].name = newName
+    curGear.gems[gemIndex] = this.Gems.getByName(newName)
+    this.saveCurGuide().then(() => {
+      this.emit("GuideContentChange", this.CurGuide)
+    })
   }
 
   async addGear(actId: number): Promise<void> {
@@ -266,7 +290,7 @@ export class ClassesGuides extends Guides<IClassesGuide>{
     const gear = {} as IClassesGuideGear
     gear.name = this.uniqGearName("new group")
     gear.gem_info = []
-    gear.gems = [] as IGems[]
+    gear.gems = [] as IGem[]
 
     gears.push(gear)
     this.saveCurGuide().then(() => {
@@ -484,7 +508,7 @@ export class ClassesGuides extends Guides<IClassesGuide>{
           if ((!Gear.gem_info) || (!Gear.gem_info.find(g => g.name === gemFile[gem].gem))) {
             let note = ""
             if (gemFile[gem].note) note = gemFile[gem].note
-            if (findGem(gemFile[gem].gem)) {
+            if (this.Gems.Exist(gemFile[gem].gem)) {
               if (!Gear.gem_info) Gear.gem_info = []
               Gear.gem_info.push({ name: gemFile[gem].gem, note: note })
             }

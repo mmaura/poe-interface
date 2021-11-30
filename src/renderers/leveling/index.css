@@ -33,10 +33,10 @@
   }
 
   .poe-item-3slots {
-    @apply flex flex-col border-poe-96 border-2 rounded-xl;
+    @apply flex flex-col border-poe-97 border-2 rounded-xl;
   }
   .poe-item-xslots {
-    @apply grid grid-cols-2  border-poe-96 border-2 rounded-xl;
+    @apply grid grid-cols-2  border-poe-97 border-2 rounded-xl;
   }
   .poe-red-socket {
     @apply bg-socket bg-skred w-socket h-socket;

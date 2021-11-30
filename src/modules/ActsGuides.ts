@@ -172,7 +172,7 @@ export class ActsGuides extends Guides<IActsGuide> {
     ActGuide.acts = []
 
     const ZonesMod = new JsonFile<IActsGuide>(path.join(getAbsPackagedPath(), "data", "zones.json"))
-    ZonesMod.load()
+    ZonesMod.Init()
 
 
     const match = buildPath.split(path.sep)[buildPath.split(path.sep).length - 1].match(/([0-9]\.[0-9]{2})\s(\w+)\s(\w+)/)
