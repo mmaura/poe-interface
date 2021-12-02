@@ -3,8 +3,8 @@ import * as ReactDOM from "react-dom"
 
 import "../index.css"
 import "./index.css"
-import { Player, LevelingGuide, ZoneNotes, Navigation, SkillTree, ZoneGem,  ActGuideIdentity, ClassGuideIdentity } from "./Components"
-import { GemUTility, ZoneGears } from "./Gears"
+import { PlayerInfo, ZoneSelector, ZoneNotes, NavigationMap, SkillTree, GemBuyList, ActGuideIdentity, ClassGuideIdentity } from "./Components"
+import { ZoneGears } from "./Gears"
 
 export const PlayerContext = React.createContext({} as IAppPlayer)
 export const CurActContext = React.createContext({} as IActsGuideAct)
@@ -18,10 +18,10 @@ function App(props: { Init: any }) {
   const [curActID, setcurActID] = useState(props.Init[5] as number)
   const [curZoneName, setcurZoneName] = useState(props.Init[6] as string)
   const [playerClasses, setplayerClasses] = useState(props.Init[7] as IClassesAscendancies[])
-  const [GemsSkel, setGemsSkel] = useState(props.Init[8] as IGemList[])
+  const  GemsSkel = props.Init[8] as IGemList[]
 
-  const [isClassGuideEditable, setisClassGuideEditable] = useState(false)
-  const [isActsGuideEditable, setisActsGuideEditable] = useState(false)
+  const [ClassGuideIsOnEdit, setClassGuideIsOnEdit] = useState(false)
+  const [ActGuideIsOnEdit, setActGuideIsOnEdit] = useState(false)
 
   const curAct = useMemo(() => {
     console.log("**useMemo curAct", curActID)
@@ -41,8 +41,7 @@ function App(props: { Init: any }) {
       }
       console.log("return : ", _zone)
       return _zone
-    }
-    else {
+    } else {
       console.log(`return: null (defaulting) ${curAct} `)
       return curAct.zones[0]
     }
@@ -55,34 +54,51 @@ function App(props: { Init: any }) {
     setcurActID(Number(e.target.value))
   }, [])
 
-  const onZoneChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    setcurZoneName(e.target.value)
-  },
+  const onZoneChange = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      setcurZoneName(e.target.value)
+    },
     [curAct]
   )
 
-  const onZoneNoteSave = useCallback((text: string) => {
-    window.poe_interfaceAPI.sendSync("levelingRenderer", "saveActGuide", "zoneNote", curActID, curZoneName, text)
-  }, [curZoneName, curActID])
+  /**********************************
+   * ActGuide Save Functions
+   */
+  const onZoneNoteSave = useCallback(
+    (text: string) => {
+      window.poe_interface_API.sendSync("levelingRenderer", "saveActGuide", "zoneNote", curActID, curZoneName, text)
+    },
+    [curZoneName, curActID]
+  )
 
-  const onNavigationNoteSave = useCallback((text: string) => {
-    window.poe_interfaceAPI.sendSync("levelingRenderer", "saveActGuide", "navigationNote", curActID, curZoneName, text)
-  }, [curZoneName, curActID])
+  const onNavigationNoteSave = useCallback(
+    (text: string) => {
+      window.poe_interface_API.sendSync("levelingRenderer", "saveActGuide", "navigationNote", curActID, curZoneName, text)
+    },
+    [curZoneName, curActID]
+  )
 
   const onActGuideIdentitySave = useCallback((identity: GuidesIdentity) => {
-    window.poe_interfaceAPI.sendSync("levelingRenderer", "saveActGuide", "identity", identity)
+    window.poe_interface_API.sendSync("levelingRenderer", "saveActGuide", "identity", identity)
   }, [])
 
+  /**********************************
+   * ClassGuide Save Functions
+   */
   const onClassGuideSkilltreeChange = useCallback(() => {
-    window.poe_interfaceAPI.sendSync("levelingRenderer", "saveClassGuide", "skilltree", curActID)
+    window.poe_interface_API.sendSync("levelingRenderer", "saveClassGuide", "skilltree", curActID)
   }, [curActID])
 
   const onClassGuideIdentitySave = useCallback((identity: GuidesIdentity) => {
-    window.poe_interfaceAPI.sendSync("levelingRenderer", "saveClassGuide", "identity", identity)
+    window.poe_interface_API.sendSync("levelingRenderer", "saveClassGuide", "identity", identity)
   }, [])
 
-  const onClassGuideEditChange = useCallback((isEditable: boolean) => { setisClassGuideEditable(isEditable) }, [])
-  const onActsGuideEditChange = useCallback((isEditable: boolean) => { setisActsGuideEditable(isEditable) }, [])
+  const onClassGuideEditChange = useCallback((isOnEdit: boolean) => {
+    setClassGuideIsOnEdit(isOnEdit)
+  }, [])
+  const onActsGuideEditChange = useCallback((isOnEdit: boolean) => {
+    setActGuideIsOnEdit(isOnEdit)
+  }, [])
 
   /**********************************
    * Effects
@@ -114,10 +130,10 @@ function App(props: { Init: any }) {
   }, [curPlayer])
 
   /**********************************
-   * IPC
+   * IPC Receiver
    */
   useLayoutEffect(() => {
-    window.poe_interfaceAPI.receive("levelingRenderer", (e, arg) => {
+    window.poe_interface_API.receive("levelingRenderer", (e, arg) => {
       console.log("=> Receive levelingRenderer :", arg)
       switch (arg[0]) {
         case "player":
@@ -143,7 +159,7 @@ function App(props: { Init: any }) {
       }
     })
     return () => {
-      window.poe_interfaceAPI.cleanup("levelingRenderer")
+      window.poe_interface_API.cleanup("levelingRenderer")
     }
   }, [])
 
@@ -154,30 +170,45 @@ function App(props: { Init: any }) {
           <div className="p-2 h-full">
             <div className="flex flex-row flex-nowrap pb-2 items-center h-full">
               <div className="flex-grow-0">
-                <Player />
+                <PlayerInfo />
                 <h1>{curAct && curZone ? `${curAct.act} : ${curZone.name}` : null}</h1>
               </div>
               <div className="flex-grow h-full">
-                <Navigation curZone={curZone} onSave={onNavigationNoteSave} isActsGuideEditable={isActsGuideEditable} />
+                <NavigationMap curZone={curZone} onSave={onNavigationNoteSave} ActsGuideIsOnEdit={ActGuideIsOnEdit} />
               </div>
               <div className="flex-grow-0 h-full guide-container px-1">
-                <ActGuideIdentity identity={actsGuide.identity} onSave={onActGuideIdentitySave} onActsGuideEditChange={onActsGuideEditChange}>Acts</ActGuideIdentity>
-                <ClassGuideIdentity identity={classGuide.identity} onSave={onClassGuideIdentitySave} onClassGuideEditChange={onClassGuideEditChange} playerClasses={playerClasses}>Ascendancy</ClassGuideIdentity>
-                <LevelingGuide onActChange={onActChange} onZoneChange={onZoneChange} Acts={actsGuide} curZone={curZone} />
+                <ActGuideIdentity
+                  identity={actsGuide.identity}
+                  onSave={onActGuideIdentitySave}
+                  onActsGuideEditChange={onActsGuideEditChange}>
+                  Acts
+                </ActGuideIdentity>
+                <ClassGuideIdentity
+                  identity={classGuide.identity}
+                  onSave={onClassGuideIdentitySave}
+                  onClassGuideEditChange={onClassGuideEditChange}
+                  playerClasses={playerClasses}>
+                  Ascendancy
+                </ClassGuideIdentity>
+                <ZoneSelector onActChange={onActChange} onZoneChange={onZoneChange} Acts={actsGuide} curZone={curZone} />
               </div>
             </div>
             <div className="flex flex-row gap-2">
               <div className="flex flex-grow flex-shrink flex-col gap-2 w-notes-container">
                 <div className="flex-grow-0 flex-shrink-0 ">
-                  <ZoneNotes curZone={curZone} onSave={onZoneNoteSave} isActsGuideEditable={isActsGuideEditable} />
+                  <ZoneNotes curZone={curZone} onSave={onZoneNoteSave} ActsGuideIsOnEdit={ActGuideIsOnEdit} />
                 </div>
                 <div className="flex-grow flex-shrink items-end">
-                  <SkillTree curGuide={classGuide} onClassGuideSkilltreeChange={onClassGuideSkilltreeChange} isClassGuideEditable={isClassGuideEditable} />
+                  <SkillTree
+                    curGuide={classGuide}
+                    onClassGuideSkilltreeChange={onClassGuideSkilltreeChange}
+                    ClassGuideIsOnEdit={ClassGuideIsOnEdit}
+                  />
                 </div>
               </div>
               <div className="p-0 m-0 flex-shrink-0 flex-grow-0 w-gear-container">
-                <ZoneGears curGuide={classGuide} isClassGuideEditable={isClassGuideEditable} gemsSkel={GemsSkel} />
-                {isClassGuideEditable?null:<ZoneGem curGuide={classGuide} />}
+                <ZoneGears curGuide={classGuide} ClassGuideIsOnEdit={ClassGuideIsOnEdit} gemsSkel={GemsSkel} />
+                {!ClassGuideIsOnEdit && <GemBuyList curGuide={classGuide} />}
               </div>
             </div>
           </div>
@@ -187,7 +218,7 @@ function App(props: { Init: any }) {
   )
 }
 
-window.poe_interfaceAPI.sendSync("levelingRenderer", "Init").then(e => {
+window.poe_interface_API.sendSync("levelingRenderer", "Init").then(e => {
   console.log(e)
   ReactDOM.render(<App Init={e} />, document.getElementById("root"))
 })

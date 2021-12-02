@@ -1,20 +1,15 @@
-import { app } from 'electron'
-
 import fs from 'fs'
-import path from 'path'
 import { MyLogger } from './functions'
 
 export class JsonFile<Type> {
   private _FileName: string
   protected _JsonObject: Type
 
-  constructor(filename: string) {
+  constructor (filename: string) {
     this._FileName = filename
   }
 
   async save(): Promise<void> {
-    // fs.copyFileSync(this._FileName, `${path.dirname(this._FileName)}${path.sep}${path.basename(this._FileName,path.extname(this._FileName))}${Date()}${path.extname(this._FileName)}`)
-    // fs.writeFileSync(this._FileName, JSON.stringify(this._JsonObject, null, 2))
     await fs.promises.writeFile(this._FileName, JSON.stringify(this._JsonObject, null, 2))
   }
 
@@ -33,9 +28,9 @@ export class JsonFile<Type> {
     return this._JsonObject
   }
 
-  setObject(object: Type): boolean {
+  setObject(object: Type): Type {
     this._JsonObject = object
-    return true
+    return this._JsonObject
   }
 
   getFileName(): string {

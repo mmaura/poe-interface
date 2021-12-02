@@ -1,8 +1,8 @@
 import React, { ChangeEventHandler, useEffect, useRef } from "react"
 
 
-export function TextEditable(props: {
-  children?: IClassesAscendancies[]
+export function TextEditable<T>(props: {
+  children?: T[]
   isOnEdit: boolean
   onChange: ChangeEventHandler<HTMLInputElement | HTMLSelectElement>
   name: string,
@@ -17,7 +17,7 @@ export function TextEditable(props: {
     else
       return <TextInput value={value} name={name} onChange={onChange} />
   }
-  else return <p>{value}</p>
+  else return <>{value}</>
 }
 
 

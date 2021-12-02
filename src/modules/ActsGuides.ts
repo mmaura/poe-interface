@@ -11,7 +11,7 @@ export class ActsGuides extends Guides<IActsGuide> {
   Icon: NativeImage
   // private DefaultZones: JsonFile<IActsGuide>
 
-  constructor() {
+  constructor () {
     super("actsguides")
     this.Icon = nativeImage.createFromPath(path.join(getAbsPackagedPath(), "/images/arrow-right-bold.png"))
   }
@@ -154,15 +154,15 @@ export class ActsGuides extends Guides<IActsGuide> {
     })
   }
 
-  getActByID(actid: number):IActsGuideAct{
+  getActByID(actid: number): IActsGuideAct {
     let act = this.CurGuide.acts.find(act => act.actid === actid)
     if (!act) this.CurGuide.acts.push(act = { actid: actid, zones: [] as IActsGuideZone[] } as IActsGuideAct)
     return act
   }
 
-  getZoneByActAndZonename(act: IActsGuideAct, zonename: string):IActsGuideZone{
+  getZoneByActAndZonename(act: IActsGuideAct, zonename: string): IActsGuideZone {
     let zone = act.zones.find(zone => zonename === zone.name)
-    if (!zone) act.zones.push(zone = {name: zonename } as IActsGuideZone)
+    if (!zone) act.zones.push(zone = { name: zonename } as IActsGuideZone)
     return zone
   }
 

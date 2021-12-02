@@ -37,7 +37,7 @@ export class LevelingWindow {
   private _MyPlayer: IAppPlayer
   private _MyConn: plm_conn
 
-  constructor(appStore: Store, AppIcon: NativeImage) {
+  constructor (appStore: Store, AppIcon: NativeImage) {
     this._AppStore = appStore
     this._Icon = AppIcon
 
@@ -120,7 +120,6 @@ export class LevelingWindow {
 
           switch (arg[1]) {
             case "skilltree":
-
               MyLogger.log('info', `Choose skilltree ${arg[2]}`)
               MyLogger.log('info', this.ClassGuides.getTreeImagePath(arg[2]))
               this.loadImage(`Choose skilltree for act ${arg[2]}`, this.ClassGuides.getTreeImagePath(arg[2])).then((result) => {
@@ -136,6 +135,7 @@ export class LevelingWindow {
               this.ClassGuides.SaveCurGuideNewIdentity(arg[2])
               this.makeMenus()
               break
+            //group
             case "GearName":
               MyLogger.log('info', `saveClassGuide: GearName (id: ${arg[2]}, name: ${arg[3]})`)
               this.ClassGuides.setGearName(arg[2], arg[3])
@@ -144,17 +144,9 @@ export class LevelingWindow {
               MyLogger.log('info', `saveClassGuide: GearNotes (id: ${arg[2]}, notes: ${arg[3]}, actid: ${arg[4]})`)
               this.ClassGuides.setGearNotes(arg[2], arg[3], arg[4])
               break
-            case "setGearGem": //curGemEdit:{ actId: 0, gearName: "", gemIndex: 0 }, newName
-              MyLogger.log('info', `saveClassGuide: setGearGem ( curGemEdit: ${arg[2]}, actid: ${arg[3]})`)
-              this.ClassGuides.setGearGem(arg[2], arg[3])
-              break
             case "ActNotes":
               MyLogger.log('info', `saveClassGuide: ActNotes ( notes: ${arg[2]}, actid: ${arg[3]})`)
               this.ClassGuides.setActNotes(arg[3], arg[2])
-              break
-            case "addGearSlot":
-              MyLogger.log('info', `saveClassGuide: addGearSlot ( gearId: ${arg[2]}, actid: ${arg[3]})`)
-              this.ClassGuides.addGearSlot(arg[2], arg[3])
               break
             case "addGear":
               MyLogger.log('info', `saveClassGuide: addGear ( actid: ${arg[2]})`)
@@ -167,6 +159,19 @@ export class LevelingWindow {
             case "delGearInAllActs":
               MyLogger.log('info', `saveClassGuide: delGearInAllActs ( gearName: ${arg[2]})`)
               this.ClassGuides.delGearInAllActs(arg[2])
+              break
+            // gems
+            case "addGearSlot":
+              MyLogger.log('info', `saveClassGuide: addGearSlot ( gearId: ${arg[2]}, actid: ${arg[3]})`)
+              this.ClassGuides.addGearSlot(arg[2], arg[3])
+              break
+            case "setGearGem": //curGemEdit:{ actId: 0, gearName: "", gemIndex: 0 }, newName
+              MyLogger.log('info', `saveClassGuide: setGearGem ( curGemEdit: ${arg[2]}, actid: ${arg[3]})`)
+              this.ClassGuides.setGearGem(arg[2], arg[3])
+              break
+            case "delGearGem": //curGemEdit:{ actId: 0, gearName: "", gemIndex: 0 }, newName
+              MyLogger.log('info', `saveClassGuide: delGearGem ( curGemEdit: ${arg[2]})`)
+              this.ClassGuides.delGearGem(arg[2])
               break
           }
           break
@@ -187,7 +192,6 @@ export class LevelingWindow {
     this._Window.on("closed", () => {
       this._Window = null
     })
-
 
     /************************
      * Guides Events
@@ -252,7 +256,6 @@ export class LevelingWindow {
       })
 
       this._PoeLog.on("area", area => {
-
         // console.log(area.name)
         let _area
         switch (area.type) {
@@ -308,7 +311,22 @@ export class LevelingWindow {
     shell.openPath(getAbsCustomPath())
   }
 
+
   private async LoadData(): Promise<void> {
+
+    // // const MynewObject = [] as IRichText[]
+
+    // await this.RichTextJson.Init()
+    // this.RichTextJson.getObject().sort((a, b) => a.order - b.order)
+    // for (const item of this.RichTextJson.getObject()) {
+    //   // MynewObject.push({ keywords: [...new Set(item.keywords)], name: item.name, style: item.style, order: item.order })
+    //   item.keywords = [... new Set(item.keywords)]
+    //   item.keywords.sort()
+    // }
+    // // this.RichTextJson.setObject(MynewObject)
+    // await this.RichTextJson.save()
+
+
     await Promise.all([
       this.ClassGuides.Init(this._AppStore.get("curClassGuide", "default") as string).catch((e) => {
         MyLogger.error("Error when loading Classes Guides")
@@ -316,7 +334,7 @@ export class LevelingWindow {
       this.ActsGuides.Init(this._AppStore.get("curActsGuide", "default") as string).catch((e) => {
         MyLogger.error("Error when loading Acts Guides")
       }),
-      this.RichTextJson.Init().catch((e) => {
+      await this.RichTextJson.Init().catch((e) => {
         MyLogger.error("Error when loading Richtext Guides")
       }),
       this.PlayersClasses.Init().catch((e) => {
@@ -345,9 +363,6 @@ export class LevelingWindow {
           {
             label: "Reload all data",
             click: () => {
-              // const MergedActGuide = {} as IActsGuide
-              // merge(MergedActGuide, this.Zones.getObject(), this.ActsGuides.getCurGuide())
-
               this.LoadData().then(() => this._Window.webContents.send("levelingRenderer", ["All",
                 this.ActsGuides.getCurMergedGuide(),
                 this.RichTextJson.getObject(),
@@ -356,7 +371,6 @@ export class LevelingWindow {
               ]))
             },
           },
-
           { type: "separator" },
           { role: "hide" },
           { role: 'quit' },

@@ -1,58 +1,49 @@
 import React, { ChangeEvent, ChangeEventHandler, useContext, useState, useMemo, useCallback, useEffect } from "react"
-import { mdiContentDuplicate, mdiEye, mdiLinkVariant, mdiMinus, mdiPlus } from "@mdi/js"
+import { mdiEye, mdiLinkVariant, mdiMinus, mdiPlus } from "@mdi/js"
 import Icon from "@mdi/react"
 
 import { CurActContext, PlayerContext } from "./LevelingRenderer"
 
 import ReactTooltip from "react-tooltip"
-import { RichNoteEditable, RichNoteText } from "./RichNoteEditable"
+import { RichTextEditable } from "./RichTextEditable"
 import { TextEditable } from "./TextEditable"
 import { EditSaveImageButton, EditSaveNoteButton } from "./Buttons"
 
-export function Player(): JSX.Element {
+export function PlayerInfo(): JSX.Element {
   const curPlayer = useContext(PlayerContext)
-
-  const ascendancy = useMemo(() => {
-    console.log("<Player> %o ", curPlayer)
-
-    if (curPlayer.characterClass)
-      return curPlayer.characterAscendancy
-        ? curPlayer.characterAscendancy.toLowerCase() || ""
-        : curPlayer.characterClass.toLowerCase() || ""
-    else return null
-  }, [curPlayer])
 
   return (
     <div className="inventory">
-      {curPlayer ? (
-        <>
-          <div className="absolute">
-            <div className={`avatar bg-${ascendancy}`}></div>
-            <div className="inventory-text top-inventory-line1">{curPlayer.name}</div>
-            <div className="inventory-text top-inventory-line2">
-              Level {curPlayer.level} {curPlayer.characterClass}
-            </div>
+      {curPlayer && (
+        <div className="absolute">
+          <div className={`avatar bg-${curPlayer.characterAscendancy.toLowerCase()}`}></div>
+          <div className="inventory-text top-inventory-line1">{curPlayer.name}</div>
+          <div className="inventory-text top-inventory-line2">
+            Level {curPlayer.level} {curPlayer.characterClass}
           </div>
-        </>
-      ) : (
-        <>
-          <p>En attente de connection</p>
-        </>
+        </div>
       )}
     </div>
   )
 }
 
-export function LevelingGuide(props: {
+export function ZoneSelector(props: {
   curZone: IActsGuideZone
   Acts: IActsGuide
-  onActChange: ChangeEventHandler<any>
-  onZoneChange: ChangeEventHandler<any>
+  onActChange: ChangeEventHandler<HTMLSelectElement>
+  onZoneChange: ChangeEventHandler<HTMLSelectElement>
 }): JSX.Element {
   const { curZone, Acts, onActChange, onZoneChange } = props
 
   const curAct = useContext(CurActContext)
   const curPlayer = useContext(PlayerContext)
+
+  const lvlClass = useMemo(() => {
+    if (curPlayer.level - curZone.level > 5) return "filter:grayscale"
+    if (curZone.level - curPlayer.level > 4) return "text-red-500"
+    if (curZone.level - curPlayer.level > 2) return "text-yellow-500"
+    return "text-poe-60"
+  }, [curZone, curPlayer])
 
   return (
     <div className="flex flex-row flex-nowrap space-x-2">
@@ -65,7 +56,6 @@ export function LevelingGuide(props: {
           )
         })}
       </select>
-
       <select className=" lvlg-map-feature flex-grow input" value={curZone.name} onChange={onZoneChange}>
         {curAct.zones.map((zone: IActsGuideZone) => {
           return (
@@ -75,19 +65,13 @@ export function LevelingGuide(props: {
           )
         })}
       </select>
-
-      <div
-        className={`lvlg-map-feature align-middle text-center text-1xl font-bold ${curZone.level - curPlayer.level > 2 ? "text-yellow-500 border-yellow-500" : ""}
-                ${curZone.level - curPlayer.level > 4 ? "text-red-500 border-red-500" : ""}
-                ${curPlayer.level - curZone.level > 5 ? "disabled" : ""}`}        >
-        {curZone.level}
-      </div>
+      <div className={`lvlg-map-feature align-middle text-center text-1xl font-bold  ${lvlClass}`}>{curZone.level}</div>
     </div>
   )
 }
 
-export function ZoneNotes(props: { curZone: IActsGuideZone; onSave: (text: string) => void; isActsGuideEditable: boolean }): JSX.Element {
-  const { onSave, curZone, isActsGuideEditable } = props
+export function ZoneNotes(props: { curZone: IActsGuideZone; onSave: (text: string) => void; ActsGuideIsOnEdit: boolean }): JSX.Element {
+  const { onSave, curZone, ActsGuideIsOnEdit } = props
 
   const [text, settext] = useState(curZone.note)
   const [isOnEdit, setisOnEdit] = useState(false)
@@ -98,7 +82,6 @@ export function ZoneNotes(props: { curZone: IActsGuideZone; onSave: (text: strin
 
   const onSaveText = useCallback(() => {
     setisOnEdit(!isOnEdit)
-    console.log("onSaveText:", text)
     onSave(text)
   }, [isOnEdit, text])
 
@@ -110,47 +93,35 @@ export function ZoneNotes(props: { curZone: IActsGuideZone; onSave: (text: strin
     settext(e.target.value)
   }, [])
 
-  console.log("ZoneNote", text)
-
   return (
     <div className="container flex flex-col min-h-note-container relative">
-      {(!isActsGuideEditable) ? null :
+      {ActsGuideIsOnEdit && (
         <div className="absolute top-0 left-0 flex flex-row gap-1">
           <EditSaveNoteButton isOnEdit={isOnEdit} onSave={onSaveText} onEdit={editNote} />
-        </div>}
+        </div>
+      )}
       <h2>Notes</h2>
       <div className="absolute top-0 right-0 flex flex-row gap-1">
-        {curZone.hasRecipe ? (
-          <img className="w-socket h-socket" src="../assets/images/craftingrecipe.png" />
-        ) : null}
-        {curZone.hastrial ? <img className="w-socket h-socket" src="../assets/images/trial.png" /> : null}
-        {curZone.haspassive ? (
-          <img className="w-socket h-socket" src="../assets/images/bookofskill.png" />
-        ) : null}
-        {curZone.hasWaypoint ? (
-          <img className="w-socket h-socket" src="../assets/images/waypoint.png" />
-        ) : null}
+        {curZone.hasRecipe && <img className="w-socket h-socket" src="../assets/images/craftingrecipe.png" />}
+        {curZone.hastrial && <img className="w-socket h-socket" src="../assets/images/trial.png" />}
+        {curZone.haspassive && <img className="w-socket h-socket" src="../assets/images/bookofskill.png" />}
+        {curZone.hasWaypoint && <img className="w-socket h-socket" src="../assets/images/waypoint.png" />}
       </div>
       <div className="text-xl flex-grow relative">
-        <RichNoteEditable isOnEdit={isOnEdit} onChange={onChange}>
+        <RichTextEditable isOnEdit={isOnEdit && ActsGuideIsOnEdit} onChange={onChange}>
           {text}
-        </RichNoteEditable>
+        </RichTextEditable>
       </div>
     </div>
   )
 }
 
-export function Navigation(props: {
-  curZone: IActsGuideZone
-  isActsGuideEditable: boolean
-  onSave: (text: string) => void
-}): JSX.Element {
-  const { curZone, isActsGuideEditable, onSave } = props
+export function NavigationMap(props: { curZone: IActsGuideZone; ActsGuideIsOnEdit: boolean; onSave: (text: string) => void }): JSX.Element {
+  const { curZone, ActsGuideIsOnEdit, onSave } = props
   console.log("ZoneMap", curZone)
 
   const [text, settext] = useState(curZone.note)
   const [isOnEdit, setisOnEdit] = useState(false)
-
 
   useEffect(() => {
     settext(curZone.altimage)
@@ -158,7 +129,6 @@ export function Navigation(props: {
 
   const onSaveText = useCallback(() => {
     setisOnEdit(!isOnEdit)
-    console.log("onSaveText:", text)
     onSave(text)
   }, [isOnEdit, text])
 
@@ -174,60 +144,55 @@ export function Navigation(props: {
     <div className=" min-h-map-container h-full relative">
       <div className="ml-7 flex flex-col items-stretch">
         <div className="p-0 flex flex-row flex-wrap h-full ">
-          {curZone.image && curZone.image[0] !== "none"
-            ? curZone.image.map(val => {
-              const path = `${val}`
-              return <img key={path} className="w-32" src={path} />
-            })
-            : null}
+          {curZone.image.map(val => {
+            const path = `${val}`
+            return <img key={path} className="w-32" src={path} />
+          })}
         </div>
-        {curZone.altimage !== "none" ? (
-          <div className=" justify-end text-lg align-baseline ">
-            <RichNoteEditable isOnEdit={isOnEdit} onChange={onChange}>{text}</RichNoteEditable>
-          </div>
-
-        ) : null}
+        <div className=" justify-end text-lg align-baseline ">
+          <RichTextEditable isOnEdit={isOnEdit && ActsGuideIsOnEdit} onChange={onChange}>
+            {text}
+          </RichTextEditable>
+        </div>
       </div>
-      {(!isActsGuideEditable) ? null :
+      {ActsGuideIsOnEdit && (
         <div className="absolute top-0 left-0 flex flex-row gap-1">
           <EditSaveNoteButton isOnEdit={isOnEdit} onSave={onSaveText} onEdit={editNote} />
-        </div>}
+        </div>
+      )}
     </div>
   )
 }
 
 export function SkillTree(props: {
-  curGuide: IClassesGuide,
-  onClassGuideSkilltreeChange: () => void,
-  isClassGuideEditable: boolean
+  curGuide: IClassesGuide
+  onClassGuideSkilltreeChange: () => void
+  ClassGuideIsOnEdit: boolean
 }): JSX.Element {
-
-  const { curGuide, onClassGuideSkilltreeChange, isClassGuideEditable } = props
+  const { curGuide, onClassGuideSkilltreeChange: onClassGuideSkilltreeClick, ClassGuideIsOnEdit } = props
   const curAct = useContext(CurActContext)
-  console.log("skill")
 
   return (
     <div>
-      <ReactTooltip id="skilltree" effect='solid' delayHide={1000} key="skilltree" className="bg-poe-98 bg-opacity-75 opacity-100 ">
-        <div data-tip='skilltree' >
-          {(curGuide.acts && curGuide.acts.find(a => a.act === curAct.actid)) ? <img src={curGuide.acts.find(a => a.act === curAct.actid).treeimage} /> : null}
+      <ReactTooltip id="skilltree" effect="solid" delayHide={1000} key="skilltree" className="bg-poe-98 bg-opacity-75 opacity-100 ">
+        <div data-tip="skilltree">
+          {curGuide.acts.find(a => a.act === curAct.actid) && <img src={curGuide.acts.find(a => a.act === curAct.actid).treeimage} />}
         </div>
       </ReactTooltip>
       <div className="relative">
-        {(curGuide.acts && curGuide.acts.find(a => a.act === curAct.actid)) ? <img src={curGuide.acts.find(a => a.act === curAct.actid).treeimage} /> : null}
-
+        {curGuide.acts.find(a => a.act === curAct.actid) && <img src={curGuide.acts.find(a => a.act === curAct.actid).treeimage} />}
         <div className="absolute p-0 top-0 left-0 flex flex-row gap-1">
-          <div className="w-6 cursor-pointer iconInput" >
+          <div className="w-6 cursor-pointer iconInput">
             <Icon path={mdiEye} size={1} title="voir" data-tip data-for="skilltree" />
           </div>
-          {(isClassGuideEditable === false) ? null :
-            <EditSaveImageButton onClick={onClassGuideSkilltreeChange} />}        </div>
+          {ClassGuideIsOnEdit && <EditSaveImageButton onClick={onClassGuideSkilltreeClick} />}
+        </div>
       </div>
     </div>
   )
 }
 
-export function ZoneGem(props: { curGuide: IClassesGuide }): JSX.Element {
+export function GemBuyList(props: { curGuide: IClassesGuide }): JSX.Element {
   const curGuide = props.curGuide
 
   const curPlayer = useContext(PlayerContext) as IAppPlayer
@@ -241,14 +206,11 @@ export function ZoneGem(props: { curGuide: IClassesGuide }): JSX.Element {
 
     if (curGuide && curGuide.acts) {
       curGuide.acts
-        .filter(act => act.act == curAct.actid || showAll)
+        .filter(act => act.act === curAct.actid || showAll)
         .map(act =>
           act.gears.map(gear =>
             gear.gems.map(_gem => {
-              if (
-                !_gems.includes(_gem) &&
-                (Math.abs(_gem.required_lvl - curPlayer.level) < lvlRange || showAll)
-              ) {
+              if (!_gems.includes(_gem) && (Math.abs(_gem.required_lvl - curPlayer.level) < lvlRange || showAll)) {
                 _gems.push(_gem)
               }
             })
@@ -275,22 +237,22 @@ export function ZoneGem(props: { curGuide: IClassesGuide }): JSX.Element {
   if (curGuide && curGuide.acts) {
     return (
       <div className="container relative">
-        <h2>Liste des courses</h2>
+        <h2>Gems buy list</h2>
         <div className="flex flex-row gap-1 absolute top-1 right-1 ">
           <span className="iconInput" onClick={LvlRangePlus}>
-            <Icon path={mdiPlus} size={1} title="Afficher tout / filtré par lvl et act" />
+            <Icon path={mdiPlus} size={1} title="More" />
           </span>
           <span className="iconInput">{lvlRange}</span>
           <span className="iconInput" onClick={LvlRangeMoins}>
-            <Icon path={mdiMinus} size={1} title="Afficher tout / filtré par lvl et act" />
+            <Icon path={mdiMinus} size={1} title="Less" />
           </span>
           <span className="iconInput" onClick={inverseShowAll}>
-            <Icon path={mdiEye} size={1} title="Afficher tout / filtré par lvl et act" />
+            <Icon path={mdiEye} size={1} title="Show all / Filtered" />
           </span>
         </div>
         <div className="overflow-y-auto h-80 max-h-80">
           {gems.map(_gem => {
-            return <LongGem key={_gem.name} gem={_gem} />
+            return <GemBuyItem key={_gem.name} gem={_gem} />
           })}
         </div>
       </div>
@@ -300,7 +262,7 @@ export function ZoneGem(props: { curGuide: IClassesGuide }): JSX.Element {
   return <h2>Liste des courses vide</h2>
 }
 
-export function LongGem(props: { gem: IGemList }): JSX.Element {
+export function GemBuyItem(props: { gem: IGemList }): JSX.Element {
   const curGem = props.gem
 
   const curPlayer = useContext(PlayerContext) as IAppPlayer
@@ -308,7 +270,7 @@ export function LongGem(props: { gem: IGemList }): JSX.Element {
 
   const gemClick = useCallback((e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     e.preventDefault()
-    window.poe_interfaceAPI.openExternal("https://www.poewiki.net/wiki/" + curGem.name)
+    window.poe_interface_API.openExternal("https://www.poewiki.net/wiki/" + curGem.name)
   }, [])
 
   const curBuy = useMemo(() => {
@@ -337,7 +299,7 @@ export function LongGem(props: { gem: IGemList }): JSX.Element {
     return (
       <div className="grid grid-cols-12 gap-1 items-center justify-center flex-grow">
         <span>lvl: {curGem.required_level}&nbsp;</span>
-        <Gem curGem={curGem} onClick={gemClick} />
+        <Gem curGem={curGem} onClick={gemClick} onDoubleClick={gemClick} />
         <span className="col-span-3">{curGem.name}</span>
         <div className="col-span-7 flex flex-col">
           {/* {curBuy.length > 0 ? (
@@ -369,26 +331,28 @@ export function LongGem(props: { gem: IGemList }): JSX.Element {
   return <div>Pas de gemme.</div>
 }
 
-export function Gem(props: { curGem: IGemList, onClick: (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => void}): JSX.Element {
-  const { curGem, onClick } = props
-  const tipText = (!curGem.notes) ? `${curGem.name}` : `${curGem.name} - ${curGem.notes}`
+export function Gem(props: {
+  curGem: IGemList
+  onClick: (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => void
+  onDoubleClick: (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => void
+  selected?: boolean
+}): JSX.Element {
+  const { curGem, onClick, onDoubleClick, selected } = props
 
-  console.log("Gem: %o",curGem)
+  const tipText = useMemo(() => {
+    return !curGem.notes ? `${curGem.name}` : `${curGem.name} - ${curGem.notes}`
+  }, [curGem])
 
   return (
-    <div
-      data-for={`gem` + curGem.key}
-      data-tip={`gem` + curGem.key}
-      data-effect="solid"
-      data-place="left"
-      data-delay-hide="1000"
-    >
+    <div data-for={`gem` + curGem.key} data-tip={`gem` + curGem.key} data-effect="solid" data-place="left" data-delay-hide="1000">
       <ReactTooltip key={curGem.key} />
       <img
         data-tip={tipText}
-        // data-gemindex={index}
         onClick={onClick}
-        className={`w-socket h-socket cursor-pointer ${(curGem.notes) ? 'animate-pulse' : null}`}
+        onDoubleClick={onDoubleClick}
+        className={`w-socket h-socket cursor-pointer ${curGem.notes ? "animate-pulse" : null} ${
+          selected ? "border-2 border-poe-50 " : null
+        }`}
         src={curGem.image}
       />
     </div>
@@ -408,12 +372,11 @@ export function Gem(props: { curGem: IGemList, onClick: (e: React.MouseEvent<HTM
 //   )
 // }
 
-
-
 export function ActGuideIdentity(props: {
-  identity: ActGuideIdentity, onSave: (identity: ActGuideIdentity) => void, children: string,
-  onActsGuideEditChange: (isEditable: boolean) => void,
-
+  identity: ActGuideIdentity
+  onSave: (identity: ActGuideIdentity) => void
+  children: string
+  onActsGuideEditChange: (isEditable: boolean) => void
 }): JSX.Element {
   const { onSave, identity, children, onActsGuideEditChange } = props
 
@@ -443,22 +406,24 @@ export function ActGuideIdentity(props: {
     setisOnEdit(!isOnEdit)
   }, [isOnEdit])
 
-  const onChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    switch (e.target.name) {
-      case "name":
-        if (e.target.value.search(/^[a-z|A-Z|0-9|_]*$/gm) !== -1)
-          setidName(e.target.value)
-        break
-      case "game_version":
-        // eslint-disable-next-line no-case-declarations
-        const ver = Number(e.target.value)
-        if (ver) setidGameVersion(ver)
-        break
-      case "lang":
-        setidlang(e.target.value)
-        break
-    }
-  }, [idGameVersion, idLang, idName])
+  const onChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      switch (e.target.name) {
+        case "name":
+          if (e.target.value.search(/^[a-z|A-Z|0-9|_]*$/gm) !== -1) setidName(e.target.value)
+          break
+        case "game_version":
+          // eslint-disable-next-line no-case-declarations
+          const ver = Number(e.target.value)
+          if (ver) setidGameVersion(ver)
+          break
+        case "lang":
+          setidlang(e.target.value)
+          break
+      }
+    },
+    [idGameVersion, idLang, idName]
+  )
 
   return (
     <div className="flex flex-row gap-1 w-full">
@@ -474,20 +439,21 @@ export function ActGuideIdentity(props: {
       <div className="w-6">
         <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="lang" value={idLang} />
       </div>
-      {(identity.readonly) ? null :
+      {identity.readonly ? null : (
         <div className="w-6">
           <EditSaveNoteButton isOnEdit={isOnEdit} onSave={onSaveIdentity} onEdit={editNote} />
-        </div>}
+        </div>
+      )}
     </div>
   )
 }
 
 export function ClassGuideIdentity(props: {
-  identity: ClassGuideIdentity,
-  children: string,
-  playerClasses: IClassesAscendancies[],
-  onSave: (identity: ClassGuideIdentity) => void,
-  onClassGuideEditChange: (isEditable: boolean) => void,
+  identity: ClassGuideIdentity
+  children: string
+  playerClasses: IClassesAscendancies[]
+  onSave: (identity: ClassGuideIdentity) => void
+  onClassGuideEditChange: (isEditable: boolean) => void
 }): JSX.Element {
   const { onSave, onClassGuideEditChange, identity, children, playerClasses } = props
 
@@ -524,33 +490,35 @@ export function ClassGuideIdentity(props: {
   }, [isOnEdit])
 
   const OpenUrl = useCallback(() => {
-    window.poe_interfaceAPI.openExternal(idUrl)
+    window.poe_interface_API.openExternal(idUrl)
   }, [idUrl])
 
-  const onChange = useCallback((e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    switch (e.target.name) {
-      case "name":
-        if (e.target.value.search(/^[a-z|A-Z|0-9|_|+|'|-|\s]*$/gm) !== -1)
-          setidName(e.target.value)
-        break
-      case "game_version":
-        // eslint-disable-next-line no-case-declarations
-        const ver = Number(e.target.value)
-        if (ver) setidGameVersion(ver)
-        break
-      case "lang":
-        setidlang(e.target.value)
-        break
-      case "class":
-        console.log(e)
-        setidclass(e.target.value)
-        break
-      case "url":
-        console.log(e)
-        setidurl(e.target.value)
-        break
-    }
-  }, [idGameVersion, idLang, idName, idClass, idUrl])
+  const onChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+      switch (e.target.name) {
+        case "name":
+          if (e.target.value.search(/^[a-z|A-Z|0-9|_|+|'|-|\s]*$/gm) !== -1) setidName(e.target.value)
+          break
+        case "game_version":
+          // eslint-disable-next-line no-case-declarations
+          const ver = Number(e.target.value)
+          if (ver) setidGameVersion(ver)
+          break
+        case "lang":
+          setidlang(e.target.value)
+          break
+        case "class":
+          console.log(e)
+          setidclass(e.target.value)
+          break
+        case "url":
+          console.log(e)
+          setidurl(e.target.value)
+          break
+      }
+    },
+    [idGameVersion, idLang, idName, idClass, idUrl]
+  )
 
   return (
     <div className="flex flex-col gap-1 w-full overflow-hidden">
@@ -562,7 +530,9 @@ export function ClassGuideIdentity(props: {
           <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="name" value={idName} />
         </div>
         <div className="flex-auto">
-          <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="class" value={idClass}>{playerClasses}</TextEditable>
+          <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="class" value={idClass}>
+            {playerClasses}
+          </TextEditable>
         </div>
         <div className="w-10">
           <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="game_version" value={idGameVersion.toString()} />
@@ -570,10 +540,11 @@ export function ClassGuideIdentity(props: {
         <div className="w-6">
           <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="lang" value={idLang} />
         </div>
-        {(identity.readonly) ? null :
+        {identity.readonly ? null : (
           <div className="w-6">
             <EditSaveNoteButton isOnEdit={isOnEdit} onSave={onSaveIdentity} onEdit={editNote} />
-          </div>}
+          </div>
+        )}
       </div>
       <div className="flex-auto w-full overflow-hidden flex flex-row">
         <div className="flex-auto">

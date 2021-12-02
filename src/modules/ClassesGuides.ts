@@ -12,7 +12,7 @@ export class ClassesGuides extends Guides<IClassesGuide>{
   protected Gems: Gems
   Icon: NativeImage
 
-  constructor() {
+  constructor () {
     super("classguides")
     this.Icon = nativeImage.createFromPath(path.join(getAbsPackagedPath(), "/images/arrow-right-bold.png"))
     this.Gems = new Gems()
@@ -72,7 +72,6 @@ export class ClassesGuides extends Guides<IClassesGuide>{
   }
 
   AppendMenu(menu: MenuItem, playersClasses: IClassesAscendancies[]): void {
-
     menu.submenu.append(new MenuItem({
       label: `Import From POELevelingGuide`,
       click: () => {
@@ -92,7 +91,7 @@ export class ClassesGuides extends Guides<IClassesGuide>{
     playersClasses.sort((a, b) => {
       if (a.classe < b.classe) { return -1 }
       if (a.classe > b.classe) { return 1 }
-      return 0;
+      return 0
       //pour chaque classe
     }).forEach(c => {
       let selectedGuide = false
@@ -108,7 +107,7 @@ export class ClassesGuides extends Guides<IClassesGuide>{
       c.ascendancy.sort((a, b) => {
         if (a < b) { return -1 }
         if (a > b) { return 1 }
-        return 0;
+        return 0
         //pour chaque ascendance
       }).forEach(a => {
 
@@ -256,10 +255,9 @@ export class ClassesGuides extends Guides<IClassesGuide>{
 
   async addGearSlot(gearName: string, actId: number): Promise<void> {
     const gear = this.CurGuide.acts.find(a => a.act === actId).gears.find(g => g.name === gearName)
-
     const slots = (gear.gem_info ? gear.gem_info.length : 0)
 
-    if (slots < 6) {
+    if (slots <= 6) {
       if (!gear.gem_info) gear.gem_info = []
       gear.gem_info.push({ name: "White Socket" })
       gear.gems.push(this.Gems.getByName("White Socket"))
@@ -280,6 +278,17 @@ export class ClassesGuides extends Guides<IClassesGuide>{
     })
   }
 
+  async delGearGem(curGemEdit: { actId: number, gearName: string, gemIndex: number }): Promise<void> {
+    const { actId, gearName, gemIndex } = curGemEdit
+
+    const curGear = this.CurGuide.acts.find(a => a.act === actId).gears.find(g => g.name === gearName)
+    curGear.gems.splice(gemIndex, 1)
+    curGear.gem_info.splice(gemIndex, 1)
+
+    this.saveCurGuide().then(() => {
+      this.emit("GuideContentChange", this.CurGuide)
+    })
+  }
   async addGear(actId: number): Promise<void> {
 
     let gears = this.CurGuide.acts.find(a => a.act === actId).gears

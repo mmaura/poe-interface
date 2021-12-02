@@ -8,13 +8,13 @@ function App() {
   const [PoeLogPath, setPoeLogPath] = useState(null);
 
   function ShowPoeLogDialog() {
-    window.poe_interfaceAPI.send("configWindow", { func: "showPoeLogPathDialog", var: [PoeLogPath as string] })
+    window.poe_interface_API.send("configWindow", { func: "showPoeLogPathDialog", var: [PoeLogPath as string] })
   }
 
   /**********************************
    * IPC
    */
-   window.poe_interfaceAPI.receive("poeLogPath", (e, arg) => {
+   window.poe_interface_API.receive("poeLogPath", (e, arg) => {
     setPoeLogPath(arg);
     console.log("receive poeLogPath:");
      console.log(arg);

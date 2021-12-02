@@ -1,6 +1,6 @@
 import { ipcRenderer, contextBridge, shell } from "electron"
 
-contextBridge.exposeInMainWorld("poe_interfaceAPI", {
+contextBridge.exposeInMainWorld("poe_interface_API", {
   // getInitData: async () => {
   //   const all = await ipcRenderer.invoke("levelingWindow", "getInitData");
   //   return all;
