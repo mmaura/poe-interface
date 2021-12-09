@@ -41,7 +41,7 @@ export class LevelingWindow {
     this._AppStore = appStore
     this._Icon = AppIcon
 
-    this._MyPlayer = <IAppPlayer>{}
+    this._MyPlayer = <IAppPlayer>{ name: "", characterClass: "", level: 1, characterAscendancy: "", currentZoneAct: 1, currentZoneName: "" }
     this._MyConn = <plm_conn>{}
 
     this.ClassGuides = new ClassesGuides()
@@ -91,7 +91,7 @@ export class LevelingWindow {
             "Init",
             this.ActsGuides.getCurMergedGuide(),
             this.RichTextJson.getObject(),
-            this.ClassGuides.getCurGuide(),
+            this.ClassGuides.getGuide(),
             this._MyPlayer,
             this.ActsGuides.getCurMergedGuide().acts[0].actid,
             this.ActsGuides.getCurMergedGuide().acts[0].zones[0].name,
@@ -110,7 +110,7 @@ export class LevelingWindow {
             break
           case "identity":
             MyLogger.log('info', `saveActGuide: identity`)
-            this.ActsGuides.SaveCurGuideNewIdentity(arg[2])
+            this.ActsGuides.saveNewIdentity(arg[2])
             this.makeMenus()
             break
         }
@@ -125,14 +125,14 @@ export class LevelingWindow {
               this.loadImage(`Choose skilltree for act ${arg[2]}`, this.ClassGuides.getTreeImagePath(arg[2])).then((result) => {
                 if (!result.canceled) {
                   this.ClassGuides.setTreeImagePath(result.filePaths[0], arg[2])
-                  this._Window.webContents.send("levelingRenderer", ["classGuide", this.ClassGuides.getCurGuide()])
+                  this._Window.webContents.send("levelingRenderer", ["classGuide", this.ClassGuides.getGuide()])
                 }
                 MyLogger.log('info', result)
               })
               break
             case "identity":
               MyLogger.log('info', `saveClassGuide: identity(${arg[2]})`)
-              this.ClassGuides.SaveCurGuideNewIdentity(arg[2])
+              this.ClassGuides.saveNewIdentity(arg[2])
               this.makeMenus()
               break
             //group
@@ -194,27 +194,49 @@ export class LevelingWindow {
     })
 
     /************************
-     * Guides Events
+     * Class Guides Events
      */
-    this.ClassGuides.on('GuideContentChange', (guide => {
-      this._Window.webContents.send("levelingRenderer", ["classGuide", guide])
+    this.ClassGuides.on('GuideContentChanged', (guide => {
+      this._Window.webContents.send("levelingRenderer", ["ClassGuide", "GuideContentChanged", guide])
     }))
 
-    this.ClassGuides.on("GuideChange", (guide => {
-      this._Window.webContents.send("levelingRenderer", ["classGuide", guide])
+    this.ClassGuides.on("GuideIdentityChanged", (guide => {
+      this._Window.webContents.send("levelingRenderer", ["ClassGuide", "GuideIdentityChanged", guide])
       this._AppStore.set("curClassGuide", guide.identity.filename)
       this.makeMenus()
     }))
 
-    this.ActsGuides.on("GuideContentChange", (() => {
-      this._Window.webContents.send("levelingRenderer", ["actsGuide", this.ActsGuides.getCurMergedGuide()])
-    }))
-
-    this.ActsGuides.on("GuideMerged", (guide => {
-      this._Window.webContents.send("levelingRenderer", ["actsGuide", this.ActsGuides.getCurMergedGuide()])
-      this._AppStore.set("curActsGuide", guide.identity.filename)
+    this.ClassGuides.on("ChangeSelectedGuided", (guide => {
+      this._Window.webContents.send("levelingRenderer", ["ClassGuide", "ChangeSelectedGuided", guide])
+      this._AppStore.set("curClassGuide", guide.identity.filename)
       this.makeMenus()
     }))
+
+    /************************
+     * Acts Guides Events
+     */
+    this.ActsGuides.on("GuideContentChanged", (() => {
+      this._Window.webContents.send("levelingRenderer", ["ActsGuide", "GuideContentChanged", this.ActsGuides.getCurMergedGuide()])
+    }))
+
+    this.ActsGuides.on("GuideIdentityChanged", (guide => {
+      this._Window.webContents.send("levelingRenderer", ["ActsGuide", "GuideIdentityChanged", guide])
+      this._AppStore.set("curClassGuide", guide.identity.filename)
+      this.makeMenus()
+    }))
+
+    this.ActsGuides.on("ChangeSelectedGuided", (guide => {
+      this._Window.webContents.send("levelingRenderer", ["ActsGuide", "ChangeSelectedGuided", guide])
+      this._AppStore.set("curClassGuide", guide.identity.filename)
+      this.makeMenus()
+    }))
+
+
+    // this.ActsGuides.on("GuideMerged", (guide => {
+    //   this._Window.webContents.send("levelingRenderer", ["ActsGuide", this.ActsGuides.getCurMergedGuide()])
+    //   this._AppStore.set("curActsGuide", guide.identity.filename)
+    //   this.makeMenus()
+    // }))
   }
 
   async loadImage(title: string, defaultPath: string): Promise<OpenDialogReturnValue> {
@@ -314,19 +336,6 @@ export class LevelingWindow {
 
   private async LoadData(): Promise<void> {
 
-    // // const MynewObject = [] as IRichText[]
-
-    // await this.RichTextJson.Init()
-    // this.RichTextJson.getObject().sort((a, b) => a.order - b.order)
-    // for (const item of this.RichTextJson.getObject()) {
-    //   // MynewObject.push({ keywords: [...new Set(item.keywords)], name: item.name, style: item.style, order: item.order })
-    //   item.keywords = [... new Set(item.keywords)]
-    //   item.keywords.sort()
-    // }
-    // // this.RichTextJson.setObject(MynewObject)
-    // await this.RichTextJson.save()
-
-
     await Promise.all([
       this.ClassGuides.Init(this._AppStore.get("curClassGuide", "default") as string).catch((e) => {
         MyLogger.error("Error when loading Classes Guides")
@@ -366,7 +375,7 @@ export class LevelingWindow {
               this.LoadData().then(() => this._Window.webContents.send("levelingRenderer", ["All",
                 this.ActsGuides.getCurMergedGuide(),
                 this.RichTextJson.getObject(),
-                this.ClassGuides.getCurGuide(),
+                this.ClassGuides.getGuide(),
                 this.PlayersClasses.getObject()
               ]))
             },

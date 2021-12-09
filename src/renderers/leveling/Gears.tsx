@@ -1,13 +1,13 @@
-import React, { useContext, useState, useMemo, useCallback, useEffect, useRef } from "react"
-import { mdiBookEdit, mdiBookEditOutline, mdiContentDuplicate, mdiDelete, mdiDeleteSweep, mdiPlus } from "@mdi/js"
+import React, { useContext, useState, useMemo, useCallback, useEffect, useRef, ChangeEventHandler, ChangeEvent } from "react"
+import { mdiAllergy, mdiBookEdit, mdiBookEditOutline, mdiContentDuplicate, mdiDelete, mdiDeleteSweep, mdiPlus } from "@mdi/js"
 import Icon from "@mdi/react"
 
 import { CurActContext } from "./LevelingRenderer"
 
 import { RichTextEditable } from "./RichTextEditable"
 import { TextEditable, TextInput } from "./TextEditable"
-import { EditSaveNoteButton } from "./Buttons"
 import { Gem } from "./Components"
+import { MenuBar, MenuButton, EditSaveNoteButton } from "./MenuBar"
 
 export function ZoneGears(props: { curGuide: IClassesGuide; ClassGuideIsOnEdit: boolean; gemsSkel: IGemList[] }): JSX.Element {
   const curAct = useContext(CurActContext)
@@ -16,14 +16,14 @@ export function ZoneGears(props: { curGuide: IClassesGuide; ClassGuideIsOnEdit: 
   const [actNotes, setactNotes] = useState("")
   const [isOnEdit, setisOnEdit] = useState(false)
   const [selectedGemName, setselectedGemName] = useState("")
-  const [curGemEdit, setcurGemEdit] = useState({ actId: 0, gearName: "", gemIndex: 0 })
+  const [curSocketEdited, setSocketEdited] = useState({ actId: 0, gearName: "", gemIndex: 0 })
 
-  const onGearGemClick = useCallback(
+  const onGearSocketSelected = useCallback(
     (actId: number, gearName: string, gemName: string, index: number, e: React.SyntheticEvent<HTMLImageElement>) => {
       e.preventDefault()
       if (ClassGuideIsOnEdit) {
         setselectedGemName(gemName)
-        setcurGemEdit({ actId: actId, gearName: gearName, gemIndex: index })
+        setSocketEdited({ actId: actId, gearName: gearName, gemIndex: index })
       } else window.poe_interface_API.openExternal("https://www.poewiki.net/wiki/" + gemName)
     },
     [ClassGuideIsOnEdit]
@@ -46,9 +46,9 @@ export function ZoneGears(props: { curGuide: IClassesGuide; ClassGuideIsOnEdit: 
   const selectNewGem = useCallback(
     (e: React.SyntheticEvent<HTMLDivElement>, newGearName: string) => {
       e.preventDefault()
-      window.poe_interface_API.sendSync("levelingRenderer", "saveClassGuide", "setGearGem", curGemEdit, newGearName)
+      window.poe_interface_API.sendSync("levelingRenderer", "saveClassGuide", "setGearGem", curSocketEdited, newGearName)
     },
-    [curGemEdit]
+    [curSocketEdited]
   )
 
   const editNote = useCallback(() => {
@@ -73,26 +73,25 @@ export function ZoneGears(props: { curGuide: IClassesGuide; ClassGuideIsOnEdit: 
   }, [curAct.actid])
 
   return (
-    <div className="container relative flex flex-col mb-2">
-      {!ClassGuideIsOnEdit ? null : (
-        <div className="absolute top-0 left-0 flex flex-row gap-1">
+    <div className="container relative flex flex-row mb-2">
+    <div className="relative flex flex-col mb-2">
+      {ClassGuideIsOnEdit && (
+        <MenuBar pos_x="left" pos_y="top">
           <EditSaveNoteButton isOnEdit={isOnEdit} onSave={editNote} onEdit={editNote} />
-        </div>
+        </MenuBar>
       )}
 
-      {!ClassGuideIsOnEdit ? null : (
-        <div className="absolute top-0 right-0 flex flex-row gap-1">
-          <div className="cursor-pointer iconInput" onClick={addGear}>
-            <Icon path={mdiPlus} size={1} title="Add new group" />
-          </div>
-          <div
-            className="cursor-pointer iconInput"
+      {ClassGuideIsOnEdit && (
+        <MenuBar pos_x="right" pos_y="top">
+          <MenuButton onClick={addGear} tooltip="Add new group" mdiPath={mdiPlus} />
+          <MenuButton
             onClick={() => {
               return
-            }}>
-            <Icon path={mdiContentDuplicate} size={1} title="Duplicate to next Act" />
-          </div>
-        </div>
+            }}
+            tooltip="Add new group"
+            mdiPath={mdiContentDuplicate}
+          />
+        </MenuBar>
       )}
 
       <h2>Gears</h2>
@@ -110,22 +109,23 @@ export function ZoneGears(props: { curGuide: IClassesGuide; ClassGuideIsOnEdit: 
             return (
               <div key={`${gear.name}_${curAct.actid}`} className="max-w-xs">
                 <Gear
-                  isOnEdit={ClassGuideIsOnEdit}
+                  ClassGuideIsOnEdit={ClassGuideIsOnEdit}
                   gear={gear}
                   curActId={curAct.actid}
-                  onGearGemClick={onGearGemClick}
+                  onGearGemClick={onGearSocketSelected}
                   onGearGemDoubleClick={onGearGemDoubleClick}
-                  curGemEdit={curGemEdit}
+                  curGemEdit={curSocketEdited}
                 />
               </div>
             )
           })}
         </div>
       </div>
-      {ClassGuideIsOnEdit && (
+      </div>
+      {ClassGuideIsOnEdit && curSocketEdited && (
         <GemUTility
           selectNewGem={selectNewGem}
-          curGemEdit={curGemEdit}
+          curGemEdit={curSocketEdited}
           gemsSkel={gemsSkel}
           selectedGemName={selectedGemName}
           key={"gem_utility"}
@@ -137,13 +137,13 @@ export function ZoneGears(props: { curGuide: IClassesGuide; ClassGuideIsOnEdit: 
 
 function Gear(props: {
   gear: IClassesGuideGear
-  isOnEdit: boolean
+  ClassGuideIsOnEdit: boolean
   curActId: number
   onGearGemClick: (actId: number, gearName: string, gemName: string, index: number, e: React.SyntheticEvent<HTMLImageElement>) => void
   onGearGemDoubleClick: (actId: number, gearName: string, gemName: string, index: number, e: React.SyntheticEvent<HTMLImageElement>) => void
   curGemEdit: { actId: number; gearName: string; gemIndex: number }
 }): JSX.Element {
-  const { gear, isOnEdit, curActId, onGearGemClick, onGearGemDoubleClick, curGemEdit } = props
+  const { gear, ClassGuideIsOnEdit, curActId, onGearGemClick, onGearGemDoubleClick, curGemEdit } = props
 
   const [groupName, setgroupName] = useState(gear.name)
   const [groupNotes, setgroupNotes] = useState(gear.notes)
@@ -187,25 +187,15 @@ function Gear(props: {
   }, [gear.name])
 
   return (
-    <div className="border-2 border-poe-1 bg-poe-96 rounded-lg p-2 ">
-      {!isOnEdit ? null : (
-        <div className=" top-0 right-0 flex flex-row gap-1 bg-poe-97 p-2 rounded-md w-auto">
-          <div className="cursor-pointer iconInput" onClick={editGroupName}>
-            <Icon path={mdiBookEdit} size={1} title="Edit group name" />
-          </div>
-          <div className="cursor-pointer iconInput" onClick={editGroupNote}>
-            <Icon path={mdiBookEditOutline} size={1} title="Edit group note" />
-          </div>
-          <div className="cursor-pointer iconInput" onClick={addGearSlot}>
-            <Icon path={mdiPlus} size={1} title="Add socket or gem" />
-          </div>
-          <div className="cursor-pointer iconInput" onClick={delGear}>
-            <Icon path={mdiDelete} size={1} title="Delete group" />
-          </div>
-          <div className="cursor-pointer iconInput" onClick={delGearInAllActs}>
-            <Icon path={mdiDeleteSweep} size={1} title="Delete group in all acts" />
-          </div>
-        </div>
+    <div className="border-2 border-poe-1 bg-poe-96 rounded-lg p-2">
+      {ClassGuideIsOnEdit && (
+        <MenuBar pos_x="right" pos_y="top" relative={true}>
+          <MenuButton mdiPath={mdiBookEdit} onClick={editGroupName} tooltip="Edit group name" />
+          <MenuButton mdiPath={mdiBookEditOutline} onClick={editGroupNote} tooltip="Edit group notes" />
+          <MenuButton mdiPath={mdiPlus} onClick={addGearSlot} tooltip="Add a slot" />
+          <MenuButton mdiPath={mdiDelete} onClick={delGear} tooltip="Delete group" />
+          <MenuButton mdiPath={mdiDeleteSweep} onClick={delGearInAllActs} tooltip="Delete group in all acts" />
+        </MenuBar>
       )}
 
       <TextEditable isOnEdit={isGroupNameOnEdit} onChange={onGroupNameChange} name="groupName" value={groupName} />
@@ -214,7 +204,7 @@ function Gear(props: {
           {gear.gems
             ? gear.gems.map((gem, index) => (
                 <Gem
-                  selected={curGemEdit.gemIndex === index && curGemEdit.gearName === gear.name && isOnEdit}
+                  selected={curGemEdit.gemIndex === index && curGemEdit.gearName === gear.name && ClassGuideIsOnEdit}
                   key={gem.key + index}
                   curGem={gem}
                   onClick={e => {
@@ -243,10 +233,19 @@ export function GemUTility(props: {
   curGemEdit: { actId: number; gearName: string; gemIndex: number }
   selectNewGem: (e: React.SyntheticEvent<HTMLDivElement>, gemName: string) => void
 }): JSX.Element {
-  const { gemsSkel, selectedGemName, selectNewGem } = props
+  const { gemsSkel, selectedGemName, curGemEdit, selectNewGem } = props
+
+  const curAct = useContext(CurActContext)
+
   const [gemFilterText, setgemFilterText] = useState("")
   const [pageNum, setPageNum] = useState(1)
-  const { gems, hasMore, hasLess, gemCount } = useSearchGem(gemFilterText, pageNum, gemsSkel)
+  const [showOnlyCurAct, setshowOnlyCurAct] = useState(true)
+  const [showAdvancedGems, setshowAdvancedGems] = useState(true)
+  const [showSupportGems, setshowSupportGems] = useState(false)
+  
+  const [actFilter, setactFilter] = useState(0)
+
+  const { gems, hasMore, hasLess, gemCount } = useSearchGem(gemsSkel, pageNum, gemFilterText, showOnlyCurAct && actFilter, showSupportGems, showAdvancedGems)
   const observer = useRef({} as IntersectionObserver)
 
   const prevIntersect = useCallback(
@@ -269,6 +268,10 @@ export function GemUTility(props: {
     [hasMore]
   )
 
+  useEffect(() => {
+    setactFilter(curAct.actid)
+  }, [showOnlyCurAct, curAct])
+
   // Never be recompiled
   useEffect(() => {
     observer.current = new IntersectionObserver(entries => {
@@ -287,35 +290,120 @@ export function GemUTility(props: {
     setPageNum(1)
   }, [])
 
+  const onCheckboxChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      switch (e.target.name) {
+        case "showOnlyCurAct":
+          setshowOnlyCurAct(!showOnlyCurAct)
+          break
+        case "showAdvancedGems":
+          setshowAdvancedGems(!showAdvancedGems)
+          break
+          case "showSupportGems":
+            setshowSupportGems(!showSupportGems)
+            break
+  
+          
+      }
+
+    },
+    [showOnlyCurAct, showAdvancedGems]
+  )
+
   return (
-    <div className="container relative">
+    // <div className={`container relative ${curGemEdit ? "cursor-not-allowed disabled" : ""} `}>
+    <div className={`container relative `}>
       <h2>Gem Utility ({gemCount})</h2>
-      <div className="p-2 flex flex-row gap-2 h-11 w-2/3">
-        <span>Filter:</span>
+      <MenuBar pos_x="right" pos_y="top">
+        <label>Filter</label>
         <TextInput key="GemFilter" name="gemsearch" value={gemFilterText} onChange={handleGemsFilterChange} />
-      </div>
+        <label>Only available at current act ({curAct.actid})</label>
+        <input name="showOnlyCurAct" type="checkbox" checked={showOnlyCurAct} onChange={onCheckboxChange} />
+        <label>show advanced gems</label>
+        <input name="showAdvancedGems" type="checkbox" checked={showAdvancedGems} onChange={onCheckboxChange} />
+        <label>show support gems</label>
+        <input name="showSupportGems" type="checkbox" checked={showSupportGems} onChange={onCheckboxChange} />
+      </MenuBar>
+      {/* <div className="p-2 flex flex-row gap-2 h-11 w-2/3">
+      </div> */}
       <div className="flex flex-wrap gap-2 h-72 overflow-y-scroll">
         {gems.map((gem, i) => {
           if (i === 4)
             return (
               <>
                 <div className="border-0" ref={prevIntersect} id="prev" key={`prev_${gem.key}`} />
-                <GemListElement selectGem={selectNewGem} key={`gem_${gem.key}`} gem={gem} selected={gem.name === selectedGemName} />
+                <GemListElement selectGem={selectNewGem} key={`gem_${gem.key}`} gem={gem} selected={gem.label === selectedGemName} />
               </>
             )
           else if (i === gems.length - 3)
             return (
               <>
-                <GemListElement selectGem={selectNewGem} key={`gem_${gem.key}`} gem={gem} selected={gem.name === selectedGemName} />
+                <GemListElement selectGem={selectNewGem} key={`gem_${gem.key}`} gem={gem} selected={gem.label === selectedGemName} />
                 <div className="border-0" ref={nextIntersect} id="next" key={`next_${gem.key}`} />
               </>
             )
-          else return <GemListElement selectGem={selectNewGem} key={`gem_${gem.key}`} gem={gem} selected={gem.name === selectedGemName} />
+          else return <GemListElement selectGem={selectNewGem} key={`gem_${gem.key}`} gem={gem} selected={gem.label === selectedGemName} />
         })}
       </div>
     </div>
   )
 }
+
+// export function LazyScrollingList(props: { items: any[], hasMore: boolean, hasLess: boolean }): JSX.Element {
+//   const { items, hasMore, hasLess } = props
+
+//   const observer = useRef({} as IntersectionObserver)
+
+//   const prevIntersect = useCallback(
+//     node => {
+//       if (observer && observer.current && node) {
+//         if (hasLess) observer.current.observe(node)
+//         else observer.current.unobserve(node)
+//       }
+//     },
+//     [hasLess]
+//   )
+
+//   const nextIntersect = useCallback(
+//     node => {
+//       if (observer && observer.current && node) {
+//         if (hasMore) observer.current.observe(node)
+//         else observer.current.unobserve(node)
+//       }
+//     },
+//     [hasMore]
+//   )
+
+//   // Never be recompiled
+//   useEffect(() => {
+//     observer.current = new IntersectionObserver(entries => {
+//       for (const entry of entries) {
+//         if (entry.target.id === "next" && entry.isIntersecting) setPageNum(prev => prev + 1)
+//         if (entry.target.id === "prev" && entry.isIntersecting) setPageNum(prev => prev - 1)
+//       }
+//     })
+//     return () => {
+//       if (observer.current && observer.current.disconnect) observer.current.disconnect()
+//     }
+//   }, [])
+//   items.map((gem, i) => {
+//     if (i === 4)
+//       return (
+//         <>
+//           <div className="border-0" ref={prevIntersect} id="prev" key={`prev_${gem.key}`} />
+//           <GemListElement selectGem={selectNewGem} key={`gem_${gem.key}`} gem={gem} selected={gem.name === selectedGemName} />
+//         </>
+//       )
+//     else if (i === items.length - 3)
+//       return (
+//         <>
+//           <GemListElement selectGem={selectNewGem} key={`gem_${gem.key}`} gem={gem} selected={gem.name === selectedGemName} />
+//           <div className="border-0" ref={nextIntersect} id="next" key={`next_${gem.key}`} />
+//         </>
+//       )
+//     else return <GemListElement selectGem={selectNewGem} key={`gem_${gem.key}`} gem={gem} selected={gem.name === selectedGemName} />
+//   })
+// }
 
 export function GemListElement(props: {
   gem: IGemList
@@ -333,7 +421,7 @@ export function GemListElement(props: {
         selected ? "border-2 border-poe-50 rounded-md" : ""
       }`}>
       <div className="flex-grow-0 flex-shrink-0 w-16 h-16">
-        <img className={` ${gem.isAlternateQuality === true ? "filter sepia" : ""}`} src={gem.image} />
+        <img className={` ${gem.is_alternateQuality === true ? "filter sepia" : ""}`} src={gem.image} />
       </div>
       <div className="flex-grow flex flex-col items-end">
         <div className="text-poe-4 text-right font-semibold">{gem.label}</div>
@@ -363,7 +451,50 @@ export function GemListElement(props: {
   )
 }
 
-function useSearchGem(filter: string, pageNum: number, gemsSkel: IGemList[]) {
+// export function GemListElement2(props: {
+//   children?: Element[]
+//   gem: IGemList
+//   selected: boolean
+//   selectGem: (e: React.SyntheticEvent<HTMLDivElement>, gemName: string) => void
+// }): JSX.Element {
+//   const { children, gem, selected, selectGem } = props
+
+//   return (
+//     <div
+//       onClick={e => {
+//         selectGem(e, gem.name)
+//       }}
+//       className={`h-20 p-1 w-5/12 flex-grow-0 flex-shrink-0 flex flex-row bg-poe-96 border-poe-1 border-2 hover:border-poe-60 hover:border-2 rounded-md${
+//         selected ? "border-2 border-poe-50 rounded-md" : ""
+//       }`}>
+//       <div className="flex-grow-0 flex-shrink-0 w-16 h-16">
+//         <img className={` ${gem.isAlternateQuality === true ? "filter sepia" : ""}`} src={gem.image} />
+//       </div>
+//       <div className="flex-grow flex flex-col items-end">
+//         <div className="text-poe-4 text-right font-semibold">{gem.label}</div>
+//         <div className="flex-row flex h-full w-full items-end">
+//           {!gem.is_socket && (
+//             <div className="w-1/3 flex-grow-0">
+//               Lvl: <span className="text-poe-4">{gem.required_level}</span>
+//             </div>
+//           )}
+//           {children}
+//         </div>
+//       </div>
+//     </div>
+//   )
+// }
+
+/**
+ *
+ * @param gemsSkel
+ * @param pageNum
+ * @param filter
+ * @param showOnlyAct 0 to disable act filter
+ * @param showAdvancedGems
+ * @returns
+ */
+function useSearchGem(gemsSkel: IGemList[], pageNum: number, filter: string, showOnlyAct: number, showSupportGems: boolean, showAdvancedGems: boolean) {
   const [hasLess, setHasLess] = useState(false)
   const [hasMore, setHasMore] = useState(false)
   const [gems, setGems] = useState([] as IGemList[])
@@ -373,16 +504,26 @@ function useSearchGem(filter: string, pageNum: number, gemsSkel: IGemList[]) {
   const delta = 6
   const regex = new RegExp(`.*${filter}.*`, "i")
 
+  console.log("useSearchGem")
+  console.log(filter, showOnlyAct, showAdvancedGems, showSupportGems)
+
   const filteredGems = useMemo(() => {
-    if (filter === "") {
-      setgemCount(gemsSkel.length)
-      return gemsSkel
-    } else {
-      const gem = gemsSkel.filter(g => regex.test(g.name))
-      setgemCount(gem.length)
-      return gem
-    }
-  }, [filter, gemsSkel])
+    let gem = gemsSkel
+
+    if (!showAdvancedGems) gem = gem.filter(g => !(g.is_alternateQuality || g.is_advanced))
+    if (!showSupportGems) gem = gem.filter(g => !(g.is_support || g.is_advanced))
+
+    
+    if (showOnlyAct)
+      gem = gem.filter(g => {
+        for (const r of g.quest_rewards) if (r.act <= showOnlyAct) return true
+        for (const r of g.vendor_rewards) if (r.act <= showOnlyAct) return true
+      })
+    if (filter) gem = gem.filter(g => regex.test(g.name))
+
+    setgemCount(gem.length)
+    return gem
+  }, [filter, gemsSkel, showOnlyAct, showAdvancedGems])
 
   useEffect(() => {
     let indexFin = (pageNum - 1) * delta + pageLen

@@ -101,6 +101,7 @@ declare global {
   }
 
   /***************************/
+  // used for load from file
   export interface IGem {
     name: string
     alternative_quality: AlternativeQuality[]
@@ -127,7 +128,7 @@ declare global {
     classes: string[]
     npc?: string
   }
-
+  //for use in app
   export interface IGemList {
     name: string
     label: string
@@ -135,10 +136,14 @@ declare global {
     currency_amount: number
     currency: string
     image: string
-    isAlternateQuality: boolean
-    key: string
-    is_socket: boolean
+    key?: string
+    is_alternateQuality: boolean
+    is_advanced: boolean
+    is_socket?: boolean
+    is_support?: boolean
     notes?: string
+    vendor_rewards?: Reward[]
+    quest_rewards?: Reward[]
   }
 
   /***************************/

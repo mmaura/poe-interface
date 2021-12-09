@@ -16,8 +16,8 @@ export class ActsGuides extends Guides<IActsGuide> {
     this.Icon = nativeImage.createFromPath(path.join(getAbsPackagedPath(), "/images/arrow-right-bold.png"))
   }
 
-  async setCurGuide(defaultGuideFilename?: string): Promise<void> {
-    super.setCurGuide(defaultGuideFilename).then(() => this.MergeGuide())
+  async selectGuide(defaultGuideFilename?: string): Promise<void> {
+    super.selectGuide(defaultGuideFilename).then(() => this.MergeGuide())
   }
 
   getCurMergedGuide(): IActsGuide {
@@ -75,41 +75,13 @@ export class ActsGuides extends Guides<IActsGuide> {
       }
     }
     else MyLogger.log('error', 'No default zone loader')
-
-    this.emit("GuideMerged", this.CurGuide)
-
+    // this.emit("GuideMerged", this.CurGuide)
   }
 
   AppendMenu(menu: MenuItem): void {
     let mustAppendSeparator = true
+    super._AppendMenu(menu)
 
-    menu.submenu.append(new MenuItem({
-      label: "Duplicate current guide",
-      click: () => {
-        this.DuplicateGuide().then(guide => {
-          this.Init(guide)
-        })
-      }
-    }))
-
-
-    menu.submenu.append(new MenuItem({
-      label: `Import From POELevelingGuide`,
-      click: () => {
-        dialog.showOpenDialog(null, {
-          title: "Choose directory of the POELevelingGuide to Import",
-          properties: ['openDirectory']
-
-        }).then(value => {
-          if (!value.canceled) {
-            this.ImportPOELevelingGuide(value.filePaths[0])
-
-          }
-        })
-      }
-    }))
-
-    menu.submenu.append(new MenuItem({ type: "separator" }))
     const Identities = this.getIdentities().sort(t => (t.readonly === true) ? -1 : 1)
     if (Identities) Identities.forEach((_identity: ActGuideIdentity) => {
       if (mustAppendSeparator && !(_identity.readonly === true)) {
@@ -121,10 +93,10 @@ export class ActsGuides extends Guides<IActsGuide> {
       MyLogger.info(`Add menu ${_identity.filename}`)
       const _menu = new MenuItem({
         label: this.getGuideLabel(_identity.filename),
-        icon: _identity.filename === this.getCurGuideID() ? this.Icon : undefined,
+        icon: _identity.filename === this.getGuideId() ? this.Icon : undefined,
         id: `${_identity.filename}`,
         click: () => {
-          this.setCurGuide(_identity.filename)
+          this.selectGuide(_identity.filename)
         },
       })
       menu.submenu.append(_menu)
@@ -140,7 +112,7 @@ export class ActsGuides extends Guides<IActsGuide> {
 
     this.saveCurGuide().then(() => {
       this.MergeGuide().then(() => {
-        this.emit("GuideContentChange", this.CurGuide)
+        this.emit("GuideContentChanged", this.CurGuide)
       })
     })
   }
@@ -149,7 +121,7 @@ export class ActsGuides extends Guides<IActsGuide> {
     this.getZoneByActAndZonename(this.getActByID(actid), zonename).altimage = altimage
     this.saveCurGuide().then(() => {
       this.MergeGuide().then(() => {
-        this.emit("GuideContentChange", this.CurGuide)
+        this.emit("GuideContentChanged", this.CurGuide)
       })
     })
   }

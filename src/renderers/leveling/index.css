@@ -32,6 +32,15 @@
     @apply text-opacity-50 text-poe-60 hover:text-poe-50 cursor-pointer;
   }
 
+  .iconInput_checked {
+    @apply text-opacity-50 text-poe-50 cursor-pointer;
+  }
+
+  .iconInput_disabled {
+    @apply text-opacity-50 text-poe-60 hover:text-poe-50 cursor-not-allowed disabled;
+  }
+
+
   .poe-item-3slots {
     @apply flex flex-col border-poe-97 border-2 rounded-xl;
   }

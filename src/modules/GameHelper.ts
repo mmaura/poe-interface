@@ -31,9 +31,9 @@ export class GameHelpers extends DataLoader {
   }
 
   async Populate(dirPath: string, webPath: string): Promise<void> {
-    const Files = this.FilesFromPath(dirPath, [".png", ".jpg", ".txt"])
+    const Files = this.FilesExtsFromPath(dirPath, [".png", ".jpg", ".txt"])
     if (Files) Files.forEach(f =>
-      this.Files.push({ filename: f, webpath: this.getWebPath(webPath, f), name: path.basename(f, path.extname(f)) }))
+      this.Files.push({ filename: f, webpath: this.extractWebPath(webPath, f), name: path.basename(f, path.extname(f)) }))
     else
       MyLogger.log('info', `No Helper file found in ${dirPath}`)
   }

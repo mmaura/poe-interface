@@ -43,16 +43,21 @@ export class DataLoader extends EventEmitter {
         return [getCustomWebBaseName(), this.subDirectory].join('/')
     }
 
+    protected creatEmptyGuide(): void {
+      const guideFile = path.join(this.getAbsCustomPath(), "guide.json")
+    
+    }
+
     /**
      * 
      * @param dir the directory to parse to find Guides
      * @returns array of json guide filename (string)
      */
-    protected GuideFromSubPath(dir: string): string[] {
+    protected FilesFromSubPath(dir: string): string[] {
         const guideFile = [] as string[]
         for (const sdir of fs.readdirSync(dir, { withFileTypes: true })) {
             if (sdir.isDirectory()) {
-                const ret = this.GuideFromPath(path.join(dir, sdir.name))
+                const ret = this.FilesFromPath(path.join(dir, sdir.name))
                 if (guideFile !== undefined) guideFile.push(...ret)
             }
         }
@@ -64,15 +69,14 @@ export class DataLoader extends EventEmitter {
      * @param dir path where to search
      * @returns absolute guide path with filename
      */
-    protected GuideFromPath(dir: string): string[] {
-        const guideFiles = [] as string[]
+    protected FilesFromPath(dir: string): string[] {
+        const Files = [] as string[]
         for (const f of fs.readdirSync(dir, { withFileTypes: true })) {
-            // if ((f.isFile()) && (f.name === "guide.json")) {
             if (f.isFile()) {
-                guideFiles.push(path.join(dir, f.name))
+                Files.push(path.join(dir, f.name))
             }
         }
-        return guideFiles
+        return Files
     }
 
     /**
@@ -81,7 +85,7 @@ export class DataLoader extends EventEmitter {
      * @param exts extension files to match
      * @returns array of files path with filename
      */
-    protected FilesFromPath(dir: string, exts: string[]): string[] {
+    protected FilesExtsFromPath(dir: string, exts: string[]): string[] {
         const _files = [] as string[]
 
         fs.readdirSync(dir, { withFileTypes: true }).forEach(f => {
@@ -93,12 +97,12 @@ export class DataLoader extends EventEmitter {
     }
 
     /**
-     * Append relative path to webpath
+     * Extract webpath from complete URL
      * @param webPath 
      * @param filename 
      * @returns complete url to file
      */
-    getWebPath(webPath: string, filename: string): string {
+    extractWebPath(webPath: string, filename: string): string {
         return `${webPath}/${filename.split(path.sep)[filename.split(path.sep).length - 2]}`
     }
 }

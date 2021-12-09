@@ -1,5 +1,5 @@
-import React, { ChangeEvent, ChangeEventHandler, useContext, useState, useMemo, useCallback, useEffect } from "react"
-import { mdiEye, mdiLinkVariant, mdiMinus, mdiPlus } from "@mdi/js"
+import React, { ChangeEvent, ChangeEventHandler, useContext, useState, useMemo, useCallback, useEffect, useRef } from "react"
+import { mdiEye, mdiImageSearch, mdiLinkVariant, mdiMinus, mdiPlus } from "@mdi/js"
 import Icon from "@mdi/react"
 
 import { CurActContext, PlayerContext } from "./LevelingRenderer"
@@ -7,7 +7,8 @@ import { CurActContext, PlayerContext } from "./LevelingRenderer"
 import ReactTooltip from "react-tooltip"
 import { RichTextEditable } from "./RichTextEditable"
 import { TextEditable } from "./TextEditable"
-import { EditSaveImageButton, EditSaveNoteButton } from "./Buttons"
+import { EditSaveNoteButton, MenuButton, MenuBar } from "./MenuBar"
+import { GemListElement } from "./Gears"
 
 export function PlayerInfo(): JSX.Element {
   const curPlayer = useContext(PlayerContext)
@@ -96,9 +97,9 @@ export function ZoneNotes(props: { curZone: IActsGuideZone; onSave: (text: strin
   return (
     <div className="container flex flex-col min-h-note-container relative">
       {ActsGuideIsOnEdit && (
-        <div className="absolute top-0 left-0 flex flex-row gap-1">
+        <MenuBar pos_x="left" pos_y="top">
           <EditSaveNoteButton isOnEdit={isOnEdit} onSave={onSaveText} onEdit={editNote} />
-        </div>
+        </MenuBar>
       )}
       <h2>Notes</h2>
       <div className="absolute top-0 right-0 flex flex-row gap-1">
@@ -172,21 +173,32 @@ export function SkillTree(props: {
   const { curGuide, onClassGuideSkilltreeChange: onClassGuideSkilltreeClick, ClassGuideIsOnEdit } = props
   const curAct = useContext(CurActContext)
 
+  const TreeImgTooltip = useRef()
+
   return (
     <div>
-      <ReactTooltip id="skilltree" effect="solid" delayHide={1000} key="skilltree" className="bg-poe-98 bg-opacity-75 opacity-100 ">
+      <ReactTooltip
+        ref={TreeImgTooltip}
+        id="skilltree"
+        effect="solid"
+        delayHide={1000}
+        key="skilltree"
+        className="bg-poe-98 bg-opacity-75 opacity-100 ">
         <div data-tip="skilltree">
           {curGuide.acts.find(a => a.act === curAct.actid) && <img src={curGuide.acts.find(a => a.act === curAct.actid).treeimage} />}
         </div>
       </ReactTooltip>
       <div className="relative">
         {curGuide.acts.find(a => a.act === curAct.actid) && <img src={curGuide.acts.find(a => a.act === curAct.actid).treeimage} />}
-        <div className="absolute p-0 top-0 left-0 flex flex-row gap-1">
-          <div className="w-6 cursor-pointer iconInput">
-            <Icon path={mdiEye} size={1} title="voir" data-tip data-for="skilltree" />
-          </div>
-          {ClassGuideIsOnEdit && <EditSaveImageButton onClick={onClassGuideSkilltreeClick} />}
-        </div>
+        <MenuBar pos_x="left" pos_y="top">
+          <MenuButton
+            mdiPath={mdiEye}
+            onMouseOver={() => {
+              ReactTooltip.show(TreeImgTooltip.current)
+            }}
+          />
+          {ClassGuideIsOnEdit && <MenuButton mdiPath={mdiImageSearch} onClick={onClassGuideSkilltreeClick} tooltip="Choose Image" />}
+        </MenuBar>
       </div>
     </div>
   )
@@ -201,7 +213,7 @@ export function GemBuyList(props: { curGuide: IClassesGuide }): JSX.Element {
   const [lvlRange, setlvlRange] = useState(6)
   const [showAll, setshowAll] = useState(false)
 
-  const gems = useMemo(() => {
+  const gemsListToShow = useMemo(() => {
     const _gems = [] as IGemList[]
 
     if (curGuide && curGuide.acts) {
@@ -218,7 +230,6 @@ export function GemBuyList(props: { curGuide: IClassesGuide }): JSX.Element {
         )
       _gems.sort((a, b) => a.required_level - b.required_level)
     }
-
     return _gems
   }, [curAct, curGuide, showAll, curPlayer, lvlRange])
 
@@ -238,21 +249,26 @@ export function GemBuyList(props: { curGuide: IClassesGuide }): JSX.Element {
     return (
       <div className="container relative">
         <h2>Gems buy list</h2>
-        <div className="flex flex-row gap-1 absolute top-1 right-1 ">
-          <span className="iconInput" onClick={LvlRangePlus}>
-            <Icon path={mdiPlus} size={1} title="More" />
-          </span>
+        <MenuBar pos_x="right" pos_y="top">
+          <MenuButton mdiPath={mdiPlus} onClick={LvlRangePlus} tooltip="More" />
           <span className="iconInput">{lvlRange}</span>
-          <span className="iconInput" onClick={LvlRangeMoins}>
-            <Icon path={mdiMinus} size={1} title="Less" />
-          </span>
-          <span className="iconInput" onClick={inverseShowAll}>
-            <Icon path={mdiEye} size={1} title="Show all / Filtered" />
-          </span>
-        </div>
+          <MenuButton mdiPath={mdiMinus} onClick={LvlRangeMoins} tooltip="Less" />
+          <MenuButton mdiPath={mdiEye} onClick={inverseShowAll} tooltip="Show All" />
+        </MenuBar>
         <div className="overflow-y-auto h-80 max-h-80">
-          {gems.map(_gem => {
-            return <GemBuyItem key={_gem.name} gem={_gem} />
+          {gemsListToShow.map(_gem => {
+            console.log(_gem)
+            // return <GemBuyItem key={_gem.name} gem={_gem} />
+            return (
+              <GemListElement
+                key={_gem.name}
+                selected={false}
+                gem={_gem}
+                selectGem={() => {
+                  return
+                }}
+              />
+            )
           })}
         </div>
       </div>
@@ -410,7 +426,7 @@ export function ActGuideIdentity(props: {
     (e: ChangeEvent<HTMLInputElement>) => {
       switch (e.target.name) {
         case "name":
-          if (e.target.value.search(/^[a-z|A-Z|0-9|_]*$/gm) !== -1) setidName(e.target.value)
+          if (e.target.value.search(/^[a-zA-Z0-9\s\-–'+]*$/gm) !== -1) setidName(e.target.value)
           break
         case "game_version":
           // eslint-disable-next-line no-case-declarations
@@ -497,7 +513,7 @@ export function ClassGuideIdentity(props: {
     (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
       switch (e.target.name) {
         case "name":
-          if (e.target.value.search(/^[a-z|A-Z|0-9|_|+|'|-|\s]*$/gm) !== -1) setidName(e.target.value)
+          if (e.target.value.search(/^[a-zA-Z0-9\s\-–'+]*$/gm) !== -1) setidName(e.target.value)
           break
         case "game_version":
           // eslint-disable-next-line no-case-declarations

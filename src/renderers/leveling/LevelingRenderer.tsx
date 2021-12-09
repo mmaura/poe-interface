@@ -3,8 +3,17 @@ import * as ReactDOM from "react-dom"
 
 import "../index.css"
 import "./index.css"
-import { PlayerInfo, ZoneSelector, ZoneNotes, NavigationMap, SkillTree, GemBuyList, ActGuideIdentity, ClassGuideIdentity } from "./Components"
-import { ZoneGears } from "./Gears"
+import {
+  PlayerInfo,
+  ZoneSelector,
+  ZoneNotes,
+  NavigationMap,
+  SkillTree,
+  GemBuyList,
+  ActGuideIdentity,
+  ClassGuideIdentity,
+} from "./Components"
+import { GemUTility, ZoneGears } from "./Gears"
 
 export const PlayerContext = React.createContext({} as IAppPlayer)
 export const CurActContext = React.createContext({} as IActsGuideAct)
@@ -18,7 +27,7 @@ function App(props: { Init: any }) {
   const [curActID, setcurActID] = useState(props.Init[5] as number)
   const [curZoneName, setcurZoneName] = useState(props.Init[6] as string)
   const [playerClasses, setplayerClasses] = useState(props.Init[7] as IClassesAscendancies[])
-  const  GemsSkel = props.Init[8] as IGemList[]
+  const GemsSkel = props.Init[8] as IGemList[]
 
   const [ClassGuideIsOnEdit, setClassGuideIsOnEdit] = useState(false)
   const [ActGuideIsOnEdit, setActGuideIsOnEdit] = useState(false)
@@ -101,6 +110,59 @@ function App(props: { Init: any }) {
   }, [])
 
   /**********************************
+   * IPC Receiver
+   */
+  useLayoutEffect(() => {
+    window.poe_interface_API.receive("levelingRenderer", (e, arg) => {
+      console.log("=> Receive levelingRenderer :", arg)
+      switch (arg[0]) {
+        case "player":
+          setcurPlayer(arg[1])
+          break
+        case "playerArea":
+          setcurPlayer(arg[1])
+          break
+        case "ClassGuide":
+          switch (arg[1]) {
+            case "GuideContentChanged":
+              setclassGuide(arg[2])
+              break
+            case "GuideIdentityChanged":
+              setclassGuide(arg[2])
+              break
+            case "ChangeSelectedGuided":
+              setclassGuide(arg[2])
+              setcurActID(1)
+              break
+          }
+          break
+        case "actsGuide":
+          switch (arg[1]) {
+            case "GuideContentChanged":
+              setactsGuide(arg[2])
+              break
+            case "GuideIdentityChanged":
+              setactsGuide(arg[2])
+              break
+            case "ChangeSelectedGuided":
+              setactsGuide(arg[2])
+              setcurActID(1)
+              break
+          }
+          break
+        case "All":
+          setactsGuide(arg[1])
+          setcurRichText(arg[2])
+          setclassGuide(arg[3])
+          setplayerClasses(arg[4])
+          break
+      }
+    })
+    return () => {
+      window.poe_interface_API.cleanup("levelingRenderer")
+    }
+  }, [])
+  /**********************************
    * Effects
    */
   useEffect(() => {
@@ -129,88 +191,69 @@ function App(props: { Init: any }) {
     }
   }, [curPlayer])
 
-  /**********************************
-   * IPC Receiver
-   */
-  useLayoutEffect(() => {
-    window.poe_interface_API.receive("levelingRenderer", (e, arg) => {
-      console.log("=> Receive levelingRenderer :", arg)
-      switch (arg[0]) {
-        case "player":
-          setcurPlayer(arg[1])
-          break
-        case "playerArea":
-          setcurPlayer(arg[1])
-          break
-        case "classGuide":
-          console.log("IPC: setclassGuide :", arg[1])
-          setclassGuide(arg[1])
-          break
-        case "actsGuide":
-          console.log("IPC: setactsGuide :", arg[1])
-          setactsGuide(arg[1])
-          break
-        case "All":
-          setactsGuide(arg[1])
-          setcurRichText(arg[2])
-          setclassGuide(arg[3])
-          setplayerClasses(arg[4])
-          break
-      }
-    })
-    return () => {
-      window.poe_interface_API.cleanup("levelingRenderer")
-    }
-  }, [])
-
   return (
     <CurActContext.Provider value={curAct}>
       <PlayerContext.Provider value={curPlayer}>
         <RichTextContext.Provider value={curRichText}>
-          <div className="p-2 h-full">
-            <div className="flex flex-row flex-nowrap pb-2 items-center h-full">
+          <div className="p-2 h-full w-full">
+            <div className="flex flex-row flex-nowrap pb-2 items-center h-full ">
               <div className="flex-grow-0">
                 <PlayerInfo />
-                <h1>{curAct && curZone ? `${curAct.act} : ${curZone.name}` : null}</h1>
+                <h1>{`${curAct.act} : ${curZone.name}`}</h1>
               </div>
               <div className="flex-grow h-full">
                 <NavigationMap curZone={curZone} onSave={onNavigationNoteSave} ActsGuideIsOnEdit={ActGuideIsOnEdit} />
               </div>
               <div className="flex-grow-0 h-full guide-container px-1">
-                <ActGuideIdentity
-                  identity={actsGuide.identity}
-                  onSave={onActGuideIdentitySave}
-                  onActsGuideEditChange={onActsGuideEditChange}>
-                  Acts
-                </ActGuideIdentity>
-                <ClassGuideIdentity
-                  identity={classGuide.identity}
-                  onSave={onClassGuideIdentitySave}
-                  onClassGuideEditChange={onClassGuideEditChange}
-                  playerClasses={playerClasses}>
-                  Ascendancy
-                </ClassGuideIdentity>
+                {!ClassGuideIsOnEdit && (
+                  <ActGuideIdentity
+                    identity={actsGuide.identity}
+                    onSave={onActGuideIdentitySave}
+                    onActsGuideEditChange={onActsGuideEditChange}>
+                    Acts
+                  </ActGuideIdentity>
+                )}
+                {!ActGuideIsOnEdit && (
+                  <ClassGuideIdentity
+                    identity={classGuide.identity}
+                    onSave={onClassGuideIdentitySave}
+                    onClassGuideEditChange={onClassGuideEditChange}
+                    playerClasses={playerClasses}>
+                    Ascendancy
+                  </ClassGuideIdentity>
+                )}
                 <ZoneSelector onActChange={onActChange} onZoneChange={onZoneChange} Acts={actsGuide} curZone={curZone} />
               </div>
             </div>
-            <div className="flex flex-row gap-2">
-              <div className="flex flex-grow flex-shrink flex-col gap-2 w-notes-container">
-                <div className="flex-grow-0 flex-shrink-0 ">
-                  <ZoneNotes curZone={curZone} onSave={onZoneNoteSave} ActsGuideIsOnEdit={ActGuideIsOnEdit} />
+
+            {!ClassGuideIsOnEdit && (
+              <div className="flex flex-row gap-2 ici">
+                <div className="flex flex-grow flex-shrink flex-col gap-2 w-notes-container">
+                  <div className="flex-grow-0 flex-shrink-0 ">
+                    <ZoneNotes curZone={curZone} onSave={onZoneNoteSave} ActsGuideIsOnEdit={ActGuideIsOnEdit} />
+                  </div>
+                  <div className="flex-grow flex-shrink items-end">
+                    <SkillTree
+                      curGuide={classGuide}
+                      onClassGuideSkilltreeChange={onClassGuideSkilltreeChange}
+                      ClassGuideIsOnEdit={ClassGuideIsOnEdit}
+                    />
+                  </div>
                 </div>
-                <div className="flex-grow flex-shrink items-end">
-                  <SkillTree
-                    curGuide={classGuide}
-                    onClassGuideSkilltreeChange={onClassGuideSkilltreeChange}
-                    ClassGuideIsOnEdit={ClassGuideIsOnEdit}
-                  />
+                <div className="p-0 m-0 flex-shrink-0 flex-grow-0 w-gear-container">
+                  <ZoneGears curGuide={classGuide} ClassGuideIsOnEdit={ClassGuideIsOnEdit} gemsSkel={GemsSkel} />
+                  <GemBuyList curGuide={classGuide} />
                 </div>
               </div>
-              <div className="p-0 m-0 flex-shrink-0 flex-grow-0 w-gear-container">
-                <ZoneGears curGuide={classGuide} ClassGuideIsOnEdit={ClassGuideIsOnEdit} gemsSkel={GemsSkel} />
-                {!ClassGuideIsOnEdit && <GemBuyList curGuide={classGuide} />}
+            )}
+
+            {ClassGuideIsOnEdit && (
+              <div className="flex flex-row flex-grow gap-2">
+                <div className="p-0 m-0 flex-shrink-0 flex-grow w-full">
+                  <ZoneGears curGuide={classGuide} ClassGuideIsOnEdit={ClassGuideIsOnEdit} gemsSkel={GemsSkel} />
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </RichTextContext.Provider>
       </PlayerContext.Provider>

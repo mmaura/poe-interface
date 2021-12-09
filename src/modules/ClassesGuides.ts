@@ -28,182 +28,259 @@ export class ClassesGuides extends Guides<IClassesGuide>{
   }
 
   parseCurGuide(): void {
-    if (this.CurGuide.acts) {
+    //defaulting missing values
+    if (!this.CurGuide.identity.class) this.CurGuide.identity.class = "Guardian"
 
-      for (const actSkel of ActsZonesSkeleton.getObject().acts) {
-        let i = -1, ext = ""
-        do {
-          i++
-          ext = FindFileExt(path.join(this.CurGuide.identity.sysAssetPath, `tree-${actSkel.actid - i}`))
-        } while (!ext && (actSkel.actid - i > 0))
+    if (!this.CurGuide.acts) this.CurGuide.acts = [] as IClassesGuideAct[]
 
-        let act = this.CurGuide.acts.find(a => a.act === actSkel.actid)
-        if (!act) {
-          MyLogger.info(`no act ${actSkel.actid} in ClasseGuide, defaulting`)
-          this.CurGuide.acts.push(act = { act: actSkel.actid, gears: [] as IClassesGuideGear[] } as IClassesGuideAct)
-        }
-        if (i !== 0) MyLogger.info(`no skilltree image found for ${actSkel.actid} in ClasseGuide, defaulting with act ${actSkel.actid - i}`)
-        if (actSkel.actid - i === 0) {
-          MyLogger.info(`no skilltree image found for ${actSkel.actid} and acts before in ClasseGuide, defaulting with "?"`)
-          act.treeimage = `assets/tree-0.png`
-        }
-        else act.treeimage = `${this.CurGuide.identity.webAssetPath}/tree-${actSkel.actid - i}${ext}`
+    for (const actSkel of ActsZonesSkeleton.getObject().acts) {
+      let i = -1, ext = ""
+      do {
+        i++
+        ext = FindFileExt(path.join(this.CurGuide.identity.sysAssetPath, `tree-${actSkel.actid - i}`))
+      } while (!ext && (actSkel.actid - i > 0))
+
+      let act = this.CurGuide.acts.find(a => a.act === actSkel.actid)
+      if (!act) {
+        MyLogger.info(`no act ${actSkel.actid} in ClasseGuide, defaulting`)
+        this.CurGuide.acts.push(act = { act: actSkel.actid, gears: [] as IClassesGuideGear[] } as IClassesGuideAct)
       }
+      if (i !== 0) MyLogger.info(`no skilltree image found for ${actSkel.actid} in ClasseGuide, defaulting with act ${actSkel.actid - i}`)
+      if (actSkel.actid - i === 0) {
+        MyLogger.info(`no skilltree image found for ${actSkel.actid} and acts before in ClasseGuide, defaulting with "?"`)
+        act.treeimage = `assets/tree-0.png`
+      }
+      else act.treeimage = `${this.CurGuide.identity.webAssetPath}/tree-${actSkel.actid - i}${ext}`
+    }
 
-      this.CurGuide.acts.forEach(act => {
-        if (act.gears) {
-          act.gears.forEach((gear, index) => {
-            // if (!gear.id) gear.id = index
-            gear.gems = [] as IGemList[]
-            if (gear.gem_info)
-              gear.gem_info.forEach(g => {
-                const _gem = this.Gems.getByName(g.name)
-                if (_gem !== undefined) {
-                  if ((g.note) && (g.note !== '')) gear.gems.push({ ..._gem, note: g.note })
-                  else gear.gems.push(_gem)
-                }
-                else MyLogger.log('info', `Gem ${g.name} was not found.`)
-              })
-            else MyLogger.log('info', `gear does not have gem, for act ${act.act}, gear: '${gear.name}'.`)
-          })
-        } else MyLogger.log('info', `gears not exist for act ${act.act}.`)
-      })
-    } else MyLogger.log('info', `no acts for guide ${this.CurGuide.identity.filename} .`)
+    this.CurGuide.acts.forEach(act => {
+      if (act.gears) {
+        act.gears.forEach((gear, index) => {
+          gear.gems = [] as IGemList[]
+          if (gear.gem_info)
+            gear.gem_info.forEach(g => {
+              const _gem = this.Gems.getByName(g.name)
+              if (_gem !== undefined) {
+                if ((g.note) && (g.note !== '')) gear.gems.push({ ..._gem, note: g.note })
+                else gear.gems.push(_gem)
+              }
+              else MyLogger.log('info', `Gem ${g.name} was not found.`)
+            })
+          else MyLogger.log('info', `gear does not have gem, for act ${act.act}, gear: '${gear.name}'.`)
+        })
+      } else MyLogger.log('info', `gears not exist for act ${act.act}.`)
+    })
   }
 
   AppendMenu(menu: MenuItem, playersClasses: IClassesAscendancies[]): void {
-    menu.submenu.append(new MenuItem({
-      label: `Import From POELevelingGuide`,
-      click: () => {
-        dialog.showOpenDialog(null, {
-          title: "Choose directory of the POELevelingGuide to Import",
-          properties: ['openDirectory']
-
-        }).then(value => {
-          if (!value.canceled) {
-            this.ImportPOELevelingGuide(value.filePaths[0])
-
-          }
-        })
-      }
-    }))
+    super._AppendMenu(menu)
 
     playersClasses.sort((a, b) => {
       if (a.classe < b.classe) { return -1 }
       if (a.classe > b.classe) { return 1 }
       return 0
       //pour chaque classe
-    }).forEach(c => {
-      let selectedGuide = false
-      let mustAppendSeparator = false
+    })
+      .forEach(c => {
+        let selectedGuide = false
+        let mustAppendSeparator = false
 
-      let curCount = 0
-      const ClassSubMenus = [] as MenuItem[]
-      const classesGuides = this.getIdentities().filter(ident => ident.class === c.classe)
-      if (classesGuides.find(c => c.filename === this.getCurGuideID())) selectedGuide = true
+        let curCount = 0
+        const ClassSubMenus = [] as MenuItem[]
+        const classesGuides = this.getIdentities().filter(ident => ident.class === c.classe)
+        if (classesGuides.find(c => c.filename === this.getGuideId())) selectedGuide = true
 
-      curCount += classesGuides.length
+        curCount += classesGuides.length
 
-      c.ascendancy.sort((a, b) => {
-        if (a < b) { return -1 }
-        if (a > b) { return 1 }
-        return 0
-        //pour chaque ascendance
-      }).forEach(a => {
+        c.ascendancy.sort((a, b) => {
+          if (a < b) { return -1 }
+          if (a > b) { return 1 }
+          return 0
+          //pour chaque ascendance
+        }).forEach(a => {
 
-        const ascendancyGuides = this.getIdentities().filter(ident => ident.class === a)
-        if (ascendancyGuides.find(g => g.filename === this.getCurGuideID())) selectedGuide = true
+          const ascendancyGuides = this.getIdentities().filter(ident => ident.class === a)
+          if (ascendancyGuides.find(g => g.filename === this.getGuideId())) selectedGuide = true
 
-        curCount += ascendancyGuides.length
+          curCount += ascendancyGuides.length
 
-        const ascendancyMenu = new MenuItem({
-          label: `(${ascendancyGuides.length}) ${a}`,
-          enabled: ascendancyGuides.length > 0 ? true : false,
-          icon: ascendancyGuides.find(g => g.filename === this.getCurGuideID()) ? this.Icon : undefined,
-          submenu: []
+          const ascendancyMenu = new MenuItem({
+            label: `(${ascendancyGuides.length}) ${a}`,
+            enabled: ascendancyGuides.length > 0 ? true : false,
+            icon: ascendancyGuides.find(g => g.filename === this.getGuideId()) ? this.Icon : undefined,
+            submenu: []
+          })
+
+          //pour chaque guide d'ascendance
+          ascendancyGuides.forEach(asc => {
+            if ((asc.readonly === true)) mustAppendSeparator = true
+            if (mustAppendSeparator && !(asc.readonly === true)) {
+              mustAppendSeparator = false
+              ascendancyMenu.submenu.append(new MenuItem({ type: "separator" }))
+            }
+
+            ascendancyMenu.submenu.append(new MenuItem({
+              label: this.getGuideLabel(asc.filename),
+              icon: asc.filename === this.getGuideId() ? this.Icon : undefined,
+              click: () => {
+                this.selectGuide(asc.filename)
+              }
+            }))
+          })
+          ClassSubMenus.push(ascendancyMenu)
         })
 
-        //pour chaque guide d'ascendance
-        ascendancyGuides.forEach(asc => {
-          if ((asc.readonly === true)) mustAppendSeparator = true
-          if (mustAppendSeparator && !(asc.readonly === true)) {
-            mustAppendSeparator = false
-            ascendancyMenu.submenu.append(new MenuItem({ type: "separator" }))
-          }
+        const classMenu = new MenuItem({
+          label: `(${curCount}) ${c.classe}`,
+          submenu: [],
+          enabled: curCount > 0 ? true : false,
+          icon: selectedGuide ? this.Icon : undefined,
+        })
 
-          ascendancyMenu.submenu.append(new MenuItem({
-            label: this.getGuideLabel(asc.filename),
-            icon: asc.filename === this.getCurGuideID() ? this.Icon : undefined,
-            submenu: [
-              {
-                label: "Use it",
-                click: () => {
-                  this.setCurGuide(asc.filename)
-                }
-              },
-              {
-                label: "go to WebSite",
-                click: () => { shell.openExternal(asc.url) },
-                enabled: (asc.url !== undefined)
-              },
-              {
-                label: "Duplicate",
-                click: () => {
-                  this.DuplicateGuide(asc.filename).then((f) =>
-                    this.Init(f))
-                },
-              },
-            ]
+        selectedGuide = false
+
+        //pour chaque sous menu de classe ()
+        ClassSubMenus.forEach(menu => { classMenu.submenu.append(menu) })
+
+        if (classesGuides.length > 0) classMenu.submenu.append(new MenuItem({ type: "separator" }))
+
+        //pour chaque guide de classe
+        classesGuides.forEach(classe => {
+          classMenu.submenu.append(new MenuItem({
+            label: this.getGuideLabel(classe.filename),
+            icon: classe.filename === this.getGuideId() ? this.Icon : undefined,
+            click: () => {
+              // debugMsg(`loading class Guide :${this.getGuideLabel(classe.filename)} \n ${classe.filename}`)
+              this.selectGuide(classe.filename)
+            }
           }))
         })
-        ClassSubMenus.push(ascendancyMenu)
+        menu.submenu.append(classMenu)
       })
-
-      const classMenu = new MenuItem({
-        label: `(${curCount}) ${c.classe}`,
-        submenu: [],
-        enabled: curCount > 0 ? true : false,
-        icon: selectedGuide ? this.Icon : undefined,
-      })
-
-      selectedGuide = false
-
-      //pour chaque sous menu de classe ()
-      ClassSubMenus.forEach(menu => { classMenu.submenu.append(menu) })
-
-      if (classesGuides.length > 0) classMenu.submenu.append(new MenuItem({ type: "separator" }))
-
-      //pour chaque guide de classe
-      classesGuides.forEach(classe => {
-        classMenu.submenu.append(new MenuItem({
-          label: this.getGuideLabel(classe.filename),
-          icon: classe.filename === this.getCurGuideID() ? this.Icon : undefined,
-          submenu: [
-            {
-              label: "Use it",
-              click: () => {
-                // debugMsg(`loading class Guide :${this.getGuideLabel(classe.filename)} \n ${classe.filename}`)
-                this.setCurGuide(classe.filename)
-              }
-            },
-            {
-              label: "go to WebSite",
-              click: () => { shell.openExternal(classe.url) },
-              enabled: (classe.url !== undefined)
-            },
-            {
-              label: "Duplicate",
-              click: () => {
-                this.DuplicateGuide(classe.filename).then((f) =>
-                  this.Init(f))
-              },
-            },
-          ]
-        }))
-      })
-      menu.submenu.append(classMenu)
-    })
   }
+
+  // AppendMenu(menu: MenuItem, playersClasses: IClassesAscendancies[]): void {
+
+  //   super._AppendMenu(menu)
+
+  //   playersClasses.sort((a, b) => {
+  //     if (a.classe < b.classe) { return -1 }
+  //     if (a.classe > b.classe) { return 1 }
+  //     return 0
+  //     //pour chaque classe
+  //   })
+  //     .forEach(c => {
+  //       let selectedGuide = false
+  //       let mustAppendSeparator = false
+
+  //       let curCount = 0
+  //       const ClassSubMenus = [] as MenuItem[]
+  //       const classesGuides = this.getIdentities().filter(ident => ident.class === c.classe)
+  //       if (classesGuides.find(c => c.filename === this.getGuideId())) selectedGuide = true
+
+  //       curCount += classesGuides.length
+
+  //       c.ascendancy.sort((a, b) => {
+  //         if (a < b) { return -1 }
+  //         if (a > b) { return 1 }
+  //         return 0
+  //         //pour chaque ascendance
+  //       }).forEach(a => {
+
+  //         const ascendancyGuides = this.getIdentities().filter(ident => ident.class === a)
+  //         if (ascendancyGuides.find(g => g.filename === this.getGuideId())) selectedGuide = true
+
+  //         curCount += ascendancyGuides.length
+
+  //         const ascendancyMenu = new MenuItem({
+  //           label: `(${ascendancyGuides.length}) ${a}`,
+  //           enabled: ascendancyGuides.length > 0 ? true : false,
+  //           icon: ascendancyGuides.find(g => g.filename === this.getGuideId()) ? this.Icon : undefined,
+  //           submenu: []
+  //         })
+
+  //         //pour chaque guide d'ascendance
+  //         ascendancyGuides.forEach(asc => {
+  //           if ((asc.readonly === true)) mustAppendSeparator = true
+  //           if (mustAppendSeparator && !(asc.readonly === true)) {
+  //             mustAppendSeparator = false
+  //             ascendancyMenu.submenu.append(new MenuItem({ type: "separator" }))
+  //           }
+
+  //           ascendancyMenu.submenu.append(new MenuItem({
+  //             label: this.getGuideLabel(asc.filename),
+  //             icon: asc.filename === this.getGuideId() ? this.Icon : undefined,
+  //             submenu: [
+  //               {
+  //                 label: "Use it",
+  //                 click: () => {
+  //                   this.selectGuide(asc.filename)
+  //                 }
+  //               },
+  //               {
+  //                 label: "go to WebSite",
+  //                 click: () => { shell.openExternal(asc.url) },
+  //                 enabled: (asc.url !== undefined)
+  //               },
+  //               {
+  //                 label: "Duplicate",
+  //                 click: () => {
+  //                   this.DuplicateGuide(asc.filename).then((f) =>
+  //                     this.Init(f))
+  //                 },
+  //               },
+  //             ]
+  //           }))
+  //         })
+  //         ClassSubMenus.push(ascendancyMenu)
+  //       })
+
+  //       const classMenu = new MenuItem({
+  //         label: `(${curCount}) ${c.classe}`,
+  //         submenu: [],
+  //         enabled: curCount > 0 ? true : false,
+  //         icon: selectedGuide ? this.Icon : undefined,
+  //       })
+
+  //       selectedGuide = false
+
+  //       //pour chaque sous menu de classe ()
+  //       ClassSubMenus.forEach(menu => { classMenu.submenu.append(menu) })
+
+  //       if (classesGuides.length > 0) classMenu.submenu.append(new MenuItem({ type: "separator" }))
+
+  //       //pour chaque guide de classe
+  //       classesGuides.forEach(classe => {
+  //         classMenu.submenu.append(new MenuItem({
+  //           label: this.getGuideLabel(classe.filename),
+  //           icon: classe.filename === this.getGuideId() ? this.Icon : undefined,
+  //           submenu: [
+  //             {
+  //               label: "Use it",
+  //               click: () => {
+  //                 // debugMsg(`loading class Guide :${this.getGuideLabel(classe.filename)} \n ${classe.filename}`)
+  //                 this.selectGuide(classe.filename)
+  //               }
+  //             },
+  //             {
+  //               label: "go to WebSite",
+  //               click: () => { shell.openExternal(classe.url) },
+  //               enabled: (classe.url !== undefined)
+  //             },
+  //             {
+  //               label: "Duplicate",
+  //               click: () => {
+  //                 this.DuplicateGuide(classe.filename).then((f) =>
+  //                   this.Init(f))
+  //               },
+  //             },
+  //           ]
+  //         }))
+  //       })
+  //       menu.submenu.append(classMenu)
+  //     })
+  // }
+
 
   getTreeImagePath(actid: number): string {
     return this.CurGuide.acts.find(a => a.act === actid) ? path.join(this.CurGuide.identity.sysAssetPath, this.CurGuide.acts.find(a => a.act === actid).treeimage) : ""
@@ -235,21 +312,21 @@ export class ClassesGuides extends Guides<IClassesGuide>{
       if (act) act.name = this.uniqGearName(name)
     })
     this.saveCurGuide().then(() => {
-      this.emit("GuideContentChange", this.CurGuide)
+      this.emit("GuideContentChanged", this.CurGuide)
     })
   }
 
   async setGearNotes(gearId: string, notes: string, actId: number): Promise<void> {
     this.CurGuide.acts.find(a => a.act === actId).gears.find(g => g.name === gearId).notes = notes
     this.saveCurGuide().then(() => {
-      this.emit("GuideContentChange", this.CurGuide)
+      this.emit("GuideContentChanged", this.CurGuide)
     })
   }
 
   async setActNotes(notes: string, actId: number): Promise<void> {
     this.CurGuide.acts.find(a => a.act === actId).notes = notes
     this.saveCurGuide().then(() => {
-      this.emit("GuideContentChange", this.CurGuide)
+      this.emit("GuideContentChanged", this.CurGuide)
     })
   }
 
@@ -262,7 +339,7 @@ export class ClassesGuides extends Guides<IClassesGuide>{
       gear.gem_info.push({ name: "White Socket" })
       gear.gems.push(this.Gems.getByName("White Socket"))
       this.saveCurGuide().then(() => {
-        this.emit("GuideContentChange", this.CurGuide)
+        this.emit("GuideContentChanged", this.CurGuide)
       })
     }
   }
@@ -274,7 +351,7 @@ export class ClassesGuides extends Guides<IClassesGuide>{
     curGear.gem_info[gemIndex].name = newName
     curGear.gems[gemIndex] = this.Gems.getByName(newName)
     this.saveCurGuide().then(() => {
-      this.emit("GuideContentChange", this.CurGuide)
+      this.emit("GuideContentChanged", this.CurGuide)
     })
   }
 
@@ -286,7 +363,7 @@ export class ClassesGuides extends Guides<IClassesGuide>{
     curGear.gem_info.splice(gemIndex, 1)
 
     this.saveCurGuide().then(() => {
-      this.emit("GuideContentChange", this.CurGuide)
+      this.emit("GuideContentChanged", this.CurGuide)
     })
   }
   async addGear(actId: number): Promise<void> {
@@ -299,11 +376,11 @@ export class ClassesGuides extends Guides<IClassesGuide>{
     const gear = {} as IClassesGuideGear
     gear.name = this.uniqGearName("new group")
     gear.gem_info = []
-    gear.gems = [] as IGem[]
+    gear.gems = [] as IGemList[]
 
     gears.push(gear)
     this.saveCurGuide().then(() => {
-      this.emit("GuideContentChange", this.CurGuide)
+      this.emit("GuideContentChanged", this.CurGuide)
     })
   }
 
@@ -311,7 +388,7 @@ export class ClassesGuides extends Guides<IClassesGuide>{
     const index = this.CurGuide.acts.find(a => a.act === actId).gears.findIndex(g => g.name === gearName)
     if (index !== -1) this.CurGuide.acts.find(a => a.act === actId).gears.splice(index, 1)
     this.saveCurGuide().then(() => {
-      this.emit("GuideContentChange", this.CurGuide)
+      this.emit("GuideContentChanged", this.CurGuide)
     })
   }
 
@@ -321,7 +398,7 @@ export class ClassesGuides extends Guides<IClassesGuide>{
       if (index !== -1) act.gears.splice(index, 1)
     }
     this.saveCurGuide().then(() => {
-      this.emit("GuideContentChange", this.CurGuide)
+      this.emit("GuideContentChanged", this.CurGuide)
     })
   }
 
@@ -444,11 +521,9 @@ export class ClassesGuides extends Guides<IClassesGuide>{
 
         let classGuidePath
         try {
-          classGuidePath = path.join(this.getAbsCustomPath(), path.normalize(ClassGuide.identity.name))
-
-          if (fs.existsSync(classGuidePath)) classGuidePath += Date.now().toString()
-
+          classGuidePath = this.findUniqueGuidePath(ClassGuide.identity.name)
           ClassGuide.identity.filename = path.normalize(path.join(classGuidePath, "guide.json"))
+
           fs.mkdirSync(classGuidePath, { recursive: true })
 
           MyLogger.log('importGuide', `save ${ClassGuide.identity.filename}`)
@@ -517,9 +592,14 @@ export class ClassesGuides extends Guides<IClassesGuide>{
           if ((!Gear.gem_info) || (!Gear.gem_info.find(g => g.name === gemFile[gem].gem))) {
             let note = ""
             if (gemFile[gem].note) note = gemFile[gem].note
+
             if (this.Gems.Exist(gemFile[gem].gem)) {
               if (!Gear.gem_info) Gear.gem_info = []
               Gear.gem_info.push({ name: gemFile[gem].gem, note: note })
+            }
+            else if (this.Gems.Exist(`${gemFile[gem].gem} Support`)) {
+              if (!Gear.gem_info) Gear.gem_info = []
+              Gear.gem_info.push({ name: `${gemFile[gem].gem} Support`, note: note })
             }
             else MyLogger.log('importGuide', `Try to add unknown (${gemFile[gem].gem}) gem, in file (${file})`)
           }
