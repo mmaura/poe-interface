@@ -10,7 +10,7 @@
   }
 
   .container {
-    @apply bg-gradient-to-l from-poe-98 via-poe-97 to-poe-98 border-poe-50 shadow-xl px-2 py-3;
+    @apply bg-gradient-to-l from-poe-98 via-poe-96 to-poe-98 rounded-md border-2 border-poe-97 shadow-xl px-2 py-3;
   }
 
   .inventory {
@@ -65,6 +65,9 @@
   .richtext-quest {
     @apply text-poe-60 underline;
   }
+  .richtext-direction {
+    @apply text-poe-60 ;
+  }
   .richtext-waypoint {
     @apply text-poe-50 underline;
   }
@@ -73,5 +76,8 @@
   }
   .richtext-zones {
     @apply text-poe-2 underline;
+  }
+  .richtext-npc {
+    @apply text-poe-2 font-bold;
   }
 }

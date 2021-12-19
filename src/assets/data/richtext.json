@@ -15,21 +15,19 @@
   {
     "name": "direction",
     "keywords": [
-      "Allflame",
-      "Inutile",
-      "Ribbon Spool",
       "collect",
       "deco",
       "déco",
       "déconnexion",
       "find",
       "logout",
-      "miasmeter",
       "portail",
       "portal",
-      "tp"
+      "tp",
+      "Allez",
+      "Aller"
     ],
-    "style": "waypoint",
+    "style": "direction",
     "order": 2
   },
   {

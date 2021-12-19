@@ -17,7 +17,7 @@ export function TextEditable<T>(props: {
     else
       return <TextInput value={value} name={name} onChange={onChange} />
   }
-  else return <>{value}</>
+  else return <div className="overflow-auto">{value}</div>
 }
 
 

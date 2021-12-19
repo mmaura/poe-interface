@@ -50,6 +50,6 @@ function RichTextEditableText(props: { children: string }): JSX.Element {
     return text
   }, [text])
 
-  if (formated) return <p dangerouslySetInnerHTML={{ __html: formated }} />
+  if (formated) return <p className="overflow-hidden" dangerouslySetInnerHTML={{ __html: formated }} />
   else return null
 }

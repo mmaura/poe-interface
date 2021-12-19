@@ -159,129 +159,6 @@ export class ClassesGuides extends Guides<IClassesGuide>{
       })
   }
 
-  // AppendMenu(menu: MenuItem, playersClasses: IClassesAscendancies[]): void {
-
-  //   super._AppendMenu(menu)
-
-  //   playersClasses.sort((a, b) => {
-  //     if (a.classe < b.classe) { return -1 }
-  //     if (a.classe > b.classe) { return 1 }
-  //     return 0
-  //     //pour chaque classe
-  //   })
-  //     .forEach(c => {
-  //       let selectedGuide = false
-  //       let mustAppendSeparator = false
-
-  //       let curCount = 0
-  //       const ClassSubMenus = [] as MenuItem[]
-  //       const classesGuides = this.getIdentities().filter(ident => ident.class === c.classe)
-  //       if (classesGuides.find(c => c.filename === this.getGuideId())) selectedGuide = true
-
-  //       curCount += classesGuides.length
-
-  //       c.ascendancy.sort((a, b) => {
-  //         if (a < b) { return -1 }
-  //         if (a > b) { return 1 }
-  //         return 0
-  //         //pour chaque ascendance
-  //       }).forEach(a => {
-
-  //         const ascendancyGuides = this.getIdentities().filter(ident => ident.class === a)
-  //         if (ascendancyGuides.find(g => g.filename === this.getGuideId())) selectedGuide = true
-
-  //         curCount += ascendancyGuides.length
-
-  //         const ascendancyMenu = new MenuItem({
-  //           label: `(${ascendancyGuides.length}) ${a}`,
-  //           enabled: ascendancyGuides.length > 0 ? true : false,
-  //           icon: ascendancyGuides.find(g => g.filename === this.getGuideId()) ? this.Icon : undefined,
-  //           submenu: []
-  //         })
-
-  //         //pour chaque guide d'ascendance
-  //         ascendancyGuides.forEach(asc => {
-  //           if ((asc.readonly === true)) mustAppendSeparator = true
-  //           if (mustAppendSeparator && !(asc.readonly === true)) {
-  //             mustAppendSeparator = false
-  //             ascendancyMenu.submenu.append(new MenuItem({ type: "separator" }))
-  //           }
-
-  //           ascendancyMenu.submenu.append(new MenuItem({
-  //             label: this.getGuideLabel(asc.filename),
-  //             icon: asc.filename === this.getGuideId() ? this.Icon : undefined,
-  //             submenu: [
-  //               {
-  //                 label: "Use it",
-  //                 click: () => {
-  //                   this.selectGuide(asc.filename)
-  //                 }
-  //               },
-  //               {
-  //                 label: "go to WebSite",
-  //                 click: () => { shell.openExternal(asc.url) },
-  //                 enabled: (asc.url !== undefined)
-  //               },
-  //               {
-  //                 label: "Duplicate",
-  //                 click: () => {
-  //                   this.DuplicateGuide(asc.filename).then((f) =>
-  //                     this.Init(f))
-  //                 },
-  //               },
-  //             ]
-  //           }))
-  //         })
-  //         ClassSubMenus.push(ascendancyMenu)
-  //       })
-
-  //       const classMenu = new MenuItem({
-  //         label: `(${curCount}) ${c.classe}`,
-  //         submenu: [],
-  //         enabled: curCount > 0 ? true : false,
-  //         icon: selectedGuide ? this.Icon : undefined,
-  //       })
-
-  //       selectedGuide = false
-
-  //       //pour chaque sous menu de classe ()
-  //       ClassSubMenus.forEach(menu => { classMenu.submenu.append(menu) })
-
-  //       if (classesGuides.length > 0) classMenu.submenu.append(new MenuItem({ type: "separator" }))
-
-  //       //pour chaque guide de classe
-  //       classesGuides.forEach(classe => {
-  //         classMenu.submenu.append(new MenuItem({
-  //           label: this.getGuideLabel(classe.filename),
-  //           icon: classe.filename === this.getGuideId() ? this.Icon : undefined,
-  //           submenu: [
-  //             {
-  //               label: "Use it",
-  //               click: () => {
-  //                 // debugMsg(`loading class Guide :${this.getGuideLabel(classe.filename)} \n ${classe.filename}`)
-  //                 this.selectGuide(classe.filename)
-  //               }
-  //             },
-  //             {
-  //               label: "go to WebSite",
-  //               click: () => { shell.openExternal(classe.url) },
-  //               enabled: (classe.url !== undefined)
-  //             },
-  //             {
-  //               label: "Duplicate",
-  //               click: () => {
-  //                 this.DuplicateGuide(classe.filename).then((f) =>
-  //                   this.Init(f))
-  //               },
-  //             },
-  //           ]
-  //         }))
-  //       })
-  //       menu.submenu.append(classMenu)
-  //     })
-  // }
-
-
   getTreeImagePath(actid: number): string {
     return this.CurGuide.acts.find(a => a.act === actid) ? path.join(this.CurGuide.identity.sysAssetPath, this.CurGuide.acts.find(a => a.act === actid).treeimage) : ""
   }
@@ -400,6 +277,17 @@ export class ClassesGuides extends Guides<IClassesGuide>{
     this.saveCurGuide().then(() => {
       this.emit("GuideContentChanged", this.CurGuide)
     })
+  }
+
+  async copyToNextAct(curActId: number): Promise<void> {
+    const newActGears = this.CurGuide.acts.find(act => act.act === curActId + 1).gears
+    
+    for (const gear of this.CurGuide.acts.find(act => act.act === curActId).gears)
+      newActGears.push(gear)
+    this.saveCurGuide().then(() => {
+      this.emit("GuideContentChanged", this.CurGuide)
+    })
+
   }
 
   uniqGearName(wantedName: string): string {

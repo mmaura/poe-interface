@@ -37,13 +37,14 @@ export class Gems extends JsonFile<IGem[]>{
         required_level: g.required_level,
         currency: (g.currency) ? `${getPackagedWebBaseName()}/images/currency/${g.currency}.png` : "",
         currency_amount: g.currency_amount,
+        is_active: (! /.*Support/gi.test(g.name)) && !g.is_socket,
         is_alternateQuality: false,
         is_advanced: /Awakened.*/gi.test(g.name),
         is_support: /.*Support/gi.test(g.name),
         key: g.name.replace(" ", "_"),
         is_socket: g.is_socket,
-        vendor_rewards: g.vendor_rewards || [],
-        quest_rewards: g.quest_rewards || []
+        vendor_rewards: g.vendor_rewards && g.vendor_rewards.sort((a, b) => a.act - b.act) || [],
+        quest_rewards: g.vendor_rewards && g.quest_rewards.sort((a, b) => a.act - b.act) || []
       })
       for (const q of g.alternative_quality) {
         this.GemList.push({
@@ -53,6 +54,7 @@ export class Gems extends JsonFile<IGem[]>{
           required_level: g.required_level,
           currency: ``,
           currency_amount: 0,
+          is_active: (! /.*Support/gi.test(g.name)) && !g.is_socket,
           is_alternateQuality: true,
           is_advanced: /Awakened.*/gi.test(g.name),
           is_support: /.*Support/gi.test(g.name),
@@ -68,13 +70,15 @@ export class Gems extends JsonFile<IGem[]>{
 
   Exist(gemName: string): boolean {
     gemName.trim()
-    if (this.getObject().find(e => { return e.name === gemName })) return true
+    if (this.getObject().find(e => { return (e.name === gemName || e.name === `${gemName} Support` ) })) return true
     return false
   }
 
   getByName(gemName: string): IGemList {
     gemName.trim()
-    const gem = this.GemList.find(e => { return e.name === gemName })
+    const gem = this.GemList.find(e => { return (e.name === gemName || e.name === `${gemName} Support` ) })
+
+
     if (gem) {
       gem.image = `${getPackagedWebBaseName()}/images/gems/${gem.name}.png`
     }

@@ -176,30 +176,20 @@ export function SkillTree(props: {
   const TreeImgTooltip = useRef()
 
   return (
-    <div>
-      <ReactTooltip
-        ref={TreeImgTooltip}
-        id="skilltree"
-        effect="solid"
-        delayHide={1000}
-        key="skilltree"
-        className="bg-poe-98 bg-opacity-75 opacity-100 ">
-        <div data-tip="skilltree">
-          {curGuide.acts.find(a => a.act === curAct.actid) && <img src={curGuide.acts.find(a => a.act === curAct.actid).treeimage} />}
-        </div>
-      </ReactTooltip>
-      <div className="relative">
-        {curGuide.acts.find(a => a.act === curAct.actid) && <img src={curGuide.acts.find(a => a.act === curAct.actid).treeimage} />}
-        <MenuBar pos_x="left" pos_y="top">
-          <MenuButton
-            mdiPath={mdiEye}
-            onMouseOver={() => {
-              ReactTooltip.show(TreeImgTooltip.current)
-            }}
-          />
-          {ClassGuideIsOnEdit && <MenuButton mdiPath={mdiImageSearch} onClick={onClassGuideSkilltreeClick} tooltip="Choose Image" />}
-        </MenuBar>
-      </div>
+    <div className="container relative max-h-gem-list h-gem-list">
+      {curGuide.acts.find(a => a.act === curAct.actid) && (
+        // <img className="w-full h-full max-w-full max-h-max" src={curGuide.acts.find(a => a.act === curAct.actid).treeimage} />
+        <img className="object-cover max-w-full max-h-full" src={curGuide.acts.find(a => a.act === curAct.actid).treeimage} />
+      )}
+      <MenuBar pos_x="left" pos_y="top">
+        <MenuButton
+          mdiPath={mdiEye}
+          onMouseOver={() => {
+            ReactTooltip.show(TreeImgTooltip.current)
+          }}
+        />
+        {ClassGuideIsOnEdit && <MenuButton mdiPath={mdiImageSearch} onClick={onClassGuideSkilltreeClick} tooltip="Choose Image" />}
+      </MenuBar>
     </div>
   )
 }
@@ -222,7 +212,12 @@ export function GemBuyList(props: { curGuide: IClassesGuide }): JSX.Element {
         .map(act =>
           act.gears.map(gear =>
             gear.gems.map(_gem => {
-              if (!_gems.includes(_gem) && (Math.abs(_gem.required_lvl - curPlayer.level) < lvlRange || showAll)) {
+              if (
+                // !_gems.includes(_gem) &&
+                !_gems.find(g=> g.name === _gem.name) &&
+                (Math.abs(_gem.required_lvl - curPlayer.level) < lvlRange || showAll) &&
+                _gem.is_socket === false
+              ) {
                 _gems.push(_gem)
               }
             })
@@ -248,7 +243,7 @@ export function GemBuyList(props: { curGuide: IClassesGuide }): JSX.Element {
   if (curGuide && curGuide.acts) {
     return (
       <div className="container relative">
-        <h2>Gems buy list</h2>
+        <h2>Gems buy list ({gemsListToShow.length})</h2>
         <MenuBar pos_x="right" pos_y="top">
           <MenuButton mdiPath={mdiPlus} onClick={LvlRangePlus} tooltip="More" />
           <span className="iconInput">{lvlRange}</span>
@@ -257,95 +252,148 @@ export function GemBuyList(props: { curGuide: IClassesGuide }): JSX.Element {
         </MenuBar>
         <div className="overflow-y-auto h-80 max-h-80">
           {gemsListToShow.map(_gem => {
-            console.log(_gem)
-            // return <GemBuyItem key={_gem.name} gem={_gem} />
             return (
-              <GemListElement
-                key={_gem.name}
-                selected={false}
-                gem={_gem}
-                selectGem={() => {
-                  return
-                }}
-              />
+              <div className="flex flex-row gap-2">
+                <GemListElement
+                  key={_gem.name}
+                  selected={false}
+                  gem={_gem}
+                  selectGem={() => {
+                    return
+                  }}
+                />
+                <RewardsList gem={_gem} />
+              </div>
             )
           })}
         </div>
       </div>
     )
   }
-
   return <h2>Liste des courses vide</h2>
 }
 
-export function GemBuyItem(props: { gem: IGemList }): JSX.Element {
-  const curGem = props.gem
+function RewardsList(props: { gem: IGemList }): JSX.Element {
+  const { gem } = props
 
-  const curPlayer = useContext(PlayerContext) as IAppPlayer
-  const curAct = useContext(CurActContext) as IActsGuideAct
-
-  const gemClick = useCallback((e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
-    e.preventDefault()
-    window.poe_interface_API.openExternal("https://www.poewiki.net/wiki/" + curGem.name)
-  }, [])
-
-  const curBuy = useMemo(() => {
-    // let _buy = [] as IBuy[]
-
-    // _buy = curGem.buy.filter(buy => {
-    //   return buy.available_to.includes(curPlayer.characterClass) && buy.act === curAct.actid
-    // })
-    // if (_buy.length === 0)
-    //   _buy = curGem.buy.filter(buy => {
-    //     return buy.available_to.includes(curPlayer.characterClass)
-    //   })
-
-    // //make sure "A Fixture of Fate" never be first if a quest alternative
-    // _buy = _buy.sort((a, b) => {
-    //   if (a.quest_name === "A Fixture of Fate") return -1
-    //   if (a.act === b.act) return -1
-    //   return 0
-    // })
-
-    // return _buy
-    return null
-  }, [curAct, curPlayer])
-
-  if (curGem) {
-    return (
-      <div className="grid grid-cols-12 gap-1 items-center justify-center flex-grow">
-        <span>lvl: {curGem.required_level}&nbsp;</span>
-        <Gem curGem={curGem} onClick={gemClick} onDoubleClick={gemClick} />
-        <span className="col-span-3">{curGem.name}</span>
-        <div className="col-span-7 flex flex-col">
-          {/* {curBuy.length > 0 ? (
-            curBuy.map((_buy, index) => {
-              return (
-                <p key={curGem.name + index}>
-                  <GemSpan key={curGem.name + _buy.npc + index} text={_buy.npc} classColor={"text-poe-3"} />
-                  &nbsp;
-                  <GemSpan
-                    key={curGem.name + _buy.quest_name + index}
-                    text={_buy.quest_name}
-                    classColor={"text-poe-60"}
-                  />
-                  &nbsp;
-                  <span className="text-poe-3">{_buy.town}</span>
-                </p>
-              )
-            })
-          ) : (
-            <p>
-              <span className="text-poe-60">Ask a friend.</span>
-            </p>
-          )} */}
-        </div>
-      </div>
-    )
-  }
-
-  return <div>Pas de gemme.</div>
+  return (
+    <div className="flex flex-col bg-gradient-to-l to-poe-96 via-transparent from-poe-97  border-poe-1 border-0 border-b-2 w-full">
+      {gem.quest_rewards.map(g => {
+        return (
+          <div className="flex flex-row">
+            <RewardsItem reward={g} is_vendor={false} />
+          </div>
+        )
+      })}
+      {gem.vendor_rewards.map(g => {
+        return (
+          <div className={`flex flex-row `}>
+            <RewardsItem reward={g} is_vendor={true} />
+          </div>
+        )
+      })}
+    </div>
+  )
 }
+
+function RewardsItem(props: { reward: Reward; is_vendor: boolean }): JSX.Element {
+  const { reward, is_vendor } = props
+
+  let disabled = false
+  let classes = ""
+
+  if (reward.classes.length === 0) classes = "all"
+  else classes = reward.classes.join(",")
+
+  if (
+    (reward.npc === "Siosa" && reward.quest === "A Fixture of Fate") ||
+    (reward.npc === "Lilly Roth" && reward.quest === "Fallen from Grace")
+  )
+    disabled = true
+
+  if (is_vendor)
+    return (
+      <p className={`${disabled && "disabled text-xs"}`}>
+        Sell by {reward.npc} after quest <span className="text-poe-60">{reward.quest}</span> (act {reward.act}) for ({classes}).
+      </p>
+    )
+  else
+    return (
+      <p>
+        <span className="text-poe-60">Reward</span> for quest <span className="text-poe-60">{reward.quest}</span> (act {reward.act}) for (
+        {classes}).
+      </p>
+    )
+}
+
+// export function GemBuyItem2(props: { gem: IGemList }): JSX.Element {
+//   const curGem = props.gem
+
+//   const curPlayer = useContext(PlayerContext) as IAppPlayer
+//   const curAct = useContext(CurActContext) as IActsGuideAct
+
+//   const gemClick = useCallback((e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
+//     e.preventDefault()
+//     window.poe_interface_API.openExternal("https://www.poewiki.net/wiki/" + curGem.name)
+//   }, [])
+
+//   const curBuy = useMemo(() => {
+//     // let _buy = [] as IBuy[]
+
+//     // _buy = curGem.buy.filter(buy => {
+//     //   return buy.available_to.includes(curPlayer.characterClass) && buy.act === curAct.actid
+//     // })
+//     // if (_buy.length === 0)
+//     //   _buy = curGem.buy.filter(buy => {
+//     //     return buy.available_to.includes(curPlayer.characterClass)
+//     //   })
+
+//     // //make sure "A Fixture of Fate" never be first if a quest alternative
+//     // _buy = _buy.sort((a, b) => {
+//     //   if (a.quest_name === "A Fixture of Fate") return -1
+//     //   if (a.act === b.act) return -1
+//     //   return 0
+//     // })
+
+//     // return _buy
+//     return null
+//   }, [curAct, curPlayer])
+
+//   if (curGem) {
+//     return (
+//       <div className="grid grid-cols-12 gap-1 items-center justify-center flex-grow">
+//         <span>lvl: {curGem.required_level}&nbsp;</span>
+//         <Gem curGem={curGem} onClick={gemClick} onDoubleClick={gemClick} />
+//         <span className="col-span-3">{curGem.name}</span>
+//         <div className="col-span-7 flex flex-col">
+//           {/* {curBuy.length > 0 ? (
+//             curBuy.map((_buy, index) => {
+//               return (
+//                 <p key={curGem.name + index}>
+//                   <GemSpan key={curGem.name + _buy.npc + index} text={_buy.npc} classColor={"text-poe-3"} />
+//                   &nbsp;
+//                   <GemSpan
+//                     key={curGem.name + _buy.quest_name + index}
+//                     text={_buy.quest_name}
+//                     classColor={"text-poe-60"}
+//                   />
+//                   &nbsp;
+//                   <span className="text-poe-3">{_buy.town}</span>
+//                 </p>
+//               )
+//             })
+//           ) : (
+//             <p>
+//               <span className="text-poe-60">Ask a friend.</span>
+//             </p>
+//           )} */}
+//         </div>
+//       </div>
+//     )
+//   }
+
+//   return <div>Pas de gemme.</div>
+// }
 
 export function Gem(props: {
   curGem: IGemList

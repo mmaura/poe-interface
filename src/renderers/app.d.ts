@@ -13,6 +13,10 @@ declare global {
     poe_interface_API: poe_interfaceAPI
   }
 
+  export interface GearSocketRef {
+    actId: number, gearName: string, gemIndex: number
+  }
+
   type IAppPlayer = {
     name: string
     level: number
@@ -139,6 +143,7 @@ declare global {
     key?: string
     is_alternateQuality: boolean
     is_advanced: boolean
+    is_active: boolean
     is_socket?: boolean
     is_support?: boolean
     notes?: string

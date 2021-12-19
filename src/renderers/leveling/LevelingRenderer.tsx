@@ -13,7 +13,7 @@ import {
   ActGuideIdentity,
   ClassGuideIdentity,
 } from "./Components"
-import { GemUTility, ZoneGears } from "./Gears"
+import { GemSelectorUTility, ZoneGears } from "./Gears"
 
 export const PlayerContext = React.createContext({} as IAppPlayer)
 export const CurActContext = React.createContext({} as IActsGuideAct)
@@ -31,6 +31,9 @@ function App(props: { Init: any }) {
 
   const [ClassGuideIsOnEdit, setClassGuideIsOnEdit] = useState(false)
   const [ActGuideIsOnEdit, setActGuideIsOnEdit] = useState(false)
+
+  const [curSocketEdited, setSocketEdited] = useState({ actId: 0, gearName: "", gemIndex: 0 } as GearSocketRef)
+  const [selectedGemName, setselectedGemName] = useState("")
 
   const curAct = useMemo(() => {
     console.log("**useMemo curAct", curActID)
@@ -73,41 +76,85 @@ function App(props: { Init: any }) {
   /**********************************
    * ActGuide Save Functions
    */
-  const onZoneNoteSave = useCallback(
+  const onActsGuideEditChange = useCallback((isOnEdit: boolean) => {
+    setActGuideIsOnEdit(isOnEdit)
+  }, [])
+
+  const ActGuide_SaveIdentity = useCallback((identity: GuidesIdentity) => {
+    window.poe_interface_API.sendSync("levelingRenderer", "saveActGuide", "identity", identity)
+  }, [])
+
+  const ActGuide_SaveZoneNote = useCallback(
     (text: string) => {
       window.poe_interface_API.sendSync("levelingRenderer", "saveActGuide", "zoneNote", curActID, curZoneName, text)
     },
     [curZoneName, curActID]
   )
 
-  const onNavigationNoteSave = useCallback(
+  const ActGuide_SaveNavigationNote = useCallback(
     (text: string) => {
       window.poe_interface_API.sendSync("levelingRenderer", "saveActGuide", "navigationNote", curActID, curZoneName, text)
     },
     [curZoneName, curActID]
   )
 
-  const onActGuideIdentitySave = useCallback((identity: GuidesIdentity) => {
-    window.poe_interface_API.sendSync("levelingRenderer", "saveActGuide", "identity", identity)
-  }, [])
-
   /**********************************
    * ClassGuide Save Functions
    */
-  const onClassGuideSkilltreeChange = useCallback(() => {
-    window.poe_interface_API.sendSync("levelingRenderer", "saveClassGuide", "skilltree", curActID)
-  }, [curActID])
-
-  const onClassGuideIdentitySave = useCallback((identity: GuidesIdentity) => {
-    window.poe_interface_API.sendSync("levelingRenderer", "saveClassGuide", "identity", identity)
-  }, [])
-
   const onClassGuideEditChange = useCallback((isOnEdit: boolean) => {
     setClassGuideIsOnEdit(isOnEdit)
   }, [])
-  const onActsGuideEditChange = useCallback((isOnEdit: boolean) => {
-    setActGuideIsOnEdit(isOnEdit)
+
+  const ClassGuide_SaveIdentity = useCallback((identity: GuidesIdentity) => {
+    window.poe_interface_API.sendSync("levelingRenderer", "saveClassGuide", "identity", identity)
   }, [])
+
+  const ClassGuide_ShowChooseSkilltree = useCallback(() => {
+    window.poe_interface_API.sendSync("levelingRenderer", "saveClassGuide", "skilltree", curActID)
+  }, [curActID])
+
+  const ClassGuide_SaveGearNote = useCallback((actId: number, actNotes: string) => {
+    window.poe_interface_API.sendSync("levelingRenderer", "saveClassGuide", "ActNotes", actId, actNotes)
+  }, [])
+
+  const ClassGuide_AddGearGroup = useCallback(() => {
+    window.poe_interface_API.sendSync("levelingRenderer", "saveClassGuide", "addGear", curActID)
+  }, [curActID])
+
+  const ClassGuide_DeleteGearSocket = useCallback(
+    (actId: number, gearName: string, index: number, e: React.SyntheticEvent<HTMLImageElement>) => {
+      e.preventDefault()
+      window.poe_interface_API.sendSync("levelingRenderer", "saveClassGuide", "delGearGem", {
+        actId: actId,
+        gearName: gearName,
+        gemIndex: index,
+      })
+    },
+    []
+  )
+
+  const ClassGuide_CopyToNextAct = useCallback((actId: number) => {
+    window.poe_interface_API.sendSync("levelingRenderer", "saveClassGuide", "copyToNextAct", actId)
+  },[])
+
+  const ClassGuide_SetGearSocket = useCallback(
+    (e: React.SyntheticEvent<HTMLDivElement>, newGearName: string) => {
+      e.preventDefault()
+      window.poe_interface_API.sendSync("levelingRenderer", "saveClassGuide", "setGearGem", curSocketEdited, newGearName)
+    },
+    [curSocketEdited]
+  )
+
+  const onGearSocketSelected = useCallback(
+    (actId: number, gearName: string, gemName: string, index: number, e: React.SyntheticEvent<HTMLImageElement>) => {
+      e.preventDefault()
+      if (ClassGuideIsOnEdit) {
+        setselectedGemName(gemName)
+        setSocketEdited({ actId: actId, gearName: gearName, gemIndex: index } as GearSocketRef)
+      } else window.poe_interface_API.openExternal("https://www.poewiki.net/wiki/" + gemName)
+    },
+    [ClassGuideIsOnEdit]
+  )
 
   /**********************************
    * IPC Receiver
@@ -195,20 +242,20 @@ function App(props: { Init: any }) {
     <CurActContext.Provider value={curAct}>
       <PlayerContext.Provider value={curPlayer}>
         <RichTextContext.Provider value={curRichText}>
-          <div className="p-2 h-full w-full">
-            <div className="flex flex-row flex-nowrap pb-2 items-center h-full ">
+          <div className="p-2 max-h-screen h-screen w-screen overflow-hidden">
+            <div className="flex flex-row flex-nowrap pb-2 items-center">
               <div className="flex-grow-0">
                 <PlayerInfo />
                 <h1>{`${curAct.act} : ${curZone.name}`}</h1>
               </div>
               <div className="flex-grow h-full">
-                <NavigationMap curZone={curZone} onSave={onNavigationNoteSave} ActsGuideIsOnEdit={ActGuideIsOnEdit} />
+                <NavigationMap curZone={curZone} onSave={ActGuide_SaveNavigationNote} ActsGuideIsOnEdit={ActGuideIsOnEdit} />
               </div>
               <div className="flex-grow-0 h-full guide-container px-1">
                 {!ClassGuideIsOnEdit && (
                   <ActGuideIdentity
                     identity={actsGuide.identity}
-                    onSave={onActGuideIdentitySave}
+                    onSave={ActGuide_SaveIdentity}
                     onActsGuideEditChange={onActsGuideEditChange}>
                     Acts
                   </ActGuideIdentity>
@@ -216,7 +263,7 @@ function App(props: { Init: any }) {
                 {!ActGuideIsOnEdit && (
                   <ClassGuideIdentity
                     identity={classGuide.identity}
-                    onSave={onClassGuideIdentitySave}
+                    onSave={ClassGuide_SaveIdentity}
                     onClassGuideEditChange={onClassGuideEditChange}
                     playerClasses={playerClasses}>
                     Ascendancy
@@ -227,30 +274,63 @@ function App(props: { Init: any }) {
             </div>
 
             {!ClassGuideIsOnEdit && (
-              <div className="flex flex-row gap-2 ici">
+              <div className="flex flex-row gap-2">
                 <div className="flex flex-grow flex-shrink flex-col gap-2 w-notes-container">
                   <div className="flex-grow-0 flex-shrink-0 ">
-                    <ZoneNotes curZone={curZone} onSave={onZoneNoteSave} ActsGuideIsOnEdit={ActGuideIsOnEdit} />
+                    <ZoneNotes curZone={curZone} onSave={ActGuide_SaveZoneNote} ActsGuideIsOnEdit={ActGuideIsOnEdit} />
                   </div>
                   <div className="flex-grow flex-shrink items-end">
                     <SkillTree
                       curGuide={classGuide}
-                      onClassGuideSkilltreeChange={onClassGuideSkilltreeChange}
+                      onClassGuideSkilltreeChange={ClassGuide_ShowChooseSkilltree}
                       ClassGuideIsOnEdit={ClassGuideIsOnEdit}
                     />
                   </div>
                 </div>
-                <div className="p-0 m-0 flex-shrink-0 flex-grow-0 w-gear-container">
-                  <ZoneGears curGuide={classGuide} ClassGuideIsOnEdit={ClassGuideIsOnEdit} gemsSkel={GemsSkel} />
+                <div className="container p-0 m-0 flex-shrink-0 flex-grow-0 w-gear-container max-h-full">
+                  <ZoneGears
+                    curGuide={classGuide}
+                    ClassGuideIsOnEdit={ClassGuideIsOnEdit}
+                    onGearSocketSelected={onGearSocketSelected}
+                    curSocketEdited={curSocketEdited}
+                  />
                   <GemBuyList curGuide={classGuide} />
                 </div>
               </div>
             )}
 
             {ClassGuideIsOnEdit && (
-              <div className="flex flex-row flex-grow gap-2">
-                <div className="p-0 m-0 flex-shrink-0 flex-grow w-full">
-                  <ZoneGears curGuide={classGuide} ClassGuideIsOnEdit={ClassGuideIsOnEdit} gemsSkel={GemsSkel} />
+              <div className="p-0 m-0 flex flex-row flex-grow gap-2 w-full">
+                <div className="container relative flex flex-row mb-2 w-gear-container-onedit">
+                  <ZoneGears
+                    curGuide={classGuide}
+                    onGearSocketSelected={onGearSocketSelected}
+                    ClassGuideIsOnEdit={ClassGuideIsOnEdit}
+                    ClassGuide_SaveGearNote={ClassGuide_SaveGearNote}
+                    ClassGuide_AddGearSocket={ClassGuide_AddGearGroup}
+                    ClassGuide_DeleteGearSocket={ClassGuide_DeleteGearSocket}
+                    ClassGuide_CopyToNextAct={ClassGuide_CopyToNextAct}
+                    curSocketEdited={curSocketEdited}
+                  />
+                </div>
+                <div className="flex flex-col flex-grow gap-2">
+                  <div className="container relative max-h-gem-list h-gem-list">
+                    <GemSelectorUTility
+                      selectNewGem={ClassGuide_SetGearSocket}
+                      // curGemEdit={curSocketEdited}
+                      gemsSkel={GemsSkel}
+                      selectedGemName={selectedGemName}
+                      key={"gem_utility"}
+                    />
+                  </div>
+
+                  <div className="container h-full max-h-full pb-6 flex-grow flex-shrink overflow-hidden">
+                    <SkillTree
+                      curGuide={classGuide}
+                      onClassGuideSkilltreeChange={ClassGuide_ShowChooseSkilltree}
+                      ClassGuideIsOnEdit={ClassGuideIsOnEdit}
+                    />
+                  </div>
                 </div>
               </div>
             )}

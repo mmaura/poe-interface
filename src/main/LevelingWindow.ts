@@ -160,6 +160,13 @@ export class LevelingWindow {
               MyLogger.log('info', `saveClassGuide: delGearInAllActs ( gearName: ${arg[2]})`)
               this.ClassGuides.delGearInAllActs(arg[2])
               break
+            case "copyToNextAct":
+              MyLogger.log('info', `saveClassGuide: copyToNextAct ( curactid: ${arg[2]})`)
+              this.ClassGuides.copyToNextAct(arg[2]).then(() => {
+                this._MyPlayer.currentZoneAct = this._MyPlayer.currentZoneAct + 1
+                this._Window.webContents.send("levelingRenderer", ["playerArea", this._MyPlayer])
+              })
+              break
             // gems
             case "addGearSlot":
               MyLogger.log('info', `saveClassGuide: addGearSlot ( gearId: ${arg[2]}, actid: ${arg[3]})`)
@@ -335,7 +342,6 @@ export class LevelingWindow {
 
 
   private async LoadData(): Promise<void> {
-
     await Promise.all([
       this.ClassGuides.Init(this._AppStore.get("curClassGuide", "default") as string).catch((e) => {
         MyLogger.error("Error when loading Classes Guides")
