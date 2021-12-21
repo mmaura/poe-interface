@@ -26,6 +26,10 @@ protocol.registerSchemesAsPrivileged([
 ])
 
 app.whenReady().then(async () => {
+  AppTray = new Tray(AppIcon)
+  AppTray.setToolTip("POE Interface")
+  AppTray.setContextMenu(TrayMenu)
+
   if (!app.isPackaged) {
     try {
       installExtension(REACT_DEVELOPER_TOOLS)
@@ -39,19 +43,14 @@ app.whenReady().then(async () => {
 
   protocol.registerFileProtocol("userdata", (request, callback) => {
     const url = request.url.substr(9)
-    // console.log(decodeURI(path.normalize(`${getLocalCustomPath()}/${url}`)))
     callback({ path: decodeURI(path.normalize(`${getLocalCustomPath()}/${url}`)) })
   })
-
-  AppTray = new Tray(AppIcon)
-  AppTray.setToolTip("POE Interface")
-  AppTray.setContextMenu(TrayMenu)
 
   AppStore.onDidChange("poe_log_path", newValue => {
     CreatePoeLog(newValue as string)
     if (!levelingGuideWindow) levelingGuideWindow = new LevelingWindow(AppStore, AppIcon)
     levelingGuideWindow.setPoeLog(PoeLog)
-    levelingGuideWindow.show()
+    //levelingGuideWindow.show()
   })
 
   function CreatePoeLog(logPath: string) {
@@ -87,7 +86,7 @@ app.whenReady().then(async () => {
 
     new Notification({
       title: "poe-interface",
-      body: "Fichier Log de Path Of Exile chargé.",
+      body: "POE Log file loaded.",
       timeoutType: "default",
       urgency: "low",
       icon: AppIcon,

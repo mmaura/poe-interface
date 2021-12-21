@@ -19,15 +19,14 @@ export class ClassesGuides extends Guides<IClassesGuide>{
   }
 
   async Init(defaultGuideFilename?: string): Promise<void> {
-    super.Init(defaultGuideFilename)
-    this.Gems.Init()
+    await this.Gems.Init().then(() => super.Init(defaultGuideFilename))
   }
 
   getGemsList(): IGemList[] {
     return this.Gems.getGemsList()
   }
 
-  parseCurGuide(): void {
+  async parseCurGuide(): Promise<void> {
     //defaulting missing values
     if (!this.CurGuide.identity.class) this.CurGuide.identity.class = "Guardian"
 
@@ -40,36 +39,52 @@ export class ClassesGuides extends Guides<IClassesGuide>{
         ext = FindFileExt(path.join(this.CurGuide.identity.sysAssetPath, `tree-${actSkel.actid - i}`))
       } while (!ext && (actSkel.actid - i > 0))
 
-      let act = this.CurGuide.acts.find(a => a.act === actSkel.actid)
+      let act = this.CurGuide.acts.find(a => a.actId === actSkel.actid)
       if (!act) {
         MyLogger.info(`no act ${actSkel.actid} in ClasseGuide, defaulting`)
-        this.CurGuide.acts.push(act = { act: actSkel.actid, gears: [] as IClassesGuideGear[] } as IClassesGuideAct)
+        this.CurGuide.acts.push(act = { actId: actSkel.actid, gears: [] as IClassesGuideGear[] } as IClassesGuideAct)
       }
+      if (!act.gears) act.gears = [] as IClassesGuideGear[]
+
       if (i !== 0) MyLogger.info(`no skilltree image found for ${actSkel.actid} in ClasseGuide, defaulting with act ${actSkel.actid - i}`)
       if (actSkel.actid - i === 0) {
         MyLogger.info(`no skilltree image found for ${actSkel.actid} and acts before in ClasseGuide, defaulting with "?"`)
-        act.treeimage = `assets/tree-0.png`
+        act.treeimage = `assets/images/guides/tree-0.png`
       }
       else act.treeimage = `${this.CurGuide.identity.webAssetPath}/tree-${actSkel.actid - i}${ext}`
     }
 
-    this.CurGuide.acts.forEach(act => {
-      if (act.gears) {
-        act.gears.forEach((gear, index) => {
-          gear.gems = [] as IGemList[]
-          if (gear.gem_info)
-            gear.gem_info.forEach(g => {
-              const _gem = this.Gems.getByName(g.name)
-              if (_gem !== undefined) {
-                if ((g.note) && (g.note !== '')) gear.gems.push({ ..._gem, note: g.note })
-                else gear.gems.push(_gem)
-              }
-              else MyLogger.log('info', `Gem ${g.name} was not found.`)
-            })
-          else MyLogger.log('info', `gear does not have gem, for act ${act.act}, gear: '${gear.name}'.`)
-        })
-      } else MyLogger.log('info', `gears not exist for act ${act.act}.`)
-    })
+    this.CurGuide.acts.sort((a, b) => a.actId - b.actId)
+      .forEach(act => {
+        if (act.gears) {
+          act.gears.forEach((gear) => {
+            gear.gems = [] as IGemList[]
+            if (gear.gem_info)
+              gear.gem_info.forEach((g_info, index) => {
+                const _gem = this.Gems.getByName(g_info.name)
+                if (_gem !== undefined) {
+                  _gem.is_new = true
+
+                  const prevAct = this.CurGuide.acts.find(a => a.actId === (act.actId - 1))
+                  if (prevAct !== undefined) {
+                    const prevGear = prevAct.gears.find(gr => gr.name === gear.name)
+                    if (prevGear !== undefined && prevGear.gems !== undefined) {
+                      if (prevGear.gems.find(gm => gm.name === _gem.name))
+                        _gem.is_new = false //false
+                    }
+                  }
+
+                  _gem.key = `${act.actId}-${gear.name.replace(" ", "_")}-${_gem.name.replace(" ", "_")}-${index}`
+                  if ((g_info.note) && (g_info.note !== '')) _gem.notes = g_info.note
+
+                  gear.gems.push({..._gem})
+                }
+                else MyLogger.log('info', `Gem ${g_info.name} was not found.`)
+              })
+            else MyLogger.log('info', `gear does not have gem, for act ${act.actId}, gear: '${gear.name}'.`)
+          })
+        } else MyLogger.log('info', `gears not exist for act ${act.actId}.`)
+      })
   }
 
   AppendMenu(menu: MenuItem, playersClasses: IClassesAscendancies[]): void {
@@ -105,7 +120,7 @@ export class ClassesGuides extends Guides<IClassesGuide>{
           curCount += ascendancyGuides.length
 
           const ascendancyMenu = new MenuItem({
-            label: `(${ascendancyGuides.length}) ${a}`,
+            label: `(${ascendancyGuides.length}) ${a} `,
             enabled: ascendancyGuides.length > 0 ? true : false,
             icon: ascendancyGuides.find(g => g.filename === this.getGuideId()) ? this.Icon : undefined,
             submenu: []
@@ -119,6 +134,8 @@ export class ClassesGuides extends Guides<IClassesGuide>{
               ascendancyMenu.submenu.append(new MenuItem({ type: "separator" }))
             }
 
+            MyLogger.info(`Add menu ${asc.filename}`)
+
             ascendancyMenu.submenu.append(new MenuItem({
               label: this.getGuideLabel(asc.filename),
               icon: asc.filename === this.getGuideId() ? this.Icon : undefined,
@@ -131,7 +148,7 @@ export class ClassesGuides extends Guides<IClassesGuide>{
         })
 
         const classMenu = new MenuItem({
-          label: `(${curCount}) ${c.classe}`,
+          label: `(${curCount}) ${c.classe} `,
           submenu: [],
           enabled: curCount > 0 ? true : false,
           icon: selectedGuide ? this.Icon : undefined,
@@ -150,7 +167,7 @@ export class ClassesGuides extends Guides<IClassesGuide>{
             label: this.getGuideLabel(classe.filename),
             icon: classe.filename === this.getGuideId() ? this.Icon : undefined,
             click: () => {
-              // debugMsg(`loading class Guide :${this.getGuideLabel(classe.filename)} \n ${classe.filename}`)
+              // debugMsg(`loading class Guide :${ this.getGuideLabel(classe.filename) } \n ${ classe.filename } `)
               this.selectGuide(classe.filename)
             }
           }))
@@ -160,11 +177,11 @@ export class ClassesGuides extends Guides<IClassesGuide>{
   }
 
   getTreeImagePath(actid: number): string {
-    return this.CurGuide.acts.find(a => a.act === actid) ? path.join(this.CurGuide.identity.sysAssetPath, this.CurGuide.acts.find(a => a.act === actid).treeimage) : ""
+    return this.CurGuide.acts.find(a => a.actId === actid) ? path.join(this.CurGuide.identity.sysAssetPath, this.CurGuide.acts.find(a => a.actId === actid).treeimage) : ""
   }
 
   setTreeImagePath(filename: string, actid: number): void {
-    fs.copyFileSync(filename, path.normalize(`${this.CurGuide.identity.sysAssetPath}${path.sep}tree-${actid}${path.extname(filename)}`))
+    fs.copyFileSync(filename, path.normalize(`${this.CurGuide.identity.sysAssetPath}${path.sep} tree - ${actid}${path.extname(filename)} `))
     this.parseCurGuide()
   }
 
@@ -194,21 +211,21 @@ export class ClassesGuides extends Guides<IClassesGuide>{
   }
 
   async setGearNotes(gearId: string, notes: string, actId: number): Promise<void> {
-    this.CurGuide.acts.find(a => a.act === actId).gears.find(g => g.name === gearId).notes = notes
+    this.CurGuide.acts.find(a => a.actId === actId).gears.find(g => g.name === gearId).notes = notes
     this.saveCurGuide().then(() => {
       this.emit("GuideContentChanged", this.CurGuide)
     })
   }
 
   async setActNotes(notes: string, actId: number): Promise<void> {
-    this.CurGuide.acts.find(a => a.act === actId).notes = notes
+    this.CurGuide.acts.find(a => a.actId === actId).notes = notes
     this.saveCurGuide().then(() => {
       this.emit("GuideContentChanged", this.CurGuide)
     })
   }
 
   async addGearSlot(gearName: string, actId: number): Promise<void> {
-    const gear = this.CurGuide.acts.find(a => a.act === actId).gears.find(g => g.name === gearName)
+    const gear = this.CurGuide.acts.find(a => a.actId === actId).gears.find(g => g.name === gearName)
     const slots = (gear.gem_info ? gear.gem_info.length : 0)
 
     if (slots <= 6) {
@@ -223,7 +240,7 @@ export class ClassesGuides extends Guides<IClassesGuide>{
 
   async setGearGem(curGemEdit: { actId: number, gearName: string, gemIndex: number }, newName: string): Promise<void> {
     const { actId, gearName, gemIndex } = curGemEdit
-    const curGear = this.CurGuide.acts.find(a => a.act === actId).gears.find(g => g.name === gearName)
+    const curGear = this.CurGuide.acts.find(a => a.actId === actId).gears.find(g => g.name === gearName)
 
     curGear.gem_info[gemIndex].name = newName
     curGear.gems[gemIndex] = this.Gems.getByName(newName)
@@ -235,7 +252,7 @@ export class ClassesGuides extends Guides<IClassesGuide>{
   async delGearGem(curGemEdit: { actId: number, gearName: string, gemIndex: number }): Promise<void> {
     const { actId, gearName, gemIndex } = curGemEdit
 
-    const curGear = this.CurGuide.acts.find(a => a.act === actId).gears.find(g => g.name === gearName)
+    const curGear = this.CurGuide.acts.find(a => a.actId === actId).gears.find(g => g.name === gearName)
     curGear.gems.splice(gemIndex, 1)
     curGear.gem_info.splice(gemIndex, 1)
 
@@ -245,7 +262,7 @@ export class ClassesGuides extends Guides<IClassesGuide>{
   }
   async addGear(actId: number): Promise<void> {
 
-    let gears = this.CurGuide.acts.find(a => a.act === actId).gears
+    let gears = this.CurGuide.acts.find(a => a.actId === actId).gears
     if (!gears) {
       gears = [] as IClassesGuideGear[]
     }
@@ -262,8 +279,8 @@ export class ClassesGuides extends Guides<IClassesGuide>{
   }
 
   async delGear(gearName: string, actId: number): Promise<void> {
-    const index = this.CurGuide.acts.find(a => a.act === actId).gears.findIndex(g => g.name === gearName)
-    if (index !== -1) this.CurGuide.acts.find(a => a.act === actId).gears.splice(index, 1)
+    const index = this.CurGuide.acts.find(a => a.actId === actId).gears.findIndex(g => g.name === gearName)
+    if (index !== -1) this.CurGuide.acts.find(a => a.actId === actId).gears.splice(index, 1)
     this.saveCurGuide().then(() => {
       this.emit("GuideContentChanged", this.CurGuide)
     })
@@ -280,9 +297,9 @@ export class ClassesGuides extends Guides<IClassesGuide>{
   }
 
   async copyToNextAct(curActId: number): Promise<void> {
-    const newActGears = this.CurGuide.acts.find(act => act.act === curActId + 1).gears
-    
-    for (const gear of this.CurGuide.acts.find(act => act.act === curActId).gears)
+    const newActGears = this.CurGuide.acts.find(act => act.actId === curActId + 1).gears
+
+    for (const gear of this.CurGuide.acts.find(act => act.actId === curActId).gears)
       newActGears.push(gear)
     this.saveCurGuide().then(() => {
       this.emit("GuideContentChanged", this.CurGuide)
@@ -299,7 +316,7 @@ export class ClassesGuides extends Guides<IClassesGuide>{
       if (this.CurGuide.acts) for (const act of this.CurGuide.acts)
         if (act.gears) for (const gear of act.gears)
           if (gear.name === name) {
-            name = `_${name}`
+            name = `_${name} `
             notSure = true
           }
     }
@@ -391,12 +408,12 @@ export class ClassesGuides extends Guides<IClassesGuide>{
         }
 
         for (const act of ActsZonesSkeleton.getObject().acts) {
-          let Act = ClassGuide.acts.find(a => a.act == act.actid)
+          let Act = ClassGuide.acts.find(a => a.actId == act.actid)
           if (!Act) {
-            Act = { act: act.actid, gears: [] as IClassesGuideGear[] }
+            Act = { actId: act.actid, gears: [] as IClassesGuideGear[] }
             ClassGuide.acts.push(Act)
           }
-          if (Act.gears.length < 1) Act.gears = ClassGuide.acts.find(a => a.act == act.actid - 1).gears
+          if (Act.gears.length < 1) Act.gears = ClassGuide.acts.find(a => a.actId == act.actid - 1).gears
         }
 
         const ascendancy = fs.readFileSync(path.join(buildPath, "ascendancy.txt"))
@@ -405,7 +422,7 @@ export class ClassesGuides extends Guides<IClassesGuide>{
         const url = info.toString().match(/(http[s]:\/\/.*)/)
         if ((url) && (url.length > 0)) ClassGuide.identity.url = url[0]
 
-        if (ascendancy) ClassGuide.acts.find(a => a.act === 1).notes = `${info.toString()}\n\n${ascendancy.toString()}`
+        if (ascendancy) ClassGuide.acts.find(a => a.actId === 1).notes = `${info.toString()} \n\n${ascendancy.toString()} `
 
         let classGuidePath
         try {
@@ -414,7 +431,7 @@ export class ClassesGuides extends Guides<IClassesGuide>{
 
           fs.mkdirSync(classGuidePath, { recursive: true })
 
-          MyLogger.log('importGuide', `save ${ClassGuide.identity.filename}`)
+          MyLogger.log('importGuide', `save ${ClassGuide.identity.filename} `)
 
           const json = new JsonFile<IClassesGuide>(ClassGuide.identity.filename)
           const tmp = JSON.parse(JSON.stringify(ClassGuide)) as IClassesGuide
@@ -427,7 +444,7 @@ export class ClassesGuides extends Guides<IClassesGuide>{
           json.save()
         }
         catch (e) {
-          MyLogger.log('importGuide', `Error when saving custom guide in ${ClassGuide.identity.filename}`)
+          MyLogger.log('importGuide', `Error when saving custom guide in ${ClassGuide.identity.filename} `)
         }
 
         //TODO do not create non existing tree file
@@ -435,38 +452,38 @@ export class ClassesGuides extends Guides<IClassesGuide>{
           let i = 0
           let treeSrc
           do {
-            treeSrc = path.join(buildPath, `Act ${act.actid - i}`, 'tree.jpg')
+            treeSrc = path.join(buildPath, `Act ${act.actid - i} `, 'tree.jpg')
             i++
           } while (!fs.existsSync(treeSrc) && act.actid - i > 0)
-          const treeDst = path.join(classGuidePath, `tree-${act.actid}.jpg`)
+          const treeDst = path.join(classGuidePath, `tree - ${act.actid}.jpg`)
           fs.copyFileSync(treeSrc, treeDst)
 
-          let Act = ClassGuide.acts.find(a => a.act == act.actid)
+          let Act = ClassGuide.acts.find(a => a.actId == act.actid)
           if (!Act) {
-            Act = { act: act.actid, gears: [] as IClassesGuideGear[] }
+            Act = { actId: act.actid, gears: [] as IClassesGuideGear[] }
             ClassGuide.acts.push(Act)
           }
-          if (Act.gears.length < 1) Act.gears = ClassGuide.acts.find(a => a.act == act.actid - 1).gears
+          if (Act.gears.length < 1) Act.gears = ClassGuide.acts.find(a => a.actId == act.actid - 1).gears
         }
 
         this.Init(ClassGuide.identity.filename)
       }
-      else MyLogger.log('importGuide', `No Gem directory or gem files in ${path.join(buildPath, "gems")}`)
+      else MyLogger.log('importGuide', `No Gem directory or gem files in ${path.join(buildPath, "gems")} `)
     }
   }
 
   appendPOELevelingGuideGemFiles(ClassGuide: IClassesGuide, act: number, ...files: string[]): void {
     for (const file of files) {
-      const gemFile = ini.parse(`\n${fs.readFileSync(file).toString().replace('\ufeff', '')}`)
+      const gemFile = ini.parse(`\n${fs.readFileSync(file).toString().replace('\ufeff', '')} `)
       for (const gem in gemFile) {
         if (gemFile[gem].gem !== '' && gemFile[gem].gem !== undefined) {
           let Act
           if (!ClassGuide.acts) ClassGuide.acts = []
-          else Act = ClassGuide.acts.find(a => a.act === act)
+          else Act = ClassGuide.acts.find(a => a.actId === act)
 
           if (!Act) ClassGuide.acts.push(Act = {} as IClassesGuideAct)
 
-          Act.act = act
+          Act.actId = act
 
           let Gear
           if (!Act.gears) Act.gears = []
@@ -489,7 +506,7 @@ export class ClassesGuides extends Guides<IClassesGuide>{
               if (!Gear.gem_info) Gear.gem_info = []
               Gear.gem_info.push({ name: `${gemFile[gem].gem} Support`, note: note })
             }
-            else MyLogger.log('importGuide', `Try to add unknown (${gemFile[gem].gem}) gem, in file (${file})`)
+            else MyLogger.log('importGuide', `Try to add unknown(${gemFile[gem].gem}) gem, in file(${file})`)
           }
         }
       }

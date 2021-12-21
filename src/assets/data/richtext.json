@@ -107,7 +107,7 @@
       "Vilenta's Vengeance"
     ],
     "style": "quest",
-    "order": 3
+    "order": 4
   },
   {
     "name": "zones",
@@ -235,7 +235,7 @@
       "town"
     ],
     "style": "zones",
-    "order": 4
+    "order": 3
   },
   {
     "name": "boss",
@@ -630,7 +630,7 @@
       "Yugul, Reflection of Terror"
     ],
     "style": "boss",
-    "order": 5
+    "order": 1
   },
   {
     "name": "trial",
@@ -647,5 +647,24 @@
     ],
     "style": "waypoint",
     "order": 7
+  },
+  {
+    "name": "souls",
+    "keywords": [
+      "Soul of Lunaris",
+      "Soul of Arakaali",
+      "Soul of Solaris",
+      "Soul of the Brine King",
+      "Soul of Yugul",
+      "Soul of Ralakesh",
+      "Soul of Shakari",
+      "Soul of Abberath",
+      "Soul of Tukohama",
+      "Soul of Ryslatha",
+      "Soul of Garukhan",
+      "Soul of Gruthkul"
+    ],
+    "style": "souls",
+    "order": 3
   }
 ]

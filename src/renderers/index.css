@@ -6,4 +6,9 @@
     body { @apply bg-black text-poe-1 ;}
     h1{ @apply text-poe-4 m-0 pl-2 pt-1 pb-0 bg-black shadow-md border-b-2 border-poe-99 divide-y text-xl font-semibold  ;}
     h2{ @apply border-b-2 border-t-2 border-poe-96 divide-y text-poe-1 m-0 mb-0.5 pl-4 pt-0.5 pb-0 text-xl font-semibold  w-9/12;}
-}
+
+    .container {
+      @apply bg-gradient-to-l from-poe-98 via-poe-96 to-poe-98 rounded-md border-2 border-poe-97 shadow-xl px-2 py-3;
+    }
+  
+  }

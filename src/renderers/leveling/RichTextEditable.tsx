@@ -38,9 +38,11 @@ function RichTextEditableText(props: { children: string }): JSX.Element {
 
   const formated = useMemo(() => {
     if (text) {
-      for (const filtre of curRichText) {
+      for (const filtre of curRichText.sort((a,b)=>a.order-b.order)) {
         const str = filtre.keywords.join("|")
-        const regex = new RegExp(`(\\b${str})\\b`, "gi")
+        //const regex = new RegExp(`(\\b${str})\\b`, "gi")
+        const regex = new RegExp(`(${str} *?)(?![^><]*<\\/span>([^><]*<span>[^><]*<\\/span>)*[^<>]*)`, "gi")
+
         const subst = `<span class='richtext-${filtre.style}'>$1</span>`
         text = text.replace(regex, subst)
       }

@@ -1,38 +1,50 @@
-import React, { useState, useEffect } from "react";
-import * as ReactDOM from "react-dom";
+import { mdiFolderOpenOutline } from "@mdi/js"
+import React, { useState, useCallback } from "react"
+import * as ReactDOM from "react-dom"
 
-import "../index.css";
-import "./index.css";
+import "../index.css"
+import { MenuButton } from "../leveling/MenuBar"
+import "./index.css"
 
-function App() {
-  const [PoeLogPath, setPoeLogPath] = useState(null);
+function App(props: { Init: any }) {
+  const [poeLogPath, setpoeLogPath] = useState(props.Init[1])
 
-  function ShowPoeLogDialog() {
-    window.poe_interface_API.send("configWindow", { func: "showPoeLogPathDialog", var: [PoeLogPath as string] })
-  }
+  const showPoeLogDialog = useCallback(() => {
+    window.poe_interface_API.send("configRenderer", "showPoeLogPathDialog", poeLogPath)
+  }, [poeLogPath])
 
   /**********************************
    * IPC
    */
-   window.poe_interface_API.receive("poeLogPath", (e, arg) => {
-    setPoeLogPath(arg);
-    console.log("receive poeLogPath:");
-     console.log(arg);
-  });
+  window.poe_interface_API.receive("configRenderer", (e, arg) => {
+    console.log("=> Receive configRenderer :", arg)
+    switch (arg[0]) {
+      case "poeLogPath":
+        setpoeLogPath(arg)
+        break
+    }
+  })
 
   return (
-    <div>
+    <div className="p-2 max-h-screen h-screen w-screen overflow-hidden">
       <h1>Configuration</h1>
-      <span>{PoeLogPath}</span>
-      <button className="border-double border-2 border-poe-4 rounded-lg bg-poe-96" onClick={ShowPoeLogDialog}>Ouvrir</button>
+      <div className="container">
+        <h2>Poe Log Path</h2>
+        <p>
+          Chosse the path of Poe log (use{" "}
+          <span className="italic text-poe-1">.../SteamLibrary/steamapps/common/Path of Exile/logs/Client.txt</span>) for steam linux
+          installation.
+        </p>
+        <div className="flex flex-row gap-4">
+          <MenuButton mdiPath={mdiFolderOpenOutline} tooltip="choose file" onClick={showPoeLogDialog} />
+          <span className="italic text-poe-50">{poeLogPath}</span>
+        </div>
+      </div>
     </div>
-  );
+  )
 }
 
-// window.configAPI
-//   .sendSync("configWindow", { func: "getInitData" })
-//   .then((result: { poeLogPath: string }) => {
-//     ReactDOM.render(<App AppData={result} />, document.getElementById("root"));
-//   });
-
-  ReactDOM.render(<App />, document.getElementById("root"))
+window.poe_interface_API.sendSync("configRenderer", "Init").then(e => {
+  console.log(e)
+  ReactDOM.render(<App Init={e} />, document.getElementById("root"))
+})

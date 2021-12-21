@@ -9,22 +9,26 @@ export class ActsGuides extends Guides<IActsGuide> {
   protected CurGuide: IActsGuide
   protected CurMergedGuide: IActsGuide
   Icon: NativeImage
-  // private DefaultZones: JsonFile<IActsGuide>
 
   constructor () {
     super("actsguides")
     this.Icon = nativeImage.createFromPath(path.join(getAbsPackagedPath(), "/images/arrow-right-bold.png"))
   }
 
+  async Init(defaultGuideFilename?: string): Promise<void> {
+    await super.Init(defaultGuideFilename)
+  }
+
   async selectGuide(defaultGuideFilename?: string): Promise<void> {
-    super.selectGuide(defaultGuideFilename).then(() => this.MergeGuide())
+    await super.selectGuide(defaultGuideFilename)
+    await this.MergeGuide()
   }
 
   getCurMergedGuide(): IActsGuide {
     return this.CurMergedGuide
   }
 
-  parseCurGuide(): void {
+  async parseCurGuide(): Promise<void> {
     if (this.CurGuide.acts) for (const act of this.CurGuide.acts) {
       if (act.zones) for (const zone of act.zones) {
         if (zone.image) for (const index in zone.image) {

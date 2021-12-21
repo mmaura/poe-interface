@@ -2,8 +2,14 @@ const colors = require("tailwindcss/colors")
 
 module.exports = {
   mode: "fit",
-  purge: ["./src/**/*.{tsx, html}"],
-  darkMode: false, // or 'media' or 'class'
+  content: ["./src/**/*.{tsx,html}"],
+  media: false, // or 'media' or 'class'
+  safelist: [
+    {
+      pattern: /bg-avatar-.+/,
+    },
+    { pattern: /richtext-.+/, }
+  ],
   theme: {
     fontFamily: {
       sans: ["Graphik", "sans-serif"],
@@ -14,7 +20,7 @@ module.exports = {
       current: "currentColor",
       black: colors.black,
       white: colors.white,
-      gray: colors.trueGray,
+      gray: colors.neutral,
       yellow: colors.amber,
       red: colors.red,
       // green: colors.green,
@@ -29,46 +35,45 @@ module.exports = {
         98: "#181818",
         99: "#050505",
         60: "#00FF00",
+        70: "rgb(181,75,255)"
       },
     },
     extend: {
       backgroundImage: {
-        inventory: "url('/src/assets/images/inventory-sprite.png')",
-        // 'footer-texture': "url('/src/assets/images/inventory-sprite.png')",
-        socket: "url('/src/assets/images/socket.png')",
+        inventory: "url('/src/assets/images/inventory-sprite.png')"
       },
       backgroundPosition: {
-        ascendant: "0px -180px",
-        deadeye: "0px -260px",
-        gladiator: "0px -340px",
-        pathfinder: "0px -420px",
+        "avatar-ascendant": "0px -180px",
+        "avatar-deadeye": "0px -260px",
+        "avatar-gladiator": "0px -340px",
+        "avatar-pathfinder": "0px -420px",
 
-        assassin: "-110px -180px",
-        duelist: "-110px -260px",
-        guardian: "-110px -340px",
-        raider: "-110px -420px",
+        "avatar-assassin": "-110px -180px",
+        "avatar-duelist": "-110px -260px",
+        "avatar-guardian": "-110px -340px",
+        "avatar-raider": "-110px -420px",
 
-        elementalist: "-220px -260px",
-        hierophant: "-220px -340px",
-        ranger: "-220px -420px",
+        "avatar-elementalist": "-220px -260px",
+        "avatar-hierophant": "-220px -340px",
+        "avatar-ranger": "-220px -420px",
 
-        berserker: "-328px 0px",
-        champion: "-328px -80px",
-        chieftain: "-328px -160px",
-        saboteur: "-328px -420px",
+        "avatar-berserker": "-328px 0px",
+        "avatar-champion": "-328px -80px",
+        "avatar-chieftain": "-328px -160px",
+        "avatar-saboteur": "-328px -420px",
 
-        inquisitor: "-438px 0px",
-        juggernaut: "-438px -80px",
-        marauder: "-438px -160px",
-        necromancer: "-438px -240px",
-        occultist: "-438px -320px",
+        "avatar-inquisitor": "-438px 0px",
+        "avatar-juggernaut": "-438px -80px",
+        "avatar-marauder": "-438px -160px",
+        "avatar-necromancer": "-438px -240px",
+        "avatar-occultist": "-438px -320px",
 
-        scion: "-548px 0px",
-        shadow: "-548px -80px",
-        slayer: "-548px -160px",
-        templar: "-548px -240px",
-        trickster: "-548px -320px",
-        witch: "-548px -400px",
+        "avatar-scion": "-548px 0px",
+        "avatar-shadow": "-548px -80px",
+        "avatar-slayer": "-548px -160px",
+        "avatar-templar": "-548px -240px",
+        "avatar-trickster": "-548px -320px",
+        "avatar-witch": "-548px -400px",
 
         skred: "-105px -35px",
         skgreen: "-105px 0px",
@@ -82,14 +87,14 @@ module.exports = {
         "gear-container-onedit": "680px",
         "notes-container": "580px",
         "guide-container": "400px",
-        "gear": "175px",
+        gear: "175px",
         "gem-list-element": "260px",
       },
       height: {
-        "avatar": "80px;",
-        "inventory": "80px;",
+        avatar: "80px;",
+        inventory: "80px;",
         "gear-edit": "195px",
-        "gear": "150px",
+        gear: "150px",
         "gem-list": "520px",
       },
       minHeight: {

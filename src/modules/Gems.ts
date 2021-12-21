@@ -33,7 +33,7 @@ export class Gems extends JsonFile<IGem[]>{
       this.GemList.push({
         name: g.name,
         label: g.name,
-        image: `${getPackagedWebBaseName()}/images/gems/${g.name}.png`,
+        image: g.is_socket?`${getPackagedWebBaseName()}/images/sockets/${g.name}.png`:`${getPackagedWebBaseName()}/images/gems/${g.name}.png`,
         required_level: g.required_level,
         currency: (g.currency) ? `${getPackagedWebBaseName()}/images/currency/${g.currency}.png` : "",
         currency_amount: g.currency_amount,
@@ -78,10 +78,9 @@ export class Gems extends JsonFile<IGem[]>{
     gemName.trim()
     const gem = this.GemList.find(e => { return (e.name === gemName || e.name === `${gemName} Support` ) })
 
-
-    if (gem) {
-      gem.image = `${getPackagedWebBaseName()}/images/gems/${gem.name}.png`
-    }
+    // if (gem) {
+    //   gem.image = `${getPackagedWebBaseName()}/images/gems/${gem.name}.png`
+    // }
     return gem
   }
 

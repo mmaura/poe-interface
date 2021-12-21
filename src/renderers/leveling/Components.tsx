@@ -1,5 +1,5 @@
 import React, { ChangeEvent, ChangeEventHandler, useContext, useState, useMemo, useCallback, useEffect, useRef } from "react"
-import { mdiEye, mdiImageSearch, mdiLinkVariant, mdiMinus, mdiPlus } from "@mdi/js"
+import { mdiEye, mdiImageSearch, mdiLinkVariant, mdiLoading, mdiMinus, mdiPlus } from "@mdi/js"
 import Icon from "@mdi/react"
 
 import { CurActContext, PlayerContext } from "./LevelingRenderer"
@@ -17,13 +17,22 @@ export function PlayerInfo(): JSX.Element {
     <div className="inventory">
       {curPlayer && (
         <div className="absolute">
-          <div className={`avatar bg-${curPlayer.characterAscendancy.toLowerCase()}`}></div>
+          <div className={`avatar bg-avatar-${curPlayer.characterAscendancy.toLowerCase()}`}></div>
           <div className="inventory-text top-inventory-line1">{curPlayer.name}</div>
           <div className="inventory-text top-inventory-line2">
             Level {curPlayer.level} {curPlayer.characterClass}
           </div>
         </div>
       )}
+    </div>
+  )
+}
+
+export function Loading(): JSX.Element {
+  return (
+    <div className="flex flex-row">
+      <Icon path={mdiLoading} size={3} title="Loading" className="animate-spin" />
+      <h1>Loading PoeLogFile</h1>
     </div>
   )
 }
@@ -103,10 +112,10 @@ export function ZoneNotes(props: { curZone: IActsGuideZone; onSave: (text: strin
       )}
       <h2>Notes</h2>
       <div className="absolute top-0 right-0 flex flex-row gap-1">
-        {curZone.hasRecipe && <img className="w-socket h-socket" src="../assets/images/craftingrecipe.png" />}
-        {curZone.hastrial && <img className="w-socket h-socket" src="../assets/images/trial.png" />}
-        {curZone.haspassive && <img className="w-socket h-socket" src="../assets/images/bookofskill.png" />}
-        {curZone.hasWaypoint && <img className="w-socket h-socket" src="../assets/images/waypoint.png" />}
+        {curZone.hasRecipe && <img className="w-socket h-socket" src="../assets/images/guides/craftingrecipe.png" />}
+        {curZone.hastrial && <img className="w-socket h-socket" src="../assets/images/guides/trial.png" />}
+        {curZone.haspassive && <img className="w-socket h-socket" src="../assets/images/guides/bookofskill.png" />}
+        {curZone.hasWaypoint && <img className="w-socket h-socket" src="../assets/images/guides/waypoint.png" />}
       </div>
       <div className="text-xl flex-grow relative">
         <RichTextEditable isOnEdit={isOnEdit && ActsGuideIsOnEdit} onChange={onChange}>
@@ -177,9 +186,9 @@ export function SkillTree(props: {
 
   return (
     <div className="container relative max-h-gem-list h-gem-list">
-      {curGuide.acts.find(a => a.act === curAct.actid) && (
+      {curGuide.acts.find(a => a.actId === curAct.actid) && (
         // <img className="w-full h-full max-w-full max-h-max" src={curGuide.acts.find(a => a.act === curAct.actid).treeimage} />
-        <img className="object-cover max-w-full max-h-full" src={curGuide.acts.find(a => a.act === curAct.actid).treeimage} />
+        <img className="object-cover max-w-full max-h-full" src={curGuide.acts.find(a => a.actId === curAct.actid).treeimage} />
       )}
       <MenuBar pos_x="left" pos_y="top">
         <MenuButton
@@ -208,13 +217,13 @@ export function GemBuyList(props: { curGuide: IClassesGuide }): JSX.Element {
 
     if (curGuide && curGuide.acts) {
       curGuide.acts
-        .filter(act => act.act === curAct.actid || showAll)
+        .filter(act => act.actId === curAct.actid || showAll)
         .map(act =>
           act.gears.map(gear =>
             gear.gems.map(_gem => {
               if (
                 // !_gems.includes(_gem) &&
-                !_gems.find(g=> g.name === _gem.name) &&
+                !_gems.find(g => g.name === _gem.name) &&
                 (Math.abs(_gem.required_lvl - curPlayer.level) < lvlRange || showAll) &&
                 _gem.is_socket === false
               ) {
@@ -408,17 +417,27 @@ export function Gem(props: {
   }, [curGem])
 
   return (
-    <div data-for={`gem` + curGem.key} data-tip={`gem` + curGem.key} data-effect="solid" data-place="left" data-delay-hide="1000">
+    <div
+      data-for={`gem` + curGem.key}
+      data-tip={`gem` + curGem.key}
+      data-effect="solid"
+      data-place="left"
+      data-delay-hide="1000"
+      className="relative h-socket">
       <ReactTooltip key={curGem.key} />
       <img
         data-tip={tipText}
         onClick={onClick}
         onDoubleClick={onDoubleClick}
-        className={`w-socket h-socket cursor-pointer ${curGem.notes ? "animate-pulse" : null} ${
-          selected ? "border-2 border-poe-50 " : null
-        }`}
+        className={`w-socket h-socket cursor-pointer 
+        ${selected ? "border-2 border-poe-50 " : ""}
+        ${curGem.is_new ? " opacity-100 0" : "opacity-60"} 
+
+        `}
         src={curGem.image}
       />
+      {curGem.is_new && <div className="absolute rounded bg-poe-60 h-1 w-1/2 bottom-0 right-1/2 opacity-75 border-black border-[1px]"></div>}
+      {curGem.notes && <div className="absolute rounded bg-poe-3 h-1 w-1/2 bottom-0 left-1/2 opacity-75 border-black border-[1px]"></div>}
     </div>
   )
 }

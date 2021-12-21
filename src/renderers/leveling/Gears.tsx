@@ -50,7 +50,7 @@ export function ZoneGears(props: {
 
   const curGearsAct = useMemo(() => {
     if (curGuide && curGuide.acts) {
-      const _cga = curGuide.acts.find(act => act.act === curAct.actid)
+      const _cga = curGuide.acts.find(act => act.actId === curAct.actid)
       setactNotes(_cga.notes)
       return _cga
     } else return {} as IClassesGuideAct
@@ -169,7 +169,7 @@ function Gear(props: {
 
       <TextEditable isOnEdit={isGroupNameOnEdit} onChange={onGroupNameChange} name="groupName" value={groupName} />
       <div className={`flex flex-row gap-2 ${isGroupNoteEdit ? "w-inventory" : ""}`}>
-        <div className={`${(gear.gems ? gear.gems.length : 0) <= 3 ? "poe-item-3slots" : "poe-item-xslots"} flex-none min-h-0`}>
+        <div className={`${(gear.gems ? gear.gems.length : 0) <= 3 ? "poe-item-3slots" : "poe-item-xslots"} self-start justify-self-start flex-grow-0 flex-shrink-0 min-h-0 border-poe-97 border-2 rounded-lg p-[2px]`}>
           {gear.gems &&
             gear.gems.map((gem, index) => (
               <Gem

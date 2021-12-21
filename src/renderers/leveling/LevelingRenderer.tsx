@@ -12,6 +12,7 @@ import {
   GemBuyList,
   ActGuideIdentity,
   ClassGuideIdentity,
+  Loading,
 } from "./Components"
 import { GemSelectorUTility, ZoneGears } from "./Gears"
 
@@ -28,6 +29,7 @@ function App(props: { Init: any }) {
   const [curZoneName, setcurZoneName] = useState(props.Init[6] as string)
   const [playerClasses, setplayerClasses] = useState(props.Init[7] as IClassesAscendancies[])
   const GemsSkel = props.Init[8] as IGemList[]
+  const [poeLogLoaded, setpoeLogLoaded] = useState(props.Init[9])
 
   const [ClassGuideIsOnEdit, setClassGuideIsOnEdit] = useState(false)
   const [ActGuideIsOnEdit, setActGuideIsOnEdit] = useState(false)
@@ -51,13 +53,26 @@ function App(props: { Init: any }) {
         setcurZoneName(curAct.zones[0].name)
         return curAct.zones[0]
       }
-      console.log("return : ", _zone)
+      console.log("useMemo return : ", _zone)
       return _zone
     } else {
       console.log(`return: null (defaulting) ${curAct} `)
       return curAct.zones[0]
     }
   }, [curZoneName, curAct, actsGuide])
+
+  // const prevZone = useCallback(() => {
+  //   const index = curAct.zones.findIndex(z => z.name === curZoneName)
+  //   console.log("zonename: %s, index: %s", curZoneName, index)
+  //   if (index <= 0) {
+  //     if (curActID > 1) {
+  //       const prevAct = actsGuide.acts.find(a => a.actid === curActID - 1)
+  //       setcurActID(prevAct.actid)
+  //       setcurZoneName(prevAct.zones[prevAct.zones.length - 1].name)
+  //     }
+  //   }
+  //   setcurZoneName(curAct.zones[index].name)
+  // }, [curAct, curActID, curZoneName, actsGuide])
 
   /**********************************
    * Events
@@ -135,7 +150,7 @@ function App(props: { Init: any }) {
 
   const ClassGuide_CopyToNextAct = useCallback((actId: number) => {
     window.poe_interface_API.sendSync("levelingRenderer", "saveClassGuide", "copyToNextAct", actId)
-  },[])
+  }, [])
 
   const ClassGuide_SetGearSocket = useCallback(
     (e: React.SyntheticEvent<HTMLDivElement>, newGearName: string) => {
@@ -163,10 +178,14 @@ function App(props: { Init: any }) {
     window.poe_interface_API.receive("levelingRenderer", (e, arg) => {
       console.log("=> Receive levelingRenderer :", arg)
       switch (arg[0]) {
-        case "player":
+        case "poeParseComplete":
+          setcurPlayer(arg[1])
+          setpoeLogLoaded(true)
+          break
+        case "playerLevelUp":
           setcurPlayer(arg[1])
           break
-        case "playerArea":
+        case "playerAreaChange":
           setcurPlayer(arg[1])
           break
         case "ClassGuide":
@@ -177,7 +196,7 @@ function App(props: { Init: any }) {
             case "GuideIdentityChanged":
               setclassGuide(arg[2])
               break
-            case "ChangeSelectedGuided":
+            case "ChangeSelectedGuide":
               setclassGuide(arg[2])
               setcurActID(1)
               break
@@ -191,7 +210,7 @@ function App(props: { Init: any }) {
             case "GuideIdentityChanged":
               setactsGuide(arg[2])
               break
-            case "ChangeSelectedGuided":
+            case "ChangeSelectedGuide":
               setactsGuide(arg[2])
               setcurActID(1)
               break
@@ -203,6 +222,22 @@ function App(props: { Init: any }) {
           setclassGuide(arg[3])
           setplayerClasses(arg[4])
           break
+        // case "changeZone":
+        //   switch (arg[1]) {
+        //     case "prevZone":
+        //       prevZone()
+        //       break
+        //     // case "nextZone":
+        //     //   nextZone()
+        //     //   break
+        //     // case "prevAct":
+        //     //   prevAct()
+        //     //   break
+        //     // case "nextAct":
+        //     //   nextAct()
+        //     //   break
+        //   }
+        //   break
       }
     })
     return () => {
@@ -249,7 +284,11 @@ function App(props: { Init: any }) {
                 <h1>{`${curAct.act} : ${curZone.name}`}</h1>
               </div>
               <div className="flex-grow h-full">
-                <NavigationMap curZone={curZone} onSave={ActGuide_SaveNavigationNote} ActsGuideIsOnEdit={ActGuideIsOnEdit} />
+                {poeLogLoaded ? (
+                  <NavigationMap curZone={curZone} onSave={ActGuide_SaveNavigationNote} ActsGuideIsOnEdit={ActGuideIsOnEdit} />
+                ) : (
+                  <Loading />
+                )}
               </div>
               <div className="flex-grow-0 h-full guide-container px-1">
                 {!ClassGuideIsOnEdit && (
@@ -342,6 +381,5 @@ function App(props: { Init: any }) {
 }
 
 window.poe_interface_API.sendSync("levelingRenderer", "Init").then(e => {
-  console.log(e)
   ReactDOM.render(<App Init={e} />, document.getElementById("root"))
 })

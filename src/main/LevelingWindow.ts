@@ -25,7 +25,7 @@ export class LevelingWindow {
 
   private _CanClose = false
   private _PoeLog: PathOfExileLog
-  private _LogLoaded: boolean
+  private _PoeLogLoaded: boolean
 
   private ClassGuides: ClassesGuides
   private ActsGuides: ActsGuides
@@ -67,6 +67,8 @@ export class LevelingWindow {
     })
 
     this.LoadData().finally(() => {
+      MyLogger.info("All data loaded.")
+
       this.makeMenus()
 
       this._Window.loadURL(LEVELING_WINDOW_WEBPACK_ENTRY)
@@ -74,8 +76,53 @@ export class LevelingWindow {
         this._Window.webContents.openDevTools({ mode: "detach" })
       }
       this._Window.setBounds(this._AppStore.get("levelingWinBounds", { x: 1, y: 1, width: 1400, height: 980 }) as Rectangle)
+
+      /************************
+        * Class Guides Events
+        */
+      this.ClassGuides.on('GuideContentChanged', (guide => {
+        this._Window.webContents.send("levelingRenderer", ["ClassGuide", "GuideContentChanged", guide])
+      }))
+
+      this.ClassGuides.on("GuideIdentityChanged", (guide => {
+        this._Window.webContents.send("levelingRenderer", ["ClassGuide", "GuideIdentityChanged", guide])
+        this._AppStore.set("curClassGuide", guide.identity.filename)
+        this.makeMenus()
+      }))
+
+      this.ClassGuides.on("ChangeSelectedGuide", (guide => {
+        this._Window.webContents.send("levelingRenderer", ["ClassGuide", "ChangeSelectedGuide", guide])
+        this._AppStore.set("curClassGuide", guide.identity.filename)
+        this.makeMenus()
+      }))
+
+      /************************
+       * Acts Guides Events
+       */
+      this.ActsGuides.on("GuideContentChanged", (() => {
+        this._Window.webContents.send("levelingRenderer", ["ActsGuide", "GuideContentChanged", this.ActsGuides.getCurMergedGuide()])
+      }))
+
+      this.ActsGuides.on("GuideIdentityChanged", (guide => {
+        this._Window.webContents.send("levelingRenderer", ["ActsGuide", "GuideIdentityChanged", guide])
+        this._AppStore.set("curActsGuide", guide.identity.filename)
+        this.makeMenus()
+      }))
+
+      this.ActsGuides.on("ChangeSelectedGuide", (guide => {
+        this._Window.webContents.send("levelingRenderer", ["ActsGuide", "ChangeSelectedGuide", guide])
+        this._AppStore.set("curActsGuide", guide.identity.filename)
+        this.makeMenus()
+      }))
+
+
+      // this.ActsGuides.on("GuideMerged", (guide => {
+      //   this._Window.webContents.send("levelingRenderer", ["ActsGuide", this.ActsGuides.getCurMergedGuide()])
+      //   this._AppStore.set("curActsGuide", guide.identity.filename)
+      //   this.makeMenus()
+      // }))
     }).catch(e => {
-      MyLogger.log('info', `Some error when Loading data : ${e}`)
+      MyLogger.log('info', `Error during initialising and loading data : ${e}`)
     })
 
     /**********************************
@@ -97,6 +144,7 @@ export class LevelingWindow {
             this.ActsGuides.getCurMergedGuide().acts[0].zones[0].name,
             this.PlayersClasses.getObject(),
             this.ClassGuides.getGemsList(),
+            this._PoeLogLoaded
           ]
 
         case "saveActGuide": switch (arg[1]) {
@@ -164,7 +212,7 @@ export class LevelingWindow {
               MyLogger.log('info', `saveClassGuide: copyToNextAct ( curactid: ${arg[2]})`)
               this.ClassGuides.copyToNextAct(arg[2]).then(() => {
                 this._MyPlayer.currentZoneAct = this._MyPlayer.currentZoneAct + 1
-                this._Window.webContents.send("levelingRenderer", ["playerArea", this._MyPlayer])
+                this._Window.webContents.send("levelingRenderer", ["playerAreaChange", this._MyPlayer])
               })
               break
             // gems
@@ -199,51 +247,6 @@ export class LevelingWindow {
     this._Window.on("closed", () => {
       this._Window = null
     })
-
-    /************************
-     * Class Guides Events
-     */
-    this.ClassGuides.on('GuideContentChanged', (guide => {
-      this._Window.webContents.send("levelingRenderer", ["ClassGuide", "GuideContentChanged", guide])
-    }))
-
-    this.ClassGuides.on("GuideIdentityChanged", (guide => {
-      this._Window.webContents.send("levelingRenderer", ["ClassGuide", "GuideIdentityChanged", guide])
-      this._AppStore.set("curClassGuide", guide.identity.filename)
-      this.makeMenus()
-    }))
-
-    this.ClassGuides.on("ChangeSelectedGuided", (guide => {
-      this._Window.webContents.send("levelingRenderer", ["ClassGuide", "ChangeSelectedGuided", guide])
-      this._AppStore.set("curClassGuide", guide.identity.filename)
-      this.makeMenus()
-    }))
-
-    /************************
-     * Acts Guides Events
-     */
-    this.ActsGuides.on("GuideContentChanged", (() => {
-      this._Window.webContents.send("levelingRenderer", ["ActsGuide", "GuideContentChanged", this.ActsGuides.getCurMergedGuide()])
-    }))
-
-    this.ActsGuides.on("GuideIdentityChanged", (guide => {
-      this._Window.webContents.send("levelingRenderer", ["ActsGuide", "GuideIdentityChanged", guide])
-      this._AppStore.set("curClassGuide", guide.identity.filename)
-      this.makeMenus()
-    }))
-
-    this.ActsGuides.on("ChangeSelectedGuided", (guide => {
-      this._Window.webContents.send("levelingRenderer", ["ActsGuide", "ChangeSelectedGuided", guide])
-      this._AppStore.set("curClassGuide", guide.identity.filename)
-      this.makeMenus()
-    }))
-
-
-    // this.ActsGuides.on("GuideMerged", (guide => {
-    //   this._Window.webContents.send("levelingRenderer", ["ActsGuide", this.ActsGuides.getCurMergedGuide()])
-    //   this._AppStore.set("curActsGuide", guide.identity.filename)
-    //   this.makeMenus()
-    // }))
   }
 
   async loadImage(title: string, defaultPath: string): Promise<OpenDialogReturnValue> {
@@ -260,17 +263,11 @@ export class LevelingWindow {
   setPoeLog(poeLog: PathOfExileLog): void {
     if (poeLog !== null) {
       this._PoeLog = poeLog
-      this._LogLoaded = false
+      this._PoeLogLoaded = false
 
       this._PoeLog.on("parsingComplete", () => {
-        this._LogLoaded = true
-        this._Window.webContents.send("levelingRenderer", ["player", this._MyPlayer])
-        this._Window.webContents.send("conn", this._MyConn)
-      })
-
-      this._PoeLog.on("login", data => {
-        this._MyConn = data
-        if (this._LogLoaded === true) this._Window.webContents.send("conn", this._MyConn)
+        this._PoeLogLoaded = true
+        this._Window.webContents.send("levelingRenderer", ["poeParseComplete", this._MyPlayer])
       })
 
       this._PoeLog.on("level", data => {
@@ -279,8 +276,8 @@ export class LevelingWindow {
         this._MyPlayer.characterAscendancy = data.characterClass
         this._MyPlayer.level = data.level
 
-        if (this._LogLoaded === true) {
-          this._Window.webContents.send("levelingRenderer", ["player", this._MyPlayer])
+        if (this._PoeLogLoaded === true) {
+          this._Window.webContents.send("levelingRenderer", ["playerLevelUp", this._MyPlayer])
         }
       })
 
@@ -304,8 +301,8 @@ export class LevelingWindow {
             break
         }
 
-        if (this._LogLoaded === true) {
-          this._Window.webContents.send("levelingRenderer", ["playerArea", this._MyPlayer])
+        if (this._PoeLogLoaded === true) {
+          this._Window.webContents.send("levelingRenderer", ["playerAreaChange", this._MyPlayer])
         }
       })
     }
@@ -454,6 +451,41 @@ export class LevelingWindow {
     this.GameHelpers.AppendMenu(this._Menu.getMenuItemById("helpers"))
     this.ActsGuides.AppendMenu(this._Menu.getMenuItemById("actsGuide"))
     this.ClassGuides.AppendMenu(this._Menu.getMenuItemById("classGuide"), this.PlayersClasses.getObject())
+
+    // this._Menu.append(new MenuItem(
+    //   {
+    //     type: "submenu",
+    //     label: "Commands",
+    //     submenu: [{
+    //       label: `Prev zone`,
+    //       accelerator: process.platform === 'darwin' ? 'numsub' : 'numsub',
+    //       click: () => {
+    //         this._Window.webContents.send("levelingRenderer", ["changeZone","prevZone"])
+    //       }
+    //     },
+    //     {
+    //       label: `Next zone`,
+    //       accelerator: process.platform === 'darwin' ? 'numadd' : 'numadd',
+    //       click: () => {
+    //         this._Window.webContents.send("levelingRenderer", ["changeZone","nextZone"])
+    //       }
+    //     },
+    //     {
+    //       label: `Prev act`,
+    //       accelerator: process.platform === 'darwin' ? 'Cmd+numsub' : 'Ctrl+numsub',
+    //       click: () => {
+    //         this._Window.webContents.send("levelingRenderer", ["changeZone","prevAct"])
+    //       }
+    //     },
+    //     {
+    //       label: `Prev act`,
+    //       accelerator: process.platform === 'darwin' ? 'Cmd+numadd' : 'Ctrl+numadd',
+    //       click: () => {
+    //         this._Window.webContents.send("levelingRenderer", ["changeZone","nextAct"])
+    //       }
+    //     }
+    //     ]
+    //   }))
 
     if (app.isPackaged === false) {
       const _menu = new MenuItem(

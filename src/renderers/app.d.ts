@@ -86,7 +86,7 @@ declare global {
   }
 
   export interface IClassesGuideAct {
-    act: number
+    actId: number
     notes?: string
     gears: IClassesGuideGear[]
     treeimage?: string
@@ -147,6 +147,7 @@ declare global {
     is_socket?: boolean
     is_support?: boolean
     notes?: string
+    is_new?: boolean
     vendor_rewards?: Reward[]
     quest_rewards?: Reward[]
   }

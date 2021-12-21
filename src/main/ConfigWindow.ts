@@ -1,4 +1,4 @@
-import { BrowserWindow, dialog, ipcMain, NativeImage, app } from "electron"
+import { BrowserWindow, dialog, ipcMain, NativeImage, app, IpcMainInvokeEvent } from "electron"
 
 import { MyLogger } from "../modules/functions"
 
@@ -15,7 +15,7 @@ export class ConfigWindow {
   private _CanClose = false
   private _AppStore: Store
 
-  constructor(appStore: Store, AppIcon: NativeImage) {
+  constructor (appStore: Store, AppIcon: NativeImage) {
     this._Window = new BrowserWindow({
       width: 600,
       height: 400,
@@ -34,7 +34,9 @@ export class ConfigWindow {
     this._PoeLogPath = this._AppStore.get("poe_log_path", "") as string
 
     this._Window.loadURL(CONFIG_WINDOW_WEBPACK_ENTRY)
-    if (!app.isPackaged) this._Window.webContents.openDevTools()
+    if (!app.isPackaged) {
+      this._Window.webContents.openDevTools({ mode: "detach" })
+    }
     this._Window.setMenu(null)
 
     /**********************************
@@ -58,23 +60,55 @@ export class ConfigWindow {
 
     /**********************************
      * IPC
-     */
-    ipcMain.handle("configWindow", (event, arg: any) => {
-      let response = {}
+    */
+    ipcMain.handle("configRenderer", (event: IpcMainInvokeEvent, ...arg) => {
+      MyLogger.log('info', `ipcMain handle 'levelingRenderer': ${arg}`)
 
-      switch (arg.func) {
-        case "getInitData":
-          response = {
-            poeLogPath: this.getPoeLogPath(),
-          }
+      switch (arg[0]) {
+        case "Init":
+          MyLogger.log('info', `Message: Init`)
+          return [
+            "Init",
+            this.getPoeLogPath(),
+          ]
           break
         case "showPoeLogPathDialog":
-          this.ShowPoeLogDialog(arg.var[0])
+          MyLogger.log('info', `Select Poe Path`)
+          this.ShowPoeLogDialog(arg[1])
           break
+
       }
-      return response
     })
+
+
+
+    //   ipcMain.handle("configWindow", (event, arg: any) => {
+    //     let response = {}
+
+    //     switch (arg.func) {
+    //       case "getInitData":
+    //         response = {
+    //           poeLogPath: this.getPoeLogPath(),
+    //         }
+    //         break
+    //     }
+    //     return response
+    //   })
   }
+
+  setCanClose(state: boolean): void {
+    this._CanClose = state
+  }
+
+  close(): void {
+    this._CanClose = true
+    this._Window.close()
+  }
+
+  show(): void {
+    this._Window.show()
+  }
+
 
   getConfigValue(configValue: string): unknown {
     return this._AppStore.get(configValue)
@@ -96,18 +130,6 @@ export class ConfigWindow {
     this._AppStore.set("poe_log_path", this._PoeLogPath)
   }
 
-  setCanClose(state: boolean): void {
-    this._CanClose = state
-  }
-
-  close(): void {
-    this._CanClose = true
-    this._Window.close()
-  }
-
-  show(): void {
-    this._Window.show()
-  }
 
   ShowPoeLogDialog(curPath?: string): void {
     if (!curPath) curPath = this.getPoeLogPath()
@@ -122,7 +144,10 @@ export class ConfigWindow {
       .then(result => {
         if (result.canceled === false) {
           this.setPoeLogPath(result.filePaths[0])
-          this._Window.webContents.send("poeLogPath", result.filePaths[0])
+          // this._Window.webContents.send("poeLogPath", result.filePaths[0])
+          this._Window.webContents.send("configRenderer", ["poeLogPath", result.filePaths[0]])
+
+
         }
       })
       .catch(err => {

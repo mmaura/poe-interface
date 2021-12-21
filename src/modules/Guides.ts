@@ -13,7 +13,7 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
   protected Identities = [] as GuidesIdentity[]
   protected CurGuide: T
 
-  abstract parseCurGuide(): void
+  abstract parseCurGuide(): Promise<void>
   abstract saveCurGuide(): Promise<void>
   abstract ImportPOELevelingGuide(buildPath: string): void
 
@@ -29,13 +29,16 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
   async Init(defaultGuideFilename?: string): Promise<void> {
     this.Identities = [] as GuidesIdentity[]
 
-    Promise.all([
+    MyLogger.info(`Init with default : ${defaultGuideFilename}`)
+
+    await Promise.all([
       this.populateIdentities(this.getAbsPackagedPath(), this.getPackagedWebBaseName(), true),
       this.populateIdentities(this.getAbsCustomPath(), this.getCustomWebBaseName())
         .catch(() => {
           MyLogger.log('info', `No custom guide in ${this.getAbsCustomPath()}`)
         }),
-    ]).finally(() => { this.selectGuide(defaultGuideFilename) })
+    ])
+    await this.selectGuide(defaultGuideFilename) 
   }
 
   /**
@@ -185,12 +188,13 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
       this.CurGuide = json.getObject()
       this.CurGuide.identity = selectedIdent
 
-      this.parseCurGuide()
-      if (oldGuideFilename === this.CurGuide.identity.filename) {
+      await this.parseCurGuide()
+
+      if (oldGuideFilename === this.CurGuide.identity.filename)
         this.emit("GuideContentChanged", this.CurGuide)
-      }
       else
-        this.emit("ChangeSelectedGuided", this.CurGuide)
+        this.emit("ChangeSelectedGuide", this.CurGuide)
+
       MyLogger.log('info', `set cur guide ${this.CurGuide.identity.filename}`)
     }
     catch (e) {
@@ -198,6 +202,7 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
       MyLogger.error(e)
     }
   }
+
 
   /**
    * 
