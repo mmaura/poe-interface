@@ -35,7 +35,7 @@ export function ZoneGears(props: {
   const [noteIsOnEdit, setnoteIsOnEdit] = useState(false)
 
   const editNote = useCallback(() => {
-    if (noteIsOnEdit) ClassGuide_SaveGearNote(curAct.actid, actNotes)
+    if (noteIsOnEdit) ClassGuide_SaveGearNote(curAct.actId, actNotes)
     setnoteIsOnEdit(!noteIsOnEdit)
   }, [noteIsOnEdit, actNotes, curAct])
 
@@ -44,13 +44,13 @@ export function ZoneGears(props: {
   }, [])
 
   const onCopyToNextAct = useCallback(()=>{
-    ClassGuide_CopyToNextAct(curAct.actid)
+    ClassGuide_CopyToNextAct(curAct.actId)
   }, [curAct]) 
 
 
   const curGearsAct = useMemo(() => {
     if (curGuide && curGuide.acts) {
-      const _cga = curGuide.acts.find(act => act.actId === curAct.actid)
+      const _cga = curGuide.acts.find(act => act.actId === curAct.actId)
       setactNotes(_cga.notes)
       return _cga
     } else return {} as IClassesGuideAct
@@ -58,7 +58,7 @@ export function ZoneGears(props: {
 
   return (
     <>
-      <div className="relative flex flex-col mb-2">
+      <div className="relative flex flex-col mb-2 w-full min-h-map-container">
         {ClassGuideIsOnEdit && (
           <MenuBar pos_x="left" pos_y="top">
             <EditSaveNoteButton isOnEdit={noteIsOnEdit} onSave={editNote} onEdit={editNote} />
@@ -85,11 +85,11 @@ export function ZoneGears(props: {
           <div className="pt-1 flex-grow flex flex-row flex-wrap gap-2 items-start">
             {curGearsAct.gears.map(gear => {
               return (
-                <div key={`${gear.name}_${curAct.actid}`} className="max-w-xs">
+                <div key={`${gear.name}_${curAct.actId}`} className="max-w-xs">
                   <Gear
                     ClassGuideIsOnEdit={ClassGuideIsOnEdit}
                     gear={gear}
-                    curActId={curAct.actid}
+                    curActId={curAct.actId}
                     onGearGemClick={onGearSocketSelected}
                     onGearGemDoubleClick={ClassGuide_DeleteGearSocket}
                     curSocketEdited={curSocketEdited}
@@ -249,7 +249,7 @@ export function GemSelectorUTility(props: {
   )
 
   useEffect(() => {
-    setactFilter(curAct.actid)
+    setactFilter(curAct.actId)
   }, [BeforeActId, curAct])
 
   // Never be recompiled
@@ -338,7 +338,7 @@ export function GemSelectorUTility(props: {
           </div>
           <div>
             <input name="showOnlyCurAct" type="checkbox" checked={BeforeActId} onChange={onCheckboxChange} />
-            <label> Show only ≤ act ({curAct.actid})</label>
+            <label> Show only ≤ act ({curAct.actId})</label>
           </div>
         </div>
       </div>
@@ -525,13 +525,13 @@ function useSearchGem(
       if (BeforeActId && !g.is_socket) {
         let haveBeforeActId = false
         for (const r of g.quest_rewards)
-          if (r.act <= BeforeActId) {
+          if (r.actId <= BeforeActId) {
             haveBeforeActId = true
             break
           }
         if (haveBeforeActId === false)
           for (const r of g.vendor_rewards)
-            if (r.act <= BeforeActId) {
+            if (r.actId <= BeforeActId) {
               haveBeforeActId = true
               break
             }

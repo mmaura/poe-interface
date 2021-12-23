@@ -1,5 +1,5 @@
-import { MenuItem, nativeImage, NativeImage, dialog } from "electron"
-import { ActsZonesSkeleton, FindFileExt, getAbsPackagedPath, MyLogger } from "./functions"
+import { MenuItem, nativeImage, NativeImage } from "electron"
+import { FindFileExt, getAbsPackagedPath, getPackagedWebBaseName, MyLogger } from "./functions"
 import { Guides } from "./Guides"
 import path from 'path'
 import fs from 'fs'
@@ -7,7 +7,6 @@ import { JsonFile } from "./JsonFile"
 
 export class ActsGuides extends Guides<IActsGuide> {
   protected CurGuide: IActsGuide
-  protected CurMergedGuide: IActsGuide
   Icon: NativeImage
 
   constructor () {
@@ -21,65 +20,62 @@ export class ActsGuides extends Guides<IActsGuide> {
 
   async selectGuide(defaultGuideFilename?: string): Promise<void> {
     await super.selectGuide(defaultGuideFilename)
-    await this.MergeGuide()
-  }
-
-  getCurMergedGuide(): IActsGuide {
-    return this.CurMergedGuide
+    await this.parseCurGuide()
   }
 
   async parseCurGuide(): Promise<void> {
-    if (this.CurGuide.acts) for (const act of this.CurGuide.acts) {
-      if (act.zones) for (const zone of act.zones) {
-        if (zone.image) for (const index in zone.image) {
-          const ext = FindFileExt(path.join(this.CurGuide.identity.sysAssetPath, act.actid.toString(), zone.image[index]))
-          if (ext) zone.image[index] = `${zone.image[index]}${ext}`
-          else MyLogger.log('info', `image ${path.join(this.CurGuide.identity.sysAssetPath, act.actid.toString(), zone.image[index])} not found`)
+
+    if (!this.CurGuide.acts) this.CurGuide.acts = [] as IActsGuideAct[]
+
+    //default missing informations guide
+    if (this.ActsZonesSkeleton) for (const skeletonAct of this.ActsZonesSkeleton.acts) {
+      let guideAct = this.CurGuide.acts.find(a => a.actId === skeletonAct.actId)
+      if (!guideAct) {
+        MyLogger.log("info", `act ${skeletonAct.actId} ${skeletonAct.actName} not found in actsGuide defaulting.`)
+        this.CurGuide.acts.push(guideAct = { actId: skeletonAct.actId, actName: skeletonAct.actName, zones: [] as IActsGuideZone[] } as IActsGuideAct)
+      }
+
+      guideAct.actName = skeletonAct.actName
+      if (!guideAct.zones) guideAct.zones = [] as IActsGuideZone[]
+
+      if (skeletonAct.zones) for (const skeletonZone of skeletonAct.zones) {
+        let guideZone = guideAct.zones.find(z => z.name === skeletonZone.name)
+        if (!guideZone) {
+          MyLogger.log("info", `zone ${skeletonZone.name} not found in actsGuide defaulting.`)
+          //TODO: dont push town zone 
+          guideAct.zones.push(guideZone = { name: skeletonZone.name, note: "", altimage: "", image: [] } as IActsGuideZone)
+        }
+
+        //always append skeleton values
+        guideZone.hasRecipe = skeletonZone.hasRecipe
+        guideZone.hasWaypoint = skeletonZone.hasWaypoint
+        guideZone.haspassive = skeletonZone.haspassive
+        guideZone.hastrial = skeletonZone.hastrial
+        guideZone.level = skeletonZone.level
+
+        guideZone.image = []
+
+        //local guide zone images
+        if (guideZone.localImage) for (const guideImg of guideZone.localImage) {
+          const filename = path.join(this.CurGuide.identity.guideSysPath, guideAct.actId.toString(), guideImg)
+          const ext = FindFileExt(filename)
+          if (ext) guideZone.image.push(`${this.CurGuide.identity.guideWebPath}/${guideAct.actId}/${guideImg}${ext}`)
+          else MyLogger.log('error', `unable to find file extension for local guide file : (${filename})`)
+        }
+
+        //always append skeleton zone images
+        if ((skeletonZone.skelImage) && (skeletonZone.skelImage.length > 0)) for (const skeletonImg of skeletonZone.skelImage) {
+          const filename = path.join(this.CurGuide.identity.appSysAssetPath, "images", "zones", guideAct.actId.toString(), skeletonImg)
+          const ext = FindFileExt(filename)
+          if (ext) guideZone.image.push(`${this.CurGuide.identity.appWebAssetPath}/images/zones/${guideAct.actId}/${skeletonImg}${ext}`)
+          else MyLogger.log('error', `unable to find file extension for skeleton guide file : (${filename})`)
         }
       }
-      else MyLogger.log('info', `no zone found in act: ${act.actid}`)
     }
-    else MyLogger.log('info', "no acts found in guide")
-  }
-
-  async MergeGuide(): Promise<void> {
-    delete this.CurMergedGuide
-    this.CurMergedGuide = JSON.parse(JSON.stringify(this.CurGuide))
-
-    if (ActsZonesSkeleton.getObject()) for (const defaultAct of ActsZonesSkeleton.getObject().acts) {
-      let act = this.CurMergedGuide.acts.find(a => a.actid === defaultAct.actid)
-      if (!act) {
-        MyLogger.log("info", `act ${defaultAct.actid} ${defaultAct.act} not found in actsGuide defaulting.`)
-        this.CurMergedGuide.acts.push(act = { actid: defaultAct.actid, act: defaultAct.act, zones: [] } as IActsGuideAct)
-      }
-
-      if (defaultAct.zones) for (const defaultZone of defaultAct.zones) {
-        let zone = act.zones.find(z => z.name === defaultZone.name)
-        if (!zone) {
-          MyLogger.log("info", `zone ${defaultZone.name} not found in actsGuide defaulting.`)
-          act.zones.push(zone = { name: defaultZone.name, note: "" } as IActsGuideZone)
-        }
-
-        zone.hasRecipe = defaultZone.hasRecipe
-        zone.hasWaypoint = defaultZone.hasWaypoint
-        zone.haspassive = defaultZone.haspassive
-        zone.hastrial = defaultZone.hastrial
-        zone.level = defaultZone.level
-
-        if (!zone.image) zone.image = []
-        else for (const img in zone.image) {
-          zone.image[img] = `${this.getCustomWebBaseName()}/${act.actid}/${zone.image[img]}`
-        }
-
-        if ((defaultZone.image) && (defaultZone.image.length > 0)) {
-          for (const img of defaultZone.image) {
-            zone.image.push(`assets/images/zones/${act.actid}/${img}.png`)
-          }
-        }
-      }
+    else {
+      MyLogger.log('error', 'skeleton zone does not exist')
+      throw ('error: skeleton zone does not exist')
     }
-    else MyLogger.log('error', 'No default zone loader')
-    // this.emit("GuideMerged", this.CurGuide)
   }
 
   AppendMenu(menu: MenuItem): void {
@@ -108,31 +104,59 @@ export class ActsGuides extends Guides<IActsGuide> {
   }
 
   async saveCurGuide(): Promise<void> {
-    super.saveGuide(this.CurGuide)
+
+    const guide2Save = { identity: {}, acts: [] as IActsGuideAct[] } as IActsGuide
+    guide2Save.identity.name = this.CurGuide.identity.name
+    guide2Save.identity.filename = this.CurGuide.identity.filename
+    guide2Save.identity.lang = this.CurGuide.identity.lang
+    guide2Save.identity.game_version = this.CurGuide.identity.game_version
+
+
+    if (this.CurGuide) {
+      for (const guideAct of this.CurGuide.acts) {
+        let curAct2Save = {} as IActsGuideAct
+        guide2Save.acts.push(curAct2Save = {
+          actId: guideAct.actId,
+          actName: guideAct.actName,
+          zones: [] as IActsGuideZone[]
+        } as IActsGuideAct)
+
+        for (const guideZone of guideAct.zones) {
+          let curZone2Save = {} as IActsGuideZone
+          curAct2Save.zones.push(curZone2Save = {
+            name: guideZone.name as string,
+            note: guideZone.note as string,
+            altimage: guideZone.altimage as string,
+            localImage: guideZone.localImage as string[]
+          } as IActsGuideZone)
+        }
+      }
+      super.saveGuide(guide2Save)
+    }
+    else {
+      MyLogger.log('error', 'No curguide to save')
+      throw ('error: No curguide to save')
+    }
   }
 
   async SaveZoneNote(actid: number, zonename: string, zonenote: string): Promise<void> {
     this.getZoneByActAndZonename(this.getActByID(actid), zonename).note = zonenote
 
     this.saveCurGuide().then(() => {
-      this.MergeGuide().then(() => {
-        this.emit("GuideContentChanged", this.CurGuide)
-      })
+      this.emit("GuideContentChanged", this.CurGuide)
     })
   }
 
   async SaveNavigationNote(actid: number, zonename: string, altimage: string): Promise<void> {
     this.getZoneByActAndZonename(this.getActByID(actid), zonename).altimage = altimage
     this.saveCurGuide().then(() => {
-      this.MergeGuide().then(() => {
-        this.emit("GuideContentChanged", this.CurGuide)
-      })
+      this.emit("GuideContentChanged", this.CurGuide)
     })
   }
 
   getActByID(actid: number): IActsGuideAct {
-    let act = this.CurGuide.acts.find(act => act.actid === actid)
-    if (!act) this.CurGuide.acts.push(act = { actid: actid, zones: [] as IActsGuideZone[] } as IActsGuideAct)
+    let act = this.CurGuide.acts.find(act => act.actId === actid)
+    if (!act) this.CurGuide.acts.push(act = { actId: actid, zones: [] as IActsGuideZone[] } as IActsGuideAct)
     return act
   }
 
@@ -195,11 +219,11 @@ export class ActsGuides extends Guides<IActsGuide> {
 
                             if (zone[1] === "The Crypt 2") zone[1] = "The Crypt"
 
-                            if (ZonesMod.getObject().acts.find(a => a.actid === actid).zones.find(z => z.name === zone[1]) !== undefined)
+                            if (ZonesMod.getObject().acts.find(a => a.actId === actid).zones.find(z => z.name === zone[1]) !== undefined)
                               zoneName = zone[1]
-                            else if (ZonesMod.getObject().acts.find(a => a.actid === actid).zones.find(z => z.name === `The ${zone[1]}`) !== undefined)
+                            else if (ZonesMod.getObject().acts.find(a => a.actId === actid).zones.find(z => z.name === `The ${zone[1]}`) !== undefined)
                               zoneName = `The ${zone[1]}`
-                            else if (ZonesMod.getObject().acts.find(a => a.actid === actid).zones.find(z => z.name === `The ${zone[1]} Level 1`) !== undefined)
+                            else if (ZonesMod.getObject().acts.find(a => a.actId === actid).zones.find(z => z.name === `The ${zone[1]} Level 1`) !== undefined)
                               zoneName = `The ${zone[1]} Level 1`
 
                             else
@@ -225,7 +249,7 @@ export class ActsGuides extends Guides<IActsGuide> {
                   }
                 })
               }
-              ActGuide.acts.push({ actid: actid, zones: Zones })
+              ActGuide.acts.push({ actId: actid, zones: Zones })
             }
           }
           catch (e) { MyLogger.log('importGuide', `|-////->(${path.join(buildPath, file.name)})`) }
@@ -247,8 +271,8 @@ export class ActsGuides extends Guides<IActsGuide> {
       const tmp = JSON.parse(JSON.stringify(ActGuide)) as IActsGuide
       delete tmp.identity.filename
       delete tmp.identity.readonly
-      delete tmp.identity.sysAssetPath
-      delete tmp.identity.webAssetPath
+      delete tmp.identity.guideSysPath
+      delete tmp.identity.guideWebPath
 
       json.setObject(tmp)
       json.save()

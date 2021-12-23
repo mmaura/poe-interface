@@ -43,8 +43,8 @@ export class Gems extends JsonFile<IGem[]>{
         is_support: /.*Support/gi.test(g.name),
         key: g.name.replace(" ", "_"),
         is_socket: g.is_socket,
-        vendor_rewards: g.vendor_rewards && g.vendor_rewards.sort((a, b) => a.act - b.act) || [],
-        quest_rewards: g.vendor_rewards && g.quest_rewards.sort((a, b) => a.act - b.act) || []
+        vendor_rewards: g.vendor_rewards && g.vendor_rewards.sort((a, b) => a.actId - b.actId) || [],
+        quest_rewards: g.vendor_rewards && g.quest_rewards.sort((a, b) => a.actId - b.actId) || []
       })
       for (const q of g.alternative_quality) {
         this.GemList.push({

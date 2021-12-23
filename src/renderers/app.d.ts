@@ -33,14 +33,15 @@ declare global {
   }
 
   export interface IActsGuideAct {
-    act?: string
-    actid: number
+    actName?: string
+    actId: number
     zones: IActsGuideZone[]
   }
 
   export interface IActsGuideZone {
     hastrial?: boolean
     image?: string[]
+    localImage?: string[]
     note: string
     level?: number
     name: string
@@ -65,8 +66,10 @@ declare global {
     lang: string
     game_version: number
     filename?: string
-    webAssetPath?: string
-    sysAssetPath?: string
+    appWebAssetPath?: string
+    appSysAssetPath?: string
+    guideWebPath?: string
+    guideSysPath?: string
     readonly?: boolean
     class?: string
     url?: string
@@ -87,6 +90,7 @@ declare global {
 
   export interface IClassesGuideAct {
     actId: number
+    actName?: string
     notes?: string
     gears: IClassesGuideGear[]
     treeimage?: string
@@ -128,7 +132,7 @@ declare global {
 
   export interface Reward {
     quest: string
-    act: number
+    actId: number
     classes: string[]
     npc?: string
   }
@@ -167,8 +171,8 @@ declare global {
   }
 
   export interface IActsZonesSkelAct {
-    act: string
-    actid: number
+    actName: string
+    actId: number
     zones: IActsZonesSkelZone[]
   }
 
@@ -180,7 +184,7 @@ declare global {
     name: string
     quest?: string
     questRewardsSkills: boolean
-    image?: string[]
+    skelImage?: string[]
     recipe?: Recipe
     hasWaypoint?: boolean
   }

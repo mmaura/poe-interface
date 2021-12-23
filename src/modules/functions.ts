@@ -5,10 +5,6 @@ import path from "path"
 import { JsonFile } from "./JsonFile"
 import winston from "winston"
 
-
-export const ActsZonesSkeleton = new JsonFile<IActsZonesSkel>(path.join(getAbsPackagedPath(), "data", "zones.json"))
-ActsZonesSkeleton.Init()
-
 export const Lang = app.getLocaleCountryCode().toLowerCase()
 
 export const MyLogger = winston.createLogger({
@@ -33,13 +29,14 @@ MyLogger.log('error', `detected OS lang : ${Lang}`)
 /**
  * 
  * @param filename filename without extension
+ * @param returnFullname return filename with path or only ext default: ext
  * @param exts extension to try to find in order
  * @returns the find extension without the filename
  */
 export function FindFileExt(filename: string, returnFullname?: boolean, exts?: string[]): string {
   if (!exts) exts = [".png", ".jpg"]
 
-  for (const ext of exts) if (fs.existsSync(`${filename}${ext}`)) return returnFullname?`${filename}${ext}`:ext
+  for (const ext of exts) if (fs.existsSync(`${filename}${ext}`)) return returnFullname ? `${filename}${ext}` : ext
 
   return undefined
 }
@@ -131,8 +128,8 @@ export function extractActsBaseGuide(): void {
 
   _defaultActGuide.getObject().acts.forEach((act: IActsGuideAct) => {
     const _act = {} as IActsGuideAct
-    _act.act = act.act
-    _act.actid = act.actid
+    _act.actName = act.actName
+    _act.actId = act.actId
     _act.zones = [] as IActsGuideZone[]
     act.zones.forEach(zone => {
       const _zone = {} as IActsGuideZone
@@ -166,8 +163,8 @@ export function extractActsCustomGuide(): void {
 
   _defaultActGuide.getObject().acts.forEach((act: IActsGuideAct) => {
     const _act = {} as IActsGuideAct
-    _act.act = act.act
-    _act.actid = act.actid
+    _act.actName = act.actName
+    _act.actId = act.actId
     _act.zones = [] as IActsGuideZone[]
     act.zones.forEach(zone => {
       const _zone = {} as IActsGuideZone

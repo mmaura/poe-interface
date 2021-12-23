@@ -5,8 +5,8 @@
 	},
 	"acts": [
 		{
-			"act": "Act I",
-			"actid": 1,
+			"actName": "Act I",
+			"actId": 1,
 			"zones": [
 				{
 					"hasRecipe": false,
@@ -16,7 +16,7 @@
 					"name": "The Twilight Strand",
 					"quest": "Enemy at the Gate",
 					"questRewardsSkills": true,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -26,7 +26,7 @@
 					"name": "The Coast",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": ["Coast_Seed_1", "Coast_Seed_2", "Coast_Seed_3"]
+					"skelImage": ["Coast_Seed_1", "Coast_Seed_2", "Coast_Seed_3"]
 				},
 				{
 					"hasRecipe": false,
@@ -36,7 +36,7 @@
 					"name": "The Tidal Island",
 					"quest": "Mercy Mission",
 					"questRewardsSkills": true,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -46,7 +46,7 @@
 					"name": "The Mud Flats",
 					"quest": "Breaking Some Eggs",
 					"questRewardsSkills": true,
-					"image": ["Mud_Seed_1", "Mud_Seed_2"]
+					"skelImage": ["Mud_Seed_1", "Mud_Seed_2"]
 				},
 				{
 					"hasRecipe": false,
@@ -56,7 +56,7 @@
 					"name": "The Fetid Pool",
 					"quest": "A Dirty Job",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -66,7 +66,7 @@
 					"name": "The Submerged Passage",
 					"quest": "Dweller of the Deep",
 					"questRewardsSkills": false,
-					"image": ["Sub_Seed_1", "Sub_Seed_2", "Sub_Seed_3"]
+					"skelImage": ["Sub_Seed_1", "Sub_Seed_2", "Sub_Seed_3"]
 				},
 				{
 					"hasRecipe": false,
@@ -76,7 +76,7 @@
 					"name": "The Flooded Depths",
 					"quest": "Dweller of the Deep",
 					"questRewardsSkills": false,
-					"image": ["Flood_Seed_1", "Flood_Seed_2", "Flood_Seed_3"]
+					"skelImage": ["Flood_Seed_1", "Flood_Seed_2", "Flood_Seed_3"]
 				},
 				{
 					"hasRecipe": false,
@@ -86,7 +86,7 @@
 					"name": "The Ledge",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -96,7 +96,7 @@
 					"name": "The Climb",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": ["Climb_Seed_1", "Climb_Seed_2"]
+					"skelImage": ["Climb_Seed_1", "Climb_Seed_2"]
 				},
 				{
 					"hasRecipe": false,
@@ -106,7 +106,7 @@
 					"name": "The Lower Prison",
 					"quest": "The Caged Brute",
 					"questRewardsSkills": true,
-					"image": ["LP_Seed_1", "LP_Seed_2", "LP_Seed_3", "LP_Seed_4"]
+					"skelImage": ["LP_Seed_1", "LP_Seed_2", "LP_Seed_3", "LP_Seed_4"]
 				},
 				{
 					"hasRecipe": false,
@@ -116,7 +116,7 @@
 					"name": "The Upper Prison",
 					"quest": "The Caged Brute",
 					"questRewardsSkills": true,
-					"image": ["UP_Seed_1", "UP_Seed_2", "UP_Seed_3", "UP_Seed_4", "UP_Seed_5"]
+					"skelImage": ["UP_Seed_1", "UP_Seed_2", "UP_Seed_3", "UP_Seed_4", "UP_Seed_5"]
 				},
 				{
 					"hasRecipe": false,
@@ -126,7 +126,7 @@
 					"name": "Prisoner's Gate",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": ["PG_Seed_1", "PG_Seed_2", "PG_Seed_3", "PG_Seed_4"]
+					"skelImage": ["PG_Seed_1", "PG_Seed_2", "PG_Seed_3", "PG_Seed_4"]
 				},
 				{
 					"hasRecipe": false,
@@ -136,7 +136,7 @@
 					"name": "The Ship Graveyard",
 					"quest": "The Marooned Mariner",
 					"questRewardsSkills": false,
-					"image": ["Ship_Seed_1", "Ship_Seed_2", "Ship_Seed_3", "Ship_Seed_4"]
+					"skelImage": ["Ship_Seed_1", "Ship_Seed_2", "Ship_Seed_3", "Ship_Seed_4"]
 				},
 				{
 					"hasRecipe": false,
@@ -146,7 +146,7 @@
 					"name": "The Ship Graveyard Cave",
 					"quest": "The Marooned Mariner",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -156,7 +156,7 @@
 					"name": "The Cavern of Wrath",
 					"quest": "The Siren's Cadence",
 					"questRewardsSkills": true,
-					"image": ["Wrath_Seed_1", "Wrath_Seed_2", "Wrath_Seed_3"]
+					"skelImage": ["Wrath_Seed_1", "Wrath_Seed_2", "Wrath_Seed_3"]
 				},
 				{
 					"hasRecipe": false,
@@ -166,13 +166,13 @@
 					"name": "The Cavern of Anger",
 					"quest": "The Siren's Cadence",
 					"questRewardsSkills": true,
-					"image": ["Anger_Seed_1", "Anger_Seed_2"]
+					"skelImage": ["Anger_Seed_1", "Anger_Seed_2"]
 				}
 			]
 		},
 		{
-			"act": "Act II",
-			"actid": 2,
+			"actName": "Act II",
+			"actId": 2,
 			"zones": [
 				{
 					"hasRecipe": false,
@@ -182,7 +182,7 @@
 					"name": "The Southern Forest",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -192,7 +192,7 @@
 					"name": "The Old Fields",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -202,7 +202,7 @@
 					"name": "The Den",
 					"quest": "The Great White Beast",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -212,7 +212,7 @@
 					"name": "The Riverways",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -222,7 +222,7 @@
 					"name": "The Crossroads",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -232,7 +232,7 @@
 					"name": "The Chamber of Sins Level 1",
 					"quest": "Intruders in Black",
 					"questRewardsSkills": false,
-					"image": ["Chamber1_Seed_1", "Chamber1_Seed_2", "Chamber1_Seed_3"]
+					"skelImage": ["Chamber1_Seed_1", "Chamber1_Seed_2", "Chamber1_Seed_3"]
 				},
 				{
 					"hasRecipe": false,
@@ -242,7 +242,7 @@
 					"name": "The Chamber of Sins Level 2",
 					"quest": "Intruders in Black",
 					"questRewardsSkills": true,
-					"image": ["Chamber2_Seed_1"]
+					"skelImage": ["Chamber2_Seed_1"]
 				},
 				{
 					"hasRecipe": false,
@@ -252,7 +252,7 @@
 					"name": "The Broken Bridge",
 					"quest": "Deal with the Bandits",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -262,7 +262,7 @@
 					"name": "The Fellshrine Ruins",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -272,7 +272,7 @@
 					"name": "The Crypt Level 1",
 					"quest": "Through Sacred Ground",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -282,7 +282,7 @@
 					"name": "The Crypt Level 2",
 					"quest": "Through Sacred Ground",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -292,7 +292,7 @@
 					"name": "The Western Forest",
 					"quest": "Deal with the Bandits",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -302,7 +302,7 @@
 					"name": "The Weaver's Chambers",
 					"quest": "Sharp and Cruel",
 					"questRewardsSkills": true,
-					"image": ["Weaver_Seed_1", "Weaver_Seed_2", "Weaver_Seed_3"]
+					"skelImage": ["Weaver_Seed_1", "Weaver_Seed_2", "Weaver_Seed_3"]
 				},
 				{
 					"hasRecipe": false,
@@ -312,7 +312,7 @@
 					"name": "The Wetlands",
 					"quest": "Deal with the Bandits",
 					"questRewardsSkills": false,
-					"image": ["Wetlands_Seed_1", "Wetlands_Seed_2", "Wetlands_Seed_3"]
+					"skelImage": ["Wetlands_Seed_1", "Wetlands_Seed_2", "Wetlands_Seed_3"]
 				},
 				{
 					"hasRecipe": false,
@@ -322,7 +322,7 @@
 					"name": "The Vaal Ruins",
 					"quest": "The Root of the Problem",
 					"questRewardsSkills": true,
-					"image": ["Vaal_Seed_1", "Vaal_Seed_2", "Vaal_Seed_3"]
+					"skelImage": ["Vaal_Seed_1", "Vaal_Seed_2", "Vaal_Seed_3"]
 				},
 				{
 					"hasRecipe": false,
@@ -332,7 +332,7 @@
 					"name": "The Northern Forest",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -342,7 +342,7 @@
 					"name": "The Dread Thicket",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": true,
@@ -356,7 +356,7 @@
 						"mods": ["(10–14)% increased Movement Speed"],
 						"tooltip": "Movement Speed - Rank 1"
 					},
-					"image": [
+					"skelImage": [
 						"Caverns_Seed_1",
 						"Caverns_Seed_2",
 						"Caverns_Seed_3",
@@ -378,13 +378,13 @@
 						],
 						"tooltip": "Spell Damage - Rank 1"
 					},
-					"image": []
+					"skelImage": []
 				}
 			]
 		},
 		{
-			"act": "Act III",
-			"actid": 3,
+			"actName": "Act III",
+			"actId": 3,
 			"zones": [
 				{
 					"hasRecipe": false,
@@ -394,7 +394,7 @@
 					"name": "The City of Sarn",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -404,7 +404,7 @@
 					"name": "The Slums",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": ["Slums_Seed_1", "Slums_Seed_2", "Slums_Seed_3", "Slums_Seed_4"]
+					"skelImage": ["Slums_Seed_1", "Slums_Seed_2", "Slums_Seed_3", "Slums_Seed_4"]
 				},
 				{
 					"hasRecipe": true,
@@ -427,7 +427,7 @@
 						],
 						"tooltip": "Fire Damage - Rank 1"
 					},
-					"image": [
+					"skelImage": [
 						"Crematorium_Seed_1",
 						"Crematorium_Seed_2",
 						"Crematorium_Seed_3",
@@ -453,7 +453,7 @@
 						],
 						"tooltip": "Physical Damage - Rank 1"
 					},
-					"image": ["Sewers_Seed_1"]
+					"skelImage": ["Sewers_Seed_1"]
 				},
 				{
 					"hasRecipe": false,
@@ -463,7 +463,7 @@
 					"name": "The Marketplace",
 					"quest": "A Swing of Hope",
 					"questRewardsSkills": false,
-					"image": [
+					"skelImage": [
 						"Marketplace_Seed_1",
 						"Marketplace_Seed_2",
 						"Marketplace_Seed_3",
@@ -483,7 +483,7 @@
 						"mods": ["(15–23)% increased Elemental Damage with Attack Skills"],
 						"tooltip": "Elemental Damage with Attacks - Rank 1"
 					},
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -493,7 +493,7 @@
 					"name": "The Battlefront",
 					"quest": "The Ribbon Spool",
 					"questRewardsSkills": false,
-					"image": ["Battlefront_Seed_1", "Battlefront_Seed_2"]
+					"skelImage": ["Battlefront_Seed_1", "Battlefront_Seed_2"]
 				},
 				{
 					"hasRecipe": false,
@@ -503,7 +503,7 @@
 					"name": "The Solaris Temple Level 1",
 					"quest": "The Gemling Queen",
 					"questRewardsSkills": false,
-					"image": ["Solaris1_Seed_1", "Solaris1_Seed_2", "Solaris1_Seed_3"]
+					"skelImage": ["Solaris1_Seed_1", "Solaris1_Seed_2", "Solaris1_Seed_3"]
 				},
 				{
 					"hasRecipe": true,
@@ -526,7 +526,7 @@
 						],
 						"tooltip": "Cold Damage - Rank 1"
 					},
-					"image": ["Solaris2_Seed_1", "Solaris2_Seed_2", "Solaris2_Seed_3"]
+					"skelImage": ["Solaris2_Seed_1", "Solaris2_Seed_2", "Solaris2_Seed_3"]
 				},
 				{
 					"hasRecipe": false,
@@ -536,7 +536,7 @@
 					"name": "The Docks",
 					"quest": "Fiery Dust/Swing of Hope",
 					"questRewardsSkills": false,
-					"image": ["Docks_Seed_1", "Docks_Seed_2", "Docks_Seed_3", "Docks_Seed_4"]
+					"skelImage": ["Docks_Seed_1", "Docks_Seed_2", "Docks_Seed_3", "Docks_Seed_4"]
 				},
 				{
 					"hasRecipe": false,
@@ -546,7 +546,7 @@
 					"name": "The Ebony Barracks",
 					"quest": "Sever the Right Hand",
 					"questRewardsSkills": true,
-					"image": ["Ebony_Seed_1", "Ebony_Seed_2"]
+					"skelImage": ["Ebony_Seed_1", "Ebony_Seed_2"]
 				},
 				{
 					"hasRecipe": false,
@@ -556,7 +556,7 @@
 					"name": "The Lunaris Temple Level 1",
 					"quest": "Piety's Pets",
 					"questRewardsSkills": false,
-					"image": ["Lunaris1_Seed_1", "Lunaris1_Seed_2"]
+					"skelImage": ["Lunaris1_Seed_1", "Lunaris1_Seed_2"]
 				},
 				{
 					"hasRecipe": true,
@@ -579,7 +579,7 @@
 						],
 						"tooltip": "Lightning Damage - Rank 1"
 					},
-					"image": ["Lunaris2_Seed_1", "Lunaris2_Seed_2"]
+					"skelImage": ["Lunaris2_Seed_1", "Lunaris2_Seed_2"]
 				},
 				{
 					"hasRecipe": true,
@@ -593,7 +593,7 @@
 						"mods": ["+(6–9) to all Attributes"],
 						"tooltip": "All Attributes - Rank 1"
 					},
-					"image": ["Imperial_Seed_1"]
+					"skelImage": ["Imperial_Seed_1"]
 				},
 				{
 					"hasRecipe": false,
@@ -603,7 +603,7 @@
 					"name": "The Library",
 					"quest": "A Fixture of Fate",
 					"questRewardsSkills": true,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -613,7 +613,7 @@
 					"name": "The Archives",
 					"quest": "A Fixture of Fate",
 					"questRewardsSkills": true,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -623,7 +623,7 @@
 					"name": "The Sceptre of God",
 					"quest": "Sceptre of God",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -633,13 +633,13 @@
 					"name": "The Upper Sceptre of God",
 					"quest": "Sceptre of God",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				}
 			]
 		},
 		{
-			"act": "Act IV",
-			"actid": 4,
+			"actName": "Act IV",
+			"actId": 4,
 			"zones": [
 				{
 					"hasRecipe": false,
@@ -649,7 +649,7 @@
 					"name": "The Aqueduct",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": true,
@@ -670,7 +670,7 @@
 						],
 						"tooltip": "Attack and Cast Speed - Rank 1"
 					},
-					"image": ["DriedLake_Seed_1", "DriedLake_Seed_2", "DriedLake_Seed_3"]
+					"skelImage": ["DriedLake_Seed_1", "DriedLake_Seed_2", "DriedLake_Seed_3"]
 				},
 				{
 					"hasRecipe": false,
@@ -680,7 +680,7 @@
 					"name": "The Mines Level 1",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": ["Mines1_Seed_1", "Mines1_Seed_2"]
+					"skelImage": ["Mines1_Seed_1", "Mines1_Seed_2"]
 				},
 				{
 					"hasRecipe": false,
@@ -690,7 +690,7 @@
 					"name": "The Mines Level 2",
 					"quest": "An Indomitable Spirit",
 					"questRewardsSkills": false,
-					"image": ["Mines2_Seed_1", "Mines2_Seed_2", "Mines2_Seed_3", "Mines2_Seed_4"]
+					"skelImage": ["Mines2_Seed_1", "Mines2_Seed_2", "Mines2_Seed_3", "Mines2_Seed_4"]
 				},
 				{
 					"hasRecipe": true,
@@ -708,7 +708,7 @@
 						],
 						"tooltip": "Elemental Resistances - Rank 2"
 					},
-					"image": ["Crystal_Seed_1", "Crystal_Seed_2", "Crystal_Seed_3"]
+					"skelImage": ["Crystal_Seed_1", "Crystal_Seed_2", "Crystal_Seed_3"]
 				},
 				{
 					"hasRecipe": false,
@@ -718,7 +718,7 @@
 					"name": "Daresso's Dream",
 					"quest": "The King of Desire",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -728,7 +728,7 @@
 					"name": "The Grand Arena",
 					"quest": "The King of Desire",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -738,7 +738,7 @@
 					"name": "Kaom's Dream",
 					"quest": "The King of Fury",
 					"questRewardsSkills": false,
-					"image": ["Kaoms1_Seed_1"]
+					"skelImage": ["Kaoms1_Seed_1"]
 				},
 				{
 					"hasRecipe": false,
@@ -748,7 +748,7 @@
 					"name": "Kaom's Stronghold",
 					"quest": "The King of Fury",
 					"questRewardsSkills": false,
-					"image": ["Kaoms2_Seed_1"]
+					"skelImage": ["Kaoms2_Seed_1"]
 				},
 				{
 					"hasRecipe": false,
@@ -758,7 +758,7 @@
 					"name": "The Belly of the Beast Level 1",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": ["Belly1_Seed_1", "Belly1_Seed_2", "Belly1_Seed_3", "Belly1_Seed_4"]
+					"skelImage": ["Belly1_Seed_1", "Belly1_Seed_2", "Belly1_Seed_3", "Belly1_Seed_4"]
 				},
 				{
 					"hasRecipe": true,
@@ -777,7 +777,7 @@
 						],
 						"tooltip": "Chaos Damage - Rank 1"
 					},
-					"image": ["Belly2_Seed_1", "Belly2_Seed_2", "Belly2_Seed_3"]
+					"skelImage": ["Belly2_Seed_1", "Belly2_Seed_2", "Belly2_Seed_3"]
 				},
 				{
 					"hasRecipe": false,
@@ -787,7 +787,7 @@
 					"name": "The Harvest",
 					"quest": "The Eternal Nightmare",
 					"questRewardsSkills": true,
-					"image": ["Harvest_Seed_1"]
+					"skelImage": ["Harvest_Seed_1"]
 				},
 				{
 					"hasRecipe": true,
@@ -805,13 +805,13 @@
 						],
 						"tooltip": "Attributes - Rank 2"
 					},
-					"image": ["Ascent_Seed_1"]
+					"skelImage": ["Ascent_Seed_1"]
 				}
 			]
 		},
 		{
-			"act": "Act V",
-			"actid": 5,
+			"actName": "Act V",
+			"actId": 5,
 			"zones": [
 				{
 					"hasRecipe": false,
@@ -821,7 +821,7 @@
 					"name": "The Slave Pens",
 					"quest": "Return to Oriath",
 					"questRewardsSkills": false,
-					"image": ["Slave_Pens_Seed_1", "Slave_Pens_Seed_2"]
+					"skelImage": ["Slave_Pens_Seed_1", "Slave_Pens_Seed_2"]
 				},
 				{
 					"hasRecipe": false,
@@ -831,7 +831,7 @@
 					"name": "The Control Blocks",
 					"quest": "In Serive to Science/They Key to Freedom",
 					"questRewardsSkills": false,
-					"image": ["Control_Blocks"]
+					"skelImage": ["Control_Blocks"]
 				},
 				{
 					"hasRecipe": false,
@@ -841,7 +841,7 @@
 					"name": "Oriath Square",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": ["Oriath_Square"]
+					"skelImage": ["Oriath_Square"]
 				},
 				{
 					"hasRecipe": false,
@@ -851,7 +851,7 @@
 					"name": "The Templar Courts",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": ["Templar_Courts"]
+					"skelImage": ["Templar_Courts"]
 				},
 				{
 					"hasRecipe": true,
@@ -865,7 +865,7 @@
 						"mods": ["(15–19)% increased Movement Speed"],
 						"tooltip": "Movement Speed - Rank 2"
 					},
-					"image": ["Chamber_of_Innocence"]
+					"skelImage": ["Chamber_of_Innocence"]
 				},
 				{
 					"hasRecipe": false,
@@ -875,7 +875,7 @@
 					"name": "The Torched Courts",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": ["Torched_Courts"]
+					"skelImage": ["Torched_Courts"]
 				},
 				{
 					"hasRecipe": false,
@@ -885,7 +885,7 @@
 					"name": "The Ruined Square",
 					"quest": "The King's Feast",
 					"questRewardsSkills": false,
-					"image": ["Ruined_Square"]
+					"skelImage": ["Ruined_Square"]
 				},
 				{
 					"hasRecipe": true,
@@ -905,7 +905,7 @@
 						],
 						"tooltip": "Physical Damage - Rank 2"
 					},
-					"image": ["Ossuary"]
+					"skelImage": ["Ossuary"]
 				},
 				{
 					"hasRecipe": true,
@@ -919,7 +919,7 @@
 						"mods": ["+(91–120) to Accuracy Rating", "+(91–120) to Accuracy Rating"],
 						"tooltip": "Accuracy - Rank 1"
 					},
-					"image": ["The_Reliquary"]
+					"skelImage": ["The_Reliquary"]
 				},
 				{
 					"hasRecipe": false,
@@ -929,13 +929,13 @@
 					"name": "The Cathedral Rooftop",
 					"quest": "The Ravenous God",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				}
 			]
 		},
 		{
-			"act": "Act VI",
-			"actid": 6,
+			"actName": "Act VI",
+			"actId": 6,
 			"zones": [
 				{
 					"hasRecipe": false,
@@ -945,7 +945,7 @@
 					"name": "The Twilight Strand",
 					"quest": "Fallen from Grace",
 					"questRewardsSkills": true,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -955,7 +955,7 @@
 					"name": "The Coast",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": ["Coast_Seed_1", "Coast_Seed_2", "Coast_Seed_3"]
+					"skelImage": ["Coast_Seed_1", "Coast_Seed_2", "Coast_Seed_3"]
 				},
 				{
 					"hasRecipe": false,
@@ -965,7 +965,7 @@
 					"name": "The Tidal Island",
 					"quest": "Bestel's Epic",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -975,7 +975,7 @@
 					"name": "The Mud Flats",
 					"quest": "The Father of War",
 					"questRewardsSkills": false,
-					"image": ["Mud_Flats_Seed_1", "Mud_Flats_Seed_2"]
+					"skelImage": ["Mud_Flats_Seed_1", "Mud_Flats_Seed_2"]
 				},
 				{
 					"hasRecipe": true,
@@ -999,7 +999,7 @@
 						],
 						"tooltip": "Defences - Rank 1"
 					},
-					"image": ["Karui_Fortress_Seed_1"]
+					"skelImage": ["Karui_Fortress_Seed_1"]
 				},
 				{
 					"hasRecipe": false,
@@ -1009,7 +1009,7 @@
 					"name": "The Ridge",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": ["Ridge_Seed_1", "Ridge_Seed_2"],
+					"skelImage": ["Ridge_Seed_1", "Ridge_Seed_2"],
           "hasWaypoint": true
 				},
 				{
@@ -1028,7 +1028,7 @@
 						],
 						"tooltip": "Double Resistances - Rank 1"
 					},
-					"image": [
+					"skelImage": [
 						"Lower_Prison_Seed_1",
 						"Lower_Prison_Seed_2",
 						"Lower_Prison_Seed_3",
@@ -1050,7 +1050,7 @@
 						],
 						"tooltip": "Spell Damage - Rank 2"
 					},
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -1060,7 +1060,7 @@
 					"name": "Prisoner's Gate",
 					"quest": "The Cloven One",
 					"questRewardsSkills": false,
-					"image": [
+					"skelImage": [
 						"Prisoners_Gate_Seed_1",
 						"Prisoners_Gate_Seed_2",
 						"Prisoners_Gate_Seed_3"
@@ -1082,7 +1082,7 @@
 						],
 						"tooltip": "Attributes - Rank 3"
 					},
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -1092,7 +1092,7 @@
 					"name": "The Riverways",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": ["Riverways_Seed_1"]
+					"skelImage": ["Riverways_Seed_1"]
 				},
 				{
 					"hasRecipe": false,
@@ -1102,7 +1102,7 @@
 					"name": "The Wetlands",
 					"quest": "The Puppet Mistress",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -1112,7 +1112,7 @@
 					"name": "The Southern Forest",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -1122,7 +1122,7 @@
 					"name": "The Cavern of Anger",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": ["Cavern_Anger_Seed_1", "Cavern_Anger_Seed_2"]
+					"skelImage": ["Cavern_Anger_Seed_1", "Cavern_Anger_Seed_2"]
 				},
 				{
 					"hasRecipe": true,
@@ -1136,7 +1136,7 @@
 						"mods": ["+(35–44) to maximum Mana", "+(26–40) to maximum Life"],
 						"tooltip": "Life and Mana - Rank 2"
 					},
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -1146,13 +1146,13 @@
 					"name": "The Brine King's Reef",
 					"quest": "The Brine King",
 					"questRewardsSkills": false,
-					"image": ["Brine_King_Seed_1", "Brine_King_Seed_2"]
+					"skelImage": ["Brine_King_Seed_1", "Brine_King_Seed_2"]
 				}
 			]
 		},
 		{
-			"act": "Act VII",
-			"actid": 7,
+			"actName": "Act VII",
+			"actId": 7,
 			"zones": [
 				{
 					"hasRecipe": false,
@@ -1162,7 +1162,7 @@
 					"name": "The Broken Bridge",
 					"quest": "The Silver Locket",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -1172,7 +1172,7 @@
 					"name": "The Crossroads",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": ["The_Crossroads_Seed_1"]
+					"skelImage": ["The_Crossroads_Seed_1"]
 				},
 				{
 					"hasRecipe": false,
@@ -1182,7 +1182,7 @@
 					"name": "The Fellshrine Ruins",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": true,
@@ -1196,7 +1196,7 @@
 						"mods": ["(11–20)% increased Damage over Time"],
 						"tooltip": "Damage over Time - Rank 1"
 					},
-					"image": [
+					"skelImage": [
 						"Crypt_Level_1_Seed_1",
 						"Crypt_Level_1_Seed_2",
 						"Crypt_Level_1_Seed_3"
@@ -1223,7 +1223,7 @@
 						],
 						"tooltip": "Lightning Damage - Rank 2"
 					},
-					"image": ["Chamber1_Seed_1", "Chamber1_Seed_2", "Chamber1_Seed_3"]
+					"skelImage": ["Chamber1_Seed_1", "Chamber1_Seed_2", "Chamber1_Seed_3"]
 				},
 				{
 					"hasRecipe": true,
@@ -1237,7 +1237,7 @@
 						"mods": ["(20–30)% increased Mana Regeneration Rate"],
 						"tooltip": "Mana Regen - Rank 1"
 					},
-					"image": ["Chamber2_Seed_1"]
+					"skelImage": ["Chamber2_Seed_1"]
 				},
 				{
 					"hasRecipe": false,
@@ -1247,7 +1247,7 @@
 					"name": "Maligaro's Sanctum",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -1257,7 +1257,7 @@
 					"name": "The Den",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": [
+					"skelImage": [
 						"The_Den_Seed_1",
 						"The_Den_Seed_2",
 						"The_Den_Seed_3",
@@ -1272,7 +1272,7 @@
 					"name": "The Ashen Fields",
 					"quest": "The Master of a Million Faces",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -1282,7 +1282,7 @@
 					"name": "The Northern Forest",
 					"quest": "In Memory of Greust",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": true,
@@ -1305,7 +1305,7 @@
 						],
 						"tooltip": "Fire Damage - Rank 2"
 					},
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": true,
@@ -1328,7 +1328,7 @@
 						],
 						"tooltip": "Cold Damage - Rank 2"
 					},
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -1338,7 +1338,7 @@
 					"name": "The Vaal City",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": ["The_Vaal_City_Seed_1"]
+					"skelImage": ["The_Vaal_City_Seed_1"]
 				},
 				{
 					"hasRecipe": false,
@@ -1348,7 +1348,7 @@
 					"name": "The Temple of Decay Level 1",
 					"quest": "The Mother of Spiders",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": true,
@@ -1362,13 +1362,13 @@
 						"mods": ["+(121–200) to Accuracy Rating", "+(121–150) to Accuracy Rating"],
 						"tooltip": "Accuracy - Rank 2"
 					},
-					"image": []
+					"skelImage": []
 				}
 			]
 		},
 		{
-			"act": "Act VIII",
-			"actid": 8,
+			"actName": "Act VIII",
+			"actId": 8,
 			"zones": [
 				{
 					"hasRecipe": false,
@@ -1378,7 +1378,7 @@
 					"name": "The Sarn Ramparts",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -1388,7 +1388,7 @@
 					"name": "The Toxic Conduits",
 					"quest": "Essence of the Hag",
 					"questRewardsSkills": false,
-					"image": ["Toxic_Conduits_Seed_1", "Toxic_Conduits_Seed_2"]
+					"skelImage": ["Toxic_Conduits_Seed_1", "Toxic_Conduits_Seed_2"]
 				},
 				{
 					"hasRecipe": true,
@@ -1406,10 +1406,12 @@
 						],
 						"tooltip": "Elemental Resistances - Rank 3"
 					},
-					"image": [
-						"Doedre_Cesspool_Seed_1",
-						"Doedre_Cesspool_Seed_2",
-						"Doedre_Cesspool_Seed_3"
+					"skelImage": [
+						"Doedre_Cesspool_1_Seed_1",
+						"Doedre_Cesspool_1_Seed_2",
+						"Doedre_Cesspool_1_Seed_3",
+						"Doedre_Cesspool_2_Seed_1",
+						"Doedre_Cesspool_2_Seed_2"
 					]
 				},
 				{
@@ -1420,7 +1422,7 @@
 					"name": "The Grand Promenade",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -1430,7 +1432,7 @@
 					"name": "The Quay",
 					"quest": "Love is Dead",
 					"questRewardsSkills": false,
-					"image": ["Quay_Seed_1", "Quay_Seed_2"]
+					"skelImage": ["Quay_Seed_1", "Quay_Seed_2"]
 				},
 				{
 					"hasRecipe": false,
@@ -1440,7 +1442,7 @@
 					"name": "The Grain Gate",
 					"quest": "The Gemling Legion",
 					"questRewardsSkills": false,
-					"image": ["Grain_Gate_Seed_1", "Grain_Gate_Seed_2"]
+					"skelImage": ["Grain_Gate_Seed_1", "Grain_Gate_Seed_2"]
 				},
 				{
 					"hasRecipe": false,
@@ -1450,7 +1452,7 @@
 					"name": "The Imperial Fields",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -1460,7 +1462,7 @@
 					"name": "The Solaris Temple Level 1",
 					"quest": "Solar Eclipse",
 					"questRewardsSkills": false,
-					"image": ["Solaris_1_Seed_1", "Solaris_1_Seed_2"]
+					"skelImage": ["Solaris_1_Seed_1", "Solaris_1_Seed_2"]
 				},
 				{
 					"hasRecipe": true,
@@ -1477,7 +1479,7 @@
 						],
 						"tooltip": "Traps and Mines - Rank 1"
 					},
-					"image": ["Solaris_2_Seed_1", "Solaris_2_Seed_2"]
+					"skelImage": ["Solaris_2_Seed_1", "Solaris_2_Seed_2"]
 				},
 				{
 					"hasRecipe": false,
@@ -1487,7 +1489,7 @@
 					"name": "The Solaris Concourse",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": true,
@@ -1501,7 +1503,7 @@
 						"mods": ["(5–10)% increased Flask effect duration"],
 						"tooltip": "Flask Duration - Rank 1"
 					},
-					"image": ["Bath_House_Seed_1", "Bath_House_Seed_2"]
+					"skelImage": ["Bath_House_Seed_1", "Bath_House_Seed_2"]
 				},
 				{
 					"hasRecipe": false,
@@ -1511,7 +1513,7 @@
 					"name": "The High Gardens",
 					"quest": "Reflection of Terror",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -1521,7 +1523,7 @@
 					"name": "The Lunaris Concourse",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": ["Lunaris_Concourse_Seed_1", "Lunaris_Concourse_Seed_2"]
+					"skelImage": ["Lunaris_Concourse_Seed_1", "Lunaris_Concourse_Seed_2"]
 				},
 				{
 					"hasRecipe": false,
@@ -1531,7 +1533,7 @@
 					"name": "The Lunaris Temple Level 1",
 					"quest": "Lunar Eclipse",
 					"questRewardsSkills": false,
-					"image": ["Lunaris_1_Seed_1", "Lunaris_1_Seed_2", "Lunaris_1_Seed_3"]
+					"skelImage": ["Lunaris_1_Seed_1", "Lunaris_1_Seed_2", "Lunaris_1_Seed_3"]
 				},
 				{
 					"hasRecipe": true,
@@ -1550,7 +1552,7 @@
 						],
 						"tooltip": "Minions - Rank 1"
 					},
-					"image": ["Lunaris_2_Seed_1", "Lunaris_2_Seed_2"]
+					"skelImage": ["Lunaris_2_Seed_1", "Lunaris_2_Seed_2"]
 				},
 				{
 					"hasRecipe": false,
@@ -1560,13 +1562,13 @@
 					"name": "The Harbour Bridge",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				}
 			]
 		},
 		{
-			"act": "Act IX",
-			"actid": 9,
+			"actName": "Act IX",
+			"actId": 9,
 			"zones": [
 				{
 					"hasRecipe": false,
@@ -1576,7 +1578,7 @@
 					"name": "The Blood Aqueduct",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -1586,7 +1588,7 @@
 					"name": "The Descent",
 					"quest": "none",
 					"questRewardsSkills": false,
-					"image": ["Descent_Seed_1"]
+					"skelImage": ["Descent_Seed_1"]
 				},
 				{
 					"hasRecipe": true,
@@ -1604,7 +1606,7 @@
 						],
 						"tooltip": "Attack and Cast Speed - Rank 2"
 					},
-					"image": ["Vastiri_Seed_1"]
+					"skelImage": ["Vastiri_Seed_1"]
 				},
 				{
 					"hasRecipe": false,
@@ -1614,7 +1616,7 @@
 					"name": "The Oasis",
 					"quest": "Queen of the Sands",
 					"questRewardsSkills": false,
-					"image": ["Oasis_Seed_1", "Oasis_Seed_2"]
+					"skelImage": ["Oasis_Seed_1", "Oasis_Seed_2"]
 				},
 				{
 					"hasRecipe": false,
@@ -1624,7 +1626,7 @@
 					"name": "The Foothills",
 					"quest": "Fastis Fortuna",
 					"questRewardsSkills": false,
-					"image": ["Foothills_Seed_1"]
+					"skelImage": ["Foothills_Seed_1"]
 				},
 				{
 					"hasRecipe": true,
@@ -1641,7 +1643,7 @@
 						],
 						"tooltip": "Spell Damage - Rank 3"
 					},
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": true,
@@ -1655,7 +1657,7 @@
 						"mods": ["+(10–13) to all Attributes"],
 						"tooltip": "All Attributes - Rank 2"
 					},
-					"image": ["Tunnel_Seed_1", "Tunnel_Seed_2", "Tunnel_Seed_3"]
+					"skelImage": ["Tunnel_Seed_1", "Tunnel_Seed_2", "Tunnel_Seed_3"]
 				},
 				{
 					"hasRecipe": true,
@@ -1673,7 +1675,7 @@
 						],
 						"tooltip": "Physical Damage - Rank 3"
 					},
-					"image": ["Quarry_Seed_1"]
+					"skelImage": ["Quarry_Seed_1"]
 				},
 				{
 					"hasRecipe": false,
@@ -1683,7 +1685,7 @@
 					"name": "The Refinery",
 					"quest": "Recurring Nightmare",
 					"questRewardsSkills": false,
-					"image": ["Refinery_Seed_1"]
+					"skelImage": ["Refinery_Seed_1"]
 				},
 				{
 					"hasRecipe": false,
@@ -1693,7 +1695,7 @@
 					"name": "The Belly of the Beast",
 					"quest": "Recurring Nightmare",
 					"questRewardsSkills": false,
-					"image": ["Belly_Seed_1", "Belly_Seed_2", "Belly_Seed_3"]
+					"skelImage": ["Belly_Seed_1", "Belly_Seed_2", "Belly_Seed_3"]
 				},
 				{
 					"hasRecipe": false,
@@ -1703,13 +1705,13 @@
 					"name": "The Rotting Core",
 					"quest": "Recurring Nightmare",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				}
 			]
 		},
 		{
-			"act": "Act X",
-			"actid": 10,
+			"actName": "Act X",
+			"actId": 10,
 			"zones": [
 				{
 					"hasRecipe": false,
@@ -1719,7 +1721,7 @@
 					"name": "The Cathedral Rooftop",
 					"quest": "Safe Passage",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -1729,7 +1731,7 @@
 					"name": "The Ravaged Square",
 					"quest": "",
 					"questRewardsSkills": false,
-					"image": ["Ravaged_Square"]
+					"skelImage": ["Ravaged_Square"]
 				},
 				{
 					"hasRecipe": false,
@@ -1739,7 +1741,7 @@
 					"name": "The Torched Courts",
 					"quest": "",
 					"questRewardsSkills": false,
-					"image": ["Torched_Courts"]
+					"skelImage": ["Torched_Courts"]
 				},
 				{
 					"hasRecipe": true,
@@ -1753,7 +1755,7 @@
 						"mods": ["+(45–54) to maximum Mana", "+(41–55) to maximum Life"],
 						"tooltip": "Life and Mana - Rank 3"
 					},
-					"image": ["Desecrated_Chambers"]
+					"skelImage": ["Desecrated_Chambers"]
 				},
 				{
 					"hasRecipe": false,
@@ -1763,7 +1765,7 @@
 					"name": "The Control Blocks",
 					"quest": "Vilenta's Vengeance",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": true,
@@ -1782,7 +1784,7 @@
 						],
 						"tooltip": "Chaos Damage - Rank 2"
 					},
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -1792,7 +1794,7 @@
 					"name": "The Reliquary",
 					"quest": "Map to Tsoatha",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -1802,7 +1804,7 @@
 					"name": "The Canals",
 					"quest": "",
 					"questRewardsSkills": false,
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": true,
@@ -1826,13 +1828,13 @@
 						],
 						"tooltip": "Defences - Rank 2"
 					},
-					"image": []
+					"skelImage": []
 				}
 			]
 		},
 		{
-			"act": "Epilogue",
-			"actid": 11,
+			"actName": "Epilogue",
+			"actId": 11,
 			"zones": [
 				{
 					"hasRecipe": true,
@@ -1846,7 +1848,7 @@
 						"mods": ["(20–24)% increased Movement Speed"],
 						"tooltip": "Movement Speed - Rank 3"
 					},
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -1858,7 +1860,7 @@
 					"quest": "",
 					"questRewardsSkills": false,
 					"recipe": {},
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -1870,7 +1872,7 @@
 					"quest": "",
 					"questRewardsSkills": false,
 					"recipe": {},
-					"image": []
+					"skelImage": []
 				},
 				{
 					"hasRecipe": false,
@@ -1882,13 +1884,28 @@
 					"quest": "",
 					"questRewardsSkills": false,
 					"recipe": {},
-					"image": []
+					"skelImage": []
+				}
+			]
+		},
+    {
+			"actName": "Maps",
+			"actId": 13,
+			"zones": [
+				{
+					"name": "Maps",
+					"hasRecipe": false,
+					"haspassive": false,
+					"hastrial": false,
+					"level": 70,
+					"questRewardsSkills": false,
+          "hasWaypoint": false
 				}
 			]
 		},
 		{
-			"act": "labyrinth",
-			"actid": 12,
+			"actName": "Labyrinth",
+			"actId": 50,
 			"zones": [
 				{
 					"name": "Aspirants' Plaza",
@@ -1901,5 +1918,6 @@
 				}
 			]
 		}
+
 	]
 }

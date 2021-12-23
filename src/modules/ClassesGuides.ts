@@ -1,7 +1,7 @@
 import { Guides } from "./Guides"
 import path from 'path'
 import fs from 'fs'
-import { ActsZonesSkeleton, FindFileExt, getAbsPackagedPath, MyLogger } from './functions'
+import { FindFileExt, getAbsPackagedPath, MyLogger } from './functions'
 import { MenuItem, NativeImage, nativeImage, shell, dialog } from "electron"
 import ini from 'ini'
 import { JsonFile } from "./JsonFile"
@@ -32,26 +32,28 @@ export class ClassesGuides extends Guides<IClassesGuide>{
 
     if (!this.CurGuide.acts) this.CurGuide.acts = [] as IClassesGuideAct[]
 
-    for (const actSkel of ActsZonesSkeleton.getObject().acts) {
+    for (const actSkeleton of this.ActsZonesSkeleton.acts) {
       let i = -1, ext = ""
       do {
         i++
-        ext = FindFileExt(path.join(this.CurGuide.identity.sysAssetPath, `tree-${actSkel.actid - i}`))
-      } while (!ext && (actSkel.actid - i > 0))
+        ext = FindFileExt(path.join(this.CurGuide.identity.guideSysPath, `tree-${actSkeleton.actId - i}`))
+      } while (!ext && (actSkeleton.actId - i > 0))
 
-      let act = this.CurGuide.acts.find(a => a.actId === actSkel.actid)
-      if (!act) {
-        MyLogger.info(`no act ${actSkel.actid} in ClasseGuide, defaulting`)
-        this.CurGuide.acts.push(act = { actId: actSkel.actid, gears: [] as IClassesGuideGear[] } as IClassesGuideAct)
+      let actGuide = this.CurGuide.acts.find(a => a.actId === actSkeleton.actId)
+      if (!actGuide) {
+        MyLogger.info(`no act ${actSkeleton.actId} in ClasseGuide, defaulting`)
+        this.CurGuide.acts.push(actGuide = { actId: actSkeleton.actId, actName: actSkeleton.actName, gears: [] as IClassesGuideGear[] } as IClassesGuideAct)
       }
-      if (!act.gears) act.gears = [] as IClassesGuideGear[]
+      actGuide.actName = actSkeleton.actName
+      if (!actGuide.gears) actGuide.gears = [] as IClassesGuideGear[]
 
-      if (i !== 0) MyLogger.info(`no skilltree image found for ${actSkel.actid} in ClasseGuide, defaulting with act ${actSkel.actid - i}`)
-      if (actSkel.actid - i === 0) {
-        MyLogger.info(`no skilltree image found for ${actSkel.actid} and acts before in ClasseGuide, defaulting with "?"`)
-        act.treeimage = `assets/images/guides/tree-0.png`
+
+      if (i !== 0) MyLogger.info(`no skilltree image found for ${actSkeleton.actId} in ClasseGuide, defaulting with act ${actSkeleton.actId - i}`)
+      if (actSkeleton.actId - i === 0) {
+        MyLogger.info(`no skilltree image found for ${actSkeleton.actId} and acts before in ClasseGuide, defaulting with "?"`)
+        actGuide.treeimage = `assets/images/guides/tree-0.png`
       }
-      else act.treeimage = `${this.CurGuide.identity.webAssetPath}/tree-${actSkel.actid - i}${ext}`
+      else actGuide.treeimage = `${this.CurGuide.identity.guideWebPath}/tree-${actSkeleton.actId - i}${ext}`
     }
 
     this.CurGuide.acts.sort((a, b) => a.actId - b.actId)
@@ -77,7 +79,7 @@ export class ClassesGuides extends Guides<IClassesGuide>{
                   _gem.key = `${act.actId}-${gear.name.replace(" ", "_")}-${_gem.name.replace(" ", "_")}-${index}`
                   if ((g_info.note) && (g_info.note !== '')) _gem.notes = g_info.note
 
-                  gear.gems.push({..._gem})
+                  gear.gems.push({ ..._gem })
                 }
                 else MyLogger.log('info', `Gem ${g_info.name} was not found.`)
               })
@@ -177,33 +179,56 @@ export class ClassesGuides extends Guides<IClassesGuide>{
   }
 
   getTreeImagePath(actid: number): string {
-    return this.CurGuide.acts.find(a => a.actId === actid) ? path.join(this.CurGuide.identity.sysAssetPath, this.CurGuide.acts.find(a => a.actId === actid).treeimage) : ""
+    return this.CurGuide.acts.find(a => a.actId === actid) ? path.join(this.CurGuide.identity.guideSysPath, this.CurGuide.acts.find(a => a.actId === actid).treeimage) : ""
   }
 
   setTreeImagePath(filename: string, actid: number): void {
-    fs.copyFileSync(filename, path.normalize(`${this.CurGuide.identity.sysAssetPath}${path.sep} tree - ${actid}${path.extname(filename)} `))
-    this.parseCurGuide()
+    fs.copyFileSync(filename, path.normalize(`${this.CurGuide.identity.guideSysPath}${path.sep}tree-${actid}${path.extname(filename)}`))
+    this.parseCurGuide().then(() => this.emit("GuideContentChanged", this.CurGuide))
   }
 
   async saveCurGuide(): Promise<void> {
-    const guide = JSON.parse(JSON.stringify(this.CurGuide)) as IClassesGuide
+    const guide2Save = { identity: {} as ClassGuideIdentity, acts: [] as IClassesGuideAct[] } as IClassesGuide
+    guide2Save.identity.name = this.CurGuide.identity.name
+    guide2Save.identity.filename = this.CurGuide.identity.filename
+    guide2Save.identity.lang = this.CurGuide.identity.lang
+    guide2Save.identity.game_version = this.CurGuide.identity.game_version
+    guide2Save.identity.class = this.CurGuide.identity.class
+    guide2Save.identity.url = this.CurGuide.identity.url
 
-    for (const act of guide.acts) {
-      if (act.treeimage) delete act.treeimage
-      if (act.gears) for (const gear of act.gears) {
-        if (gear) {
-          if (gear.gems) delete gear.gems
+    if (this.CurGuide) {
+      for (const guideAct of this.CurGuide.acts) {
+        let curAct2Save = {} as IClassesGuideAct
+        guide2Save.acts.push(curAct2Save = {
+          actId: guideAct.actId,
+          actName: guideAct.actName,
+          notes: guideAct.notes,
+          gears: [] as IClassesGuideGear[]
+        } as IClassesGuideAct)
+        for (const guideGear of guideAct.gears) {
+          let curGear2Save = {} as IClassesGuideGear
+          curAct2Save.gears.push(curGear2Save = {
+            name: guideGear.name,
+            gem_info: guideGear.gem_info,
+            notes: guideGear.notes
+          } as IClassesGuideGear)
         }
       }
+      super.saveGuide(guide2Save)
     }
-    super.saveGuide(guide)
+    else {
+      MyLogger.log('error', 'No curguide to save')
+      throw ('error: No curguide to save')
+    }
   }
 
   async setGearName(gearName: string, name: string): Promise<void> {
 
-    this.CurGuide.acts.forEach(a => {
-      const act = a.gears.find(g => g.name === gearName)
-      if (act) act.name = this.uniqGearName(name)
+    const wantedName = this.uniqGearName(name)
+
+    this.CurGuide.acts.forEach(act => {
+      const gear = act.gears.find(g => g.name === gearName)
+      if (gear) gear.name = wantedName
     })
     this.saveCurGuide().then(() => {
       this.emit("GuideContentChanged", this.CurGuide)
@@ -343,11 +368,13 @@ export class ClassesGuides extends Guides<IClassesGuide>{
       MyLogger.log('importGuide', `for guide : (${ClassGuide.identity.game_version} - ${ClassGuide.identity.name} )`)
     }
 
+    ClassGuide.acts = [] as IClassesGuideAct[]
+
     if (baseDirs) {
       const files = fs.readdirSync(path.join(buildPath, "gems"), { withFileTypes: true })
 
       if (files) {
-        const args = []
+        const gemsIniFilesActs = []
         for (const file of files) {
           if (file.isFile()) {
             // const level = Number(file.name.substr(0, file.name.length - 4))
@@ -356,73 +383,86 @@ export class ClassesGuides extends Guides<IClassesGuide>{
               const level = Number(result[1])
               switch (true) {
                 case (level <= 13):
-                  if (!args[1]) args[1] = []
-                  args[1].push(path.join(buildPath, "gems", file.name))
+                  if (!gemsIniFilesActs[1]) gemsIniFilesActs[1] = []
+                  gemsIniFilesActs[1].push(path.join(buildPath, "gems", file.name))
                   break
                 case (level <= 23):
-                  if (!args[2]) args[2] = []
-                  args[2].push(path.join(buildPath, "gems", file.name))
+                  if (!gemsIniFilesActs[2]) gemsIniFilesActs[2] = []
+                  gemsIniFilesActs[2].push(path.join(buildPath, "gems", file.name))
                   break
                 case (level <= 33):
-                  if (!args[3]) args[3] = []
-                  args[3].push(path.join(buildPath, "gems", file.name))
+                  if (!gemsIniFilesActs[3]) gemsIniFilesActs[3] = []
+                  gemsIniFilesActs[3].push(path.join(buildPath, "gems", file.name))
                   break
                 case (level <= 41):
-                  if (!args[4]) args[4] = []
-                  args[4].push(path.join(buildPath, "gems", file.name))
+                  if (!gemsIniFilesActs[4]) gemsIniFilesActs[4] = []
+                  gemsIniFilesActs[4].push(path.join(buildPath, "gems", file.name))
                   break
                 case (level <= 45):
-                  if (!args[5]) args[5] = []
-                  args[5].push(path.join(buildPath, "gems", file.name))
+                  if (!gemsIniFilesActs[5]) gemsIniFilesActs[5] = []
+                  gemsIniFilesActs[5].push(path.join(buildPath, "gems", file.name))
                   break
                 case (level <= 50):
-                  if (!args[6]) args[6] = []
-                  args[6].push(path.join(buildPath, "gems", file.name))
+                  if (!gemsIniFilesActs[6]) gemsIniFilesActs[6] = []
+                  gemsIniFilesActs[6].push(path.join(buildPath, "gems", file.name))
                   break
                 case (level <= 55):
-                  if (!args[7]) args[7] = []
-                  args[7].push(path.join(buildPath, "gems", file.name))
+                  if (!gemsIniFilesActs[7]) gemsIniFilesActs[7] = []
+                  gemsIniFilesActs[7].push(path.join(buildPath, "gems", file.name))
                   break
                 case (level <= 61):
-                  if (!args[8]) args[8] = []
-                  args[8].push(path.join(buildPath, "gems", file.name))
+                  if (!gemsIniFilesActs[8]) gemsIniFilesActs[8] = []
+                  gemsIniFilesActs[8].push(path.join(buildPath, "gems", file.name))
                   break
                 case (level <= 64):
-                  if (!args[9]) args[9] = []
-                  args[9].push(path.join(buildPath, "gems", file.name))
+                  if (!gemsIniFilesActs[9]) gemsIniFilesActs[9] = []
+                  gemsIniFilesActs[9].push(path.join(buildPath, "gems", file.name))
                   break
                 case (level <= 69):
-                  if (!args[10]) args[10] = []
-                  args[10].push(path.join(buildPath, "gems", file.name))
+                  if (!gemsIniFilesActs[10]) gemsIniFilesActs[10] = []
+                  gemsIniFilesActs[10].push(path.join(buildPath, "gems", file.name))
                   break
                 case (level > 69):
-                  if (!args[11]) args[11] = []
-                  args[11].push(path.join(buildPath, "gems", file.name))
+                  if (!gemsIniFilesActs[11]) gemsIniFilesActs[11] = []
+                  gemsIniFilesActs[11].push(path.join(buildPath, "gems", file.name))
                   break
               }
             }
           }
         }
-        for (const arg in args) {
-          this.appendPOELevelingGuideGemFiles(ClassGuide, Number(arg), ...args[arg])
+        for (const gemsIniFilesAct in gemsIniFilesActs) {
+          this.appendPOELevelingGuideGemFiles(ClassGuide, Number(gemsIniFilesAct), ...gemsIniFilesActs[gemsIniFilesAct])
         }
 
-        for (const act of ActsZonesSkeleton.getObject().acts) {
-          let Act = ClassGuide.acts.find(a => a.actId == act.actid)
-          if (!Act) {
-            Act = { actId: act.actid, gears: [] as IClassesGuideGear[] }
-            ClassGuide.acts.push(Act)
-          }
-          if (Act.gears.length < 1) Act.gears = ClassGuide.acts.find(a => a.actId == act.actid - 1).gears
+        // copy empty act gears with previous act gears
+        for (const skelAct of this.ActsZonesSkeleton.acts.sort((a, b) => a.actId - b.actId)) {
+          if (!ClassGuide.acts.find(a => a.actId === skelAct.actId)) ClassGuide.acts.push({ actId: skelAct.actId, gears: [] })
+          if (!ClassGuide.acts.find(a => a.actId === skelAct.actId).gears) ClassGuide.acts.find(a => a.actId === skelAct.actId).gears == [] as IClassesGuideGear[]
+          if (ClassGuide.acts.find(a => a.actId === skelAct.actId).gears.length === 0)
+            if (skelAct.actId === 1) break
+            else {
+              let prevAct
+              let i = skelAct.actId - 1
+              do {
+                prevAct = ClassGuide.acts.find(a => a.actId === i)
+                i = i - 1
+              }
+              while (!prevAct && i > 0)
+              ClassGuide.acts.find(a => a.actId === skelAct.actId).gears = prevAct.gears
+            }
         }
+
 
         const ascendancy = fs.readFileSync(path.join(buildPath, "ascendancy.txt"))
+        if (ascendancy) ClassGuide.acts.push({ actId: 50, notes: `${ascendancy.toString()} `, gears: [] })
+
         const info = fs.readFileSync(path.join(buildPath, "build_info.txt"))
+        if (info) {
+          ClassGuide.acts.find(a => a.actId === 1).notes = `${info.toString()}`
 
-        const url = info.toString().match(/(http[s]:\/\/.*)/)
-        if ((url) && (url.length > 0)) ClassGuide.identity.url = url[0]
-
-        if (ascendancy) ClassGuide.acts.find(a => a.actId === 1).notes = `${info.toString()} \n\n${ascendancy.toString()} `
+          const url = info.toString().match(/(http[s]:\/\/.*)/)
+          if ((url) && (url.length > 0)) ClassGuide.identity.url = url[0]
+        }
 
         let classGuidePath
         try {
@@ -437,8 +477,8 @@ export class ClassesGuides extends Guides<IClassesGuide>{
           const tmp = JSON.parse(JSON.stringify(ClassGuide)) as IClassesGuide
           delete tmp.identity.filename
           delete tmp.identity.readonly
-          delete tmp.identity.sysAssetPath
-          delete tmp.identity.webAssetPath
+          delete tmp.identity.guideSysPath
+          delete tmp.identity.guideWebPath
 
           json.setObject(tmp)
           json.save()
@@ -447,23 +487,13 @@ export class ClassesGuides extends Guides<IClassesGuide>{
           MyLogger.log('importGuide', `Error when saving custom guide in ${ClassGuide.identity.filename} `)
         }
 
-        //TODO do not create non existing tree file
-        for (const act of ActsZonesSkeleton.getObject().acts) {
-          let i = 0
-          let treeSrc
-          do {
-            treeSrc = path.join(buildPath, `Act ${act.actid - i} `, 'tree.jpg')
-            i++
-          } while (!fs.existsSync(treeSrc) && act.actid - i > 0)
-          const treeDst = path.join(classGuidePath, `tree - ${act.actid}.jpg`)
-          fs.copyFileSync(treeSrc, treeDst)
+        for (let i = 1; i < 12; i++) {
+          const treeSrc = path.join(buildPath, `Act ${i}`, 'tree.jpg')
 
-          let Act = ClassGuide.acts.find(a => a.actId == act.actid)
-          if (!Act) {
-            Act = { actId: act.actid, gears: [] as IClassesGuideGear[] }
-            ClassGuide.acts.push(Act)
+          if (fs.existsSync(treeSrc)) {
+            const treeDst = path.join(classGuidePath, `tree-${i}.jpg`)
+            fs.copyFileSync(treeSrc, treeDst)
           }
-          if (Act.gears.length < 1) Act.gears = ClassGuide.acts.find(a => a.actId == act.actid - 1).gears
         }
 
         this.Init(ClassGuide.identity.filename)
@@ -472,41 +502,34 @@ export class ClassesGuides extends Guides<IClassesGuide>{
     }
   }
 
-  appendPOELevelingGuideGemFiles(ClassGuide: IClassesGuide, act: number, ...files: string[]): void {
-    for (const file of files) {
-      const gemFile = ini.parse(`\n${fs.readFileSync(file).toString().replace('\ufeff', '')} `)
+  appendPOELevelingGuideGemFiles(ClassGuide: IClassesGuide, actId: number, ...initFiles: string[]): void {
+    for (const initFile of initFiles) {
+      const gemFile = ini.parse(`\n${fs.readFileSync(initFile).toString().replace('\ufeff', '')} `) //remove utf16 char
       for (const gem in gemFile) {
-        if (gemFile[gem].gem !== '' && gemFile[gem].gem !== undefined) {
-          let Act
-          if (!ClassGuide.acts) ClassGuide.acts = []
-          else Act = ClassGuide.acts.find(a => a.actId === act)
+        if (gemFile[gem].gem && gemFile[gem].gem !== '') {
+          let guideAct = {} as IClassesGuideAct
 
-          if (!Act) ClassGuide.acts.push(Act = {} as IClassesGuideAct)
+          guideAct = ClassGuide.acts.find(a => a.actId === actId)
+          if (!guideAct) ClassGuide.acts.push(guideAct = {} as IClassesGuideAct)
 
-          Act.actId = act
+          guideAct.actId = actId
 
-          let Gear
-          if (!Act.gears) Act.gears = []
-          else Gear = Act.gears.find(g => g.name === gem.substr(0, gem.length - 1))
+          if (!guideAct.gears) guideAct.gears = [] as IClassesGuideGear[]
 
-          if (!Gear) Act.gears.push(Gear = {} as IClassesGuideGear)
+          let guideGear
+          guideGear = guideAct.gears.find(g => g.name === gem.substr(0, gem.length - 1))
+          if (!guideGear) guideAct.gears.push(guideGear = {} as IClassesGuideGear)
 
-          Gear.name = gem.substr(0, gem.length - 1)
-          if (!Gear.gems) Gear.gems = []
+          guideGear.name = gem.substr(0, gem.length - 1)
 
-          if ((!Gear.gem_info) || (!Gear.gem_info.find(g => g.name === gemFile[gem].gem))) {
+          if ((!guideGear.gem_info) || (!guideGear.gem_info.find(g => g.name === gemFile[gem].gem))) {
             let note = ""
+            if (!guideGear.gem_info) guideGear.gem_info = []
             if (gemFile[gem].note) note = gemFile[gem].note
 
-            if (this.Gems.Exist(gemFile[gem].gem)) {
-              if (!Gear.gem_info) Gear.gem_info = []
-              Gear.gem_info.push({ name: gemFile[gem].gem, note: note })
-            }
-            else if (this.Gems.Exist(`${gemFile[gem].gem} Support`)) {
-              if (!Gear.gem_info) Gear.gem_info = []
-              Gear.gem_info.push({ name: `${gemFile[gem].gem} Support`, note: note })
-            }
-            else MyLogger.log('importGuide', `Try to add unknown(${gemFile[gem].gem}) gem, in file(${file})`)
+            if (this.Gems.Exist(gemFile[gem].gem))
+              guideGear.gem_info.push({ name: gemFile[gem].gem, note: note })
+            else MyLogger.log('importGuide', `Try to add unknown(${gemFile[gem].gem}) gem, in file(${initFile})`)
           }
         }
       }

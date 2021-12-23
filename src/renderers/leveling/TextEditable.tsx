@@ -17,7 +17,7 @@ export function TextEditable<T>(props: {
     else
       return <TextInput value={value} name={name} onChange={onChange} />
   }
-  else return <div className="overflow-auto">{value}</div>
+  else return <p className="truncate overflow-hidden h-6 w-full ">{value}</p>
 }
 
 

@@ -39,7 +39,7 @@ function App(props: { Init: any }) {
 
   const curAct = useMemo(() => {
     console.log("**useMemo curAct", curActID)
-    const _act = actsGuide.acts.find(e => e.actid === curActID)
+    const _act = actsGuide.acts.find(e => e.actId === curActID)
     console.log("return: ", _act)
 
     return _act
@@ -60,6 +60,32 @@ function App(props: { Init: any }) {
       return curAct.zones[0]
     }
   }, [curZoneName, curAct, actsGuide])
+
+  const changeToPlayerArea = useCallback(() => {
+    console.log("**Callback [changeToPlayerArea]")
+    if (curActID !== curPlayer.currentZoneAct) {
+      setcurActID(curPlayer.currentZoneAct)
+      console.log(`setcurActID: ${curAct} ${curPlayer.currentZoneAct}`)
+
+      const _act = actsGuide.acts.find(act => act.actId === curPlayer.currentZoneAct)
+      if (_act) {
+        const _zone = _act.zones.find(e => e.name === curPlayer.currentZoneName)
+        if (!_zone) {
+          console.log("setcurZoneName: ", curAct.zones[0].name)
+          setcurZoneName(curAct.zones[0].name)
+        } else {
+          console.log("setcurZoneName: ", curPlayer.currentZoneName)
+          setcurZoneName(curPlayer.currentZoneName)
+        }
+      }
+    } else {
+      const _zone = curAct.zones.find(e => e.name === curPlayer.currentZoneName)
+      if (_zone) {
+        console.log("setcurZoneName: ", curPlayer.currentZoneName)
+        setcurZoneName(curPlayer.currentZoneName)
+      }
+    }
+  }, [curPlayer, actsGuide])
 
   // const prevZone = useCallback(() => {
   //   const index = curAct.zones.findIndex(z => z.name === curZoneName)
@@ -181,12 +207,14 @@ function App(props: { Init: any }) {
         case "poeParseComplete":
           setcurPlayer(arg[1])
           setpoeLogLoaded(true)
+          changeToPlayerArea()
           break
         case "playerLevelUp":
           setcurPlayer(arg[1])
           break
         case "playerAreaChange":
           setcurPlayer(arg[1])
+          changeToPlayerArea()
           break
         case "ClassGuide":
           switch (arg[1]) {
@@ -202,7 +230,7 @@ function App(props: { Init: any }) {
               break
           }
           break
-        case "actsGuide":
+        case "ActsGuide":
           switch (arg[1]) {
             case "GuideContentChanged":
               setactsGuide(arg[2])
@@ -247,31 +275,31 @@ function App(props: { Init: any }) {
   /**********************************
    * Effects
    */
-  useEffect(() => {
-    console.log("**UseEffect [CurPlayer]")
-    if (curActID !== curPlayer.currentZoneAct) {
-      setcurActID(curPlayer.currentZoneAct)
-      console.log(`setcurActID: ${curAct} ${curPlayer.currentZoneAct}`)
+  // const changeArea = useMemo(() => {
+  //   console.log("**UseEffect [CurPlayer]")
+  //   if (curActID !== curPlayer.currentZoneAct) {
+  //     setcurActID(curPlayer.currentZoneAct)
+  //     console.log(`setcurActID: ${curAct} ${curPlayer.currentZoneAct}`)
 
-      const _act = actsGuide.acts.find(act => act.actid === curPlayer.currentZoneAct)
-      if (_act) {
-        const _zone = _act.zones.find(e => e.name === curPlayer.currentZoneName)
-        if (!_zone) {
-          console.log("setcurZoneName: ", curAct.zones[0].name)
-          setcurZoneName(curAct.zones[0].name)
-        } else {
-          console.log("setcurZoneName: ", curPlayer.currentZoneName)
-          setcurZoneName(curPlayer.currentZoneName)
-        }
-      }
-    } else {
-      const _zone = curAct.zones.find(e => e.name === curPlayer.currentZoneName)
-      if (_zone) {
-        console.log("setcurZoneName: ", curPlayer.currentZoneName)
-        setcurZoneName(curPlayer.currentZoneName)
-      }
-    }
-  }, [curPlayer])
+  //     const _act = actsGuide.acts.find(act => act.actid === curPlayer.currentZoneAct)
+  //     if (_act) {
+  //       const _zone = _act.zones.find(e => e.name === curPlayer.currentZoneName)
+  //       if (!_zone) {
+  //         console.log("setcurZoneName: ", curAct.zones[0].name)
+  //         setcurZoneName(curAct.zones[0].name)
+  //       } else {
+  //         console.log("setcurZoneName: ", curPlayer.currentZoneName)
+  //         setcurZoneName(curPlayer.currentZoneName)
+  //       }
+  //     }
+  //   } else {
+  //     const _zone = curAct.zones.find(e => e.name === curPlayer.currentZoneName)
+  //     if (_zone) {
+  //       console.log("setcurZoneName: ", curPlayer.currentZoneName)
+  //       setcurZoneName(curPlayer.currentZoneName)
+  //     }
+  //   }
+  // }, [curPlayer, actsGuide])
 
   return (
     <CurActContext.Provider value={curAct}>
@@ -281,7 +309,7 @@ function App(props: { Init: any }) {
             <div className="flex flex-row flex-nowrap pb-2 items-center">
               <div className="flex-grow-0">
                 <PlayerInfo />
-                <h1>{`${curAct.act} : ${curZone.name}`}</h1>
+                <h1>{`${curAct.actName} : ${curZone.name}`}</h1>
               </div>
               <div className="flex-grow h-full">
                 {poeLogLoaded ? (
@@ -292,10 +320,7 @@ function App(props: { Init: any }) {
               </div>
               <div className="flex-grow-0 h-full guide-container px-1">
                 {!ClassGuideIsOnEdit && (
-                  <ActGuideIdentity
-                    identity={actsGuide.identity}
-                    onSave={ActGuide_SaveIdentity}
-                    onActsGuideEditChange={onActsGuideEditChange}>
+                  <ActGuideIdentity actGuide={actsGuide} onSave={ActGuide_SaveIdentity} onActsGuideEditChange={onActsGuideEditChange}>
                     Acts
                   </ActGuideIdentity>
                 )}
@@ -326,14 +351,18 @@ function App(props: { Init: any }) {
                     />
                   </div>
                 </div>
-                <div className="container p-0 m-0 flex-shrink-0 flex-grow-0 w-gear-container max-h-full">
-                  <ZoneGears
-                    curGuide={classGuide}
-                    ClassGuideIsOnEdit={ClassGuideIsOnEdit}
-                    onGearSocketSelected={onGearSocketSelected}
-                    curSocketEdited={curSocketEdited}
-                  />
-                  <GemBuyList curGuide={classGuide} />
+                <div className="p-0 m-0 flex flex-col flex-grow gap-2 w-[700px]">
+                  <div className="container flex-shrink-0 flex-grow-0  max-h-full">
+                    <ZoneGears
+                      curGuide={classGuide}
+                      ClassGuideIsOnEdit={ClassGuideIsOnEdit}
+                      onGearSocketSelected={onGearSocketSelected}
+                      curSocketEdited={curSocketEdited}
+                    />
+                  </div>
+                  <div className="flex flex-col flex-grow gap-2">
+                    <GemBuyList curGuide={classGuide} />
+                  </div>
                 </div>
               </div>
             )}

@@ -9,6 +9,7 @@ import { RichTextEditable } from "./RichTextEditable"
 import { TextEditable } from "./TextEditable"
 import { EditSaveNoteButton, MenuButton, MenuBar } from "./MenuBar"
 import { GemListElement } from "./Gears"
+import { ActsGuides } from "../../modules/ActsGuides"
 
 export function PlayerInfo(): JSX.Element {
   const curPlayer = useContext(PlayerContext)
@@ -57,11 +58,11 @@ export function ZoneSelector(props: {
 
   return (
     <div className="flex flex-row flex-nowrap space-x-2">
-      <select className="lvlg-map-feature min-w-min input" value={curAct.actid} onChange={onActChange}>
+      <select className="lvlg-map-feature min-w-min input" value={curAct.actId} onChange={onActChange}>
         {Acts.acts.map((act: IActsGuideAct) => {
           return (
-            <option key={act.actid} value={act.actid}>
-              {act.act}
+            <option key={act.actId} value={act.actId}>
+              {act.actName}
             </option>
           )
         })}
@@ -185,10 +186,20 @@ export function SkillTree(props: {
   const TreeImgTooltip = useRef()
 
   return (
-    <div className="container relative max-h-gem-list h-gem-list">
-      {curGuide.acts.find(a => a.actId === curAct.actid) && (
+    
+    <div className="container relative max-h-gem-list h-gem-list"
+    data-for={`skilltree` }
+    data-tip={`skilltree` }
+    data-effect="solid"
+    data-place="left"
+    data-delay-hide="1000"
+    >
+      {curGuide.acts.find(a => a.actId === curAct.actId) && (
         // <img className="w-full h-full max-w-full max-h-max" src={curGuide.acts.find(a => a.act === curAct.actid).treeimage} />
-        <img className="object-cover max-w-full max-h-full" src={curGuide.acts.find(a => a.actId === curAct.actid).treeimage} />
+        <img className="object-cover max-w-full max-h-full" 
+        data-tip={"sss"}
+
+        src={curGuide.acts.find(a => a.actId === curAct.actId).treeimage} />
       )}
       <MenuBar pos_x="left" pos_y="top">
         <MenuButton
@@ -217,7 +228,7 @@ export function GemBuyList(props: { curGuide: IClassesGuide }): JSX.Element {
 
     if (curGuide && curGuide.acts) {
       curGuide.acts
-        .filter(act => act.actId === curAct.actid || showAll)
+        .filter(act => act.actId === curAct.actId || showAll)
         .map(act =>
           act.gears.map(gear =>
             gear.gems.map(_gem => {
@@ -323,13 +334,13 @@ function RewardsItem(props: { reward: Reward; is_vendor: boolean }): JSX.Element
   if (is_vendor)
     return (
       <p className={`${disabled && "disabled text-xs"}`}>
-        Sell by {reward.npc} after quest <span className="text-poe-60">{reward.quest}</span> (act {reward.act}) for ({classes}).
+        Sell by {reward.npc} after quest <span className="text-poe-60">{reward.quest}</span> (act {reward.actId}) for ({classes}).
       </p>
     )
   else
     return (
       <p>
-        <span className="text-poe-60">Reward</span> for quest <span className="text-poe-60">{reward.quest}</span> (act {reward.act}) for (
+        <span className="text-poe-60">Reward</span> for quest <span className="text-poe-60">{reward.quest}</span> (act {reward.actId}) for (
         {classes}).
       </p>
     )
@@ -456,32 +467,32 @@ export function Gem(props: {
 // }
 
 export function ActGuideIdentity(props: {
-  identity: ActGuideIdentity
+  actGuide: IActsGuide
   onSave: (identity: ActGuideIdentity) => void
   children: string
   onActsGuideEditChange: (isEditable: boolean) => void
 }): JSX.Element {
-  const { onSave, identity, children, onActsGuideEditChange } = props
+  const { onSave, actGuide, children, onActsGuideEditChange } = props
 
-  const [idName, setidName] = useState(identity.name)
-  const [idLang, setidlang] = useState(identity.lang)
+  const [idName, setidName] = useState(actGuide.identity.name)
+  const [idLang, setidlang] = useState(actGuide.identity.lang)
 
-  const [idGameVersion, setidGameVersion] = useState(identity.game_version)
+  const [idGameVersion, setidGameVersion] = useState(actGuide.identity.game_version)
   const [isOnEdit, setisOnEdit] = useState(false)
 
   useEffect(() => {
-    setidName(identity.name)
-    setidGameVersion(identity.game_version)
-    setidlang(identity.lang)
-  }, [identity])
+    setidName(actGuide.identity.name)
+    setidGameVersion(actGuide.identity.game_version)
+    setidlang(actGuide.identity.lang)
+  }, [actGuide])
 
   const onSaveIdentity = useCallback(() => {
     onActsGuideEditChange(!isOnEdit)
     setisOnEdit(!isOnEdit)
-    identity.name = idName
-    identity.lang = idLang
-    identity.game_version = idGameVersion
-    onSave(identity)
+    actGuide.identity.name = idName
+    actGuide.identity.lang = idLang
+    actGuide.identity.game_version = idGameVersion
+    onSave(actGuide.identity)
   }, [isOnEdit, idName, idLang, idGameVersion])
 
   const editNote = useCallback(() => {
@@ -522,7 +533,7 @@ export function ActGuideIdentity(props: {
       <div className="w-6">
         <TextEditable isOnEdit={isOnEdit} onChange={onChange} name="lang" value={idLang} />
       </div>
-      {identity.readonly ? null : (
+      {actGuide.identity.readonly ? null : (
         <div className="w-6">
           <EditSaveNoteButton isOnEdit={isOnEdit} onSave={onSaveIdentity} onEdit={editNote} />
         </div>

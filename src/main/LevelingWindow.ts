@@ -31,7 +31,7 @@ export class LevelingWindow {
   private ActsGuides: ActsGuides
   private RichTextJson: JsonFile<IRichText[]>
   private PlayersClasses: JsonFile<IClassesAscendancies[]>
-  private Zones: JsonFile<IActsGuideApp>
+  private ActsZonesSkeleton: JsonFile<IActsZonesSkel>
   private GameHelpers: GameHelpers
 
   private _MyPlayer: IAppPlayer
@@ -49,7 +49,7 @@ export class LevelingWindow {
 
     this.RichTextJson = new JsonFile(path.join(getAbsPackagedPath(), "data", "richtext.json"))
     this.PlayersClasses = new JsonFile(path.join(getAbsPackagedPath(), "data", "classes.json"))
-    this.Zones = new JsonFile(path.join(getAbsPackagedPath(), "data", "zones.json"))
+    this.ActsZonesSkeleton = new JsonFile(path.join(getAbsPackagedPath(), "data", "zones.json"))
     this.GameHelpers = new GameHelpers()
 
     this._Window = new BrowserWindow({
@@ -140,28 +140,34 @@ export class LevelingWindow {
             this.RichTextJson.getObject(),
             this.ClassGuides.getGuide(),
             this._MyPlayer,
-            this.ActsGuides.getGuide().acts[0].actid,
+            this.ActsGuides.getGuide().acts[0].actId,
             this.ActsGuides.getGuide().acts[0].zones[0].name,
             this.PlayersClasses.getObject(),
             this.ClassGuides.getGemsList(),
             this._PoeLogLoaded
           ]
 
-        case "saveActGuide": switch (arg[1]) {
-          case "zoneNote":
-            MyLogger.log('info', `saveActGuide: zoneNote`)
-            this.ActsGuides.SaveZoneNote(arg[2], arg[3], arg[4])
-            break
-          case "navigationNote":
-            MyLogger.log('info', `saveActGuide: NavigationNote`)
-            this.ActsGuides.SaveNavigationNote(arg[2], arg[3], arg[4])
-            break
-          case "identity":
-            MyLogger.log('info', `saveActGuide: identity`)
-            this.ActsGuides.saveNewIdentity(arg[2])
-            this.makeMenus()
-            break
-        }
+        case "saveActGuide":
+          MyLogger.log('info', `saveActGuide`)
+
+          switch (arg[1]) {
+            case "zoneNote":
+              MyLogger.log('info', `zoneNote`)
+              this.ActsGuides.SaveZoneNote(arg[2], arg[3], arg[4])
+              return
+              break
+            case "navigationNote":
+              MyLogger.log('info', `NavigationNote`)
+              this.ActsGuides.SaveNavigationNote(arg[2], arg[3], arg[4])
+              return
+              break
+            case "identity":
+              MyLogger.log('info', `identity`)
+              this.ActsGuides.saveNewIdentity(arg[2]).then(() => { this.makeMenus() })
+              return
+              break
+          }
+          return
           break
         case "saveClassGuide":
           MyLogger.log('info', `saveClassGuide`)
@@ -173,15 +179,15 @@ export class LevelingWindow {
               this.loadImage(`Choose skilltree for act ${arg[2]}`, this.ClassGuides.getTreeImagePath(arg[2])).then((result) => {
                 if (!result.canceled) {
                   this.ClassGuides.setTreeImagePath(result.filePaths[0], arg[2])
-                  this._Window.webContents.send("levelingRenderer", ["classGuide", this.ClassGuides.getGuide()])
+                  this._Window.webContents.send("levelingRenderer", ["ClassGuide", "GuideContentChanged", this.ClassGuides.getGuide()])
                 }
                 MyLogger.log('info', result)
               })
               break
             case "identity":
               MyLogger.log('info', `saveClassGuide: identity(${arg[2]})`)
-              this.ClassGuides.saveNewIdentity(arg[2])
-              this.makeMenus()
+              this.ClassGuides.saveNewIdentity(arg[2]).then(() => { this.makeMenus() })
+
               break
             //group
             case "GearName":
@@ -229,6 +235,7 @@ export class LevelingWindow {
               this.ClassGuides.delGearGem(arg[2])
               break
           }
+          return
           break
       }
     })
@@ -282,14 +289,29 @@ export class LevelingWindow {
       })
 
       this._PoeLog.on("area", area => {
-        // console.log(area.name)
         let _area
+
+        if (this._PoeLogLoaded) console.log("AREA CHANGE: %o", area)
         switch (area.type) {
+
+          /*
+          labs: 
+            type: unknown
+              'Estate Walkways'
+              'Aspirant's Trial'
+              'Sepulchre Halls'
+              'Sanitorium Halls'
+              'Mansion Atrium'
+          hideouts:
+            type unknown
+              'Coral Hideout'
+
+          */
 
           case "labyrinth":
             if (area.name === "Aspirants' Plaza") {
               this._MyPlayer.currentZoneName = area.name
-              this._MyPlayer.currentZoneAct = 12
+              this._MyPlayer.currentZoneAct = 50 //Lab actid = 50
             }
             break
 
@@ -339,21 +361,28 @@ export class LevelingWindow {
 
 
   private async LoadData(): Promise<void> {
+    await this.ActsZonesSkeleton.Init().then(() => {
+
+      this.ActsZonesSkeleton.getObject().acts.sort((a, b) => a.actId - b.actId)
+
+      this.ActsGuides.setActsZonesSkeleton(this.ActsZonesSkeleton.getObject())
+      this.ClassGuides.setActsZonesSkeleton(this.ActsZonesSkeleton.getObject())
+    }).catch((e) => {
+      MyLogger.error("Error when loading Skeleton Guides")
+    })
+
     await Promise.all([
-      this.ClassGuides.Init(this._AppStore.get("curClassGuide", "default") as string).catch((e) => {
-        MyLogger.error("Error when loading Classes Guides")
-      }),
       this.ActsGuides.Init(this._AppStore.get("curActsGuide", "default") as string).catch((e) => {
         MyLogger.error("Error when loading Acts Guides")
       }),
-      await this.RichTextJson.Init().catch((e) => {
+      this.ClassGuides.Init(this._AppStore.get("curClassGuide", "default") as string).catch((e) => {
+        MyLogger.error("Error when loading Classes Guides")
+      }),
+      this.RichTextJson.Init().catch((e) => {
         MyLogger.error("Error when loading Richtext Guides")
       }),
       this.PlayersClasses.Init().catch((e) => {
         MyLogger.error("Error when loading PlayerClasses Guides")
-      }),
-      this.Zones.Init().catch((e) => {
-        MyLogger.error("Error when loading Zones Guides")
       }),
       this.GameHelpers.Init().catch((e) => {
         MyLogger.error("Error when loading GameHelpers Guides")

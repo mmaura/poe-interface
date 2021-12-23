@@ -1,6 +1,6 @@
 import path from 'path'
 import fs, { constants } from 'fs'
-import { Lang, MyLogger } from './functions'
+import { getAbsPackagedPath, getPackagedWebBaseName, Lang, MyLogger } from './functions'
 import { JsonFile } from './JsonFile'
 import { DataLoader } from './DataLoader'
 import { dialog, MenuItem } from 'electron'
@@ -12,6 +12,7 @@ interface GuideType {
 export abstract class Guides<T extends GuideType> extends DataLoader {
   protected Identities = [] as GuidesIdentity[]
   protected CurGuide: T
+  protected ActsZonesSkeleton: IActsZonesSkel
 
   abstract parseCurGuide(): Promise<void>
   abstract saveCurGuide(): Promise<void>
@@ -38,7 +39,11 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
           MyLogger.log('info', `No custom guide in ${this.getAbsCustomPath()}`)
         }),
     ])
-    await this.selectGuide(defaultGuideFilename) 
+    await this.selectGuide(defaultGuideFilename)
+  }
+
+  setActsZonesSkeleton(actsZonesSkeleton: IActsZonesSkel): void {
+    this.ActsZonesSkeleton = actsZonesSkeleton
   }
 
   /**
@@ -60,9 +65,15 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
             if (!object.identity.name) object.identity.name = "newName"
             if (!object.identity.lang) object.identity.lang = "en"
             if (!object.identity.game_version) object.identity.game_version = 3.16
+
             object.identity.filename = f
-            object.identity.webAssetPath = this.extractWebPath(webPath, f)
-            object.identity.sysAssetPath = path.dirname(f)
+
+            object.identity.guideWebPath = this.extractWebPath(webPath, f)
+            object.identity.guideSysPath = path.dirname(f)
+
+            object.identity.appSysAssetPath = getAbsPackagedPath()
+            object.identity.appWebAssetPath = getPackagedWebBaseName()
+
             this.Identities.push(object.identity)
           })
           .catch((e) => {
@@ -88,7 +99,7 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
    * if not found return the first identity
    */
   getIdentity(filename?: string): GuidesIdentity {
-    let curIdent = {} as GuidesIdentity
+    let curIdent = undefined as GuidesIdentity
 
     if (filename) curIdent = this.Identities.find(ident => ident.filename === filename)
     if (!curIdent) curIdent = this.Identities.find(ident => ident.name === "default" && ident.lang === Lang)
@@ -182,25 +193,25 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
       oldGuideFilename = ""
     }
 
-    try {
-      const json = new JsonFile<T>(selectedIdent.filename)
-      await json.Init()
-      this.CurGuide = json.getObject()
-      this.CurGuide.identity = selectedIdent
+    // try {
+    const json = new JsonFile<T>(selectedIdent.filename)
+    await json.Init()
+    this.CurGuide = json.getObject()
+    this.CurGuide.identity = selectedIdent
 
-      await this.parseCurGuide()
+    await this.parseCurGuide()
 
-      if (oldGuideFilename === this.CurGuide.identity.filename)
-        this.emit("GuideContentChanged", this.CurGuide)
-      else
-        this.emit("ChangeSelectedGuide", this.CurGuide)
+    if (oldGuideFilename === this.CurGuide.identity.filename)
+      this.emit("GuideContentChanged", this.CurGuide)
+    else
+      this.emit("ChangeSelectedGuide", this.CurGuide)
 
-      MyLogger.log('info', `set cur guide ${this.CurGuide.identity.filename}`)
-    }
-    catch (e) {
-      MyLogger.log('error', `Error When setting curGuide : \n\tfilename:(${GuideFilename})\n\tcurIdent:(${selectedIdent})\n\tthis.CurGuide:(${this.CurGuide}) `)
-      MyLogger.error(e)
-    }
+    MyLogger.log('info', `set cur guide ${this.CurGuide.identity.filename}`)
+    // }
+    // catch (e) {
+    //   MyLogger.log('error', `Error When setting curGuide : \n\tfilename:(${GuideFilename})\n\tcurIdent:(${selectedIdent})\n\tthis.CurGuide:(${this.CurGuide}) `)
+    //   MyLogger.error(e)
+    // }
   }
 
 
@@ -238,8 +249,8 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
       const tmp = JSON.parse(JSON.stringify(guide)) as T
       delete tmp.identity.filename
       delete tmp.identity.readonly
-      delete tmp.identity.sysAssetPath
-      delete tmp.identity.webAssetPath
+      delete tmp.identity.appSysAssetPath
+      delete tmp.identity.appWebAssetPath
 
       json.setObject(tmp)
       await json.save()
@@ -258,6 +269,7 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
     const guidePath = this.findUniqueGuidePath(g.identity.name)
     fs.mkdirSync(guidePath)
     g.identity.filename = path.join(guidePath, "guide.json")
+    
 
     this.saveGuide(g).then((e) => {
       this.Init(g.identity.filename)
@@ -277,7 +289,7 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
       const dstPath = this.findUniqueGuidePath(srcIdent.name)
 
       const newFilename = path.join(dstPath, "guide.json")
-      this._recursiveCopyFileSync(srcIdent.sysAssetPath, dstPath, path.basename(srcIdent.filename))
+      this._recursiveCopyFileSync(srcIdent.appSysAssetPath, dstPath, path.basename(srcIdent.filename))
 
       const json = new JsonFile<T>(newFilename)
       await json.Init()
