@@ -31,7 +31,7 @@ export class LevelingWindow {
   private ActsGuides: ActsGuides
   private RichTextJson: JsonFile<IRichText[]>
   private PlayersClasses: JsonFile<IClassesAscendancies[]>
-  private Zones: JsonFile<IActsGuide>
+  private Zones: JsonFile<IActsGuideApp>
   private GameHelpers: GameHelpers
 
   private _MyPlayer: IAppPlayer
@@ -99,8 +99,8 @@ export class LevelingWindow {
       /************************
        * Acts Guides Events
        */
-      this.ActsGuides.on("GuideContentChanged", (() => {
-        this._Window.webContents.send("levelingRenderer", ["ActsGuide", "GuideContentChanged", this.ActsGuides.getCurMergedGuide()])
+      this.ActsGuides.on("GuideContentChanged", ((guide) => {
+        this._Window.webContents.send("levelingRenderer", ["ActsGuide", "GuideContentChanged", guide])
       }))
 
       this.ActsGuides.on("GuideIdentityChanged", (guide => {
@@ -136,12 +136,12 @@ export class LevelingWindow {
           MyLogger.log('info', `Message: Init`)
           return [
             "Init",
-            this.ActsGuides.getCurMergedGuide(),
+            this.ActsGuides.getGuide(),
             this.RichTextJson.getObject(),
             this.ClassGuides.getGuide(),
             this._MyPlayer,
-            this.ActsGuides.getCurMergedGuide().acts[0].actid,
-            this.ActsGuides.getCurMergedGuide().acts[0].zones[0].name,
+            this.ActsGuides.getGuide().acts[0].actid,
+            this.ActsGuides.getGuide().acts[0].zones[0].name,
             this.PlayersClasses.getObject(),
             this.ClassGuides.getGemsList(),
             this._PoeLogLoaded
@@ -376,7 +376,7 @@ export class LevelingWindow {
             label: "Reload all data",
             click: () => {
               this.LoadData().then(() => this._Window.webContents.send("levelingRenderer", ["All",
-                this.ActsGuides.getCurMergedGuide(),
+                this.ActsGuides.getGuide(),
                 this.RichTextJson.getObject(),
                 this.ClassGuides.getGuide(),
                 this.PlayersClasses.getObject()
