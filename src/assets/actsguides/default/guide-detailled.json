@@ -1,11 +1,17 @@
 {
+  "identity": {
+    "name": "Detailed",
+    "lang": "en",
+    "game_version": 3.16
+  },
   "acts": [
     {
       "actId": 1,
+      "actName": "Act I",
       "zones": [
         {
           "name": "The Coast",
-          "note": "Stick to the right side following the wall\nActivate Waypoint\n> Go to Mud Flats first\n---------------\nEntrance to Tidal Island is close to Waypoint\n> Go to Tidal Island for Hailrake"
+          "note": "Stick to the right side following the wall\nActivate Waypoint\n> Go to Mud Flats first\n---------------\nEntrance to Tidal Island is close to Waypoint\n> Go to Tidal Island for Hailrake\n"
         },
         {
           "name": "The Tidal Island",
@@ -58,11 +64,22 @@
         {
           "name": "The Cavern of Anger",
           "note": "Often bottom right\nYou can follow the spirits\nIf you see piles of gold you're close to Merveil\nKill the boss\n> Go to the next Act"
+        },
+        {
+          "name": "The Twilight Strand",
+          "note": "",
+          "altimage": ""
+        },
+        {
+          "name": "The Ship Graveyard Cave",
+          "note": "",
+          "altimage": ""
         }
       ]
     },
     {
       "actId": 10,
+      "actName": "Act X",
       "zones": [
         {
           "name": "The Ravaged Square",
@@ -95,11 +112,17 @@
         {
           "name": "The Feeding Trough",
           "note": "Move top left, there shouldn't be any diversions,\nKill Kitava!\nEnjoy maps :)\n_______________\nG,CRAFT - Defenses \nR,RECOMMEND 3,700+ EHP, fire resist, good physical mitigations, fast movement skill"
+        },
+        {
+          "name": "The Cathedral Rooftop",
+          "note": "",
+          "altimage": ""
         }
       ]
     },
     {
       "actId": 11,
+      "actName": "Epilogue",
       "zones": [
         {
           "name": "The Fallen Courts",
@@ -108,11 +131,22 @@
         {
           "name": "The Haunted Reliquary",
           "note": "Use the key on both sides of the door to open the Vault\nKill everything then talk to Kirac in your Hideout\nIf you don't have a Hideout, talk to Helena in town to obtain one"
+        },
+        {
+          "name": "Oriath",
+          "note": "",
+          "altimage": ""
+        },
+        {
+          "name": "The Templar Laboratory",
+          "note": "",
+          "altimage": ""
         }
       ]
     },
     {
       "actId": 2,
+      "actName": "Act II",
       "zones": [
         {
           "name": "The Old Fields",
@@ -181,11 +215,22 @@
         {
           "name": "The Ancient Pyramid",
           "note": "1st exit is on right or left side from center point\nOther exits are diagonal from their entrance\nY,RECOMMEND lightning resist\nKill the boss\n> Go to Act 3\n_______________\nG,CRAFT - Spell damage"
+        },
+        {
+          "name": "The Southern Forest",
+          "note": "",
+          "altimage": ""
+        },
+        {
+          "name": "The Crypt Level 2",
+          "note": "",
+          "altimage": ""
         }
       ]
     },
     {
       "actId": 3,
+      "actName": "Act III",
       "zones": [
         {
           "name": "The Slums",
@@ -254,11 +299,17 @@
         {
           "name": "The Upper Sceptre of God",
           "note": "Exits spawn in a random corner\nGo up diagonally until you spot barricades at exit\nKill the boss\n> Proceed to Act 4\n_______________\nB,RECOMMEND cold resist\nY,and lightning resist"
+        },
+        {
+          "name": "The City of Sarn",
+          "note": "",
+          "altimage": ""
         }
       ]
     },
     {
       "actId": 4,
+      "actName": "Act IV",
       "zones": [
         {
           "name": "The Dried Lake",
@@ -307,11 +358,17 @@
         {
           "name": "The Ascent",
           "note": "G,TIP: dirty roads lead to exits\nGo up and left\nСross the bridge\nGo up and right\nsmall passage to the exit\n> Go to Act 5\n_______________\nG,CRAFT - Ailment, Stun and Curse Mitigation"
+        },
+        {
+          "name": "The Aqueduct",
+          "note": "",
+          "altimage": ""
         }
       ]
     },
     {
       "actId": 5,
+      "actName": "Act V",
       "zones": [
         {
           "name": "The Control Blocks",
@@ -348,11 +405,17 @@
         {
           "name": "The Cathedral Rooftop",
           "note": "Consider running your first Labyrinth here if you still have not\nRun top left and kill Kitava!\n_______________\nR,RECOMMEND fire resist\nwith 1,500+ EHP"
+        },
+        {
+          "name": "The Slave Pens",
+          "note": "",
+          "altimage": ""
         }
       ]
     },
     {
       "actId": 6,
+      "actName": "Act VI",
       "zones": [
         {
           "name": "The Coast",
@@ -413,11 +476,17 @@
         {
           "name": "The Brine King's Reef",
           "note": "Follow the left hand shoreline to the Brine King's arena\n< Kill the boss and Logout\nTalk with vendors\n> Go to Act 7 from Waypoint\n_______________\nY,RECOMMEND lightning resist\nB,and cold resist"
+        },
+        {
+          "name": "The Twilight Strand",
+          "note": "",
+          "altimage": ""
         }
       ]
     },
     {
       "actId": 7,
+      "actName": "Act VII",
       "zones": [
         {
           "name": "The Crossroads",
@@ -470,11 +539,22 @@
         {
           "name": "The Temple of Decay Level 1",
           "note": "Long zone with multiple levels\nGo diagonally to exits\n> Go to Level 2\nKill boss\n> Go to act 8\n_______________\nG,CRAFT - Accuracy\nY,RECOMMEND lightning resist"
+        },
+        {
+          "name": "The Broken Bridge",
+          "note": "",
+          "altimage": ""
+        },
+        {
+          "name": "The Temple of Decay Level 2",
+          "note": "",
+          "altimage": ""
         }
       ]
     },
     {
       "actId": 8,
+      "actName": "Act VIII",
       "zones": [
         {
           "name": "The Toxic Conduits",
@@ -535,11 +615,17 @@
         {
           "name": "The Harbour Bridge",
           "note": "Y,At this point, make sure you are doing the Chaos recipe\nGo up and to the middle to the arena\n> Proceed to arena\nKill the bosses\n> Go to Act 9\n_______________\nR,RECOMMEND fire resist\nB,and cold resist"
+        },
+        {
+          "name": "The Sarn Ramparts",
+          "note": "",
+          "altimage": ""
         }
       ]
     },
     {
       "actId": 9,
+      "actName": "Act IX",
       "zones": [
         {
           "name": "The Descent",
@@ -580,13 +666,35 @@
         {
           "name": "The Rotting Core",
           "note": "Kill Doedre, Maligaro, and Shavronne again\nEnter the Black Heart\nKill the Depraved Trinity\n> Go to Act 10\n_______________\nY,RECOMMEND lightning resist\n3,200+ EHP and fast movement skill"
+        },
+        {
+          "name": "The Blood Aqueduct",
+          "note": "",
+          "altimage": ""
+        }
+      ]
+    },
+    {
+      "actId": 20,
+      "actName": "Maps",
+      "zones": [
+        {
+          "name": "Maps",
+          "note": "",
+          "altimage": ""
+        }
+      ]
+    },
+    {
+      "actId": 50,
+      "actName": "Labyrinth",
+      "zones": [
+        {
+          "name": "Aspirants' Plaza",
+          "note": "",
+          "altimage": ""
         }
       ]
     }
-  ],
-  "identity": {
-    "game_version": 3.16,
-    "name": "Detailed",
-    "lang": "en"
-  }
+  ]
 }

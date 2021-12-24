@@ -8,7 +8,8 @@ module.exports = {
     {
       pattern: /bg-avatar-.+/,
     },
-    { pattern: /richtext-.+/, }
+    { pattern: /richtext-.+/, },
+    { pattern: /gem-.+/, }
   ],
   theme: {
     fontFamily: {
@@ -40,7 +41,10 @@ module.exports = {
     },
     extend: {
       backgroundImage: {
-        inventory: "url('/src/assets/images/inventory-sprite.png')"
+        inventory: "url('/src/assets/images/inventory-sprite.png')",
+        "gem-intelligence": "url('/src/assets/images/sockets/Blue Socket.png')",
+        "gem-dexterity": "url('/src/assets/images/sockets/Green Socket.png')",
+        "gem-strength": "url('/src/assets/images/sockets/Red Socket.png')",
       },
       backgroundPosition: {
         "avatar-ascendant": "0px -180px",

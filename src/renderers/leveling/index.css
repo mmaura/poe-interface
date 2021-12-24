@@ -13,6 +13,9 @@
     @apply shadow-none filter grayscale border-poe-96;
   }
 
+  .gem-divergente {
+    @apply filter sepia-[.7];
+  }
 
   .inventory {
     @apply bg-inventory h-inventory w-inventory p-0 m-0 overflow-hidden;
@@ -54,10 +57,10 @@
     @apply text-poe-60 underline;
   }
   .richtext-direction {
-    @apply text-poe-60 ;
+    @apply text-poe-60;
   }
   .richtext-waypoint {
-    @apply text-poe-50 ;
+    @apply text-poe-50;
   }
   .richtext-trials {
     @apply text-poe-3 underline;

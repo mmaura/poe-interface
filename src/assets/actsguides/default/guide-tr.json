@@ -1,11 +1,17 @@
 {
+  "identity": {
+    "name": "default",
+    "lang": "tr",
+    "game_version": 3.16
+  },
   "acts": [
     {
       "actId": 1,
+      "actName": "Act I",
       "zones": [
         {
           "name": "The Coast",
-          "note": "Sağ tarafına yapışarak duvarı takip et.\n+ WP yi al.\n> The Mud Flats (wpnin sağında)\n2. Gelişinde;\n> Tidal Island (wpnin aşağısında)"
+          "note": "Sağ tarafına yapışarak duvarı takip et.\n+ WP yi al.\n> The Mud Flats (wpnin sağında)\n2. Gelişinde;\n> Tidal Island (wpnin aşağısında)\n"
         },
         {
           "name": "The Tidal Island",
@@ -58,11 +64,22 @@
         {
           "name": "The Cavern of Anger",
           "note": "Yol genelde sağ aşağı doğru. Ruhları takip edebilirsin. Altın yığınları görürsen bossa yaklaştın.\n> Merveil's Lair\n+ Mervel'i öldür.\n> The Southern Forest (Act 1 End)"
+        },
+        {
+          "name": "The Twilight Strand",
+          "note": "",
+          "altimage": ""
+        },
+        {
+          "name": "The Ship Graveyard Cave",
+          "note": "",
+          "altimage": ""
         }
       ]
     },
     {
       "actId": 10,
+      "actName": "Act X",
       "zones": [
         {
           "name": "The Ravaged Square",
@@ -95,11 +112,17 @@
         {
           "name": "The Feeding Trough",
           "note": "Linear, sonuna kadar ilerle\n+ Sin ile konuş.\n> Altar of Hunger\n+ Kitava'yı öldür.\nG,CRAFT - Defenses\n(Campain bitti. Yazar: @ForeverOflu )"
+        },
+        {
+          "name": "The Cathedral Rooftop",
+          "note": "",
+          "altimage": ""
         }
       ]
     },
     {
       "actId": 11,
+      "actName": "Epilogue",
       "zones": [
         {
           "name": "The Fallen Courts",
@@ -108,11 +131,22 @@
         {
           "name": "The Haunted Reliquary",
           "note": "Keyi iki taraftada kullanıp kapının kilidini aç.\nHerşeyi öldür.\n> Hideout\n+ Kirac ile konuş.\nR,Hideout'un yoksa town'da Helena ile konuşup sahip olabilirsin."
+        },
+        {
+          "name": "Oriath",
+          "note": "",
+          "altimage": ""
+        },
+        {
+          "name": "The Templar Laboratory",
+          "note": "",
+          "altimage": ""
         }
       ]
     },
     {
       "actId": 2,
+      "actName": "Act II",
       "zones": [
         {
           "name": "The Old Fields",
@@ -181,11 +215,22 @@
         {
           "name": "The Ancient Pyramid",
           "note": "Çıkış genelde girişin çaprazındadır.\nMerdivenler ile sona kadar ilerle. \n+ Vaal OverSoul'u öldür.\nG,CRAFT - Spell damage\nAct 2 sonu.\n> The City of Sarn"
+        },
+        {
+          "name": "The Southern Forest",
+          "note": "",
+          "altimage": ""
+        },
+        {
+          "name": "The Crypt Level 2",
+          "note": "",
+          "altimage": ""
         }
       ]
     },
     {
       "actId": 3,
+      "actName": "Act III",
       "zones": [
         {
           "name": "The Slums",
@@ -254,11 +299,17 @@
         {
           "name": "The Upper Sceptre of God",
           "note": "Merdivenlerden yukarı çık. Boss odasına geç.\n+ Dominus’u öldür. (act sonu)\n> The Aqueduct "
+        },
+        {
+          "name": "The City of Sarn",
+          "note": "",
+          "altimage": ""
         }
       ]
     },
     {
       "actId": 4,
+      "actName": "Act IV",
       "zones": [
         {
           "name": "The Dried Lake",
@@ -307,11 +358,17 @@
         {
           "name": "The Ascent",
           "note": "Yukarı sonra sağa git.\n+ Resanator'ü aktif et.(act sonu)\n> Oriath Portal\nG,CRAFT - Ailment, Stun and Curse Mitigation"
+        },
+        {
+          "name": "The Aqueduct",
+          "note": "",
+          "altimage": ""
         }
       ]
     },
     {
       "actId": 5,
+      "actName": "Act V",
       "zones": [
         {
           "name": "The Control Blocks",
@@ -348,11 +405,17 @@
         {
           "name": "The Cathedral Rooftop",
           "note": "Kitava'yı öldürmeden Lab yapabilirsin.\nSol üst tarafa ilerle.\n> The Cathedral Apex\n+ Kitava'yı öldür (act sonu)\n> Sail to Wraeclast"
+        },
+        {
+          "name": "The Slave Pens",
+          "note": "",
+          "altimage": ""
         }
       ]
     },
     {
       "actId": 6,
+      "actName": "Act VI",
       "zones": [
         {
           "name": "The Coast",
@@ -413,11 +476,17 @@
         {
           "name": "The Brine King's Reef",
           "note": "Yolu takip et.\n> The Brine King's Throne\n+ The Brine King'i öldür.(pantheon)\n+ Weylam ile konuş.\n> Sail to Act 7 (Act sonu)"
+        },
+        {
+          "name": "The Twilight Strand",
+          "note": "",
+          "altimage": ""
         }
       ]
     },
     {
       "actId": 7,
+      "actName": "Act VII",
       "zones": [
         {
           "name": "The Crossroads",
@@ -470,11 +539,22 @@
         {
           "name": "The Temple of Decay Level 1",
           "note": "Oldukça uzun layout merdivenler ile boss alanına kadar ulaş.\n> The Temple of Decay Level 2\n> Arakaali's Web\n+ Arakaali yi öldür.(pantheon)\n> The Sarn Ramparts (act sonu)\nG,CRAFT - Accuracy"
+        },
+        {
+          "name": "The Broken Bridge",
+          "note": "",
+          "altimage": ""
+        },
+        {
+          "name": "The Temple of Decay Level 2",
+          "note": "",
+          "altimage": ""
         }
       ]
     },
     {
       "actId": 8,
+      "actName": "Act VIII",
       "zones": [
         {
           "name": "The Toxic Conduits",
@@ -535,11 +615,17 @@
         {
           "name": "The Harbour Bridge",
           "note": "Bölgenin ortasında boss arenası var.\n> The Sky Shrine\n+ Solaris ve Lunaris'i öldür(pantheon)\n> The Blood Aqueduct (act sonu)"
+        },
+        {
+          "name": "The Sarn Ramparts",
+          "note": "",
+          "altimage": ""
         }
       ]
     },
     {
       "actId": 9,
+      "actName": "Act IX",
       "zones": [
         {
           "name": "The Descent",
@@ -580,13 +666,35 @@
         {
           "name": "The Rotting Core",
           "note": "Yukarı sola ilerle.\n> The Black Heart\n+ 3 portaldanda girip bosslarını kes ve geri dön.\nSon olarak Sin ile konuşup ortayı aç.\n> The Black Heart\n+ The Depraved Trinity'i öldür.\n+ Lilly ile konuş\n> Sail back to Oriath (act sonu)\n> Cathedral Rooftop"
+        },
+        {
+          "name": "The Blood Aqueduct",
+          "note": "",
+          "altimage": ""
+        }
+      ]
+    },
+    {
+      "actId": 20,
+      "actName": "Maps",
+      "zones": [
+        {
+          "name": "Maps",
+          "note": "",
+          "altimage": ""
+        }
+      ]
+    },
+    {
+      "actId": 50,
+      "actName": "Labyrinth",
+      "zones": [
+        {
+          "name": "Aspirants' Plaza",
+          "note": "",
+          "altimage": ""
         }
       ]
     }
-  ],
-  "identity": {
-    "game_version": 3.16,
-    "name": "default",
-    "lang": "tr"
-  }
+  ]
 }

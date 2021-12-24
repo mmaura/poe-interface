@@ -1,7 +1,13 @@
 {
+  "identity": {
+    "name": "Abbreviated",
+    "lang": "en",
+    "game_version": 3.16
+  },
   "acts": [
     {
       "actId": 1,
+      "actName": "Act I",
       "zones": [
         {
           "name": "The Coast",
@@ -58,15 +64,26 @@
         {
           "name": "The Cavern of Anger",
           "note": "> Merveil's Lair\n+ Kill Mervel\n> The Southern Forest\n> The Forest Encampment"
+        },
+        {
+          "name": "The Twilight Strand",
+          "note": "",
+          "altimage": ""
+        },
+        {
+          "name": "The Ship Graveyard Cave",
+          "note": "",
+          "altimage": ""
         }
       ]
     },
     {
       "actId": 10,
+      "actName": "Act X",
       "zones": [
         {
           "name": "The Ravaged Square",
-          "note": "+ Get WP (north)\n> The Torched Courts (north east)\n~~~~\n> The Ossuary\n~~~~\n+ Talk to Innocence\n> The Canals"
+          "note": "+ Get WP (north)\n> The Torched Courts (north east)\n~~~~\n> The Ossuary\n~~~~\n+ Talk to Innocence\n> The Canals\n"
         },
         {
           "name": "The Control Blocks",
@@ -95,11 +112,17 @@
         {
           "name": "The Feeding Trough",
           "note": "+ Talk to Sin\n> Altar of Hunger\n+ Kill Kitava\n< \"An End to Hunger\" (Lani)\n~~~~\nGG - Campaign done!"
+        },
+        {
+          "name": "The Cathedral Rooftop",
+          "note": "",
+          "altimage": ""
         }
       ]
     },
     {
       "actId": 11,
+      "actName": "Epilogue",
       "zones": [
         {
           "name": "The Fallen Courts",
@@ -108,11 +131,22 @@
         {
           "name": "The Haunted Reliquary",
           "note": "+ Open the Vault\n> Hideout\n+ Talk to Kirac"
+        },
+        {
+          "name": "Oriath",
+          "note": "",
+          "altimage": ""
+        },
+        {
+          "name": "The Templar Laboratory",
+          "note": "",
+          "altimage": ""
         }
       ]
     },
     {
       "actId": 2,
+      "actName": "Act II",
       "zones": [
         {
           "name": "The Old Fields",
@@ -181,11 +215,22 @@
         {
           "name": "The Ancient Pyramid",
           "note": "> Pyramid Apex\n+ Kill Vaal Oversoul\n> The City of Sarn"
+        },
+        {
+          "name": "The Southern Forest",
+          "note": "",
+          "altimage": ""
+        },
+        {
+          "name": "The Crypt Level 2",
+          "note": "",
+          "altimage": ""
         }
       ]
     },
     {
       "actId": 3,
+      "actName": "Act III",
       "zones": [
         {
           "name": "The Slums",
@@ -254,11 +299,17 @@
         {
           "name": "The Upper Sceptre of God",
           "note": "+ Kill Dominus\n> The Aqueduct"
+        },
+        {
+          "name": "The City of Sarn",
+          "note": "",
+          "altimage": ""
         }
       ]
     },
     {
       "actId": 4,
+      "actName": "Act IV",
       "zones": [
         {
           "name": "The Dried Lake",
@@ -307,11 +358,17 @@
         {
           "name": "The Ascent",
           "note": "> Oriath Portal"
+        },
+        {
+          "name": "The Aqueduct",
+          "note": "",
+          "altimage": ""
         }
       ]
     },
     {
       "actId": 5,
+      "actName": "Act V",
       "zones": [
         {
           "name": "The Control Blocks",
@@ -348,11 +405,17 @@
         {
           "name": "The Cathedral Rooftop",
           "note": "> The Cathedral Apex\n+ Kill Kitava\n> Sail to Wraeclast"
+        },
+        {
+          "name": "The Slave Pens",
+          "note": "",
+          "altimage": ""
         }
       ]
     },
     {
       "actId": 6,
+      "actName": "Act VI",
       "zones": [
         {
           "name": "The Coast",
@@ -413,11 +476,17 @@
         {
           "name": "The Brine King's Reef",
           "note": "+ Get WP\n> The Brine King's Throne\n+ Kill The Brine King\n+ Talk to Weylam\n> Sail to Act 7"
+        },
+        {
+          "name": "The Twilight Strand",
+          "note": "",
+          "altimage": ""
         }
       ]
     },
     {
       "actId": 7,
+      "actName": "Act VII",
       "zones": [
         {
           "name": "The Crossroads",
@@ -470,11 +539,22 @@
         {
           "name": "The Temple of Decay Level 1",
           "note": "> The Temple of Decay Level 2\n> Arakaali's Web\n+ Kill Arakaali\n> The Sarn Ramparts"
+        },
+        {
+          "name": "The Broken Bridge",
+          "note": "",
+          "altimage": ""
+        },
+        {
+          "name": "The Temple of Decay Level 2",
+          "note": "",
+          "altimage": ""
         }
       ]
     },
     {
       "actId": 8,
+      "actName": "Act VIII",
       "zones": [
         {
           "name": "The Toxic Conduits",
@@ -535,11 +615,17 @@
         {
           "name": "The Harbour Bridge",
           "note": "> The Sky Shrine\n+ Kill Solaris and Lunaris\n> The Blood Aqueduct"
+        },
+        {
+          "name": "The Sarn Ramparts",
+          "note": "",
+          "altimage": ""
         }
       ]
     },
     {
       "actId": 9,
+      "actName": "Act IX",
       "zones": [
         {
           "name": "The Descent",
@@ -580,13 +666,35 @@
         {
           "name": "The Rotting Core",
           "note": "> The Black Heart\n+ Talk to Sin\n> Enter the 3 areas and kill the spirit in these areas respectively\n+ Talk to Sin\n> The Black Heart\n+ Kill The Depraved Trinity\n+ Talk to Lilly\n> Sail back to Oriath"
+        },
+        {
+          "name": "The Blood Aqueduct",
+          "note": "",
+          "altimage": ""
+        }
+      ]
+    },
+    {
+      "actId": 20,
+      "actName": "Maps",
+      "zones": [
+        {
+          "name": "Maps",
+          "note": "",
+          "altimage": ""
+        }
+      ]
+    },
+    {
+      "actId": 50,
+      "actName": "Labyrinth",
+      "zones": [
+        {
+          "name": "Aspirants' Plaza",
+          "note": "",
+          "altimage": ""
         }
       ]
     }
-  ],
-  "identity": {
-    "game_version": 3.16,
-    "name": "Abbreviated",
-    "lang": "en"
-  }
+  ]
 }

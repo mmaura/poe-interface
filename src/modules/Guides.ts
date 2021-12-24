@@ -289,7 +289,7 @@ export abstract class Guides<T extends GuideType> extends DataLoader {
       const dstPath = this.findUniqueGuidePath(srcIdent.name)
 
       const newFilename = path.join(dstPath, "guide.json")
-      this._recursiveCopyFileSync(srcIdent.appSysAssetPath, dstPath, path.basename(srcIdent.filename))
+      this._recursiveCopyFileSync(srcIdent.guideSysPath, dstPath, path.basename(srcIdent.filename))
 
       const json = new JsonFile<T>(newFilename)
       await json.Init()

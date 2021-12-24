@@ -609,44 +609,44 @@
         },
         {
           "name": "The Descent",
-          "note": "Go up right to the supply hoist, then down left to another hoist, then up right to The Vastiri Desert."
+          "note": "Montez à droite jusqu'au monte-charge, puis descendez à gauche jusqu'à un autre monte-charge, puis montez à droite jusqu'à The Vastiri Desert."
         },
         {
           "name": "The Vastiri Desert",
-          "note": " Go right to the waypoint, then top left (1) for the Foothills. If you want to kill Shakari, go right to (2) for the Oasis, then get the quest item in town and enter the zone."
+          "note": "Allez à droite jusqu'au waypoint, puis en haut à gauche (1) pour the Foothills. \nSi vous voulez tuer Shakari, allez à droite au (2) pour the Oasis, puis récupérez l'objet de quête en ville et entrez dans la zone."
         },
         {
           "name": "The Oasis",
-          "note": "Left or right hand wall follow, depending on bottom or top being the dead end at the entrance. Physical mitigation recommended."
+          "note": "Suivez le mur de gauche ou de droite, selon que le bas ou le haut est l'impasse à l'entrée."
         },
         {
           "name": "The Foothills",
-          "note": " Head up to find the waypoint, go to (1) to get the quest item in The Boiling Lake, then to (2) for The Tunnel to continue the story."
+          "note": "Dirigez-vous vers le haut pour trouver le point de cheminement.\n1) allez à (1) pour obtenir l'objet de quête dans The Boiling Lake.\n2) pour The Tunnel pour continuer l'histoire."
         },
         {
           "name": "The Boiling Lake",
-          "note": "Go to the top right zone for the quest boss, if you spot petrified men, you are close. After killing the Basilisk, go to town and teleport to the waypoint in The Foothills and go to the top left corner of the zone.",
+          "note": "Allez dans la zone en haut à droite pour le boss de quête, si vous repérez des hommes pétrifiés, vous êtes proche. \nAprès avoir tué le basilic, lougout et tp au point de passage dans The Foothills et allez dans le coin supérieur gauche de la zone.",
           "altimage": "Linear layout"
         },
         {
           "name": "The Tunnel",
-          "note": "There is a trial in this zone. Go up left, if you come across the waypoint you’re on the right path"
+          "note": "Il y a un trial dans cette zone. \nMontez à gauche, si vous tombez sur le waypoint vous êtes sur le bon chemin."
         },
         {
           "name": "The Quarry",
-          "note": "Activate the waypoint at the center, go to Shrine of the Winds first (2), then the refinery (1)."
+          "note": "Activez le waypoint au centre, allez d'abord au Sanctuaire des vents (2), puis à The Refinery (1)."
         },
         {
           "name": "The Refinery",
-          "note": "Follow the cart tracks to the building top right for the quest boss, capped lightning resistance is recommended. Portal to town and waypoint back to The Quarry."
+          "note": "Suivez les pistes du chariot jusqu'au bâtiment en haut à droite pour le boss de quête.\nlogout et aller à The Quarry."
         },
         {
           "name": "The Belly of the Beast",
-          "note": " Try to reach the top left part of the zone in The Belly of The Beast, this leads to The Rotting core which is fairly static, and where you will want to go top left again, then you have The Black Heart where there are three boss zones with a linear path to them. Kill ‘em all, then fight the Depraved Trinity act boss after entering at the center."
+          "note": "Essayez d'atteindre la partie supérieure gauche de la zone dans The Belly of The Beast, cela mène à The Rotting core qui est assez statique, et où vous voudrez retourner en haut à gauche, puis vous avez The Black Heart où il y a trois zones de boss avec un chemin linéaire vers eux. Tuez-les tous, puis combattez le chef de l'acte Depraved Trinity après être entré au centre."
         },
         {
           "name": "The Rotting Core",
-          "note": "Find the boss arena.",
+          "note": "Trouvez le boss.",
           "altimage": "Linear with deadends."
         }
       ]
@@ -657,44 +657,44 @@
       "zones": [
         {
           "name": "The Cathedral Rooftop",
-          "note": "Go up to save Bannon, back to town, then go to down right.",
+          "note": "Montez pour sauver Bannon, retournez en ville puis allez en bas à droite.",
           "altimage": "Linear layout."
         },
         {
           "name": "The Ravaged Square",
-          "note": "Left hand wall-follow, skip the first opening, take the second and cross the bridge (red part), left hand wall-follow to the waypoint. Then go to the Ossuary (1), after that the Torched Courts (2). Optional are the Reliquary (3, quest for rare belt) and the Control Blocks (4), quest with boss for a passive point. Finish by going through The Canals (5). Do your cruel labyrinth before going to the Canals as killing Kitava will lower your resistances."
+          "note": "Suivez le mur à gauche, sautez la première ouverture, prenez la seconde et traversez le pont (partie rouge), suivez le mur à gauche jusqu'au waypoint.\n1) Dirigez-vous vers the Ossuary.\n2) The Torched Courts. \n3) (Facultatif) the Reliquary (quête de la ceinture rare) \n4) The Control Blocks (quête avec boss pour un point passif). \n5) The Canals. \nFaites votre cruel labyrinthe avant d'aller aux canaux car tuer Kitava réduira vos résistances."
         },
         {
           "name": "The Torched Courts",
-          "note": "Left hand wall-follow."
+          "note": "Suivre le mur en main gauche."
         },
         {
           "name": "The Desecrated Chambers",
-          "note": "Right hand wall-follow until you come to a crossroads with four pillars, then go straight and up."
+          "note": "Suivre le mur en main droite jusqu'à un croisement avec quatre piliers, puis continuer tout droit et monter."
         },
         {
           "name": "The Control Blocks",
-          "note": "Right hand wall-follow all the way to the end. Use movement skills to jump through fences.",
+          "note": "Suivez le mur  en main droite jusqu'au bout. Utilisez des compétences de mouvement pour sauter à travers les clôtures.",
           "altimage": "Optional, static layout, quest boss for a skill point."
         },
         {
           "name": "The Ossuary",
-          "note": "There is a trial here. Left hand wall follow to find the quest item and trial. The trial entrance is in the opening in the wall, the quest item is close to that opening, but you move away from the wall to find it.",
+          "note": "Il y a un trial ici. \nSuivez le mur de gauche pour trouver l'objet de quête et le trial. L'entrée de l'épreuve se trouve dans l'ouverture dans le mur, l'objet de quête est proche de cette ouverture, mais vous vous éloignez du mur pour le trouver.",
           "altimage": "Linear Layout"
         },
         {
           "name": "The Reliquary",
-          "note": "The item is always on the edge or a corner, to my experience it’s mostly the right side.",
+          "note": "L'item est toujours sur le bord ou dans un coin, d'après mon expérience, c'est principalement le côté droit.",
           "altimage": "Large fairly static layout, random quest item spawn location, movement skills that can cross gaps recommended."
         },
         {
           "name": "The Canals",
-          "note": "Move top left, follow the road, cross bridges when you see them.",
+          "note": "Avancez en haut à gauche, suivez la route, traversez les ponts lorsque vous les voyez.",
           "altimage": "Fairly linear layout"
         },
         {
           "name": "The Feeding Trough",
-          "note": "Move top left, there shouldn’t be any diversions, kill Kitava at the end to unlock maps.",
+          "note": "Déplacez-vous en haut à gauche, il ne devrait y avoir aucune diversion, tuez Kitava à la fin pour déverrouiller les cartes.",
           "altimage": "Linear layout."
         }
       ]
@@ -705,7 +705,7 @@
       "zones": [
         {
           "name": "Oriath",
-          "note": "You can find a crafting recipe to the West stairs, where Helena stands. Then travel to the East to find Eternal Laboratory and unlock Zana missions. Have fun with end game :)",
+          "note": "Vous pouvez trouver une recette de fabrication dans les escaliers ouest, où se trouve Helena. Voyagez ensuite vers l'Est pour trouver Eternal Laboratory et déverrouiller les missions Zana.",
           "altimage": "Pas encore la fin !"
         },
         {
@@ -731,13 +731,13 @@
       "zones": [
         {
           "name": "Aspirants' Plaza",
-          "note": "test",
+          "note": "Parcourez le Lab.\n\n",
           "altimage": "Parcourez le Lab."
         }
       ]
     },
     {
-      "actId": 13,
+      "actId": 20,
       "actName": "Maps",
       "zones": [
         {

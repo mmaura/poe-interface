@@ -321,15 +321,25 @@ export class ClassesGuides extends Guides<IClassesGuide>{
     })
   }
 
-  async copyToNextAct(curActId: number): Promise<void> {
-    const newActGears = this.CurGuide.acts.find(act => act.actId === curActId + 1).gears
+  async copyToNextAct(curActId: number): Promise<IClassesGuideAct> {
+    const tmpGuide = {... this.CurGuide} 
+    tmpGuide.acts.sort((a,b)=> a.actId-b.actId)
 
+    let nextAct : IClassesGuideAct
+    for (const tmpAct of tmpGuide.acts){
+      nextAct = tmpAct
+      if (tmpAct.actId > curActId) break
+    }
+
+    const newActGears = this.CurGuide.acts.find(act => act.actId === nextAct.actId ).gears
     for (const gear of this.CurGuide.acts.find(act => act.actId === curActId).gears)
       newActGears.push(gear)
+
     this.saveCurGuide().then(() => {
       this.emit("GuideContentChanged", this.CurGuide)
     })
 
+    return nextAct
   }
 
   uniqGearName(wantedName: string): string {

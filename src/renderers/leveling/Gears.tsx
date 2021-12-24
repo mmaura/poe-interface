@@ -412,13 +412,13 @@ export function GemListElement(props: {
   return (
     <div
       onClick={e => {
-        selectGem(e, gem.name)
+        selectGem(e, gem.label)
       }}
       className={`w-gem-list-element min-w-gem-list-element max-h-gem-list-element h-gem-list-element p-1 flex-grow-0 flex-shrink-0 flex flex-row bg-gradient-to-l to-poe-96 via-transparent from-poe-97  border-poe-1 border-2  hover:border-poe-60 hover:border-2 rounded-md${
         selected ? "border-2 border-poe-50 rounded-md" : ""
       }`}>
       <div className="flex-grow-0 flex-shrink-0 w-16 h-16">
-        <img className={` ${gem.is_alternateQuality === true ? "filter sepia" : ""}`} src={gem.image} />
+        <img className={` ${gem.is_alternateQuality === true ? "gem-divergente" : ""}`} src={gem.image} />
       </div>
       <div className="flex-grow flex flex-col items-end">
         <div className="text-poe-4 text-right font-semibold">{gem.label}</div>

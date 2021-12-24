@@ -197,7 +197,7 @@ export function SkillTree(props: {
         // <img className="w-full h-full max-w-full max-h-max" src={curGuide.acts.find(a => a.act === curAct.actid).treeimage} />
         <img
           className="object-cover max-w-full max-h-full"
-          data-tip={"sss"}
+          data-tip={""}
           src={curGuide.acts.find(a => a.actId === curAct.actId).treeimage}
         />
       )}
@@ -233,9 +233,8 @@ export function GemBuyList(props: { curGuide: IClassesGuide }): JSX.Element {
           act.gears.map(gear =>
             gear.gems.map(_gem => {
               if (
-                // !_gems.includes(_gem) &&
-                !_gems.find(g => g.name === _gem.name) &&
-                (Math.abs(_gem.required_lvl - curPlayer.level) < lvlRange || showAll) &&
+                ((_gem.is_new && (Math.abs(_gem.required_level - curPlayer.level) < lvlRange)) || showAll) &&
+                !_gems.find(g => g.label === _gem.label) &&
                 _gem.is_socket === false
               ) {
                 _gems.push(_gem)
@@ -425,7 +424,7 @@ export function Gem(props: {
   const { curGem, onClick, onDoubleClick, selected } = props
 
   const tipText = useMemo(() => {
-    return !curGem.notes ? `${curGem.name}` : `${curGem.name} - ${curGem.notes}`
+    return !curGem.notes ? `${curGem.label}` : `${curGem.label} - ${curGem.notes}`
   }, [curGem])
 
   return (
@@ -435,7 +434,7 @@ export function Gem(props: {
       data-effect="solid"
       data-place="left"
       data-delay-hide="1000"
-      className="relative h-socket">
+      className={`relative h-socket`} >
       <ReactTooltip key={curGem.key} />
       <img
         data-tip={tipText}
@@ -443,8 +442,8 @@ export function Gem(props: {
         onDoubleClick={onDoubleClick}
         className={`w-socket h-socket cursor-pointer 
         ${selected ? "border-2 border-poe-50 " : ""}
-        ${curGem.is_new ? " opacity-100 0" : "opacity-60"} 
-
+        ${curGem.is_new ? " opacity-100 " : "opacity-60"} 
+        ${curGem.is_alternateQuality ? "gem-divergente" : ""}
         `}
         src={curGem.image}
       />
@@ -507,7 +506,7 @@ export function ActGuideIdentity(props: {
     (e: ChangeEvent<HTMLInputElement>) => {
       switch (e.target.name) {
         case "name":
-          if (e.target.value.search(/^[a-zA-Z0-9\s\-–'+]*$/gm) !== -1) setidName(e.target.value)
+          if (e.target.value.search(/^[a-zA-Z0-9\s\-–'+_]*$/gm) !== -1) setidName(e.target.value)
           break
         case "game_version":
           // eslint-disable-next-line no-case-declarations
@@ -594,7 +593,7 @@ export function ClassGuideIdentity(props: {
     (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
       switch (e.target.name) {
         case "name":
-          if (e.target.value.search(/^[a-zA-Z0-9\s\-–'+]*$/gm) !== -1) setidName(e.target.value)
+          if (e.target.value.search(/^[a-zA-Z0-9\s\-–'+_]*$/gm) !== -1) setidName(e.target.value)
           break
         case "game_version":
           // eslint-disable-next-line no-case-declarations

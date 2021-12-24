@@ -105,6 +105,7 @@ declare global {
 
   export interface IClassesGuideGemInfo {
     name: string
+    alternateQuality?: AlternativeQuality
     note?: string
   }
 
@@ -122,6 +123,7 @@ declare global {
     notes?: string
     image?: string
     isAlternateQuality?: boolean
+    primary_attribute: string
   }
 
   export enum AlternativeQuality {
@@ -154,6 +156,7 @@ declare global {
     is_new?: boolean
     vendor_rewards?: Reward[]
     quest_rewards?: Reward[]
+    primary_attribute: string
   }
 
   /***************************/

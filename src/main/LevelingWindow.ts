@@ -216,8 +216,8 @@ export class LevelingWindow {
               break
             case "copyToNextAct":
               MyLogger.log('info', `saveClassGuide: copyToNextAct ( curactid: ${arg[2]})`)
-              this.ClassGuides.copyToNextAct(arg[2]).then(() => {
-                this._MyPlayer.currentZoneAct = this._MyPlayer.currentZoneAct + 1
+              this.ClassGuides.copyToNextAct(arg[2]).then((resolve) => {
+                this._MyPlayer.currentZoneAct = resolve.actId
                 this._Window.webContents.send("levelingRenderer", ["playerAreaChange", this._MyPlayer])
               })
               break

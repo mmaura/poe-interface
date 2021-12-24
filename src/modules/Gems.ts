@@ -33,7 +33,7 @@ export class Gems extends JsonFile<IGem[]>{
       this.GemList.push({
         name: g.name,
         label: g.name,
-        image: g.is_socket?`${getPackagedWebBaseName()}/images/sockets/${g.name}.png`:`${getPackagedWebBaseName()}/images/gems/${g.name}.png`,
+        image: g.is_socket ? `${getPackagedWebBaseName()}/images/sockets/${g.name}.png` : `${getPackagedWebBaseName()}/images/gems/${g.name}.png`,
         required_level: g.required_level,
         currency: (g.currency) ? `${getPackagedWebBaseName()}/images/currency/${g.currency}.png` : "",
         currency_amount: g.currency_amount,
@@ -44,14 +44,16 @@ export class Gems extends JsonFile<IGem[]>{
         key: g.name.replace(" ", "_"),
         is_socket: g.is_socket,
         vendor_rewards: g.vendor_rewards && g.vendor_rewards.sort((a, b) => a.actId - b.actId) || [],
-        quest_rewards: g.vendor_rewards && g.quest_rewards.sort((a, b) => a.actId - b.actId) || []
+        quest_rewards: g.vendor_rewards && g.quest_rewards.sort((a, b) => a.actId - b.actId) || [],
+        primary_attribute: g.primary_attribute
+
       })
       for (const q of g.alternative_quality) {
         this.GemList.push({
           name: g.name,
           label: `${g.name} (${q})`,
           image: `${getPackagedWebBaseName()}/images/gems/${g.name}.png`,
-          required_level: g.required_level,
+          required_level: 72,
           currency: ``,
           currency_amount: 0,
           is_active: (! /.*Support/gi.test(g.name)) && !g.is_socket,
@@ -61,7 +63,8 @@ export class Gems extends JsonFile<IGem[]>{
           key: `${g.name}_${q}`.replace(" ", "_"),
           is_socket: g.is_socket,
           vendor_rewards: [],
-          quest_rewards: []
+          quest_rewards: [],
+          primary_attribute: g.primary_attribute
         })
       }
     }
@@ -70,13 +73,16 @@ export class Gems extends JsonFile<IGem[]>{
 
   Exist(gemName: string): boolean {
     gemName.trim()
-    if (this.getObject().find(e => { return (e.name === gemName || e.name === `${gemName} Support` ) })) return true
+    if (this.getObject().find(e => { return (e.name === gemName || e.name === `${gemName} Support`) })) return true
     return false
   }
 
   getByName(gemName: string): IGemList {
     gemName.trim()
-    const gem = this.GemList.find(e => { return (e.name === gemName || e.name === `${gemName} Support` ) })
+
+    const gem = this.GemList.find(e => {
+      return (e.label === gemName || e.label === `${gemName} Support`)
+    })
 
     // if (gem) {
     //   gem.image = `${getPackagedWebBaseName()}/images/gems/${gem.name}.png`
