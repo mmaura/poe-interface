@@ -186,20 +186,20 @@ export function SkillTree(props: {
   const TreeImgTooltip = useRef()
 
   return (
-    
-    <div className="container relative max-h-gem-list h-gem-list"
-    data-for={`skilltree` }
-    data-tip={`skilltree` }
-    data-effect="solid"
-    data-place="left"
-    data-delay-hide="1000"
-    >
+    <div
+      className="container relative max-h-gem-list h-gem-list"
+      data-for={`skilltree`}
+      data-tip={`skilltree`}
+      data-effect="solid"
+      data-place="left"
+      data-delay-hide="1000">
       {curGuide.acts.find(a => a.actId === curAct.actId) && (
         // <img className="w-full h-full max-w-full max-h-max" src={curGuide.acts.find(a => a.act === curAct.actid).treeimage} />
-        <img className="object-cover max-w-full max-h-full" 
-        data-tip={"sss"}
-
-        src={curGuide.acts.find(a => a.actId === curAct.actId).treeimage} />
+        <img
+          className="object-cover max-w-full max-h-full"
+          data-tip={"sss"}
+          src={curGuide.acts.find(a => a.actId === curAct.actId).treeimage}
+        />
       )}
       <MenuBar pos_x="left" pos_y="top">
         <MenuButton
@@ -322,7 +322,7 @@ function RewardsItem(props: { reward: Reward; is_vendor: boolean }): JSX.Element
   let disabled = false
   let classes = ""
 
-  if (reward.classes.length === 0) classes = "all"
+  if (reward.classes.length === 0) classes = "all classes"
   else classes = reward.classes.join(",")
 
   if (
@@ -334,13 +334,14 @@ function RewardsItem(props: { reward: Reward; is_vendor: boolean }): JSX.Element
   if (is_vendor)
     return (
       <p className={`${disabled && "disabled text-xs"}`}>
-        Sell by {reward.npc} after quest <span className="text-poe-60">{reward.quest}</span> (act {reward.actId}) for ({classes}).
+        Sell by {reward.npc} after quest <span className="text-poe-60">{reward.quest}</span> {reward.actId && `(act ${reward.actId})`} for (
+        {classes}).
       </p>
     )
   else
     return (
       <p>
-        <span className="text-poe-60">Reward</span> for quest <span className="text-poe-60">{reward.quest}</span> (act {reward.actId}) for (
+        <span className="text-poe-60">Reward</span> for quest <span className="text-poe-60">{reward.quest}</span> {reward.actId && `(act ${reward.actId})`} for (
         {classes}).
       </p>
     )
@@ -447,7 +448,9 @@ export function Gem(props: {
         `}
         src={curGem.image}
       />
-      {curGem.is_new && <div className="absolute rounded bg-poe-60 h-1 w-1/2 bottom-0 right-1/2 opacity-75 border-black border-[1px]"></div>}
+      {curGem.is_new && (
+        <div className="absolute rounded bg-poe-60 h-1 w-1/2 bottom-0 right-1/2 opacity-75 border-black border-[1px]"></div>
+      )}
       {curGem.notes && <div className="absolute rounded bg-poe-3 h-1 w-1/2 bottom-0 left-1/2 opacity-75 border-black border-[1px]"></div>}
     </div>
   )

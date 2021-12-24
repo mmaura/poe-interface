@@ -1,376 +1,1237 @@
 {
-	"identity": {
-		"name": "Vatinas' Spiders + HoP Guardian",
-		"lang": "fr",
-		"class": "Guardian",
-		"url": "https://www.pathofexile.com/forum/view-thread/2554248",
-		"game_version": 3.16
-	},
-	"acts": [
-		{
-			"actId": 50,
-			"notes": "1) Radiant Crusade (after Stone Golem)\n2) Radiant Faith (Before Kitava and the resitance penality)\n3) Unwavering Crusade\n4) Time of need",
-			"gears": []
-		},
-		{
-			"actId": 1,
-			"notes": "N'oubliez pas de faire The Tidal Island pour la avoir la <b>Quicksilver Flask</b>.<br>Essayez d'avoir des bases ES avec de la vie dessus, ainsi que quelques résistances. Les boucliers armor-ES sont également une bonne option en raison de leur résistance élémentaire implicite.",
-			"gears": [
-				{
-					"name": "Sort principal",
-					"gem_info": [
-						{
-							"name": "Smite",
-							"note": "principal skill"
-						},
-						{
-							"name": "Summon Holy Relic"
-						}
-					]
-				},
-				{
-					"name": "Utilitaire",
-					"gem_info": [
-						{ "name": "Red Socket" },
-						{ "name": "Flame Dash" },
-						{ "name": "Green Socket" },
-						{ "name": "Red Socket" },
-						{ "name": "Blue Socket" },
-						{ "name": "White Socket" }
-					]
-				},
-				{
-					"name": "Zombies",
-					"notes": "Mettez en fonction de vos préférences Minions ou Fire Damages",
-					"gem_info": [
-						{ "name": "Raise Zombie" },
-						{ "name": "Ruthless" },
-						{ "name": "Minion Damage", "note": "2 bis" },
-						{ "name": "Added Fire Damage", "note": "2 bis" }
-					]
-				},
-				{
-					"name": "Herald:act II"
-				}
-			]
-		},
-		{
-			"actId": 2,
-			"gears": [
-				{
-					"name": "Herald of Purity",
-					"notes": "Après The Chamber of Sins Level 2.<br>Attention à la réservation de mana, 2 gems de support maximum recommandées.",
-					"gem_info": [
-						{ "name": "Herald of Purity" },
-						{ "name": "Melee Physical Damage" },
-						{ "name": "Minion Damage", "note": "2 bis" },
-						{ "name": "Added Fire Damage", "note": "2 bis" }
-					]
-				},
-				{
-					"name": "Sort principal",
-					"gem_info": [
-						{
-							"name": "Smite",
-							"note": "principal skill"
-						},
-						{ "name": "Summon Holy Relic" }
-					]
-				},
-				{
-					"name": "Utilitaire",
-					"notes": "L'amulette de jade auprès de Yeena donne 30dex",
-
-					"gem_info": [{ "name": "Flame Dash" }, { "name": "Desecrate" }]
-				},
-				{
-					"name": "Duration Gemmes"
-				},
-				{
-					"name": "Zombies",
-					"notes": "",
-					"gem_info": [{ "name": "Raise Zombie" }, { "name": "Ruthless" }]
-				},
-				{
-					"name": "XP",
-					"notes": "Gemmes à faire XP, sur le second set d'armes.",
-					"gem_info": [{ "name": "Melee Physical Damage" }]
-				}
-			]
-		},
-		{
-			"actId": 3,
-			"notes": "À partir du moment où vous commencerez à utiliser Rallying Cry, les dégâts physiques de base et une peu la vitesse d'attaque de votre arme deviennent nécessaires: c'est le moment de chercher une arme.",
-			"gears": [
-				{
-					"name": "Herald of Purity",
-					"notes": "Après The Chamber of Sins Level 2.<br>Attention à la réservation de mana, 2 gems de support maximum recommandées.",
-					"gem_info": [
-						{ "name": "Herald of Purity" },
-						{ "name": "Melee Physical Damage" },
-						{ "name": "Minion Damage", "note": "2 bis" },
-						{ "name": "Added Fire Damage", "note": "2 bis" }
-					]
-				},
-				{
-					"name": "Sort principal",
-					"gem_info": [
-						{
-							"name": "Smite",
-							"note": "principal skill"
-						},
-						{
-							"name": "Summon Holy Relic"
-						}
-					]
-				},
-				{
-					"name": "Utilitaire",
-					"notes": "L'amulette de jade auprès de Yeena donne 30dex",
-
-					"gem_info": [
-						{ "name": "Flame Dash" },
-						{ "name": "Desecrate" },
-						{ "name": "Discipline" }
-					]
-				},
-				{
-					"name": "Duration Gemmes",
-					"notes": "",
-
-					"gem_info": [{ "name": "Rallying Cry" }, { "name": "Flesh Offering" }]
-				},
-				{
-					"name": "Zombies",
-					"notes": "",
-					"gem_info": [{ "name": "Raise Zombie" }, { "name": "Ruthless" }]
-				},
-				{
-					"name": "XP",
-					"notes": "Gemmes à faire XP, sur le second set d'armes.",
-					"gem_info": [
-						{ "name": "Melee Physical Damage" },
-						{ "name": "Determination" },
-						{ "name": "Feeding Frenzy" }
-					]
-				}
-			]
-		},
-		{
-			"actId": 4,
-			"notes": "Après the cristal veins vous pourrez faire le trial si vous vous en sentez capable. Choisissez Radiant Crusade en premier, ca vous donnera quelques résistances, dommages, et le plus important, OnSlaught pour vos minions.",
-			"gears": [
-				{
-					"name": "Herald of Purity",
-					"notes": "",
-					"gem_info": [
-						{ "name": "Herald of Purity" },
-						{ "name": "Melee Physical Damage" },
-						{ "name": "Minion Damage" },
-						{ "name": "Added Fire Damage" }
-					]
-				},
-				{
-					"name": "Cyclone",
-					"gem_info": [{ "name": "Cyclone" }]
-				},
-				{
-					"name": "Sort principal",
-					"gem_info": [
-						{
-							"name": "Smite",
-							"note": "principal skill"
-						},
-						{
-							"name": "Summon Holy Relic"
-						}
-					]
-				},
-				{
-					"name": "Utilitaire",
-					"notes": "",
-
-					"gem_info": [
-						{ "name": "Flame Dash" },
-						{ "name": "Desecrate" },
-						{ "name": "Discipline" }
-					]
-				},
-				{
-					"name": "Duration Gemmes",
-					"notes": "",
-
-					"gem_info": [
-						{ "name": "Rallying Cry" },
-						{ "name": "Flesh Offering" },
-						{ "name": "Summon Stone Golem" }
-					]
-				},
-				{
-					"name": "Zombies",
-					"notes": "",
-					"gem_info": [{ "name": "Raise Zombie" }, { "name": "Ruthless" }]
-				},
-				{
-					"name": "XP",
-					"notes": "Gemmes à faire XP, sur le second set d'armes.",
-					"gem_info": [
-						{ "name": "Melee Physical Damage" },
-						{ "name": "Determination" },
-						{ "name": "Feeding Frenzy" },
-						{ "name": "Cast when Damage Taken" }
-					]
-				}
-			]
-		},
-		{
-			"actId": 5,
-			"notes": "Rien de particulier surveillez les 4 links.",
-			"gears": [
-				{
-					"name": "Herald of Purity",
-					"notes": "",
-					"gem_info": [
-						{ "name": "Herald of Purity" },
-						{ "name": "Melee Physical Damage" },
-						{ "name": "Minion Damage" },
-						{ "name": "Added Fire Damage" }
-					]
-				},
-				{
-					"name": "Cyclone",
-					"gem_info": [{ "name": "Cyclone" }]
-				},
-
-				{
-					"name": "Support",
-					"notes": "Bouclier si possible"
-				},
-				{
-					"name": "Sort principal",
-					"gem_info": [
-						{
-							"name": "Smite",
-							"note": "principal skill"
-						},
-						{ "name": "Summon Holy Relic" }
-					]
-				},
-				{
-					"name": "Utilitaire",
-					"notes": "",
-
-					"gem_info": [
-						{ "name": "Flame Dash" },
-						{ "name": "Desecrate" },
-						{ "name": "Discipline" }
-					]
-				},
-				{
-					"name": "Duration Gemmes",
-					"notes": "",
-
-					"gem_info": [
-						{ "name": "Rallying Cry" },
-						{ "name": "Flesh Offering" },
-						{ "name": "Summon Stone Golem" }
-					]
-				},
-				{
-					"name": "Zombies",
-					"notes": "",
-					"gem_info": [{ "name": "Raise Zombie" }, { "name": "Ruthless" }]
-				},
-				{
-					"name": "XP",
-					"notes": "Gemmes à faire XP, sur le second set d'armes.",
-					"gem_info": [
-						{ "name": "Melee Physical Damage" },
-						{ "name": "Determination" },
-						{ "name": "Feeding Frenzy" },
-						{ "name": "Cast when Damage Taken" }
-					]
-				}
-			]
-		},
-		{
-			"actId": 6,
-			"notes": "Une fois que vous avez terminé le Twilight Strand, parlez à Lilly pour obtenir Meat Shield, qui fera narguer vos zombies. Cela changera votre vie plus que vous ne le pensez. Minion Life les aidera à survivre, maintenant qu'ils subiront la plupart des coups.<br>Il ne sera probablement pas possible de tout activer a cause des réservations.",
-			"gears": [
-				{
-					"name": "Herald of Purity",
-					"notes": "",
-					"gem_info": [
-						{ "name": "Herald of Purity" },
-						{ "name": "Melee Physical Damage" },
-						{ "name": "Minion Damage" },
-						{ "name": "Added Fire Damage" }
-					]
-				},
-				{
-					"name": "Cyclone",
-					"gem_info": [
-						{ "name": "Cyclone" },
-						{ "name": "Maim" },
-						{ "name": "Culling Strike" },
-						{ "name": "Flame Dash" }
-					]
-				},
-				{
-					"name": "Support",
-					"notes": "Bouclier si possible",
-
-					"gem_info": [
-						{ "name": "Summon Holy Relic" },
-						{ "name": "Feeding Frenzy" },
-						{ "name": "Cast when Damage Taken" }
-					]
-				},
-				{
-					"name": "Utilitaire",
-					"notes": "",
-
-					"gem_info": [
-						{ "name": "Tempest Shield" },
-						{ "name": "Desecrate" },
-						{ "name": "Discipline" },
-						{ "name": "Molten Shell" }
-					]
-				},
-				{
-					"name": "Duration Gemmes",
-					"notes": "",
-
-					"gem_info": [
-						{ "name": "Rallying Cry" },
-						{ "name": "Flesh Offering" },
-						{ "name": "Summon Stone Golem" },
-						{ "name": "Increased Duration" }
-					]
-				},
-				{
-					"name": "Zombies",
-					"notes": "",
-					"gem_info": [
-						{ "name": "Raise Zombie" },
-						{ "name": "Ruthless" },
-						{ "name": "Meat Shield" },
-						{ "name": "Minion Life" }
-					]
-				},
-				{
-					"name": "XP",
-					"notes": "Gemmes à faire XP, sur le second set d'armes.",
-					"gem_info": [
-						{ "name": "Determination" },
-						{ "name": "Melee Physical Damage" },
-						{ "name": "Vile Toxins" },
-						{ "name": "Predator" },
-						{ "name": "Predator" },
-						{ "name": "Withering Touch" }
-					]
-				}
-			]
-		}
-	]
+  "identity": {
+    "name": "modele",
+    "lang": "fr",
+    "game_version": 3.16,
+    "class": "Guardian",
+    "url": "https://www.pathofexile.com/forum/view-thread/2554248"
+  },
+  "acts": [
+    {
+      "actId": 1,
+      "actName": "Act I",
+      "notes": "N'oubliez pas de faire The Tidal Island pour la avoir la <b>Quicksilver Flask</b>.<br>Essayez d'avoir des bases ES avec de la vie dessus, ainsi que quelques résistances. Les boucliers armor-ES sont également une bonne option en raison de leur résistance élémentaire implicite.",
+      "gears": [
+        {
+          "name": "Sort principal",
+          "gem_info": [
+            {
+              "name": "Smite",
+              "note": "principal skill"
+            },
+            {
+              "name": "Summon Holy Relic"
+            }
+          ]
+        },
+        {
+          "name": "Utilitaire",
+          "gem_info": [
+            {
+              "name": "Flame Dash"
+            },
+            {
+              "name": "Green Socket"
+            }
+          ]
+        },
+        {
+          "name": "Zombies",
+          "gem_info": [
+            {
+              "name": "Raise Zombie"
+            },
+            {
+              "name": "Ruthless"
+            },
+            {
+              "name": "Minion Damage",
+              "note": "2 bis"
+            },
+            {
+              "name": "Added Fire Damage",
+              "note": "2 bis"
+            }
+          ],
+          "notes": "Mettez en fonction de vos préférences Minions ou Fire Damages"
+        }
+      ]
+    },
+    {
+      "actId": 2,
+      "actName": "Act II",
+      "notes": "Herald Of Purity après The Chamber of Sins Level 2. Attention à la réservation de mana, 2 gems de support maximum recommandées.",
+      "gears": [
+        {
+          "name": "Herald of Purity (Body)",
+          "gem_info": [
+            {
+              "name": "Herald of Purity"
+            },
+            {
+              "name": "Melee Physical Damage"
+            },
+            {
+              "name": "Minion Damage",
+              "note": "2 bis"
+            },
+            {
+              "name": "Added Fire Damage",
+              "note": "2 bis"
+            }
+          ],
+          "notes": "Après The Chamber of Sins Level 2"
+        },
+        {
+          "name": "Sort principal",
+          "gem_info": [
+            {
+              "name": "Smite",
+              "note": "principal skill"
+            },
+            {
+              "name": "Summon Holy Relic"
+            }
+          ]
+        },
+        {
+          "name": "Utilitaire",
+          "gem_info": [
+            {
+              "name": "Flame Dash"
+            },
+            {
+              "name": "Desecrate"
+            },
+            {
+              "name": "Blue Socket"
+            },
+            {
+              "name": "Red Socket"
+            }
+          ],
+          "notes": "L'amulette de jade auprès de Yeena donne 30dex"
+        },
+        {
+          "name": "Duration Gemmes (Gloves)",
+          "gem_info": [
+            {
+              "name": "Blue Socket"
+            },
+            {
+              "name": "Red Socket"
+            }
+          ]
+        },
+        {
+          "name": "Zombies",
+          "gem_info": [
+            {
+              "name": "Raise Zombie"
+            },
+            {
+              "name": "Ruthless"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "XP",
+          "gem_info": [
+            {
+              "name": "Melee Physical Damage"
+            }
+          ],
+          "notes": "Gemmes à faire XP, sur le second set d'armes."
+        }
+      ]
+    },
+    {
+      "actId": 3,
+      "actName": "Act III",
+      "notes": "À partir du moment où vous commencerez à utiliser Rallying Cry, les dégâts physiques de base et une peu la vitesse d'attaque de votre arme deviennent nécessaires: c'est le moment de chercher une arme.",
+      "gears": [
+        {
+          "name": "Herald of Purity (Body)",
+          "gem_info": [
+            {
+              "name": "Herald of Purity"
+            },
+            {
+              "name": "Melee Physical Damage"
+            },
+            {
+              "name": "Minion Damage",
+              "note": "2 bis"
+            },
+            {
+              "name": "Added Fire Damage",
+              "note": "2 bis"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Sort principal",
+          "gem_info": [
+            {
+              "name": "Smite",
+              "note": "principal skill"
+            },
+            {
+              "name": "Summon Holy Relic"
+            }
+          ]
+        },
+        {
+          "name": "Utilitaire",
+          "gem_info": [
+            {
+              "name": "Flame Dash"
+            },
+            {
+              "name": "Desecrate"
+            },
+            {
+              "name": "Discipline"
+            },
+            {
+              "name": "Red Socket"
+            }
+          ],
+          "notes": "L'amulette de jade auprès de Yeena donne 30dex"
+        },
+        {
+          "name": "Duration Gemmes (Gloves)",
+          "gem_info": [
+            {
+              "name": "Rallying Cry"
+            },
+            {
+              "name": "Flesh Offering"
+            },
+            {
+              "name": "Red Socket"
+            },
+            {
+              "name": "Red Socket"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Zombies",
+          "gem_info": [
+            {
+              "name": "Raise Zombie"
+            },
+            {
+              "name": "Ruthless"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "XP",
+          "gem_info": [
+            {
+              "name": "Melee Physical Damage"
+            },
+            {
+              "name": "Determination"
+            },
+            {
+              "name": "Feeding Frenzy"
+            }
+          ],
+          "notes": "Gemmes à faire XP, sur le second set d'armes."
+        }
+      ]
+    },
+    {
+      "actId": 4,
+      "actName": "Act IV",
+      "notes": "Après the cristal veins vous pourrez faire le trial si vous vous en sentez capable. Choisissez Radiant Crusade en premier, ca vous donnera quelques résistances, dommages, et le plus important, OnSlaught pour vos minions.",
+      "gears": [
+        {
+          "name": "Herald of Purity (Body)",
+          "gem_info": [
+            {
+              "name": "Herald of Purity"
+            },
+            {
+              "name": "Melee Physical Damage"
+            },
+            {
+              "name": "Minion Damage"
+            },
+            {
+              "name": "Added Fire Damage"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Cyclone (Helmet)",
+          "gem_info": [
+            {
+              "name": "Cyclone"
+            },
+            {
+              "name": "Green Socket"
+            },
+            {
+              "name": "Red Socket"
+            },
+            {
+              "name": "Blue Socket"
+            }
+          ]
+        },
+        {
+          "name": "Sort principal",
+          "gem_info": [
+            {
+              "name": "Smite",
+              "note": "principal skill"
+            },
+            {
+              "name": "Summon Holy Relic"
+            }
+          ]
+        },
+        {
+          "name": "Utilitaire",
+          "gem_info": [
+            {
+              "name": "Flame Dash"
+            },
+            {
+              "name": "Desecrate"
+            },
+            {
+              "name": "Discipline"
+            },
+            {
+              "name": "Red Socket"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Duration Gemmes (Gloves)",
+          "gem_info": [
+            {
+              "name": "Rallying Cry"
+            },
+            {
+              "name": "Flesh Offering"
+            },
+            {
+              "name": "Summon Stone Golem"
+            },
+            {
+              "name": "Red Socket"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Zombies",
+          "gem_info": [
+            {
+              "name": "Raise Zombie"
+            },
+            {
+              "name": "Ruthless"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "XP",
+          "gem_info": [
+            {
+              "name": "Melee Physical Damage"
+            },
+            {
+              "name": "Determination"
+            },
+            {
+              "name": "Feeding Frenzy"
+            },
+            {
+              "name": "Cast when Damage Taken"
+            }
+          ],
+          "notes": "Gemmes à faire XP, sur le second set d'armes."
+        }
+      ]
+    },
+    {
+      "actId": 5,
+      "actName": "Act V",
+      "notes": "Rien de particulier surveillez les 4 links.",
+      "gears": [
+        {
+          "name": "Herald of Purity (Body)",
+          "gem_info": [
+            {
+              "name": "Herald of Purity"
+            },
+            {
+              "name": "Melee Physical Damage"
+            },
+            {
+              "name": "Minion Damage"
+            },
+            {
+              "name": "Added Fire Damage"
+            },
+            {
+              "name": "Green Socket"
+            },
+            {
+              "name": "Blue Socket"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Cyclone (Helmet)",
+          "gem_info": [
+            {
+              "name": "Cyclone"
+            },
+            {
+              "name": "Green Socket"
+            },
+            {
+              "name": "Red Socket"
+            },
+            {
+              "name": "Blue Socket"
+            }
+          ]
+        },
+        {
+          "name": "Support",
+          "gem_info": [
+            {
+              "name": "Blue Socket"
+            },
+            {
+              "name": "Blue Socket"
+            },
+            {
+              "name": "Red Socket"
+            }
+          ],
+          "notes": "Bouclier si possible"
+        },
+        {
+          "name": "Sort principal",
+          "gem_info": [
+            {
+              "name": "Smite",
+              "note": "principal skill"
+            },
+            {
+              "name": "Summon Holy Relic"
+            }
+          ]
+        },
+        {
+          "name": "Utilitaire",
+          "gem_info": [
+            {
+              "name": "Flame Dash"
+            },
+            {
+              "name": "Desecrate"
+            },
+            {
+              "name": "Discipline"
+            },
+            {
+              "name": "Red Socket"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Duration Gemmes (Gloves)",
+          "gem_info": [
+            {
+              "name": "Rallying Cry"
+            },
+            {
+              "name": "Flesh Offering"
+            },
+            {
+              "name": "Summon Stone Golem"
+            },
+            {
+              "name": "Red Socket"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Zombies",
+          "gem_info": [
+            {
+              "name": "Raise Zombie"
+            },
+            {
+              "name": "Ruthless"
+            },
+            {
+              "name": "Blue Socket"
+            },
+            {
+              "name": "Blue Socket"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "XP",
+          "gem_info": [
+            {
+              "name": "Melee Physical Damage"
+            },
+            {
+              "name": "Determination"
+            },
+            {
+              "name": "Feeding Frenzy"
+            },
+            {
+              "name": "Cast when Damage Taken"
+            }
+          ],
+          "notes": "Gemmes à faire XP, sur le second set d'armes."
+        }
+      ]
+    },
+    {
+      "actId": 6,
+      "actName": "Act VI",
+      "notes": "Une fois que vous avez terminé The Twilight Strand, parlez à Lilly Roth pour obtenir Meat Shield, cela changera votre vie plus que vous ne le pensez. Minion Life aidera vos zombies à survivre, maintenant qu'ils subiront la plupart des coups.<br><u>Panthéon :</u><br>The Brine King's Reef : Soul of the Brine King<br>The Wetlands : Soul of Ryslatha",
+      "gears": [
+        {
+          "name": "Herald of Purity (Body)",
+          "gem_info": [
+            {
+              "name": "Herald of Purity"
+            },
+            {
+              "name": "Melee Physical Damage"
+            },
+            {
+              "name": "Minion Damage"
+            },
+            {
+              "name": "Added Fire Damage"
+            },
+            {
+              "name": "Green Socket"
+            },
+            {
+              "name": "Blue Socket"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Cyclone (Helmet)",
+          "gem_info": [
+            {
+              "name": "Cyclone"
+            },
+            {
+              "name": "Maim"
+            },
+            {
+              "name": "Culling Strike"
+            },
+            {
+              "name": "Flame Dash"
+            }
+          ]
+        },
+        {
+          "name": "Support",
+          "gem_info": [
+            {
+              "name": "Summon Holy Relic"
+            },
+            {
+              "name": "Feeding Frenzy"
+            },
+            {
+              "name": "Cast when Damage Taken"
+            }
+          ],
+          "notes": "Bouclier si possible"
+        },
+        {
+          "name": "Utilitaire",
+          "gem_info": [
+            {
+              "name": "Tempest Shield"
+            },
+            {
+              "name": "Desecrate"
+            },
+            {
+              "name": "Discipline"
+            },
+            {
+              "name": "Molten Shell"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Duration Gemmes (Gloves)",
+          "gem_info": [
+            {
+              "name": "Rallying Cry"
+            },
+            {
+              "name": "Flesh Offering"
+            },
+            {
+              "name": "Summon Stone Golem"
+            },
+            {
+              "name": "Increased Duration"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Zombies",
+          "gem_info": [
+            {
+              "name": "Raise Zombie"
+            },
+            {
+              "name": "Ruthless"
+            },
+            {
+              "name": "Meat Shield"
+            },
+            {
+              "name": "Minion Life"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "XP",
+          "gem_info": [
+            {
+              "name": "Determination"
+            },
+            {
+              "name": "Melee Physical Damage"
+            },
+            {
+              "name": "Vile Toxins"
+            },
+            {
+              "name": "Predator"
+            },
+            {
+              "name": "Predator"
+            },
+            {
+              "name": "Withering Touch"
+            }
+          ],
+          "notes": "Gemmes à faire XP, sur le second set d'armes."
+        }
+      ]
+    },
+    {
+      "actId": 7,
+      "actName": "Act VII",
+      "gears": [
+        {
+          "name": "Herald of Purity (Body)",
+          "gem_info": [
+            {
+              "name": "Herald of Purity"
+            },
+            {
+              "name": "Melee Physical Damage"
+            },
+            {
+              "name": "Minion Damage"
+            },
+            {
+              "name": "Added Fire Damage"
+            },
+            {
+              "name": "Green Socket"
+            },
+            {
+              "name": "Blue Socket"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Cyclone (Helmet)",
+          "gem_info": [
+            {
+              "name": "Cyclone"
+            },
+            {
+              "name": "Maim"
+            },
+            {
+              "name": "Culling Strike"
+            },
+            {
+              "name": "Flame Dash"
+            }
+          ]
+        },
+        {
+          "name": "Support",
+          "gem_info": [
+            {
+              "name": "Summon Holy Relic"
+            },
+            {
+              "name": "Feeding Frenzy"
+            },
+            {
+              "name": "Cast when Damage Taken"
+            }
+          ],
+          "notes": "Bouclier si possible"
+        },
+        {
+          "name": "Utilitaire",
+          "gem_info": [
+            {
+              "name": "Tempest Shield"
+            },
+            {
+              "name": "Desecrate"
+            },
+            {
+              "name": "Discipline"
+            },
+            {
+              "name": "Molten Shell"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Duration Gemmes (Gloves)",
+          "gem_info": [
+            {
+              "name": "Rallying Cry"
+            },
+            {
+              "name": "Flesh Offering"
+            },
+            {
+              "name": "Summon Stone Golem"
+            },
+            {
+              "name": "Increased Duration"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Zombies",
+          "gem_info": [
+            {
+              "name": "Raise Zombie"
+            },
+            {
+              "name": "Ruthless"
+            },
+            {
+              "name": "Meat Shield"
+            },
+            {
+              "name": "Minion Life"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "XP",
+          "gem_info": [
+            {
+              "name": "Determination"
+            },
+            {
+              "name": "Melee Physical Damage"
+            },
+            {
+              "name": "Vile Toxins"
+            },
+            {
+              "name": "Predator"
+            },
+            {
+              "name": "Predator"
+            },
+            {
+              "name": "Withering Touch"
+            }
+          ],
+          "notes": "Gemmes à faire XP, sur le second set d'armes."
+        }
+      ]
+    },
+    {
+      "actId": 8,
+      "actName": "Act VIII",
+      "gears": [
+        {
+          "name": "Herald of Purity (Body)",
+          "gem_info": [
+            {
+              "name": "Herald of Purity"
+            },
+            {
+              "name": "Melee Physical Damage"
+            },
+            {
+              "name": "Minion Damage"
+            },
+            {
+              "name": "Added Fire Damage"
+            },
+            {
+              "name": "Green Socket"
+            },
+            {
+              "name": "Blue Socket"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Cyclone (Helmet)",
+          "gem_info": [
+            {
+              "name": "Cyclone"
+            },
+            {
+              "name": "Maim"
+            },
+            {
+              "name": "Culling Strike"
+            },
+            {
+              "name": "Flame Dash"
+            }
+          ]
+        },
+        {
+          "name": "Support",
+          "gem_info": [
+            {
+              "name": "Summon Holy Relic"
+            },
+            {
+              "name": "Feeding Frenzy"
+            },
+            {
+              "name": "Cast when Damage Taken"
+            }
+          ],
+          "notes": "Bouclier si possible"
+        },
+        {
+          "name": "Utilitaire",
+          "gem_info": [
+            {
+              "name": "Tempest Shield"
+            },
+            {
+              "name": "Desecrate"
+            },
+            {
+              "name": "Discipline"
+            },
+            {
+              "name": "Molten Shell"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Duration Gemmes (Gloves)",
+          "gem_info": [
+            {
+              "name": "Rallying Cry"
+            },
+            {
+              "name": "Flesh Offering"
+            },
+            {
+              "name": "Summon Stone Golem"
+            },
+            {
+              "name": "Increased Duration"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Zombies",
+          "gem_info": [
+            {
+              "name": "Raise Zombie"
+            },
+            {
+              "name": "Ruthless"
+            },
+            {
+              "name": "Meat Shield"
+            },
+            {
+              "name": "Minion Life"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "XP",
+          "gem_info": [
+            {
+              "name": "Determination"
+            },
+            {
+              "name": "Melee Physical Damage"
+            },
+            {
+              "name": "Vile Toxins"
+            },
+            {
+              "name": "Predator"
+            },
+            {
+              "name": "Predator"
+            },
+            {
+              "name": "Withering Touch"
+            }
+          ],
+          "notes": "Gemmes à faire XP, sur le second set d'armes."
+        }
+      ]
+    },
+    {
+      "actId": 9,
+      "actName": "Act IX",
+      "gears": [
+        {
+          "name": "Herald of Purity (Body)",
+          "gem_info": [
+            {
+              "name": "Herald of Purity"
+            },
+            {
+              "name": "Melee Physical Damage"
+            },
+            {
+              "name": "Minion Damage"
+            },
+            {
+              "name": "Added Fire Damage"
+            },
+            {
+              "name": "Green Socket"
+            },
+            {
+              "name": "Blue Socket"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Cyclone (Helmet)",
+          "gem_info": [
+            {
+              "name": "Cyclone"
+            },
+            {
+              "name": "Maim"
+            },
+            {
+              "name": "Culling Strike"
+            },
+            {
+              "name": "Flame Dash"
+            }
+          ]
+        },
+        {
+          "name": "Support",
+          "gem_info": [
+            {
+              "name": "Summon Holy Relic"
+            },
+            {
+              "name": "Feeding Frenzy"
+            },
+            {
+              "name": "Cast when Damage Taken"
+            }
+          ],
+          "notes": "Bouclier si possible"
+        },
+        {
+          "name": "Utilitaire",
+          "gem_info": [
+            {
+              "name": "Tempest Shield"
+            },
+            {
+              "name": "Desecrate"
+            },
+            {
+              "name": "Discipline"
+            },
+            {
+              "name": "Molten Shell"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Duration Gemmes (Gloves)",
+          "gem_info": [
+            {
+              "name": "Rallying Cry"
+            },
+            {
+              "name": "Flesh Offering"
+            },
+            {
+              "name": "Summon Stone Golem"
+            },
+            {
+              "name": "Increased Duration"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Zombies",
+          "gem_info": [
+            {
+              "name": "Raise Zombie"
+            },
+            {
+              "name": "Ruthless"
+            },
+            {
+              "name": "Meat Shield"
+            },
+            {
+              "name": "Minion Life"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "XP",
+          "gem_info": [
+            {
+              "name": "Determination"
+            },
+            {
+              "name": "Melee Physical Damage"
+            },
+            {
+              "name": "Vile Toxins"
+            },
+            {
+              "name": "Predator"
+            },
+            {
+              "name": "Predator"
+            },
+            {
+              "name": "Withering Touch"
+            }
+          ],
+          "notes": "Gemmes à faire XP, sur le second set d'armes."
+        }
+      ]
+    },
+    {
+      "actId": 10,
+      "actName": "Act X",
+      "notes": "Avant de tuer Kitava, je vous recommande de finir le cruel lab (avant la pénalité de resistance) et prendre le Radiant Faith pour améliorer votre Energie Shield.",
+      "gears": [
+        {
+          "name": "Herald of Purity (Body)",
+          "gem_info": [
+            {
+              "name": "Herald of Purity"
+            },
+            {
+              "name": "Melee Physical Damage"
+            },
+            {
+              "name": "Minion Damage"
+            },
+            {
+              "name": "Added Fire Damage"
+            },
+            {
+              "name": "Green Socket"
+            },
+            {
+              "name": "Blue Socket"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Cyclone (Helmet)",
+          "gem_info": [
+            {
+              "name": "Cyclone"
+            },
+            {
+              "name": "Maim"
+            },
+            {
+              "name": "Culling Strike"
+            },
+            {
+              "name": "Flame Dash"
+            }
+          ]
+        },
+        {
+          "name": "Support",
+          "gem_info": [
+            {
+              "name": "Summon Holy Relic"
+            },
+            {
+              "name": "Feeding Frenzy"
+            },
+            {
+              "name": "Cast when Damage Taken"
+            }
+          ],
+          "notes": "Bouclier si possible"
+        },
+        {
+          "name": "Utilitaire",
+          "gem_info": [
+            {
+              "name": "Tempest Shield"
+            },
+            {
+              "name": "Desecrate"
+            },
+            {
+              "name": "Discipline"
+            },
+            {
+              "name": "Molten Shell"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Duration Gemmes (Gloves)",
+          "gem_info": [
+            {
+              "name": "Rallying Cry"
+            },
+            {
+              "name": "Flesh Offering"
+            },
+            {
+              "name": "Summon Stone Golem"
+            },
+            {
+              "name": "Increased Duration"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Zombies",
+          "gem_info": [
+            {
+              "name": "Raise Zombie"
+            },
+            {
+              "name": "Ruthless"
+            },
+            {
+              "name": "Meat Shield"
+            },
+            {
+              "name": "Minion Life"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "XP",
+          "gem_info": [
+            {
+              "name": "Determination"
+            },
+            {
+              "name": "Melee Physical Damage"
+            },
+            {
+              "name": "Vile Toxins"
+            },
+            {
+              "name": "Predator"
+            },
+            {
+              "name": "Predator"
+            },
+            {
+              "name": "Withering Touch"
+            }
+          ],
+          "notes": "Gemmes à faire XP, sur le second set d'armes."
+        }
+      ]
+    },
+    {
+      "actId": 11,
+      "actName": "Epilogue",
+      "gears": []
+    },
+    {
+      "actId": 13,
+      "actName": "Maps",
+      "gears": []
+    },
+    {
+      "actId": 50,
+      "actName": "Labyrinth",
+      "notes": "test",
+      "gears": []
+    }
+  ]
 }

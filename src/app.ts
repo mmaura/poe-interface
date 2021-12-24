@@ -9,7 +9,7 @@ import fs from "fs"
 import { ConfigWindow } from "./main/ConfigWindow"
 import { LevelingWindow } from "./main/LevelingWindow"
 
-import {  getAbsPackagedPath, getLocalCustomPath, MyLogger } from "./modules/functions"
+import { getAbsPackagedPath, getLocalCustomPath, MyLogger } from "./modules/functions"
 
 
 let levelingGuideWindow: LevelingWindow
@@ -34,9 +34,9 @@ app.whenReady().then(async () => {
     try {
       installExtension(REACT_DEVELOPER_TOOLS)
         .then((name) => console.log(`Added Extension:  ${name}`))
-        .catch((err) => console.log('An error occurred: ', err));
+        .catch((err) => console.log('An error occurred: ', err))
     }
-    catch(e){
+    catch (e) {
       MyLogger.log('info', 'Unable to load React chrome extension')
     }
   }
@@ -48,8 +48,15 @@ app.whenReady().then(async () => {
 
   AppStore.onDidChange("poe_log_path", newValue => {
     CreatePoeLog(newValue as string)
+    if (!levelingGuideWindow && PoeLog) {
+      levelingGuideWindow = new LevelingWindow(AppStore, AppIcon)
+      levelingGuideWindow.setPoeLog(PoeLog)
+      levelingGuideWindow.show()
+    }
+    else
+      levelingGuideWindow.setPoeLog(PoeLog)
     // if (!levelingGuideWindow) levelingGuideWindow = new LevelingWindow(AppStore, AppIcon)
-    if (levelingGuideWindow) levelingGuideWindow.setPoeLog(PoeLog)
+    // if (levelingGuideWindow) levelingGuideWindow.setPoeLog(PoeLog)
     //levelingGuideWindow.show()
   })
 
@@ -72,8 +79,14 @@ app.whenReady().then(async () => {
 
   if (!fs.existsSync(configWindow.getPoeLogPath())) {
     configWindow.show()
-  } else {
+  }
+  else {
     CreatePoeLog(configWindow.getPoeLogPath())
+    if (!levelingGuideWindow && PoeLog) {
+      levelingGuideWindow = new LevelingWindow(AppStore, AppIcon)
+      levelingGuideWindow.setPoeLog(PoeLog)
+      levelingGuideWindow.show()
+    }
     // levelingGuideWindow = new LevelingWindow(AppStore, AppIcon)
     // levelingGuideWindow.setPoeLog(PoeLog)
     // levelingGuideWindow.show()
@@ -93,10 +106,7 @@ app.whenReady().then(async () => {
     }).show()
   }
 
-  if (!levelingGuideWindow) levelingGuideWindow = new LevelingWindow(AppStore, AppIcon)
-  levelingGuideWindow.setPoeLog(PoeLog)
-  levelingGuideWindow.show()
-
+  
 })
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.

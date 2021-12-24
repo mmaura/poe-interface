@@ -78,22 +78,8 @@ export class ConfigWindow {
           break
 
       }
+
     })
-
-
-
-    //   ipcMain.handle("configWindow", (event, arg: any) => {
-    //     let response = {}
-
-    //     switch (arg.func) {
-    //       case "getInitData":
-    //         response = {
-    //           poeLogPath: this.getPoeLogPath(),
-    //         }
-    //         break
-    //     }
-    //     return response
-    //   })
   }
 
   setCanClose(state: boolean): void {
@@ -135,7 +121,7 @@ export class ConfigWindow {
     if (!curPath) curPath = this.getPoeLogPath()
 
     dialog
-      .showOpenDialog({
+      .showOpenDialog(this._Window, {
         filters: [{ name: "poe log file", extensions: ["txt", "log"] }],
         title: "Please choose PathOfExile log file",
         properties: ["openFile", "showHiddenFiles"],
@@ -144,14 +130,10 @@ export class ConfigWindow {
       .then(result => {
         if (result.canceled === false) {
           this.setPoeLogPath(result.filePaths[0])
-          // this._Window.webContents.send("poeLogPath", result.filePaths[0])
           this._Window.webContents.send("configRenderer", ["poeLogPath", result.filePaths[0]])
-
-
         }
       })
       .catch(err => {
-
         MyLogger.log(err)
       })
   }

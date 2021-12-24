@@ -64,7 +64,9 @@ export function getLocalCustomPath(): string {
  * @returns the web base path of the packaged assets files
  */
 export function getPackagedWebBaseName(): string {
-  return 'assets'
+  return app.isPackaged
+  ? '../assets'
+  : 'assets'
 }
 
 /**

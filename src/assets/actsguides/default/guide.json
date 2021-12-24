@@ -7,7 +7,7 @@
 	"acts": [
 		{
 			"act": "Act I",
-			"actid": 1,
+			"actId": 1,
 			"zones": [
 				{
 					"altimage": "Your nightmare lies ahead.",
@@ -83,7 +83,7 @@
 		},
 		{
 			"act": "Act II",
-			"actid": 2,
+			"actId": 2,
 			"zones": [
 				{
 					"altimage": "Linear layout",
@@ -178,7 +178,7 @@
 		},
 		{
 			"act": "Act III",
-			"actid": 3,
+			"actId": 3,
 			"zones": [
 				{
 					"altimage": "Linear layout.",
@@ -262,7 +262,7 @@
 		},
 		{
 			"act": "Act IV",
-			"actid": 4,
+			"actId": 4,
 			"zones": [
 				{
 					"altimage": "Pretty much linear.",
@@ -323,7 +323,7 @@
 		},
 		{
 			"act": "Act V",
-			"actid": 5,
+			"actId": 5,
 			"zones": [
 				{
 					"name": "The Slave Pens",
@@ -370,7 +370,7 @@
 		},
 		{
 			"act": "Act VI",
-			"actid": 6,
+			"actId": 6,
 			"zones": [
 				{
 					"altimage": "Linear layout with some small rooms in the cliffs possible.",
@@ -447,7 +447,7 @@
 		},
 		{
 			"act": "Act VII",
-			"actid": 7,
+			"actId": 7,
 			"zones": [
 				{
 					"altimage": "Linear layout",
@@ -522,7 +522,7 @@
 		},
 		{
 			"act": "Act VIII",
-			"actid": 8,
+			"actId": 8,
 			"zones": [
 				{
 					"altimage": "Linear layout.",
@@ -598,7 +598,7 @@
 		},
 		{
 			"act": "Act IX",
-			"actid": 9,
+			"actId": 9,
 			"zones": [
 				{
 					"altimage": "Linear layout",
@@ -651,7 +651,7 @@
 		},
 		{
 			"act": "Act X",
-			"actid": 10,
+			"actId": 10,
 			"zones": [
 				{
 					"altimage": "Linear layout.",
@@ -699,7 +699,7 @@
 		},
 		{
 			"act": "Epilogue",
-			"actid": 11,
+			"actId": 11,
 			"zones": [
 				{
 					"altimage": "Town.",

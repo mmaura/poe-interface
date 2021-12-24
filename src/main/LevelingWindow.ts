@@ -76,6 +76,7 @@ export class LevelingWindow {
         this._Window.webContents.openDevTools({ mode: "detach" })
       }
       this._Window.setBounds(this._AppStore.get("levelingWinBounds", { x: 1, y: 1, width: 1400, height: 980 }) as Rectangle)
+      this._Window.webContents.openDevTools({ mode: "detach" })
 
       /************************
         * Class Guides Events

@@ -6,32 +6,32 @@
   },
   "acts": [
     {
-      "act": "Act I",
-      "actid": 1,
+      "actId": 1,
+      "actName": "Act I",
       "zones": [
         {
-          "altimage": "Le cauchemar commence ici.",
           "name": "The Twilight Strand",
-          "note": "Vérifiez que le bon loot filter est activé. Suivez la côte et tuez Hillock. Entrez à Lioneye's Watch."
+          "note": "Vérifiez que le bon loot filter est activé. Suivez la côte et tuez Hillock. Entrez à Lioneye's Watch.",
+          "altimage": "Le cauchemar commence ici."
         },
         {
           "name": "The Coast",
           "note": "1) Restez sur le côté droit en suivant le mur activez le waypoint. Allez à The Mud Flats.\n\n2) L'entrée de The Tidal Island est proche du waypoint, allez à The Tidal Island pour Hailrake."
         },
         {
-          "altimage": "This layout is always a circle.",
           "name": "The Tidal Island",
-          "note": "1) Le côté sans falaise est le plus court. Tuez Hailrake et logout.\n\n2) En ville prenez Quicksilver et vos gemmes puis TP vers The Submerged Passage."
+          "note": "1) Le côté sans falaise est le plus court. Tuez Hailrake et logout.\n\n2) En ville prenez Quicksilver et vos gemmes puis TP vers The Submerged Passage.",
+          "altimage": "This layout is always a circle."
         },
         {
-          "altimage": "Green circles indicate the area in which the quest items are grouped. Little rivers connect the three items.",
           "name": "The Mud Flats",
-          "note": "Les petites rivières relient les 3 items, les ramasser puis allez à The Submerged Passage."
+          "note": "Les petites rivières relient les 3 items, les ramasser puis allez à The Submerged Passage.",
+          "altimage": "Green circles indicate the area in which the quest items are grouped. Little rivers connect the three items."
         },
         {
-          "altimage": "Toujours en forme de cercle.",
           "name": "The Fetid Pool",
-          "note": "Tourner et tout tuer. (zone facultative)"
+          "note": "Tourner et tout tuer. (zone facultative)",
+          "altimage": "Toujours en forme de cercle."
         },
         {
           "name": "The Submerged Passage",
@@ -42,9 +42,9 @@
           "note": "Tuez The Deep Dweller pour un point passif. Deconnexion, puis tp vers The Ledge."
         },
         {
-          "altimage": "This layout is always linear, les petits totems au waypoint sont du côté de la sortie The Climb.",
           "name": "The Ledge",
-          "note": "1) Au waypoint, passez en ville pour aller The Submerged Passage puis The Flooded Depths.\n2) Allez à The Climb."
+          "note": "1) Au waypoint, passez en ville pour aller The Submerged Passage puis The Flooded Depths.\n2) Allez à The Climb.",
+          "altimage": "This layout is always linear, les petits totems au waypoint sont du côté de la sortie The Climb."
         },
         {
           "name": "The Climb",
@@ -67,9 +67,9 @@
           "note": "Cherchez le waypoint en premier.\n1) Si vous trouvez The Ship Graveyard Cave, entrez et obtenez Allflame.\n2) Sinon allez directement vers le waypoint de The Cavern of Wrath"
         },
         {
-          "altimage": "This layout is always linear, with some deadends.",
           "name": "The Ship Graveyard Cave",
-          "note": "Trouvez Allflame et ignorer le boss.\n1) Si vous avez déjà le waypoint vers The Cavern of Wrath => logout et s'y tp.\n2) Sinon ressortez et trouvez The Cavern of Wrath."
+          "note": "Trouvez Allflame et ignorer le boss.\n1) Si vous avez déjà le waypoint vers The Cavern of Wrath => logout et s'y tp.\n2) Sinon ressortez et trouvez The Cavern of Wrath.",
+          "altimage": "This layout is always linear, with some deadends."
         },
         {
           "name": "The Cavern of Wrath",
@@ -82,33 +82,33 @@
       ]
     },
     {
-      "act": "Act II",
-      "actid": 2,
+      "actId": 2,
+      "actName": "Act II",
       "zones": [
         {
-          "altimage": "Linear layout",
           "name": "The Southern Forest",
-          "note": "Suivez le mur de droite, Allez à The Forest Encampment."
+          "note": "Suivez le mur de droite, Allez à The Forest Encampment.",
+          "altimage": "Linear layout"
         },
         {
-          "altimage": "Linear layout",
           "name": "The Old Fields",
-          "note": "Suivre la route vers The Crossroads."
+          "note": "Suivre la route vers The Crossroads.",
+          "altimage": "Linear layout"
         },
         {
-          "altimage": "A branching maze of tunnels ends at a large chamber.",
           "name": "The Den",
-          "note": "Si vous tuez The Great White Beast, prenez la Quicksilver Flask en récompense."
+          "note": "Si vous tuez The Great White Beast, prenez la Quicksilver Flask en récompense.",
+          "altimage": "A branching maze of tunnels ends at a large chamber."
         },
         {
-          "altimage": "Linear layout if you manage to stay on the stone road.",
           "name": "The Riverways",
-          "note": "Suivez la route et utilisez vos compétences en mobilité pour sauter par-dessus les ponts, activer le waypoint.\n1) Suivez la route vers The Western Forest.\n2) The Wetlands sont toujours de l'autre côté de la route par rapport au waypoint, y aller."
+          "note": "Suivez la route et utilisez vos compétences en mobilité pour sauter par-dessus les ponts, activer le waypoint.\n1) Suivez la route vers The Western Forest.\n2) The Wetlands sont toujours de l'autre côté de la route par rapport au waypoint, y aller.",
+          "altimage": "Linear layout if you manage to stay on the stone road."
         },
         {
-          "altimage": "Linear layout if you manage to stay on the stone road.",
           "name": "The Crossroads",
-          "note": "Suivre la route vers le waypoint.\n1) Haut vers The Chamber of Sins Level 1.\n2) Tout droit vers The Broken bridge (Kraityn).\n3) En bas vers The Fellshrine Ruins."
+          "note": "Suivre la route vers le waypoint.\n1) Haut vers The Chamber of Sins Level 1.\n2) Tout droit vers The Broken bridge (Kraityn).\n3) En bas vers The Fellshrine Ruins.",
+          "altimage": "Linear layout if you manage to stay on the stone road."
         },
         {
           "name": "The Chamber of Sins Level 1",
@@ -119,29 +119,29 @@
           "note": "Toujours en haut à droite, faire le trial en haut à gauche.\nTuez Fidelitas et logout puis allez à The Crossroads"
         },
         {
-          "altimage": "Linear if you stay on the road",
           "name": "The Broken Bridge",
-          "note": "Suivre la route jusqu'au waypoint, puis la suivre mais vers la droite.\nTuez Kraityn and logout puis tp The Crossroads"
+          "note": "Suivre la route jusqu'au waypoint, puis la suivre mais vers la droite.\nTuez Kraityn and logout puis tp The Crossroads",
+          "altimage": "Linear if you stay on the road"
         },
         {
-          "altimage": "Linear layout",
           "name": "The Fellshrine Ruins",
-          "note": "Suivre la route jusqu'à The Crypt."
+          "note": "Suivre la route jusqu'à The Crypt.",
+          "altimage": "Linear layout"
         },
         {
-          "altimage": "",
           "name": "The Crypt Level 1",
-          "note": "En général le trial est en haut à droite. Inutile d'aller The Crypt Level 2.\nlogout allez à The Riverways"
+          "note": "En général le trial est en haut à droite. Inutile d'aller The Crypt Level 2.\nlogout allez à The Riverways",
+          "altimage": ""
         },
         {
-          "altimage": "Y a rien là !",
           "name": "The Crypt Level 2",
-          "note": "Demi-tour, y a rien là ..."
+          "note": "Demi-tour, y a rien là ...",
+          "altimage": "Y a rien là !"
         },
         {
-          "altimage": "Linear layout if you stay on the road and find waypoint, then everything is in a cross shape.",
           "name": "The Western Forest",
-          "note": "Suivre la route, waypoint.\n* Alira est du côté du waypoint où la route a une section cassée.\n* Suivez la route pour la quête The Way Forward, tuez Captain Arteri, revenir sur le chemin du retour. \n* The Weaver's Chambers se trouve de l'autre côté de la route d'Alira, avec des arbres palmés, y aller"
+          "note": "Suivre la route, waypoint.\n* Alira est du côté du waypoint où la route a une section cassée.\n* Suivez la route pour la quête The Way Forward, tuez Captain Arteri, revenir sur le chemin du retour. \n* The Weaver's Chambers se trouve de l'autre côté de la route d'Alira, avec des arbres palmés, y aller",
+          "altimage": "Linear layout if you stay on the road and find waypoint, then everything is in a cross shape."
         },
         {
           "name": "The Weaver's Chambers",
@@ -156,34 +156,34 @@
           "note": "Essayez de déterminer la direction puis zig-zaguez en conséquence à travers les ruines. \nAllez à The Northern Forest."
         },
         {
-          "altimage": "Linear layout, waypoint is adjacent to the shoreline.",
           "name": "The Northern Forest",
-          "note": "Allez en haut à droite en suivant le rivage.\nAllez à The Caverns. \nInutile d'aller dans The Dread Thicket."
+          "note": "Allez en haut à droite en suivant le rivage.\nAllez à The Caverns. \nInutile d'aller dans The Dread Thicket.",
+          "altimage": "Linear layout, waypoint is adjacent to the shoreline."
         },
         {
-          "altimage": "Il n'y a rien la !",
           "name": "The Dread Thicket",
-          "note": "Sortez de cette zone, il n'y a rien ici."
+          "note": "Sortez de cette zone, il n'y a rien ici.",
+          "altimage": "Il n'y a rien la !"
         },
         {
           "name": "The Caverns",
           "note": "Essayez de deviner ou la sortie est apparue. \nActivez le waypoint. \nAllez à The Ancient Pyramid."
         },
         {
-          "altimage": "Somewhat linear layout.",
           "name": "The Ancient Pyramid",
-          "note": "La sortie est en général en diagonal de l'entrée.\nTuez Vaal Oversoul et allez à l'Act III."
+          "note": "La sortie est en général en diagonal de l'entrée.\nTuez Vaal Oversoul et allez à l'Act III.",
+          "altimage": "Somewhat linear layout."
         }
       ]
     },
     {
-      "act": "Act III",
-      "actid": 3,
+      "actId": 3,
+      "actName": "Act III",
       "zones": [
         {
-          "altimage": "Linear layout.",
           "name": "The City of Sarn",
-          "note": "N'oubliez pas de parler à Clarissa. En ville, allez directement dans The Slums sans parler aux PNJ"
+          "note": "N'oubliez pas de parler à Clarissa. En ville, allez directement dans The Slums sans parler aux PNJs.",
+          "altimage": "Linear layout."
         },
         {
           "name": "The Slums",
@@ -202,9 +202,9 @@
           "note": "Habituellement en haut et droite, traversez la salle des statues, récupérez le waypoint près de The Catacombs. Passez l'élément de quête c'est inutile.\n1) Allez à The Catacombs.\n2) Suivre le mur de droite pour trouver la sortie, allez à The Battlefront."
         },
         {
-          "altimage": "Maze of rooms that ends at a large bridge",
           "name": "The Catacombs",
-          "note": "Faire le trial, puis logout et allez à The Marketplace."
+          "note": "Faire le trial, puis logout et allez à The Marketplace.",
+          "altimage": "Maze of rooms that ends at a large bridge"
         },
         {
           "name": "The Battlefront",
@@ -239,35 +239,35 @@
           "note": "Suivez la route, activer waypoint.\n1) Haut et gauche pour Trial, logout et revenez.\n2) Faites The Library si besoin, puis deco, tp, revenez.\n3) Allez à droite puis en haut vers The Sceptre of God."
         },
         {
-          "altimage": "Ressemble à un labyrinthe.",
           "name": "The Library",
-          "note": "Essayez haut et droite, jusqu'à trouver des murs parallèles, ou se trouve  Siosa.\nAllez vers le se seul ouvert et cherchez l'accès à la prochaine zone cachée par un interrupteur."
+          "note": "Essayez haut et droite, jusqu'à trouver des murs parallèles, ou se trouve  Siosa.\nAllez vers le se seul ouvert et cherchez l'accès à la prochaine zone cachée par un interrupteur.",
+          "altimage": "Ressemble à un labyrinthe."
         },
         {
-          "altimage": "La zone est un carré avec 1 page a chaque coin.",
           "name": "The Archives",
-          "note": "Trouvez les 4 pages et retourner voir Siosa."
+          "note": "Trouvez les 4 pages et retourner voir Siosa.",
+          "altimage": "La zone est un carré avec 1 page a chaque coin."
         },
         {
-          "altimage": "Layout is generally always the same looking, but exits spawn in a random corner.",
           "name": "The Sceptre of God",
-          "note": "Les sorties apparaissent dans un coin aléatoire, peuvent souvent être trouvées en voyageant en diagonale.\nAllez à The Upper Sceptre of God."
+          "note": "Les sorties apparaissent dans un coin aléatoire, peuvent souvent être trouvées en voyageant en diagonale.\nAllez à The Upper Sceptre of God.",
+          "altimage": "Layout is generally always the same looking, but exits spawn in a random corner."
         },
         {
-          "altimage": "Layout is generally always the same looking, but exits spawn in a random corner.",
           "name": "The Upper Sceptre of God",
-          "note": "Les sorties apparaissent dans un coin aléatoire. Montez en diagonale jusqu'à ce que vous aperceviez des barricades à la sortie. \nTuez Dominus, High Templar. \nAllez à l'Act IV."
+          "note": "Les sorties apparaissent dans un coin aléatoire. Montez en diagonale jusqu'à ce que vous aperceviez des barricades à la sortie. \nTuez Dominus, High Templar. \nAllez à l'Act IV.",
+          "altimage": "Layout is generally always the same looking, but exits spawn in a random corner."
         }
       ]
     },
     {
-      "act": "Act IV",
-      "actid": 4,
+      "actId": 4,
+      "actName": "Act IV",
       "zones": [
         {
-          "altimage": "Pretty much linear.",
           "name": "The Aqueduct",
-          "note": "Traversez la zone. Entrez à Highgate, puis allez à The Dried Lake."
+          "note": "Traversez la zone. Entrez à Highgate, puis allez à The Dried Lake.",
+          "altimage": "Pretty much linear."
         },
         {
           "name": "The Dried Lake",
@@ -286,14 +286,14 @@
           "note": "Boucle en bas à droite pour aller à la sortie en haut à gauche. \n1) Trouver Dialla (waypoint) allez en ville. Si vous aviez laissez un portail pour l'esprit allez y maintenant.\n2) Revenez The Crystal Veins, puis allez à Kaom's Dream."
         },
         {
-          "altimage": "Fairly linear.",
           "name": "Daresso's Dream",
-          "note": "Avancez vers le haut à droite, des impasses.\nAllez à The Grand Arena."
+          "note": "Avancez vers le haut à droite, des impasses.\nAllez à The Grand Arena.",
+          "altimage": "Fairly linear."
         },
         {
-          "altimage": "Linear layout.",
           "name": "The Grand Arena",
-          "note": "Descendre à gauche de waypoint, puis suivre le chemin. \nTuez Daresso, King of Swords et logout. \nTP à The Crystal Veins puis Kaom's Dream."
+          "note": "Descendre à gauche de waypoint, puis suivre le chemin. \nTuez Daresso, King of Swords et logout. \nTP à The Crystal Veins puis Kaom's Dream.",
+          "altimage": "Linear layout."
         },
         {
           "name": "Kaom's Dream",
@@ -322,12 +322,12 @@
       ]
     },
     {
-      "act": "Act V",
-      "actid": 5,
+      "actId": 5,
+      "actName": "Act V",
       "zones": [
         {
           "name": "The Slave Pens",
-          "note": "Allez tout en bas et à droite, puis à gauche pour tuer le boss. Aller à to Town. Aller à The Control Blocks"
+          "note": "Allez tout en bas et à droite, puis à gauche pour tuer le boss. \nAllez à la ville.\nAllez à The Control Blocks"
         },
         {
           "name": "The Control Blocks",
@@ -364,29 +364,29 @@
           "note": "Commencer par le bas à gauche. \nTrouvez plusieurs objets de quête dans les coins de la zone. \nRevenez au waypoint, TP vers Town, prendre le portail."
         },
         {
-          "altimage": "Linear zone, run top left and kill Kitava.",
           "name": "The Cathedral Rooftop",
-          "note": "Courez en haut à gauche et tuez Kitava, the Insatiable !"
+          "note": "Courez en haut à gauche et tuez Kitava, the Insatiable !",
+          "altimage": "Linear zone, run top left and kill Kitava."
         }
       ]
     },
     {
-      "act": "Act VI",
-      "actid": 6,
+      "actId": 6,
+      "actName": "Act VI",
       "zones": [
         {
-          "altimage": "",
           "name": "The Twilight Strand",
-          "note": "Inutile sauf si vous voulez ouvrir la boutique de gemmes de Lily.\n\nNettoyez la zone, logout, gemmes.\nAllez à The Coast."
+          "note": "Inutile sauf si vous voulez ouvrir la boutique de gemmes de Lilly Roth.\n\nNettoyez la zone, logout, gemmes.\nAllez à The Coast.",
+          "altimage": ""
         },
         {
           "name": "The Coast",
           "note": "Allez vers la droite puis vers le haut, waypoint.\nAllez à The Mud Flats."
         },
         {
-          "altimage": "La zone est en forme de cercle.",
           "name": "The Tidal Island",
-          "note": "Cette zone doit être ignorée pour gagner du temps."
+          "note": "Cette zone doit être ignorée pour gagner du temps.",
+          "altimage": "La zone est en forme de cercle."
         },
         {
           "name": "The Mud Flats",
@@ -405,41 +405,41 @@
           "note": "Il y a un trial.\nEn général vers la gauche, prendre le waypoint.\nAller à Shavronne's Tower."
         },
         {
-          "altimage": "",
           "name": "Shavronne's Tower",
-          "note": "Suivez les halls, en passant par les ponts, pendant 4 mini zones.\nMonter à Prison Rooftop, tuez Reassembled Brutus, et Shavronne the Returned.\nAllez à Warden's Chamber pour prendre la recette\nLogout et TP Prisoner's Gate."
+          "note": "Suivez les halls, en passant par les ponts, pendant 4 mini zones.\nMonter à Prison Rooftop, tuez Reassembled Brutus, et Shavronne the Returned.\nAllez à Warden's Chamber pour prendre la recette\nLogout et TP Prisoner's Gate.",
+          "altimage": ""
         },
         {
           "name": "Prisoner's Gate",
           "note": "Descendez du côté de la route qui a la falaise, et tuez Abberath, the Cloven One.\nSuivez la route vers the Western Forest."
         },
         {
-          "altimage": "",
           "name": "The Western Forest",
-          "note": "Suivez la route vers  The Riverways."
+          "note": "Suivez la route vers  The Riverways.",
+          "altimage": ""
         },
         {
           "name": "The Riverways",
           "note": "1) Suivez le chemin au waypoint, allez à gauche vers The Wetlands.\n2) Suivez la route et lorsque vous atteignez le campement, descendez à droite pour aller à The Southern Forest."
         },
         {
-          "altimage": "",
           "name": "The Wetlands",
-          "note": "Restez sur le côté gauche pour trouver l'entrée de The Spawning Ground, tuez Ryslatha, the Puppet Mistress, logout.\nTP vers The Riverways.\n"
+          "note": "Restez sur le côté gauche pour trouver l'entrée de The Spawning Ground, tuez Ryslatha, the Puppet Mistress, logout.\nTP vers The Riverways.\n",
+          "altimage": ""
         },
         {
-          "altimage": "",
           "name": "The Southern Forest",
-          "note": "Suivez le mur de droite à The Cavern of Anger."
+          "note": "Suivez le mur de droite à The Cavern of Anger.",
+          "altimage": ""
         },
         {
           "name": "The Cavern of Anger",
           "note": "Ramassez le Flag Chest en entrant dans cette zone.\nAllez à the Beacon."
         },
         {
-          "altimage": "",
           "name": "The Beacon",
-          "note": "Suivez le rivage jusqu'à ce que vous atteigniez les balises. Déplacez les deux colonnes.\nBrûlez le drapeau et allez à the Brine King's Reef."
+          "note": "Suivez le rivage jusqu'à ce que vous atteigniez les balises. Déplacez les deux colonnes.\nBrûlez le drapeau et allez à the Brine King's Reef.",
+          "altimage": ""
         },
         {
           "name": "The Brine King's Reef",
@@ -448,26 +448,26 @@
       ]
     },
     {
-      "act": "Act VII",
-      "actid": 7,
+      "actId": 7,
+      "actName": "Act VII",
       "zones": [
         {
-          "altimage": "Suivez la route vers la gauche",
           "name": "The Broken Bridge",
-          "note": "Allez à The Crossroads. "
+          "note": "Suivez la route vers la gauche.\nAllez à The Crossroads. ",
+          "altimage": "Suivez la route vers la gauche"
         },
         {
           "name": "The Crossroads",
-          "note": "1) Allez en bas a partir du waypoint vers The Fellshrine Ruins.\n2) Allez a gauche a partir du waypoint vers The Chamber of Sins."
+          "note": "1) Allez en bas à droite à partir du waypoint vers The Fellshrine Ruins.\n2) Allez a gauche a partir du waypoint vers The Chamber of Sins level 1."
         },
         {
-          "altimage": "Linear layout",
           "name": "The Fellshrine Ruins",
-          "note": "Suivre la route jusqu'à The Crypt Level 1."
+          "note": "Suivre la route jusqu'à The Crypt Level 1.",
+          "altimage": "Linear layout"
         },
         {
           "name": "The Crypt",
-          "note": "Ouvrir le sarcophage pour la zone suivante. \nTrouver Maligaro's Map puis tp ville et waypoint The Crossrads."
+          "note": "Ouvrir le sarcophage pour la zone suivante. \nTrouver Maligaro's Map puis tp ville et waypoint The Crossroads.\nLe trial est dans la prière partie en haut à gauche."
         },
         {
           "name": "The Chamber of Sins Level 1",
@@ -478,134 +478,134 @@
           "note": "Il y a un trial côté gauche.\nAllez en haut à droite, jusqu'à ce que vous trouviez le long couloir étroit, allez jusqu'au bout où vous avez combattu Fidelitas dans l'acte deux, puis montez et descendez ensuite."
         },
         {
-          "altimage": "",
           "name": "Maligaro's Sanctum",
-          "note": "Suivez les bords de la zone et traversez les ponts que vous rencontrez jusqu'à ce que vous trouviez l'arène (l'atelier de Maligaro)."
+          "note": "Suivez les bords de la zone et traversez les ponts que vous rencontrez jusqu'à ce que vous trouviez l'arène (l'atelier de Maligaro).\nlogout.",
+          "altimage": ""
         },
         {
           "name": "The Den",
           "note": "Allez à The Ashen Fields."
         },
         {
-          "altimage": "Linear layout.",
           "name": "The Ashen Fields",
-          "note": "Suivez la route vers la gauche.\nAllez à ???"
+          "note": "Suivez la route vers la gauche.\nAllez à The Forest Emcampment et tuez Gruest.\nAllez à The Northern Forest.",
+          "altimage": "Linear layout."
         },
         {
-          "altimage": "",
           "name": "The Northern Forest",
-          "note": "Suivez le mur de gauche pour The Dread Thicket.\nSuivez le mur de droite pour The Causeway."
+          "note": "1) Suivez le mur de gauche pour The Dread Thicket.\n2) Suivez le mur de droite pour The Causeway.",
+          "altimage": ""
         },
         {
-          "altimage": "",
           "name": "The Dread Thicket",
-          "note": "Récupérez tous les Fireflies.\nTuez Gruthkul."
+          "note": "Récupérez tous les Fireflies.\nTuez Gruthkul dans Den Of Despair.\nPrenez la recette.\nLogout.",
+          "altimage": ""
         },
         {
-          "altimage": "Linear layout.",
           "name": "The Causeway",
-          "note": "Allez en haut à droite jusqu'à la sortie, récupérez Kishara’s star près de la sortie."
+          "note": "Allez en haut à droite jusqu'à la sortie, récupérez Kishara’s star près de la sortie.",
+          "altimage": "Linear layout."
         },
         {
           "name": "The Vaal City",
           "note": "Recherchez et suivez les murs épais pour vous guider vers la sortie."
         },
         {
-          "altimage": "Long zone, with multiple levels.",
           "name": "The Temple of Decay Level 1",
-          "note": "Allez en diagonale vers les sorties."
+          "note": "Allez en diagonale vers les sorties.",
+          "altimage": "Long zone, with multiple levels."
         },
         {
-          "altimage": "Grandes zones avec plusieurs niveaux.",
           "name": "The Temple of Decay Level 2",
-          "note": "Tuez Arakaali, Spinner of Shadows."
+          "note": "Tuez Arakaali, Spinner of Shadows.",
+          "altimage": "Grandes zones avec plusieurs niveaux."
         }
       ]
     },
     {
-      "act": "Act VIII",
-      "actid": 8,
+      "actId": 8,
+      "actName": "Act VIII",
       "zones": [
         {
-          "altimage": "Linear layout.",
           "name": "The Sarn Ramparts",
-          "note": "Left hand wall-follow to the stairs, go up the stairs and follow the wall to the end."
+          "note": "Suivez le mur a main gauche jusqu'aux escalier, montez et suivez le mur jusqu'au bout.\nAllez directement à The Toxic Conduits.",
+          "altimage": "Linear layout."
         },
         {
           "name": "The Toxic Conduits",
-          "note": "Watch the black paint on the floor as you enter the zone to see in which direction it points you."
+          "note": "En entrant, observez la peinture noire sur le sol et suivez la direction qu'elle vous indique."
         },
         {
           "name": "Doedre's Cesspool",
-          "note": "Try to find the path that doesn’t have a dead end, this should lead you all the way to the exit.After you kill Doedre, find the waypoint. The Grand Promenade is on the left, The Quay on the right."
+          "note": "Essayez de trouver le chemin qui n'a pas d'impasse.\nAprès avoir tué Doedre, trouvez le waypoint.\n1) The Quay sur la droite.\n2) The Grand Promenade est à gauche\n"
         },
         {
-          "altimage": "Fairly static and linear zone.",
           "name": "The Grand Promenade",
-          "note": "Wall-follow the right hand side."
+          "note": "Suivez le mur à main droite.",
+          "altimage": "Fairly static and linear zone."
         },
         {
           "name": "The Quay",
-          "note": "Pick up the quest item at (1), to use in the arena (2), then leave the arena and find the exit at (3)."
+          "note": "Prenez l'objet de quête à (1), l'utiliser dans l'arène (2), sortez de l'arène et trouvez la sortie en (3)."
         },
         {
           "name": "The Grain Gate",
-          "note": "This zone has many buildings, only enter and leave buildings through openings that have a guard’s corpse next to it, they lead the way, kill the gemlings."
+          "note": "Cette zone a de nombreux bâtiments, n'entrez et sortez des bâtiments que par des ouvertures qui ont le cadavre d'un garde à côté, ils ouvrent la voie.\nTuer the gemlings et allez à The Imperial Fields."
         },
         {
-          "altimage": "Linear layout if you stay in the road until it ends.",
           "name": "The Imperial Fields",
-          "note": "Follow the road until the end, then keep on going that direction."
+          "note": "Suivre la route jusqu'à sa fin et continuer dans la même direction et entrez dans The Solaris Temple Level 1.",
+          "altimage": "Linear layout if you stay in the road until it ends."
         },
         {
           "name": "The Solaris Temple Level 1",
-          "note": "Go down and left, then up and left, there is a waypoint on the path."
+          "note": "Descendez et à gauche, puis en haut et à gauche, il y a un waypoint sur le chemin."
         },
         {
           "name": "The Solaris Temple Level 2",
-          "note": "Follow the carpets, quest boss Dawn at the end, capped fire resistance is recommended."
+          "note": "Suivez les tapis, la quête du boss Dawn à la fin, une résistance au feu plafonnée est recommandée.\nPrenez la Sun Orb.\nPrenez la recette.\nLogout et Allez à The Toxic Conduits."
         },
         {
-          "altimage": "Linear layout",
           "name": "The Solaris Concourse",
-          "note": "Usually take the waypoint, and either proceed to boss, or go back to town and clear the Lunaris area."
+          "note": "Prenez généralement le waypoint et dirigez-vous vers le boss ou retournez en ville et nettoyez la zone de Lunaris.",
+          "altimage": "Linear layout"
         },
         {
           "name": "The Bath House",
-          "note": "There is a trial here, and the Wings of Vastiri quest, there is also a way to the Yugul god fight (2), but I would suggest doing this later. The exit is always on the right side"
+          "note": "Il y a un trial ici, et la quête the Wings of Vastiri quest, il y a aussi un moyen de combattre the Yugul god (2), mais je suggérerais de le faire plus tard. \nLa sortie est toujours du côté droit, allez à The Lunaris Concourse."
         },
         {
-          "altimage": "Linear layout",
           "name": "The High Gardens",
-          "note": "Run to the end of the area and fight the boss for a passive minor and pantheon node."
+          "note": "Courez jusqu'au bout de la zone et combattez le boss pour un point passif et un nœud de panthéon.",
+          "altimage": "Linear layout"
         },
         {
           "name": "The Lunaris Concourse",
-          "note": "Go up and right for the waypoint, then up and left for the entrance. If this is your second visit go down and right to the exit."
+          "note": "1) Montez et à droite pour le waypoint, puis en haut et à gauche pour l'entrée, allez à The Lunaris Temple Level 1. \n2) Descendez et allez à droite jusqu'à la sortie, allez The Harbour Bridge."
         },
         {
           "name": "The Lunaris Temple Level 1",
-          "note": ""
+          "note": "Suivez les tapis."
         },
         {
           "name": "The Lunaris Temple Level 2",
-          "note": ""
+          "note": "Toujours suivre les chemins qui montent.\nTuez le boss et ramassez la Moon Orb.\nPrenez la recette.\nlogout et allez à The Lunaris Concourse."
         },
         {
-          "altimage": "Linear layout.",
           "name": "The Harbour Bridge",
-          "note": "Go top right(or left depends from where you enter) to find the arena with Solaris and Lunaris, capped fire and cold resistance is recommended."
+          "note": "Allez en haut à droite (ou à gauche selon l'endroit où vous entrez) pour trouver l'arène avec Solaris et Lunaris, une résistance au feu et au froid plafonnée est recommandée.",
+          "altimage": "Linear layout."
         }
       ]
     },
     {
-      "act": "Act IX",
-      "actid": 9,
+      "actId": 9,
+      "actName": "Act IX",
       "zones": [
         {
-          "altimage": "Linear layout",
           "name": "The Blood Aqueduct",
-          "note": "Go to the top left, cross the bridges on dead ends. As a league start you probably want to farm this zone for Humility cards -> Tabula Rasa. If you are past level 73-74, and havent completed your Humility, you are better off buying the cards you are missing.(ssf-btw)"
+          "note": "Allez en haut à gauche, traversez les ponts dans des impasses. \nAu début de la ligue, vous voudrez probablement refaire cette zone pour les cartes Humilité -> Tabula Rasa.\nSi vous avez dépassé le niveau 73-74 et que vous n'avez pas terminé votre Humilité, vous feriez mieux d'acheter les cartes qui vous manquent. \nAllez à The Descent.",
+          "altimage": "Linear layout"
         },
         {
           "name": "The Descent",
@@ -624,9 +624,9 @@
           "note": " Head up to find the waypoint, go to (1) to get the quest item in The Boiling Lake, then to (2) for The Tunnel to continue the story."
         },
         {
-          "altimage": "Linear layout",
           "name": "The Boiling Lake",
-          "note": "Go to the top right zone for the quest boss, if you spot petrified men, you are close. After killing the Basilisk, go to town and teleport to the waypoint in The Foothills and go to the top left corner of the zone."
+          "note": "Go to the top right zone for the quest boss, if you spot petrified men, you are close. After killing the Basilisk, go to town and teleport to the waypoint in The Foothills and go to the top left corner of the zone.",
+          "altimage": "Linear layout"
         },
         {
           "name": "The Tunnel",
@@ -645,20 +645,20 @@
           "note": " Try to reach the top left part of the zone in The Belly of The Beast, this leads to The Rotting core which is fairly static, and where you will want to go top left again, then you have The Black Heart where there are three boss zones with a linear path to them. Kill ‘em all, then fight the Depraved Trinity act boss after entering at the center."
         },
         {
-          "altimage": "Linear with deadends.",
           "name": "The Rotting Core",
-          "note": "Find the boss arena."
+          "note": "Find the boss arena.",
+          "altimage": "Linear with deadends."
         }
       ]
     },
     {
-      "act": "Act X",
-      "actid": 10,
+      "actId": 10,
+      "actName": "Act X",
       "zones": [
         {
-          "altimage": "Linear layout.",
           "name": "The Cathedral Rooftop",
-          "note": "Go up to save Bannon, back to town, then go to down right."
+          "note": "Go up to save Bannon, back to town, then go to down right.",
+          "altimage": "Linear layout."
         },
         {
           "name": "The Ravaged Square",
@@ -673,55 +673,77 @@
           "note": "Right hand wall-follow until you come to a crossroads with four pillars, then go straight and up."
         },
         {
-          "altimage": "Optional, static layout, quest boss for a skill point.",
           "name": "The Control Blocks",
-          "note": "Right hand wall-follow all the way to the end. Use movement skills to jump through fences."
+          "note": "Right hand wall-follow all the way to the end. Use movement skills to jump through fences.",
+          "altimage": "Optional, static layout, quest boss for a skill point."
         },
         {
-          "altimage": "Linear Layout",
           "name": "The Ossuary",
-          "note": "There is a trial here. Left hand wall follow to find the quest item and trial. The trial entrance is in the opening in the wall, the quest item is close to that opening, but you move away from the wall to find it."
+          "note": "There is a trial here. Left hand wall follow to find the quest item and trial. The trial entrance is in the opening in the wall, the quest item is close to that opening, but you move away from the wall to find it.",
+          "altimage": "Linear Layout"
         },
         {
-          "altimage": "Large fairly static layout, random quest item spawn location, movement skills that can cross gaps recommended.",
           "name": "The Reliquary",
-          "note": "The item is always on the edge or a corner, to my experience it’s mostly the right side."
+          "note": "The item is always on the edge or a corner, to my experience it’s mostly the right side.",
+          "altimage": "Large fairly static layout, random quest item spawn location, movement skills that can cross gaps recommended."
         },
         {
-          "altimage": "Fairly linear layout",
           "name": "The Canals",
-          "note": "Move top left, follow the road, cross bridges when you see them."
+          "note": "Move top left, follow the road, cross bridges when you see them.",
+          "altimage": "Fairly linear layout"
         },
         {
-          "altimage": "Linear layout.",
           "name": "The Feeding Trough",
-          "note": "Move top left, there shouldn’t be any diversions, kill Kitava at the end to unlock maps."
+          "note": "Move top left, there shouldn’t be any diversions, kill Kitava at the end to unlock maps.",
+          "altimage": "Linear layout."
         }
       ]
     },
     {
-      "act": "Epilogue",
-      "actid": 11,
+      "actId": 11,
+      "actName": "Epilogue",
       "zones": [
         {
-          "altimage": "Pas encore la fin !",
           "name": "Oriath",
-          "note": "You can find a crafting recipe to the West stairs, where Helena stands. Then travel to the East to find Eternal Laboratory and unlock Zana missions. Have fun with end game :)"
+          "note": "You can find a crafting recipe to the West stairs, where Helena stands. Then travel to the East to find Eternal Laboratory and unlock Zana missions. Have fun with end game :)",
+          "altimage": "Pas encore la fin !"
         },
         {
-          "altimage": "",
           "name": "The Templar Laboratory",
-          "note": ""
+          "note": "",
+          "altimage": ""
         },
         {
-          "altimage": "",
           "name": "The Fallen Courts",
-          "note": ""
+          "note": "",
+          "altimage": ""
         },
         {
-          "altimage": "",
           "name": "The Haunted Reliquary",
-          "note": ""
+          "note": "",
+          "altimage": ""
+        }
+      ]
+    },
+    {
+      "actId": 50,
+      "actName": "Labyrinth",
+      "zones": [
+        {
+          "name": "Aspirants' Plaza",
+          "note": "test",
+          "altimage": "Parcourez le Lab."
+        }
+      ]
+    },
+    {
+      "actId": 13,
+      "actName": "Maps",
+      "zones": [
+        {
+          "name": "Maps",
+          "note": "",
+          "altimage": ""
         }
       ]
     }

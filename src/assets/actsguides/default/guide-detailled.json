@@ -1,7 +1,7 @@
 {
   "acts": [
     {
-      "actid": 1,
+      "actId": 1,
       "zones": [
         {
           "name": "The Coast",
@@ -62,7 +62,7 @@
       ]
     },
     {
-      "actid": 10,
+      "actId": 10,
       "zones": [
         {
           "name": "The Ravaged Square",
@@ -99,7 +99,7 @@
       ]
     },
     {
-      "actid": 11,
+      "actId": 11,
       "zones": [
         {
           "name": "The Fallen Courts",
@@ -112,7 +112,7 @@
       ]
     },
     {
-      "actid": 2,
+      "actId": 2,
       "zones": [
         {
           "name": "The Old Fields",
@@ -185,7 +185,7 @@
       ]
     },
     {
-      "actid": 3,
+      "actId": 3,
       "zones": [
         {
           "name": "The Slums",
@@ -258,7 +258,7 @@
       ]
     },
     {
-      "actid": 4,
+      "actId": 4,
       "zones": [
         {
           "name": "The Dried Lake",
@@ -311,7 +311,7 @@
       ]
     },
     {
-      "actid": 5,
+      "actId": 5,
       "zones": [
         {
           "name": "The Control Blocks",
@@ -352,7 +352,7 @@
       ]
     },
     {
-      "actid": 6,
+      "actId": 6,
       "zones": [
         {
           "name": "The Coast",
@@ -417,7 +417,7 @@
       ]
     },
     {
-      "actid": 7,
+      "actId": 7,
       "zones": [
         {
           "name": "The Crossroads",
@@ -474,7 +474,7 @@
       ]
     },
     {
-      "actid": 8,
+      "actId": 8,
       "zones": [
         {
           "name": "The Toxic Conduits",
@@ -539,7 +539,7 @@
       ]
     },
     {
-      "actid": 9,
+      "actId": 9,
       "zones": [
         {
           "name": "The Descent",
