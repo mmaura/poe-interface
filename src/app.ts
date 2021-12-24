@@ -48,8 +48,8 @@ app.whenReady().then(async () => {
 
   AppStore.onDidChange("poe_log_path", newValue => {
     CreatePoeLog(newValue as string)
-    if (!levelingGuideWindow) levelingGuideWindow = new LevelingWindow(AppStore, AppIcon)
-    levelingGuideWindow.setPoeLog(PoeLog)
+    // if (!levelingGuideWindow) levelingGuideWindow = new LevelingWindow(AppStore, AppIcon)
+    if (levelingGuideWindow) levelingGuideWindow.setPoeLog(PoeLog)
     //levelingGuideWindow.show()
   })
 
@@ -74,9 +74,9 @@ app.whenReady().then(async () => {
     configWindow.show()
   } else {
     CreatePoeLog(configWindow.getPoeLogPath())
-    levelingGuideWindow = new LevelingWindow(AppStore, AppIcon)
-    levelingGuideWindow.setPoeLog(PoeLog)
-    levelingGuideWindow.show()
+    // levelingGuideWindow = new LevelingWindow(AppStore, AppIcon)
+    // levelingGuideWindow.setPoeLog(PoeLog)
+    // levelingGuideWindow.show()
   }
 
   function PoeLogParseComplete() {
@@ -91,10 +91,12 @@ app.whenReady().then(async () => {
       urgency: "low",
       icon: AppIcon,
     }).show()
-
-    if (!levelingGuideWindow) levelingGuideWindow = new LevelingWindow(AppStore, AppIcon)
-    levelingGuideWindow.show()
   }
+
+  if (!levelingGuideWindow) levelingGuideWindow = new LevelingWindow(AppStore, AppIcon)
+  levelingGuideWindow.setPoeLog(PoeLog)
+  levelingGuideWindow.show()
+
 })
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.

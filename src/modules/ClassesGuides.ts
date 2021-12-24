@@ -353,7 +353,7 @@ export class ClassesGuides extends Guides<IClassesGuide>{
     const baseDirs = fs.readdirSync(buildPath, { withFileTypes: true })
     const ClassGuide = {} as IClassesGuide
 
-    const classFile = ini.parse(fs.readFileSync(path.join(buildPath, "gems", "class.ini")).toString())
+    const classFile = ini.parse(fs.readFileSync(path.join(buildPath, "gems", "class.ini")).toString('utf16le'))
 
     const match = buildPath.split(path.sep)[buildPath.split(path.sep).length - 1].match(/([0-9]\.[0-9]{2})\s(.*)/)
     MyLogger.log('importGuide', `Identity match in folder name: (${match[0]} )`)
@@ -434,6 +434,20 @@ export class ClassesGuides extends Guides<IClassesGuide>{
           this.appendPOELevelingGuideGemFiles(ClassGuide, Number(gemsIniFilesAct), ...gemsIniFilesActs[gemsIniFilesAct])
         }
 
+        //read the Act X/guide.txt if exist
+        let guideTxtFile
+        let guideTxtFileContent = undefined
+
+        for (let i = 1; i < 12; i++) {
+          guideTxtFile = path.join(buildPath, `Act ${i}`, 'guide.txt')
+          if (fs.existsSync(guideTxtFile)) {
+            guideTxtFileContent = fs.readFileSync(guideTxtFile)
+            let guideAct = ClassGuide.acts.find(a => a.actId === i)
+            if (!guideAct) ClassGuide.acts.push(guideAct = { actId: i, gears: [] as IClassesGuideGear[] } as IClassesGuideAct)
+            guideAct.notes = guideTxtFileContent.toString().trim().replace(/^\s*\n/gm, "")
+          }
+        }
+
         // copy empty act gears with previous act gears
         for (const skelAct of this.ActsZonesSkeleton.acts.sort((a, b) => a.actId - b.actId)) {
           if (!ClassGuide.acts.find(a => a.actId === skelAct.actId)) ClassGuide.acts.push({ actId: skelAct.actId, gears: [] })
@@ -452,13 +466,12 @@ export class ClassesGuides extends Guides<IClassesGuide>{
             }
         }
 
-
         const ascendancy = fs.readFileSync(path.join(buildPath, "ascendancy.txt"))
         if (ascendancy) ClassGuide.acts.push({ actId: 50, notes: `${ascendancy.toString()} `, gears: [] })
 
         const info = fs.readFileSync(path.join(buildPath, "build_info.txt"))
         if (info) {
-          ClassGuide.acts.find(a => a.actId === 1).notes = `${info.toString()}`
+          ClassGuide.acts.find(a => a.actId === 1).notes = ClassGuide.acts.find(a => a.actId === 1).notes.concat(info.toString().trim().replace(/^\s*\n/gm, ""))
 
           const url = info.toString().match(/(http[s]:\/\/.*)/)
           if ((url) && (url.length > 0)) ClassGuide.identity.url = url[0]
@@ -504,7 +517,8 @@ export class ClassesGuides extends Guides<IClassesGuide>{
 
   appendPOELevelingGuideGemFiles(ClassGuide: IClassesGuide, actId: number, ...initFiles: string[]): void {
     for (const initFile of initFiles) {
-      const gemFile = ini.parse(`\n${fs.readFileSync(initFile).toString().replace('\ufeff', '')} `) //remove utf16 char
+      // const gemFile = ini.parse(`\n${fs.readFileSync(initFile).toString().replace('\ufeff', '').replace('\ufffe', '')} `) //remove utf16 char
+      const gemFile = ini.parse(`\n${fs.readFileSync(initFile).toString('utf16le').replace('\ufeff', '')} `)
       for (const gem in gemFile) {
         if (gemFile[gem].gem && gemFile[gem].gem !== '') {
           let guideAct = {} as IClassesGuideAct
@@ -517,10 +531,10 @@ export class ClassesGuides extends Guides<IClassesGuide>{
           if (!guideAct.gears) guideAct.gears = [] as IClassesGuideGear[]
 
           let guideGear
-          guideGear = guideAct.gears.find(g => g.name === gem.substr(0, gem.length - 1))
+          guideGear = guideAct.gears.find(g => g.name === gem.slice(0, gem.length - 1))
           if (!guideGear) guideAct.gears.push(guideGear = {} as IClassesGuideGear)
 
-          guideGear.name = gem.substr(0, gem.length - 1)
+          guideGear.name = gem.slice(0, gem.length - 1)
 
           if ((!guideGear.gem_info) || (!guideGear.gem_info.find(g => g.name === gemFile[gem].gem))) {
             let note = ""

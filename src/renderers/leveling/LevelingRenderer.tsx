@@ -61,11 +61,11 @@ function App(props: { Init: any }) {
     }
   }, [curZoneName, curAct, actsGuide])
 
-  const changeToPlayerArea = useCallback(() => {
+  const changeToPlayerArea = useCallback((curPlayer : IAppPlayer) => {
     console.log("**Callback [changeToPlayerArea]")
     if (curActID !== curPlayer.currentZoneAct) {
       setcurActID(curPlayer.currentZoneAct)
-      console.log(`setcurActID: ${curAct} ${curPlayer.currentZoneAct}`)
+      console.log(`setcurActID: ${curAct} %a`, curPlayer.currentZoneAct)
 
       const _act = actsGuide.acts.find(act => act.actId === curPlayer.currentZoneAct)
       if (_act) {
@@ -85,7 +85,7 @@ function App(props: { Init: any }) {
         setcurZoneName(curPlayer.currentZoneName)
       }
     }
-  }, [curPlayer, actsGuide])
+  }, [actsGuide, curActID])
 
   // const prevZone = useCallback(() => {
   //   const index = curAct.zones.findIndex(z => z.name === curZoneName)
@@ -207,14 +207,14 @@ function App(props: { Init: any }) {
         case "poeParseComplete":
           setcurPlayer(arg[1])
           setpoeLogLoaded(true)
-          changeToPlayerArea()
+          changeToPlayerArea(arg[1])
           break
         case "playerLevelUp":
           setcurPlayer(arg[1])
           break
         case "playerAreaChange":
           setcurPlayer(arg[1])
-          changeToPlayerArea()
+          changeToPlayerArea(arg[1])
           break
         case "ClassGuide":
           switch (arg[1]) {
