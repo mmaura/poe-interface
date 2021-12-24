@@ -76,7 +76,6 @@ export class LevelingWindow {
         this._Window.webContents.openDevTools({ mode: "detach" })
       }
       this._Window.setBounds(this._AppStore.get("levelingWinBounds", { x: 1, y: 1, width: 1400, height: 980 }) as Rectangle)
-      this._Window.webContents.openDevTools({ mode: "detach" })
 
       /************************
         * Class Guides Events
@@ -451,7 +450,7 @@ export class LevelingWindow {
         label: "Web sites",
         submenu: [
           {
-            label: "PathOfExile",
+            label: "Path Of Exile - Official",
             click: () => {
               shell.openExternal("https://www.pathofexile.com/")
             },
@@ -463,7 +462,7 @@ export class LevelingWindow {
             },
           },
           {
-            label: "PathOfExile Trade",
+            label: "Path Of Exile - Trade",
             click: () => {
               shell.openExternal("https://www.pathofexile.com/trade/")
             },
