@@ -19,6 +19,7 @@ lorsqu'elles sont achetées (stashAPI avec le cookie sessionID)
 * tester
 * packager en local
 * mettre a jour le numéro de version dans package.json
+* commit les modifications
 * creer le tag local 
 ```git tag -s -a v0.1.2 -m "auto-release"```
 * push en tagant (déclenchera la creation des releases)
