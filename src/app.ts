@@ -1,4 +1,4 @@
-import { app, Tray, shell, Menu, Notification, nativeImage, protocol } from "electron"
+import { app, Tray, shell, Menu, Notification, nativeImage, protocol, ipcMain } from "electron"
 
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer'
 import PathOfExileLog from "poe-log-monitor"
@@ -42,22 +42,21 @@ app.whenReady().then(async () => {
   }
 
   protocol.registerFileProtocol("userdata", (request, callback) => {
-    const url = request.url.substr(9)
+    const url = request.url.slice(9)
     callback({ path: decodeURI(path.normalize(`${getLocalCustomPath()}/${url}`)) })
+  })
+
+  levelingGuideWindow = new LevelingWindow(AppStore, AppIcon)
+  levelingGuideWindow.Init()
+
+  configWindow = new ConfigWindow(AppStore, AppIcon)
+
+  ipcMain.on("showConfigWindow", () => {
+    configWindow.show()
   })
 
   AppStore.onDidChange("poe_log_path", newValue => {
     CreatePoeLog(newValue as string)
-    if (!levelingGuideWindow && PoeLog) {
-      levelingGuideWindow = new LevelingWindow(AppStore, AppIcon)
-      levelingGuideWindow.setPoeLog(PoeLog)
-      levelingGuideWindow.show()
-    }
-    else
-      levelingGuideWindow.setPoeLog(PoeLog)
-    // if (!levelingGuideWindow) levelingGuideWindow = new LevelingWindow(AppStore, AppIcon)
-    // if (levelingGuideWindow) levelingGuideWindow.setPoeLog(PoeLog)
-    //levelingGuideWindow.show()
   })
 
   function CreatePoeLog(logPath: string) {
@@ -72,25 +71,17 @@ app.whenReady().then(async () => {
       PoeLog.start()
       PoeLog.parseLog()
       PoeLog.on("parsingComplete", PoeLogParseComplete)
-    }
-  }
 
-  configWindow = new ConfigWindow(AppStore, AppIcon)
-
-  if (!fs.existsSync(configWindow.getPoeLogPath())) {
-    configWindow.show()
-  }
-  else {
-    CreatePoeLog(configWindow.getPoeLogPath())
-    if (!levelingGuideWindow && PoeLog) {
-      levelingGuideWindow = new LevelingWindow(AppStore, AppIcon)
       levelingGuideWindow.setPoeLog(PoeLog)
-      levelingGuideWindow.show()
+      if (!levelingGuideWindow._Window.isVisible()) levelingGuideWindow.show()
     }
-    // levelingGuideWindow = new LevelingWindow(AppStore, AppIcon)
-    // levelingGuideWindow.setPoeLog(PoeLog)
-    // levelingGuideWindow.show()
   }
+
+  if (!fs.existsSync(configWindow.getPoeLogPath()))
+    configWindow.show()
+  else
+    CreatePoeLog(configWindow.getPoeLogPath())
+
 
   function PoeLogParseComplete() {
     TrayMenu.getMenuItemById("levelingID").enabled = true
@@ -106,7 +97,7 @@ app.whenReady().then(async () => {
     }).show()
   }
 
-  
+
 })
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.

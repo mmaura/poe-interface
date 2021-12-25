@@ -230,13 +230,14 @@ export function GemBuyList(props: { curGuide: IClassesGuide }): JSX.Element {
       curGuide.acts
         .filter(act => act.actId === curAct.actId || showAll)
         .map(act =>
-          act.gears.map(gear =>
-            gear.gems.map(_gem => {
+          act.gears.map((gear,grindex) =>
+            gear.gems.map((_gem, gindex) => {
               if (
-                ((_gem.is_new && (Math.abs(_gem.required_level - curPlayer.level) < lvlRange)) || showAll) &&
+                ((_gem.is_new && Math.abs(_gem.required_level - curPlayer.level) < lvlRange) || showAll) &&
                 !_gems.find(g => g.label === _gem.label) &&
                 _gem.is_socket === false
               ) {
+                _gem.key = `${grindex}-${gindex}-${_gem.key}`
                 _gems.push(_gem)
               }
             })
@@ -272,16 +273,15 @@ export function GemBuyList(props: { curGuide: IClassesGuide }): JSX.Element {
         <div className="overflow-y-auto h-80 max-h-80">
           {gemsListToShow.map(_gem => {
             return (
-              <div className="flex flex-row gap-2">
+              <div key={`gemElem-${_gem.key}`} className="flex flex-row gap-2">
                 <GemListElement
-                  key={_gem.name}
                   selected={false}
                   gem={_gem}
                   selectGem={() => {
                     return
                   }}
                 />
-                <RewardsList gem={_gem} />
+                <RewardsList key={`rewardList-${_gem.key}`} gem={_gem} />
               </div>
             )
           })}
@@ -297,17 +297,17 @@ function RewardsList(props: { gem: IGemList }): JSX.Element {
 
   return (
     <div className="flex flex-col bg-gradient-to-l to-poe-96 via-transparent from-poe-97  border-poe-1 border-0 border-b-2 w-full">
-      {gem.quest_rewards.map(g => {
+      {gem.quest_rewards.map((reward, index) => {
         return (
-          <div className="flex flex-row">
-            <RewardsItem reward={g} is_vendor={false} />
+          <div key={`1-rewardItem-${gem.key}-${index}`} className="flex flex-row">
+            <RewardsItem  reward={reward} is_vendor={false} />
           </div>
         )
       })}
-      {gem.vendor_rewards.map(g => {
+      {gem.vendor_rewards.map((reward, index) => {
         return (
-          <div className={`flex flex-row `}>
-            <RewardsItem reward={g} is_vendor={true} />
+          <div key={`1-rewardItem-${gem.key}-${index}`} className={`flex flex-row `}>
+            <RewardsItem  reward={reward} is_vendor={true} />
           </div>
         )
       })}
@@ -340,8 +340,8 @@ function RewardsItem(props: { reward: Reward; is_vendor: boolean }): JSX.Element
   else
     return (
       <p>
-        <span className="text-poe-60">Reward</span> for quest <span className="text-poe-60">{reward.quest}</span> {reward.actId && `(act ${reward.actId})`} for (
-        {classes}).
+        <span className="text-poe-60">Reward</span> for quest <span className="text-poe-60">{reward.quest}</span>{" "}
+        {reward.actId && `(act ${reward.actId})`} for ({classes}).
       </p>
     )
 }
@@ -434,7 +434,7 @@ export function Gem(props: {
       data-effect="solid"
       data-place="left"
       data-delay-hide="1000"
-      className={`relative h-socket`} >
+      className={`relative h-socket`}>
       <ReactTooltip key={curGem.key} />
       <img
         data-tip={tipText}

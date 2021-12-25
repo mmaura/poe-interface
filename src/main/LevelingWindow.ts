@@ -17,7 +17,7 @@ declare const LEVELING_WINDOW_WEBPACK_ENTRY: string
 declare const LEVELING_WINDOW_PRELOAD_WEBPACK_ENTRY: never
 
 export class LevelingWindow {
-  protected _Window: BrowserWindow
+  public _Window: BrowserWindow
   protected _Menu: Menu
   protected _Icon: NativeImage
 
@@ -65,7 +65,9 @@ export class LevelingWindow {
         preload: LEVELING_WINDOW_PRELOAD_WEBPACK_ENTRY,
       }
     })
+  }
 
+  async Init(): Promise<void> {
     this.LoadData().finally(() => {
       MyLogger.info("All data loaded.")
 
@@ -114,13 +116,6 @@ export class LevelingWindow {
         this._AppStore.set("curActsGuide", guide.identity.filename)
         this.makeMenus()
       }))
-
-
-      // this.ActsGuides.on("GuideMerged", (guide => {
-      //   this._Window.webContents.send("levelingRenderer", ["ActsGuide", this.ActsGuides.getCurMergedGuide()])
-      //   this._AppStore.set("curActsGuide", guide.identity.filename)
-      //   this.makeMenus()
-      // }))
     }).catch(e => {
       MyLogger.log('info', `Error during initialising and loading data : ${e}`)
     })
@@ -399,6 +394,12 @@ export class LevelingWindow {
             label: "Open Custom directory",
             click: () => {
               this.OpenCustomDir()
+            },
+          },
+          {
+            label: "Show Configuration window",
+            click: () => {
+              ipcMain.emit("showConfigWindow")
             },
           },
           {

@@ -361,7 +361,7 @@ function App(props: { Init: any }) {
                     />
                   </div>
                   <div className="flex flex-col flex-grow gap-2">
-                    <GemBuyList curGuide={classGuide} />
+                    <GemBuyList key={'GemBuyList'} curGuide={classGuide} />
                   </div>
                 </div>
               </div>
