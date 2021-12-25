@@ -11,8 +11,10 @@ If you prefer Overlay application you probably want [PoE-Leveling-Guide](https:/
 * Track character progression.
 * Automatically change acts and zones.
 * Images of the zones (the same as the other leveling guides), thanks to those who made them.
-* Customizable Notes of areas.
+* Customizable and editor Notes of areas.
+* Customizable and editor Classes guide.
 * Fully customizable items and gems for each act.
+* Import Guide from [PoE-Leveling-Guide](https://github.com/JusKillmeQik/PoE-Leveling-Guide).
 
 ### Helpers
 * Displays help in the form of images (Ultimatum, Heist, Delve, Vendors Recipes, ...)

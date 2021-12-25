@@ -1,7 +1,7 @@
 {
   "identity": {
-    "name": "modele",
-    "lang": "fr",
+    "name": "Vatinas' Spiders + HoP Guardian - CI",
+    "lang": "en",
     "game_version": 3.16,
     "class": "Guardian",
     "url": "https://www.pathofexile.com/forum/view-thread/2554248"
@@ -10,7 +10,7 @@
     {
       "actId": 1,
       "actName": "Act I",
-      "notes": "N'oubliez pas de faire The Tidal Island pour la avoir la <b>Quicksilver Flask</b>.<br>Essayez d'avoir des bases ES avec de la vie dessus, ainsi que quelques résistances. Les boucliers armor-ES sont également une bonne option en raison de leur résistance élémentaire implicite.",
+      "notes": "Once you're done showing Hillock who's the real #nopantslife master, grab Smite as quest reward and buy Raise Zombies from Nessa. Remember to do the Tidal Island quest to get a Quicksilver flask, as well as Ruthless for your Zombies.\n\nOnce you've completed the Mud Flats, Nessa will give you Summon Holy Relic, which will be our main damage dealer, and heal you and your zombies as you hit (for now, with Smite).\n\nIf you find the currency for it, and have the required sockets/links, you can also buy the following gems according to your preferences: Frostblink, Minion Damage / Added Fire Damage for your Relic.\n\nIn terms of items, try to get ES bases with life on them, as well as some resistances. The armour-ES shields are also a good option due to their elemental resistance implicit. Don't waste your precious scrolls of wisdom or transmutes on your weapon though; the Twilight Strand stick does the trick just fine!",
       "gears": [
         {
           "name": "Sort principal",
@@ -25,10 +25,10 @@
           ]
         },
         {
-          "name": "Utilitaire",
+          "name": "Utilitaire (boots)",
           "gem_info": [
             {
-              "name": "Flame Dash"
+              "name": "Frostblink"
             },
             {
               "name": "Green Socket"
@@ -45,12 +45,10 @@
               "name": "Ruthless"
             },
             {
-              "name": "Minion Damage",
-              "note": "2 bis"
+              "name": "Minion Damage Support"
             },
             {
-              "name": "Added Fire Damage",
-              "note": "2 bis"
+              "name": "Added Fire Damage Support"
             }
           ],
           "notes": "Mettez en fonction de vos préférences Minions ou Fire Damages"
@@ -60,7 +58,7 @@
     {
       "actId": 2,
       "actName": "Act II",
-      "notes": "Herald Of Purity après The Chamber of Sins Level 2. Attention à la réservation de mana, 2 gems de support maximum recommandées.",
+      "notes": "After the Chamber of Sins, get Herald of Purity and support it with one or two support gems you might have, like Minion Damage, Added Fire Damage, or Melee Physical Damage once you get it (after killing the big spider in the Western Forest's lair). Be aware though that the more support gems on it, the higher the mana reservation, so I don't recommend using more than two. You will also need to buy Desecrate, after the Chamber of Sins too, so you can summon your Zombies reliably (and your spider later in the game). You might need to get a Jade amulet from Yeena, or allocate a 30 dex node in the skill tree to use it.",
       "gears": [
         {
           "name": "Herald of Purity (Body)",
@@ -95,10 +93,10 @@
           ]
         },
         {
-          "name": "Utilitaire",
+          "name": "Utilitaire (boots)",
           "gem_info": [
             {
-              "name": "Flame Dash"
+              "name": "Frostblink"
             },
             {
               "name": "Desecrate"
@@ -113,10 +111,10 @@
           "notes": "L'amulette de jade auprès de Yeena donne 30dex"
         },
         {
-          "name": "Duration Gemmes (Gloves)",
+          "name": "Duration (Gloves)",
           "gem_info": [
             {
-              "name": "Blue Socket"
+              "name": "Tempest Shield"
             },
             {
               "name": "Red Socket"
@@ -140,6 +138,9 @@
           "gem_info": [
             {
               "name": "Melee Physical Damage"
+            },
+            {
+              "name": "Melee Splash Support"
             }
           ],
           "notes": "Gemmes à faire XP, sur le second set d'armes."
@@ -149,7 +150,7 @@
     {
       "actId": 3,
       "actName": "Act III",
-      "notes": "À partir du moment où vous commencerez à utiliser Rallying Cry, les dégâts physiques de base et une peu la vitesse d'attaque de votre arme deviennent nécessaires: c'est le moment de chercher une arme.",
+      "notes": "After \"rescuing\" Tolman, grab Discipline from Clarissa, as well as Rallying Cry, which will be a good damage buff. From the moment you start using the warcry, the base damage of your weapon will start to matter, so try to find one with decent physical damage. Attack speed is also somewhat important, so start looking out for a weapon with those stats. If you're so stinking rich that the weight of your purse is hurting your back, you can lighten it a bit by buying Determination and socketing it in a second weapon set so it's high level when you start using it.\n\nAt level 28, you will be able to use Cyclone. However, as a Templar, you cannot get it from Clarissa; you can either ask a friend with the right class to get it for you, or go do the \"A Fixture of Fate\" quest in the Library, helping Siosa who will then allow you to buy it. It will allow you to 1- hit enemies (and therefore trigger your Relic's nova) while moving, and 2- hit them really fast. However, you should sill try to use smite every few seconds versus bosses, as it will still provide a sizeable damage boost to your minions.",
       "gears": [
         {
           "name": "Herald of Purity (Body)",
@@ -184,16 +185,16 @@
           ]
         },
         {
-          "name": "Utilitaire",
+          "name": "Utilitaire (boots)",
           "gem_info": [
             {
-              "name": "Flame Dash"
+              "name": "Frostblink"
             },
             {
               "name": "Desecrate"
             },
             {
-              "name": "Discipline"
+              "name": "Tempest Shield"
             },
             {
               "name": "Red Socket"
@@ -202,19 +203,19 @@
           "notes": "L'amulette de jade auprès de Yeena donne 30dex"
         },
         {
-          "name": "Duration Gemmes (Gloves)",
+          "name": "Duration (Gloves)",
           "gem_info": [
             {
               "name": "Rallying Cry"
             },
             {
-              "name": "Flesh Offering"
+              "name": "Spirit Offering"
             },
             {
               "name": "Red Socket"
             },
             {
-              "name": "Red Socket"
+              "name": "Discipline"
             }
           ],
           "notes": ""
@@ -242,6 +243,12 @@
             },
             {
               "name": "Feeding Frenzy"
+            },
+            {
+              "name": "Blue Socket"
+            },
+            {
+              "name": "Melee Splash Support"
             }
           ],
           "notes": "Gemmes à faire XP, sur le second set d'armes."
@@ -251,7 +258,7 @@
     {
       "actId": 4,
       "actName": "Act IV",
-      "notes": "Après the cristal veins vous pourrez faire le trial si vous vous en sentez capable. Choisissez Radiant Crusade en premier, ca vous donnera quelques résistances, dommages, et le plus important, OnSlaught pour vos minions.",
+      "notes": "After killing Voll, grab a Stone Golem. It will greatly improve your survivability.\n\nAt that point, you should be able to run the normal lab very safely. Grab Radiant Crusade first, which will give you some resistances, damage, and more importantly permanent onslaught for you and your minions.",
       "gears": [
         {
           "name": "Herald of Purity (Body)",
@@ -281,10 +288,10 @@
               "name": "Green Socket"
             },
             {
-              "name": "Red Socket"
+              "name": "Reckoning"
             },
             {
-              "name": "Blue Socket"
+              "name": "Red Socket"
             }
           ]
         },
@@ -301,16 +308,16 @@
           ]
         },
         {
-          "name": "Utilitaire",
+          "name": "Utilitaire (boots)",
           "gem_info": [
             {
-              "name": "Flame Dash"
+              "name": "Frostblink"
             },
             {
               "name": "Desecrate"
             },
             {
-              "name": "Discipline"
+              "name": "Tempest Shield"
             },
             {
               "name": "Red Socket"
@@ -319,19 +326,19 @@
           "notes": ""
         },
         {
-          "name": "Duration Gemmes (Gloves)",
+          "name": "Duration (Gloves)",
           "gem_info": [
             {
               "name": "Rallying Cry"
             },
             {
-              "name": "Flesh Offering"
+              "name": "Spirit Offering"
             },
             {
               "name": "Summon Stone Golem"
             },
             {
-              "name": "Red Socket"
+              "name": "Discipline"
             }
           ],
           "notes": ""
@@ -361,7 +368,10 @@
               "name": "Feeding Frenzy"
             },
             {
-              "name": "Cast when Damage Taken"
+              "name": "Cast when Stunned Support"
+            },
+            {
+              "name": "Melee Splash Support"
             }
           ],
           "notes": "Gemmes à faire XP, sur le second set d'armes."
@@ -371,7 +381,7 @@
     {
       "actId": 5,
       "actName": "Act V",
-      "notes": "Rien de particulier surveillez les 4 links.",
+      "notes": "Nothing in particular, just keep looking out for item upgrades and 4 links.",
       "gears": [
         {
           "name": "Herald of Purity (Body)",
@@ -389,7 +399,7 @@
               "name": "Added Fire Damage"
             },
             {
-              "name": "Green Socket"
+              "name": "Blue Socket"
             },
             {
               "name": "Blue Socket"
@@ -407,15 +417,15 @@
               "name": "Green Socket"
             },
             {
-              "name": "Red Socket"
+              "name": "Reckoning"
             },
             {
-              "name": "Blue Socket"
+              "name": "Red Socket"
             }
           ]
         },
         {
-          "name": "Support",
+          "name": "Shield",
           "gem_info": [
             {
               "name": "Blue Socket"
@@ -424,7 +434,7 @@
               "name": "Blue Socket"
             },
             {
-              "name": "Red Socket"
+              "name": "Blue Socket"
             }
           ],
           "notes": "Bouclier si possible"
@@ -442,16 +452,16 @@
           ]
         },
         {
-          "name": "Utilitaire",
+          "name": "Utilitaire (boots)",
           "gem_info": [
             {
-              "name": "Flame Dash"
+              "name": "Frostblink"
             },
             {
               "name": "Desecrate"
             },
             {
-              "name": "Discipline"
+              "name": "Tempest Shield"
             },
             {
               "name": "Red Socket"
@@ -460,19 +470,19 @@
           "notes": ""
         },
         {
-          "name": "Duration Gemmes (Gloves)",
+          "name": "Duration (Gloves)",
           "gem_info": [
             {
               "name": "Rallying Cry"
             },
             {
-              "name": "Flesh Offering"
+              "name": "Spirit Offering"
             },
             {
               "name": "Summon Stone Golem"
             },
             {
-              "name": "Red Socket"
+              "name": "Discipline"
             }
           ],
           "notes": ""
@@ -508,7 +518,10 @@
               "name": "Feeding Frenzy"
             },
             {
-              "name": "Cast when Damage Taken"
+              "name": "Cast when Stunned Support"
+            },
+            {
+              "name": "Melee Splash Support"
             }
           ],
           "notes": "Gemmes à faire XP, sur le second set d'armes."
@@ -518,7 +531,7 @@
     {
       "actId": 6,
       "actName": "Act VI",
-      "notes": "Une fois que vous avez terminé The Twilight Strand, parlez à Lilly Roth pour obtenir Meat Shield, cela changera votre vie plus que vous ne le pensez. Minion Life aidera vos zombies à survivre, maintenant qu'ils subiront la plupart des coups.<br><u>Panthéon :</u><br>The Brine King's Reef : Soul of the Brine King<br>The Wetlands : Soul of Ryslatha",
+      "notes": "This is when you can get a lot of useful gems. Once you've cleared the Twilight Strand, talk to Lilly to get Meat Shield, which will make your Zombies taunt. This will change your life more than you think. Minion Life will help them survive, now that they'll be taking most of the hits.\n\nBe sure to use this break to check if you can grab better damage gems than those you have.\n\nFrom now on, the story is pretty straightforward, as you don't get any new gems.",
       "gears": [
         {
           "name": "Herald of Purity (Body)",
@@ -536,7 +549,7 @@
               "name": "Added Fire Damage"
             },
             {
-              "name": "Green Socket"
+              "name": "Predator Support"
             },
             {
               "name": "Blue Socket"
@@ -557,12 +570,12 @@
               "name": "Culling Strike"
             },
             {
-              "name": "Flame Dash"
+              "name": "Reckoning"
             }
           ]
         },
         {
-          "name": "Support",
+          "name": "Shield",
           "gem_info": [
             {
               "name": "Summon Holy Relic"
@@ -571,43 +584,43 @@
               "name": "Feeding Frenzy"
             },
             {
-              "name": "Cast when Damage Taken"
+              "name": "Cast when Stunned Support"
             }
           ],
           "notes": "Bouclier si possible"
         },
         {
-          "name": "Utilitaire",
+          "name": "Utilitaire (boots)",
           "gem_info": [
+            {
+              "name": "Frostblink"
+            },
+            {
+              "name": "Desecrate"
+            },
             {
               "name": "Tempest Shield"
             },
             {
-              "name": "Desecrate"
+              "name": "Determination"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Duration (Gloves)",
+          "gem_info": [
+            {
+              "name": "Spirit Offering"
+            },
+            {
+              "name": "Summon Stone Golem"
             },
             {
               "name": "Discipline"
             },
             {
               "name": "Molten Shell"
-            }
-          ],
-          "notes": ""
-        },
-        {
-          "name": "Duration Gemmes (Gloves)",
-          "gem_info": [
-            {
-              "name": "Rallying Cry"
-            },
-            {
-              "name": "Flesh Offering"
-            },
-            {
-              "name": "Summon Stone Golem"
-            },
-            {
-              "name": "Increased Duration"
             }
           ],
           "notes": ""
@@ -634,22 +647,16 @@
           "name": "XP",
           "gem_info": [
             {
-              "name": "Determination"
-            },
-            {
               "name": "Melee Physical Damage"
-            },
-            {
-              "name": "Vile Toxins"
-            },
-            {
-              "name": "Predator"
             },
             {
               "name": "Predator"
             },
             {
               "name": "Withering Touch"
+            },
+            {
+              "name": "Melee Splash Support"
             }
           ],
           "notes": "Gemmes à faire XP, sur le second set d'armes."
@@ -659,6 +666,7 @@
     {
       "actId": 7,
       "actName": "Act VII",
+      "notes": "Nothing worthy of noting, just run over the story like the pantsless bulldozer you are.\n\nRight before killing act 10 Kitava, I recommend running the cruel lab (before getting the resistance penalty, even though you should still be easily capped) to get Radiant Faith and start buffing up your ES.",
       "gears": [
         {
           "name": "Herald of Purity (Body)",
@@ -676,7 +684,7 @@
               "name": "Added Fire Damage"
             },
             {
-              "name": "Green Socket"
+              "name": "Predator Support"
             },
             {
               "name": "Blue Socket"
@@ -697,12 +705,12 @@
               "name": "Culling Strike"
             },
             {
-              "name": "Flame Dash"
+              "name": "Reckoning"
             }
           ]
         },
         {
-          "name": "Support",
+          "name": "Shield",
           "gem_info": [
             {
               "name": "Summon Holy Relic"
@@ -711,43 +719,43 @@
               "name": "Feeding Frenzy"
             },
             {
-              "name": "Cast when Damage Taken"
+              "name": "Cast when Stunned Support"
             }
           ],
           "notes": "Bouclier si possible"
         },
         {
-          "name": "Utilitaire",
+          "name": "Utilitaire (boots)",
           "gem_info": [
+            {
+              "name": "Frostblink"
+            },
+            {
+              "name": "Desecrate"
+            },
             {
               "name": "Tempest Shield"
             },
             {
-              "name": "Desecrate"
+              "name": "Determination"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Duration (Gloves)",
+          "gem_info": [
+            {
+              "name": "Spirit Offering"
+            },
+            {
+              "name": "Summon Stone Golem"
             },
             {
               "name": "Discipline"
             },
             {
               "name": "Molten Shell"
-            }
-          ],
-          "notes": ""
-        },
-        {
-          "name": "Duration Gemmes (Gloves)",
-          "gem_info": [
-            {
-              "name": "Rallying Cry"
-            },
-            {
-              "name": "Flesh Offering"
-            },
-            {
-              "name": "Summon Stone Golem"
-            },
-            {
-              "name": "Increased Duration"
             }
           ],
           "notes": ""
@@ -774,22 +782,16 @@
           "name": "XP",
           "gem_info": [
             {
-              "name": "Determination"
-            },
-            {
               "name": "Melee Physical Damage"
-            },
-            {
-              "name": "Vile Toxins"
-            },
-            {
-              "name": "Predator"
             },
             {
               "name": "Predator"
             },
             {
               "name": "Withering Touch"
+            },
+            {
+              "name": "Melee Splash Support"
             }
           ],
           "notes": "Gemmes à faire XP, sur le second set d'armes."
@@ -816,7 +818,7 @@
               "name": "Added Fire Damage"
             },
             {
-              "name": "Green Socket"
+              "name": "Predator Support"
             },
             {
               "name": "Blue Socket"
@@ -837,12 +839,12 @@
               "name": "Culling Strike"
             },
             {
-              "name": "Flame Dash"
+              "name": "Reckoning"
             }
           ]
         },
         {
-          "name": "Support",
+          "name": "Shield",
           "gem_info": [
             {
               "name": "Summon Holy Relic"
@@ -851,43 +853,43 @@
               "name": "Feeding Frenzy"
             },
             {
-              "name": "Cast when Damage Taken"
+              "name": "Cast when Stunned Support"
             }
           ],
           "notes": "Bouclier si possible"
         },
         {
-          "name": "Utilitaire",
+          "name": "Utilitaire (boots)",
           "gem_info": [
+            {
+              "name": "Frostblink"
+            },
+            {
+              "name": "Desecrate"
+            },
             {
               "name": "Tempest Shield"
             },
             {
-              "name": "Desecrate"
+              "name": "Determination"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Duration (Gloves)",
+          "gem_info": [
+            {
+              "name": "Spirit Offering"
+            },
+            {
+              "name": "Summon Stone Golem"
             },
             {
               "name": "Discipline"
             },
             {
               "name": "Molten Shell"
-            }
-          ],
-          "notes": ""
-        },
-        {
-          "name": "Duration Gemmes (Gloves)",
-          "gem_info": [
-            {
-              "name": "Rallying Cry"
-            },
-            {
-              "name": "Flesh Offering"
-            },
-            {
-              "name": "Summon Stone Golem"
-            },
-            {
-              "name": "Increased Duration"
             }
           ],
           "notes": ""
@@ -914,22 +916,16 @@
           "name": "XP",
           "gem_info": [
             {
-              "name": "Determination"
-            },
-            {
               "name": "Melee Physical Damage"
-            },
-            {
-              "name": "Vile Toxins"
-            },
-            {
-              "name": "Predator"
             },
             {
               "name": "Predator"
             },
             {
               "name": "Withering Touch"
+            },
+            {
+              "name": "Melee Splash Support"
             }
           ],
           "notes": "Gemmes à faire XP, sur le second set d'armes."
@@ -956,7 +952,7 @@
               "name": "Added Fire Damage"
             },
             {
-              "name": "Green Socket"
+              "name": "Predator Support"
             },
             {
               "name": "Blue Socket"
@@ -977,12 +973,12 @@
               "name": "Culling Strike"
             },
             {
-              "name": "Flame Dash"
+              "name": "Reckoning"
             }
           ]
         },
         {
-          "name": "Support",
+          "name": "Shield",
           "gem_info": [
             {
               "name": "Summon Holy Relic"
@@ -991,43 +987,43 @@
               "name": "Feeding Frenzy"
             },
             {
-              "name": "Cast when Damage Taken"
+              "name": "Cast when Stunned Support"
             }
           ],
           "notes": "Bouclier si possible"
         },
         {
-          "name": "Utilitaire",
+          "name": "Utilitaire (boots)",
           "gem_info": [
+            {
+              "name": "Frostblink"
+            },
+            {
+              "name": "Desecrate"
+            },
             {
               "name": "Tempest Shield"
             },
             {
-              "name": "Desecrate"
+              "name": "Determination"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Duration (Gloves)",
+          "gem_info": [
+            {
+              "name": "Spirit Offering"
+            },
+            {
+              "name": "Summon Stone Golem"
             },
             {
               "name": "Discipline"
             },
             {
               "name": "Molten Shell"
-            }
-          ],
-          "notes": ""
-        },
-        {
-          "name": "Duration Gemmes (Gloves)",
-          "gem_info": [
-            {
-              "name": "Rallying Cry"
-            },
-            {
-              "name": "Flesh Offering"
-            },
-            {
-              "name": "Summon Stone Golem"
-            },
-            {
-              "name": "Increased Duration"
             }
           ],
           "notes": ""
@@ -1054,22 +1050,16 @@
           "name": "XP",
           "gem_info": [
             {
-              "name": "Determination"
-            },
-            {
               "name": "Melee Physical Damage"
-            },
-            {
-              "name": "Vile Toxins"
-            },
-            {
-              "name": "Predator"
             },
             {
               "name": "Predator"
             },
             {
               "name": "Withering Touch"
+            },
+            {
+              "name": "Melee Splash Support"
             }
           ],
           "notes": "Gemmes à faire XP, sur le second set d'armes."
@@ -1079,7 +1069,7 @@
     {
       "actId": 10,
       "actName": "Act X",
-      "notes": "Avant de tuer Kitava, je vous recommande de finir le cruel lab (avant la pénalité de resistance) et prendre le Radiant Faith pour améliorer votre Energie Shield.",
+      "notes": "Right before killing act 10 Kitava, I recommend running the cruel lab (before getting the resistance penalty, even though you should still be easily capped) to get Radiant Faith and start buffing up your ES.",
       "gears": [
         {
           "name": "Herald of Purity (Body)",
@@ -1097,7 +1087,7 @@
               "name": "Added Fire Damage"
             },
             {
-              "name": "Green Socket"
+              "name": "Predator Support"
             },
             {
               "name": "Blue Socket"
@@ -1118,12 +1108,12 @@
               "name": "Culling Strike"
             },
             {
-              "name": "Flame Dash"
+              "name": "Reckoning"
             }
           ]
         },
         {
-          "name": "Support",
+          "name": "Shield",
           "gem_info": [
             {
               "name": "Summon Holy Relic"
@@ -1132,43 +1122,43 @@
               "name": "Feeding Frenzy"
             },
             {
-              "name": "Cast when Damage Taken"
+              "name": "Cast when Stunned Support"
             }
           ],
           "notes": "Bouclier si possible"
         },
         {
-          "name": "Utilitaire",
+          "name": "Utilitaire (boots)",
           "gem_info": [
+            {
+              "name": "Frostblink"
+            },
+            {
+              "name": "Desecrate"
+            },
             {
               "name": "Tempest Shield"
             },
             {
-              "name": "Desecrate"
+              "name": "Determination"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Duration (Gloves)",
+          "gem_info": [
+            {
+              "name": "Spirit Offering"
+            },
+            {
+              "name": "Summon Stone Golem"
             },
             {
               "name": "Discipline"
             },
             {
               "name": "Molten Shell"
-            }
-          ],
-          "notes": ""
-        },
-        {
-          "name": "Duration Gemmes (Gloves)",
-          "gem_info": [
-            {
-              "name": "Rallying Cry"
-            },
-            {
-              "name": "Flesh Offering"
-            },
-            {
-              "name": "Summon Stone Golem"
-            },
-            {
-              "name": "Increased Duration"
             }
           ],
           "notes": ""
@@ -1195,22 +1185,16 @@
           "name": "XP",
           "gem_info": [
             {
-              "name": "Determination"
-            },
-            {
               "name": "Melee Physical Damage"
-            },
-            {
-              "name": "Vile Toxins"
-            },
-            {
-              "name": "Predator"
             },
             {
               "name": "Predator"
             },
             {
               "name": "Withering Touch"
+            },
+            {
+              "name": "Melee Splash Support"
             }
           ],
           "notes": "Gemmes à faire XP, sur le second set d'armes."
@@ -1220,17 +1204,258 @@
     {
       "actId": 11,
       "actName": "Epilogue",
-      "gears": []
+      "gears": [
+        {
+          "name": "Herald of Purity (Body)",
+          "gem_info": [
+            {
+              "name": "Herald of Purity"
+            },
+            {
+              "name": "Melee Physical Damage"
+            },
+            {
+              "name": "Minion Damage"
+            },
+            {
+              "name": "Added Fire Damage"
+            },
+            {
+              "name": "Predator Support"
+            },
+            {
+              "name": "Blue Socket"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Cyclone (Helmet)",
+          "gem_info": [
+            {
+              "name": "Cyclone"
+            },
+            {
+              "name": "Maim"
+            },
+            {
+              "name": "Culling Strike"
+            },
+            {
+              "name": "Reckoning"
+            }
+          ]
+        },
+        {
+          "name": "Shield",
+          "gem_info": [
+            {
+              "name": "Summon Holy Relic"
+            },
+            {
+              "name": "Feeding Frenzy"
+            },
+            {
+              "name": "Cast when Stunned Support"
+            }
+          ],
+          "notes": "Bouclier si possible"
+        },
+        {
+          "name": "Utilitaire (boots)",
+          "gem_info": [
+            {
+              "name": "Frostblink"
+            },
+            {
+              "name": "Desecrate"
+            },
+            {
+              "name": "Tempest Shield"
+            },
+            {
+              "name": "Determination"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Duration (Gloves)",
+          "gem_info": [
+            {
+              "name": "Spirit Offering"
+            },
+            {
+              "name": "Summon Stone Golem"
+            },
+            {
+              "name": "Discipline"
+            },
+            {
+              "name": "Molten Shell"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Zombies",
+          "gem_info": [
+            {
+              "name": "Raise Zombie"
+            },
+            {
+              "name": "Ruthless"
+            },
+            {
+              "name": "Meat Shield"
+            },
+            {
+              "name": "Minion Life"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Weapon",
+          "gem_info": [
+            {
+              "name": "Melee Physical Damage"
+            },
+            {
+              "name": "Predator"
+            },
+            {
+              "name": "Withering Touch"
+            },
+            {
+              "name": "Melee Splash Support"
+            }
+          ],
+          "notes": "3 links, switch between Melee and physical damages."
+        }
+      ]
     },
     {
       "actId": 20,
       "actName": "Maps",
-      "gears": []
+      "notes": "Once you're done with the story, use the few alchs (or chaos, if you're lucky) to get decent items in as many slots as possible; a bit of life/ES, some resists, and a weapon with a bit of attack speed and decent base physical damage will do the trick. The idea would be to have a 4L for Dom Blow (which you should upgrade to a 5L asap), a 3L for HoP, and a 2L for your Holy Relic (Minion Damage), even though the last 2L is really optional.\n\nYou should be very easily capped in resistances, and will have zombies that taunt enemies, so mapping should be very safe. Your damage should also be more than enough. You can run the merciless lab whenever you feel like you have the damage and tankiness to do so. You should very easily get to T5 maps, at which point you should start finding enough currency to slowly transition to the full build.\n\nI recommend keeping a close eye on the price of Arakaali's Fangs, since this is the item that makes your damage go from good to insane. However, it might be a bit expensive early on (if I recall, it was 2ex in the first few days of Delirium, down to 30c after a bit less than a week), but it's important enough that it's worth keeping an eye on anyway. Apart from that, you can look to get a Dream Fragments, which should be a few chaos early on, to get a nice amount of mana and cold res, and chill and freeze immunity. The Aegis Aurora will also be a huge acquisition, but is usually worth between 20c and 1ex in the first few days, and goes down to 10-20c shortly after. Upgrade the rest of the items at your own pace.",
+      "gears": [
+        {
+          "name": "Herald of Purity (Body)",
+          "gem_info": [
+            {
+              "name": "Herald of Purity (Divergent)"
+            },
+            {
+              "name": "Awakened Melee Physical Damage Support"
+            },
+            {
+              "name": "Meat Shield Support (Anomalous)"
+            },
+            {
+              "name": "Empower Support"
+            },
+            {
+              "name": "Awakened Minion Damage Support"
+            },
+            {
+              "name": "Predator Support"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Cyclone (Helmet)",
+          "gem_info": [
+            {
+              "name": "Cyclone (Divergent)"
+            },
+            {
+              "name": "Maim Support (Anomalous)"
+            },
+            {
+              "name": "Culling Strike"
+            },
+            {
+              "name": "Reckoning (Anomalous)"
+            }
+          ]
+        },
+        {
+          "name": "Shield",
+          "gem_info": [
+            {
+              "name": "Summon Holy Relic (Anomalous)"
+            },
+            {
+              "name": "Feeding Frenzy Support (Anomalous)"
+            },
+            {
+              "name": "Cast when Stunned Support (Divergent)"
+            }
+          ],
+          "notes": "Bouclier si possible"
+        },
+        {
+          "name": "Utilitaire (boots)",
+          "gem_info": [
+            {
+              "name": "Tempest Shield (Divergent)"
+            },
+            {
+              "name": "Desecrate"
+            },
+            {
+              "name": "Frostblink"
+            },
+            {
+              "name": "Determination"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Duration (Gloves)",
+          "gem_info": [
+            {
+              "name": "Molten Shell"
+            },
+            {
+              "name": "Spirit Offering (Anomalous)"
+            },
+            {
+              "name": "Vaal Discipline"
+            },
+            {
+              "name": "Increased Duration"
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Weapon",
+          "gem_info": [
+            {
+              "name": "Predator Support (Anomalous)"
+            },
+            {
+              "name": "Withering Touch Support (Anomalous)"
+            },
+            {
+              "name": "Awakened Melee Physical Damage Support"
+            },
+            {
+              "name": "Awakened Melee Splash Support"
+            }
+          ],
+          "notes": "3 links, switch between Melee and physical damages."
+        }
+      ]
     },
     {
       "actId": 50,
       "actName": "Labyrinth",
-      "notes": "test",
+      "notes": "",
       "gears": []
     }
   ]
