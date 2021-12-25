@@ -2,6 +2,7 @@
 # Poe Interface
 Companion to POE
 ![alt](https://raw.githubusercontent.com/mmaura/poe-interface/main/docs/screen_1.png)
+![alt](https://raw.githubusercontent.com/mmaura/poe-interface/main/docs/screen_3.png)
 
 This is not another overlay. It's make to be on the second screen. It is done and will **remain compatible with linux**.
 If you prefer Overlay application you probably want [PoE-Leveling-Guide](https://github.com/JusKillmeQik/PoE-Leveling-Guide).
