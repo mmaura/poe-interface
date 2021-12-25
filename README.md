@@ -11,12 +11,14 @@ If you prefer Overlay application you probably want [PoE-Leveling-Guide](https:/
 * Track character progression.
 * Automatically change acts and zones.
 * Images of the zones (the same as the other leveling guides), thanks to those who made them.
-* Notes of customizable areas.
+* Customizable Notes of areas.
 * Fully customizable items and gems for each act.
 
 ### Helpers
 * Displays help in the form of images (Ultimatum, Heist, Delve, Vendors Recipes, ...)
 * You can customized the images
+
+![alt](https://raw.githubusercontent.com/mmaura/poe-interface/main/docs/screen_2.png)
 
 [More details on the wiki](https://github.com/mmaura/poe-interface/wiki)
 
@@ -36,8 +38,6 @@ https://github.com/Templarian/MaterialDesign-React
 ### libs
 
 https://github.com/klayveR/poe-log-monitor
-
-https://github.com/klayveR/poe-api-wrappers
 
 ### Others resources
 
